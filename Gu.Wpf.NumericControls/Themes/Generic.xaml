@@ -1,0 +1,106 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Gu.Wpf.NumericControls">
+
+    <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
+    <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
+
+    <Style x:Key="ArrowStyle" TargetType="{x:Type Path}">
+        <Setter Property="Height" Value="5" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+    </Style>
+
+    <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding AllowSpinners, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  BaseUpDown  -->
+    <Style x:Key="BaseUpDown" TargetType="{x:Type local:BaseUpDown}">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BaseUpDown}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Name="PART_Text"
+                                     Grid.Row="0"
+                                     Grid.Column="0"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     Background="{TemplateBinding Background}"
+                                     Focusable="True"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     FontStretch="{TemplateBinding FontStretch}"
+                                     FontStyle="{TemplateBinding FontStyle}" />
+
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*" />
+                                    <RowDefinition Height="50*" />
+                                </Grid.RowDefinitions>
+                                <RepeatButton Name="PART_Up"
+                                              Grid.Row="0"
+                                              Grid.Column="0"
+                                              Command="{TemplateBinding IncreaseCommand}"
+                                              Style="{StaticResource SpinnerButtonStyle}">
+                                    <RepeatButton.Content>
+                                        <Path Data="{StaticResource UpGeometry}" Style="{StaticResource ArrowStyle}" />
+                                    </RepeatButton.Content>
+                                </RepeatButton>
+
+                                <RepeatButton Name="PART_Down"
+                                              Grid.Row="1"
+                                              Command="{TemplateBinding DecreaseCommand}"
+                                              Style="{StaticResource SpinnerButtonStyle}">
+                                    <RepeatButton.Content>
+                                        <Path Data="{StaticResource DownGeometry}" Style="{StaticResource ArrowStyle}" />
+                                    </RepeatButton.Content>
+                                </RepeatButton>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!--  DoubleUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:DoubleUpDown}" />
+
+    <!--  DecimalUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:DecimalUpDown}" />
+
+    <!--  FloatUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:FloatUpDown}" />
+
+    <!--  LongUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:LongUpDown}" />
+
+    <!--  IntegerUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:IntegerUpDown}" />
+
+    <!--  ShortUpDown  -->
+    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:ShortUpDown}" />
+
+</ResourceDictionary>
