@@ -1,0 +1,104 @@
+﻿<Window x:Class="Gu.Wpf.NumericControls.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:numericControls="clr-namespace:Gu.Wpf.NumericControls;assembly=Gu.Wpf.NumericControls"
+        Title="MainWindow"
+        Width="525"
+        Height="350"
+        d:DataContext="{d:DesignData ViewModel}"
+        mc:Ignorable="d">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Double">
+                <StackPanel>
+                    <GroupBox Header="Default settings">
+                        <numericControls:DoubleUpDown Value="{Binding DoubleValue}" />
+                    </GroupBox>
+                    <FrameworkElement Height="20" />
+                    <GroupBox Header="Tweaks">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <numericControls:DoubleUpDown Grid.Row="0"
+                                                          Grid.Column="0"
+                                                          AllowSpinners="{Binding IsChecked,
+                                                                                  ElementName=AllowSpinners}"
+                                                          Decimals="{Binding Text,
+                                                                             ElementName=Decimals}"
+                                                          Increment="{Binding Text,
+                                                                              ElementName=Increment}"
+                                                          MaxValue="{Binding Text,
+                                                                             ElementName=Max}"
+                                                          MinValue="{Binding Text,
+                                                                             ElementName=Min}"
+                                                          Suffix="{Binding Text,
+                                                                           ElementName=Suffix}"
+                                                          Value="{Binding DoubleValue}" />
+
+                            <CheckBox x:Name="AllowSpinners"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="AllowSpinners" />
+
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="Suffix: " />
+                            <TextBox x:Name="Suffix"
+                                     Grid.Row="2"
+                                     Grid.Column="1"
+                                     Text="" />
+
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="0"
+                                       Text="Decimals: " />
+                            <TextBox x:Name="Decimals"
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     Text="3" />
+
+                            <TextBlock Grid.Row="4"
+                                       Grid.Column="0"
+                                       Text="Max: " />
+                            <TextBox x:Name="Max"
+                                     Grid.Row="4"
+                                     Grid.Column="1"
+                                     Text="10" />
+
+                            <TextBlock Grid.Row="5"
+                                       Grid.Column="0"
+                                       Text="Min: " />
+                            <TextBox x:Name="Min"
+                                     Grid.Row="5"
+                                     Grid.Column="1"
+                                     Text="-10" />
+
+                            <TextBlock Grid.Row="6"
+                                       Grid.Column="0"
+                                       Text="Increment: " />
+                            <TextBox x:Name="Increment"
+                                     Grid.Row="6"
+                                     Grid.Column="1"
+                                     Text="1" />
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
