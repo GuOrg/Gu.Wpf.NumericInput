@@ -32,6 +32,19 @@
             Sut.Increment = _increment;
         }
 
+        [Test]
+        public void Defaults()
+        {
+            var box = _creator();
+            Assert.AreEqual(1, box.Increment);
+
+            var typeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
+            Assert.AreEqual(typeMin, box.MinValue);
+
+            var typeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
+            Assert.AreEqual(typeMax, box.MaxValue);
+        }
+
         [TestCase(9, true)]
         [TestCase(10, false)]
         [TestCase(11, false)]
