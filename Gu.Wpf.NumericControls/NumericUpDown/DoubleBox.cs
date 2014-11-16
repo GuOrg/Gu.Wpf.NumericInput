@@ -8,7 +8,7 @@
     {
         static DoubleBox()
         {
-            UpdateMetadata(typeof(DoubleBox), 1d, double.NegativeInfinity, double.PositiveInfinity, 2);
+            UpdateMetadata(typeof(DoubleBox), 1d, double.MinValue, double.MaxValue, 2);
         }
 
         public DoubleBox()
@@ -32,10 +32,12 @@
                 this.ConvertValueToText();
             }
         }
+        
         protected override string ValidInput()
         {
             return @"^[-]?[\d]*[,.]?[\d]{0," + this.Decimals.ToString() + "}?$";
         }
+        
         protected override bool ValidValue(string text)
         {
             return this.ValidateValue(Convert.ToDouble(text))
