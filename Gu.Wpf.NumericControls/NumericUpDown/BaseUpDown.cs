@@ -9,9 +9,7 @@
     using System.Windows.Input;
     using System.Windows.Media;
 
-    [TemplatePart(Name = "PART_Text", Type = typeof(TextBox)),
-     TemplatePart(Name = "PART_Up", Type = typeof(Button)),
-     TemplatePart(Name = "PART_Down", Type = typeof(Button)), ToolboxItem(false)]
+    [TemplatePart(Name = "PART_Text", Type = typeof(TextBox))]
     public abstract class BaseUpDown : Control
     {
         public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(
@@ -205,7 +203,7 @@
             }
         }
 
-        [Description(""), Category("NumericUpDown"), Browsable(true)]
+        [Description(""), Category("NumericBox"), Browsable(true)]
         public bool AllowSpinners
         {
             get
@@ -266,7 +264,7 @@
 
             if (this.TextBox != null)
             {
-                this.TextBox.PreviewKeyDown -= this._textBox_PreviewKeyDown;
+                //this.TextBox.PreviewKeyDown -= this._textBox_PreviewKeyDown;
                 this.TextBox.PreviewTextInput -= this._textBox_PreviewTextInput;
                 this.TextBox.LostFocus -= this.Validate;
                 this.TextBox.GotFocus -= this._textBox_GotFocus;
@@ -275,7 +273,7 @@
             this.TextBox = this.GetTemplateChild("PART_Text") as TextBox;
             if (this.TextBox != null)
             {
-                this.TextBox.PreviewKeyDown += this._textBox_PreviewKeyDown;
+                //this.TextBox.PreviewKeyDown += this._textBox_PreviewKeyDown;
                 this.TextBox.PreviewTextInput += this._textBox_PreviewTextInput;
                 this.TextBox.LostFocus += this.Validate;
                 this.TextBox.GotFocus += this._textBox_GotFocus;
@@ -368,14 +366,18 @@
         }
 
         protected abstract void ValidateText(string text);
+
         protected abstract string ValidInput();
+
         protected abstract bool ValidValue(string text);
+
         protected abstract void ConvertValueToText();
 
         protected virtual void CheckSpinners()
         {
-            IncreaseCommand.RaiseCanExecuteChanged();
-            DecreaseCommand.RaiseCanExecuteChanged();
+            // Not nice to cast like this but want to have ManualRelayCommand as internal
+            ((ManualRelayCommand)IncreaseCommand).TryRaiseCanExecuteChanged();
+            ((ManualRelayCommand)DecreaseCommand).TryRaiseCanExecuteChanged();
         }
 
         private static void OnValidateOnInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -385,10 +387,11 @@
         private static void OnReadOnlyForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }
+        
         private static void OnHasFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }
-        
+
         private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var baseUpDown = (BaseUpDown)d;
@@ -424,20 +427,21 @@
 
         private void _textBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
-            {
-                case Key.Up:
-                    {
-                        this.Increase();
-                        break;
-                    }
-                case Key.Down:
-                    {
-                        this.Decrease();
-                        break;
-                    }
-            }
+            //switch (e.Key)
+            //{
+            //    case Key.Up:
+            //        {
+            //            this.Increase();
+            //            break;
+            //        }
+            //    case Key.Down:
+            //        {
+            //            this.Decrease();
+            //            break;
+            //        }
+            //}
         }
+       
         private void _textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (this.IsReadOnly)
@@ -459,6 +463,7 @@
                 }
             }
         }
+        
         private bool ValidateInput(string text)
         {
             bool ok = true;

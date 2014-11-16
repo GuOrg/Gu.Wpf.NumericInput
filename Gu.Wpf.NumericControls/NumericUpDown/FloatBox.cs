@@ -5,17 +5,26 @@
     using System.Globalization;
 
     [ToolboxItem(true)]
-    public class ShortUpDown : CommonUpDown<short>
+    public class FloatBox : NumericBox<float>
     {
-        static ShortUpDown()
+        static FloatBox()
         {
-            UpdateMetadata(typeof(ShortUpDown), (short)1, short.MinValue, short.MaxValue, 0);
+            UpdateMetadata(typeof(FloatBox), 1f, float.MinValue, float.MaxValue, 2);
+        }
+
+        public FloatBox()
+            : base(
+            (x, y) => x + y,
+            (x, y) => x - y,
+            float.MinValue,
+            float.MaxValue)
+        {
         }
 
         protected override void ValidateText(string txt)
         {
-            short result;
-            if (short.TryParse(txt, out result))
+            float result;
+            if (float.TryParse(txt, out result))
             {
                 this.Value = result;
             }
@@ -24,14 +33,16 @@
                 this.ConvertValueToText();
             }
         }
+
         protected override string ValidInput()
         {
-            return @"^[-]?[\d]*$";
+            return @"^[-]?[\d]*[,.]?[\d]{0," + this.Decimals.ToString(CultureInfo.InvariantCulture) + "}?$";
         }
+
         protected override bool ValidValue(string text)
         {
-            short value;
-            bool ok = short.TryParse(text, out value);
+            float value;
+            bool ok = float.TryParse(text, out value);
             if (!ok)
             {
                 return false;
@@ -42,18 +53,13 @@
                     .ToString() == text;
             }
         }
-        protected override short IncrementValue(short value, short increment)
-        {
-            return (short)(value + increment);
-        }
-        protected override short DecrementValue(short value, short increment)
-        {
-            return (short)(value - increment);
-        }
 
         protected override void ConvertValueToText()
         {
-            this.TextBox.Text = String.Format("{0} {1}",this.Value.ToString(CultureInfo.InvariantCulture), this.Suffix);
+            if (this.TextBox != null)
+            {
+                this.TextBox.Text = string.Format("{0} {1}", this.Value.ToString("F" + this.Decimals), this.Suffix);
+            }
         }
     }
 }

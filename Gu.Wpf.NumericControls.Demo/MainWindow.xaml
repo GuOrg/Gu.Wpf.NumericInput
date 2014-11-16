@@ -10,95 +10,72 @@
         d:DataContext="{d:DesignData ViewModel}"
         mc:Ignorable="d">
     <Grid>
-        <TabControl>
-            <TabItem Header="Double">
+        <StackPanel>
+            <GroupBox Header="Default settings">
+                <numericControls:DoubleBox Value="{Binding DoubleValue}" />
+            </GroupBox>
+            <FrameworkElement Height="20" />
+            <GroupBox Header="Tweaked">
+                <numericControls:DoubleBox AllowSpinners="{Binding IsChecked,
+                                                                   ElementName=AllowSpinners}"
+                                           Decimals="{Binding Text,
+                                                              ElementName=Decimals}"
+                                           Increment="{Binding Text,
+                                                               ElementName=Increment}"
+                                           IsReadOnly="{Binding IsChecked,
+                                                                ElementName=IsReadOnly}"
+                                           MaxValue="{Binding Text,
+                                                              ElementName=Max}"
+                                           MinValue="{Binding Text,
+                                                              ElementName=Min}"
+                                           Suffix="{Binding Text,
+                                                            ElementName=Suffix}"
+                                           Value="{Binding DoubleValue}" />
+            </GroupBox>
+            <FrameworkElement Height="20" />
+            <GroupBox>
                 <StackPanel>
-                    <GroupBox Header="Default settings">
-                        <numericControls:DoubleUpDown Value="{Binding DoubleValue}" />
-                    </GroupBox>
-                    <FrameworkElement Height="20" />
-                    <GroupBox Header="Tweaks">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Width" Value="60" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Width" Value="50" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </StackPanel.Resources>
 
-                            <numericControls:DoubleUpDown Grid.Row="0"
-                                                          Grid.Column="0"
-                                                          AllowSpinners="{Binding IsChecked,
-                                                                                  ElementName=AllowSpinners}"
-                                                          Decimals="{Binding Text,
-                                                                             ElementName=Decimals}"
-                                                          Increment="{Binding Text,
-                                                                              ElementName=Increment}"
-                                                          MaxValue="{Binding Text,
-                                                                             ElementName=Max}"
-                                                          MinValue="{Binding Text,
-                                                                             ElementName=Min}"
-                                                          Suffix="{Binding Text,
-                                                                           ElementName=Suffix}"
-                                                          Value="{Binding DoubleValue}" />
+                    <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
 
-                            <CheckBox x:Name="AllowSpinners"
-                                      Grid.Row="1"
-                                      Grid.Column="0"
-                                      Content="AllowSpinners" />
+                    <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
 
-                            <TextBlock Grid.Row="2"
-                                       Grid.Column="0"
-                                       Text="Suffix: " />
-                            <TextBox x:Name="Suffix"
-                                     Grid.Row="2"
-                                     Grid.Column="1"
-                                     Text="" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Suffix: " />
+                        <TextBox x:Name="Suffix" Text="" />
+                    </StackPanel>
 
-                            <TextBlock Grid.Row="3"
-                                       Grid.Column="0"
-                                       Text="Decimals: " />
-                            <TextBox x:Name="Decimals"
-                                     Grid.Row="3"
-                                     Grid.Column="1"
-                                     Text="3" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Decimals: " />
+                        <TextBox x:Name="Decimals" Text="3" />
+                    </StackPanel>
 
-                            <TextBlock Grid.Row="4"
-                                       Grid.Column="0"
-                                       Text="Max: " />
-                            <TextBox x:Name="Max"
-                                     Grid.Row="4"
-                                     Grid.Column="1"
-                                     Text="10" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Max: " />
+                        <TextBox x:Name="Max" Text="10" />
+                    </StackPanel>
 
-                            <TextBlock Grid.Row="5"
-                                       Grid.Column="0"
-                                       Text="Min: " />
-                            <TextBox x:Name="Min"
-                                     Grid.Row="5"
-                                     Grid.Column="1"
-                                     Text="-10" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Min: " />
+                        <TextBox x:Name="Min" Text="-10" />
+                    </StackPanel>
 
-                            <TextBlock Grid.Row="6"
-                                       Grid.Column="0"
-                                       Text="Increment: " />
-                            <TextBox x:Name="Increment"
-                                     Grid.Row="6"
-                                     Grid.Column="1"
-                                     Text="1" />
-                        </Grid>
-                    </GroupBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Increment: " />
+                        <TextBox x:Name="Increment" Text="1" />
+                    </StackPanel>
                 </StackPanel>
-            </TabItem>
-        </TabControl>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </Window>

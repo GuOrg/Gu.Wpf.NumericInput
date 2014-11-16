@@ -68,13 +68,13 @@
     <Compile Include="ManualRelayCommand.cs" />
     <Compile Include="NumericUpDown\BaseUpDown.cs" />
     <Compile Include="NumericUpDown\CommonUpDown.cs" />
-    <Compile Include="NumericUpDown\DecimalUpDown.cs" />
-    <Compile Include="NumericUpDown\DoubleUpDown.cs" />
-    <Compile Include="NumericUpDown\FloatUpDown.cs" />
-    <Compile Include="NumericUpDown\IntegerUpDown.cs" />
-    <Compile Include="NumericUpDown\LongUpDown.cs" />
-    <Compile Include="NumericUpDown\NumericUpDown.cs" />
-    <Compile Include="NumericUpDown\ShortUpDown.cs" />
+    <Compile Include="NumericUpDown\DecimalBox.cs" />
+    <Compile Include="NumericUpDown\DoubleBox.cs" />
+    <Compile Include="NumericUpDown\FloatBox.cs" />
+    <Compile Include="NumericUpDown\IntBox.cs" />
+    <Compile Include="NumericUpDown\LongBox.cs" />
+    <Compile Include="NumericUpDown\NumericBox.cs" />
+    <Compile Include="NumericUpDown\ShortBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
