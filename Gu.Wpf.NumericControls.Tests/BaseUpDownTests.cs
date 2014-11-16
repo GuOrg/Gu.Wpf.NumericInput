@@ -1,71 +1,44 @@
 ﻿namespace Gu.Wpf.NumericControls.Tests
 {
     using NUnit.Framework;
-
     [TestFixture, RequiresSTA]
-    public class BaseUpDownTests
+    public abstract class BaseUpDownTests
     {
+        protected BaseUpDown Box;
+
         [Test]
-        public void IncreaseCommandNotifiesOnReadOnlyChanged()
+        public void IncreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
-            var baseUpDownImpl = new BaseUpDownImpl();
             var count = 0;
-            baseUpDownImpl.IncreaseCommand.CanExecuteChanged += (sender, args) =>
+            Box.IncreaseCommand.CanExecuteChanged += (sender, args) =>
                 { count++; };
-            baseUpDownImpl.IsReadOnly = !baseUpDownImpl.IsReadOnly;
+            Box.IsReadOnly = !Box.IsReadOnly;
             Assert.AreEqual(1, count);
         }
 
-        [Test]
-        public void CanIncreaseIfNotReadonly()
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void IncreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
         {
-            var baseUpDownImpl = new BaseUpDownImpl
-                                     {
-                                         IsReadOnly = false
-                                     };
-            Assert.IsTrue(baseUpDownImpl.IncreaseCommand.CanExecute(null));
+            Box.IsReadOnly = @readonly;
+            Assert.AreEqual(expected, Box.IncreaseCommand.CanExecute(null));
         }
 
         [Test]
-        public void CanNotIncreaseIfReadonly()
+        public void DecreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
-            var baseUpDownImpl = new BaseUpDownImpl
-                                     {
-                                         IsReadOnly = true
-                                     };
-            Assert.IsFalse(baseUpDownImpl.IncreaseCommand.CanExecute(null));
-        }
-
-        [Test]
-        public void DecreaseCommandNotifiesOnReadOnlyChanged()
-        {
-            var baseUpDownImpl = new BaseUpDownImpl();
             var count = 0;
-            baseUpDownImpl.DecreaseCommand.CanExecuteChanged += (sender, args) =>
-            { count++; };
-            baseUpDownImpl.IsReadOnly = !baseUpDownImpl.IsReadOnly;
+            Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            Box.IsReadOnly = !Box.IsReadOnly;
             Assert.AreEqual(1, count);
         }
 
-
-        [Test]
-        public void CanDecreaseIfNotReadonly()
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void DecreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
         {
-            var baseUpDownImpl = new BaseUpDownImpl
-            {
-                IsReadOnly = false
-            };
-            Assert.IsTrue(baseUpDownImpl.DecreaseCommand.CanExecute(null));
-        }
-
-        [Test]
-        public void CanNotDecreaseIfReadonly()
-        {
-            var baseUpDownImpl = new BaseUpDownImpl
-            {
-                IsReadOnly = true
-            };
-            Assert.IsFalse(baseUpDownImpl.DecreaseCommand.CanExecute(null));
+            Box.IsReadOnly = @readonly;
+            Assert.AreEqual(expected, Box.DecreaseCommand.CanExecute(null));
         }
     }
 }

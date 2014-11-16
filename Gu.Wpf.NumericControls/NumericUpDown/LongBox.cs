@@ -4,11 +4,20 @@
     using System.ComponentModel;
 
     [ToolboxItem(true)]
-    public class LongUpDown : CommonUpDown<long>
+    public class LongBox : NumericBox<long>
     {
-        static LongUpDown()
+        static LongBox()
         {
-            UpdateMetadata(typeof(LongUpDown), 1, long.MinValue, long.MaxValue, 0);
+            UpdateMetadata(typeof(LongBox), 1, long.MinValue, long.MaxValue, 0);
+        }
+
+        public LongBox()
+            : base(
+            (x, y) => x + y,
+            (x, y) => x - y,
+            long.MinValue,
+            long.MaxValue)
+        {
         }
 
         protected override void ValidateText(string txt)
@@ -23,10 +32,12 @@
                 this.ConvertValueToText();
             }
         }
+
         protected override string ValidInput()
         {
             return @"^[-]?[\d]*$";
         }
+
         protected override bool ValidValue(string text)
         {
             long value;
@@ -41,18 +52,10 @@
                     .ToString() == text;
             }
         }
-        protected override long IncrementValue(long value, long increment)
-        {
-            return value + increment;
-        }
-        protected override long DecrementValue(long value, long increment)
-        {
-            return value - increment;
-        }
 
         protected override void ConvertValueToText()
         {
-            this.TextBox.Text = String.Format("{0} {1}",this.Value.ToString(), this.Suffix);
+            this.TextBox.Text = String.Format("{0} {1}", this.Value.ToString(), this.Suffix);
         }
     }
 }
