@@ -4,11 +4,20 @@
     using System.ComponentModel;
 
     [ToolboxItem(true)]
-    public class DoubleUpDown : CommonUpDown<double>
+    public class DoubleBox : NumericBox<double>
     {
-        static DoubleUpDown()
+        static DoubleBox()
         {
-            UpdateMetadata(typeof(DoubleUpDown), 1d, double.NegativeInfinity, double.PositiveInfinity, 2);
+            UpdateMetadata(typeof(DoubleBox), 1d, double.NegativeInfinity, double.PositiveInfinity, 2);
+        }
+
+        public DoubleBox()
+            : base(
+            (x, y) => x + y,
+            (x, y) => x - y,
+            double.MinValue,
+            double.MaxValue)
+        {
         }
 
         protected override void ValidateText(string txt)
@@ -31,14 +40,6 @@
         {
             return this.ValidateValue(Convert.ToDouble(text))
                 .ToString() == text;
-        }
-        protected override double IncrementValue(double value, double increment)
-        {
-            return value + increment;
-        }
-        protected override double DecrementValue(double value, double increment)
-        {
-            return value - increment;
         }
 
         protected override void ConvertValueToText()

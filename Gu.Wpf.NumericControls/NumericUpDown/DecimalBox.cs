@@ -4,11 +4,20 @@
     using System.ComponentModel;
 
     [ToolboxItem(true)]
-    public class DecimalUpDown : CommonUpDown<decimal>
+    public class DecimalBox : NumericBox<decimal>
     {
-        static DecimalUpDown()
+        static DecimalBox()
         {
-            UpdateMetadata(typeof(DecimalUpDown), 1, decimal.MinValue, decimal.MaxValue, 2);
+            UpdateMetadata(typeof(DecimalBox), 1M, decimal.MinValue, decimal.MaxValue, 2);
+        }
+
+        public DecimalBox()
+            : base(
+            (x, y) => x + y,
+            (x, y) => x - y,
+            decimal.MinValue,
+            decimal.MaxValue)
+        {
         }
 
         protected override void ValidateText(string txt)
@@ -23,22 +32,16 @@
                 this.ConvertValueToText();
             }
         }
+
         protected override string ValidInput()
         {
             return @"^[-]?[\d]*[,.]?[\d]{0," + this.Decimals.ToString() + "}?$";
         }
+
         protected override bool ValidValue(string text)
         {
             return this.ValidateValue(Convert.ToDecimal(text))
                 .ToString() == text;
-        }
-        protected override decimal IncrementValue(decimal value, decimal increment)
-        {
-            return value + increment;
-        }
-        protected override decimal DecrementValue(decimal value, decimal increment)
-        {
-            return value - increment;
         }
 
         protected override void ConvertValueToText()

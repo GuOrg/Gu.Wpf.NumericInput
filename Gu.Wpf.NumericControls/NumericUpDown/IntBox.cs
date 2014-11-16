@@ -5,13 +5,21 @@
     using System.Windows;
 
     [ToolboxItem(true)]
-    public class IntegerUpDown : CommonUpDown<int>
+    public class IntBox : NumericBox<int>
     {
-        static IntegerUpDown()
+        static IntBox()
         {
-            UpdateMetadata(typeof(IntegerUpDown), 1, int.MinValue, int.MaxValue, 0);
+            UpdateMetadata(typeof(IntBox), 1, int.MinValue, int.MaxValue, 0);
         }
 
+        public IntBox()
+            : base(
+            (x, y) => x + y,
+            (x, y) => x - y,
+            int.MinValue,
+            int.MaxValue)
+        {
+        }
 
         protected override void ValidateText(string txt)
         {
@@ -37,25 +45,11 @@
                 .ToString() == text;
         }
 
-        protected override int IncrementValue(int value, int increment)
-        {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ValueChangedEvent);
-            newEventArgs.RoutedEvent = ValueChangedEvent;
-            this.RaiseEvent(newEventArgs);
-
-            return value + increment;
-        }
-
-        protected override int DecrementValue(int value, int increment)
-        {
-            return value - increment;
-        }
-
         protected override void ConvertValueToText()
         {
             if (this.TextBox != null)
             {
-                this.TextBox.Text = String.Format("{0} {1}",this.Value.ToString(), this.Suffix);
+                this.TextBox.Text = String.Format("{0} {1}", this.Value.ToString(), this.Suffix);
             }
         }
     }

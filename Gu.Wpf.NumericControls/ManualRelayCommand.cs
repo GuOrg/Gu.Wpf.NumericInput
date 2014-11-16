@@ -44,7 +44,7 @@
 
         private event EventHandler InternalCanExecuteChanged;
 
-        public void RaiseCanExecuteChanged()
+        public void TryRaiseCanExecuteChanged()
         {
             var canExecute = this.CanExecute(null);
             if (canExecute == _previousCanExecute)
@@ -75,7 +75,7 @@
         public void Execute(object _)
         {
             _action();
-            this.RaiseCanExecuteChanged();
+            this.TryRaiseCanExecuteChanged();
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
