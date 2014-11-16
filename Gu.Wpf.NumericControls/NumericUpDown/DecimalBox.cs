@@ -8,7 +8,7 @@
     {
         static DecimalBox()
         {
-            UpdateMetadata(typeof(DecimalBox), 1M, decimal.MinValue, decimal.MaxValue, 2);
+            UpdateMetadata(typeof(DecimalBox), 1m, decimal.MinValue, decimal.MaxValue, 2);
         }
 
         public DecimalBox()

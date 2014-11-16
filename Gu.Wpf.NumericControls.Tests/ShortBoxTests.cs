@@ -36,5 +36,7 @@
             box.DecreaseCommand.Execute(null);
             Assert.AreEqual(short.MinValue, box.Value);
         }
+
+
     }
 }
