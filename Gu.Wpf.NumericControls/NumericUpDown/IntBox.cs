@@ -15,9 +15,7 @@
         public IntBox()
             : base(
             (x, y) => x + y,
-            (x, y) => x - y,
-            int.MinValue,
-            int.MaxValue)
+            (x, y) => x - y)
         {
         }
 

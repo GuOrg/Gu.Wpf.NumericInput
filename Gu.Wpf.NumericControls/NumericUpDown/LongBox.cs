@@ -14,9 +14,7 @@
         public LongBox()
             : base(
             (x, y) => x + y,
-            (x, y) => x - y,
-            long.MinValue,
-            long.MaxValue)
+            (x, y) => x - y)
         {
         }
 
