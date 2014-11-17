@@ -14,9 +14,7 @@
         public DoubleBox()
             : base(
             (x, y) => x + y,
-            (x, y) => x - y,
-            double.MinValue,
-            double.MaxValue)
+            (x, y) => x - y)
         {
         }
 

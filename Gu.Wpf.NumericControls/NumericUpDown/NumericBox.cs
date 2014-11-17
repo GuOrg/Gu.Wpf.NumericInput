@@ -15,8 +15,8 @@
     {
         private readonly Func<T, T, T> _add;
         private readonly Func<T, T, T> _subtract;
-        private readonly T _typeMin;
-        private readonly T _typeMax;
+        private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
+        private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
 
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
@@ -65,10 +65,10 @@
 
         public static readonly DependencyProperty DecimalsProperty = DependencyProperty.Register(
             "Decimals",
-            typeof(int),
+            typeof(int?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
-                2,
+                null,
                 FrameworkPropertyMetadataOptions.None,
                 OnDecimalsValueChanged,
                 OnCoerceDecimalsValueChanged));
@@ -139,7 +139,7 @@
         }
 
         [Browsable(true)]
-        public int Decimals
+        public int? Decimals
         {
             get
             {
@@ -151,13 +151,12 @@
             }
         }
 
-        protected static void UpdateMetadata(Type type, T increment, T minValue, T maxValue, int decimals)
+        protected static void UpdateMetadata(Type type, T increment)
         {
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
-            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(maxValue));
-            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(minValue));
-            DecimalsProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(decimals));
+            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
+            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
         }
 
         /// <summary>
@@ -167,12 +166,10 @@
         /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
         /// <param name="typeMin">Ex: Int.MinValue</param>
         /// <param name="typeMax">Ex: Int.MaxValue</param>
-        protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract, T typeMin, T typeMax)
+        protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract)
         {
             _add = add;
             _subtract = subtract;
-            _typeMin = typeMin;
-            _typeMax = typeMax;
         }
 
         protected virtual void OnIncrementChanged()
@@ -378,9 +375,9 @@
 
         private T AddIncrement()
         {
-            var min = Comparer<T>.Default.Compare(MaxValue, _typeMax) < 0
+            var min = Comparer<T>.Default.Compare(MaxValue, TypeMax) < 0
                 ? MaxValue
-                : _typeMax;
+                : TypeMax;
             var subtract = _subtract(min, Increment);
             return Value.CompareTo(subtract) < 0
                             ? _add(Value, Increment)
@@ -389,9 +386,9 @@
 
         private T SubtractIncrement()
         {
-            var max = MinValue.CompareTo(_typeMin) > 0
+            var max = MinValue.CompareTo(TypeMin) > 0
                                 ? MinValue
-                                : _typeMin;
+                                : TypeMin;
             var add = _add(max, Increment);
             return Value.CompareTo(add) > 0
                             ? _subtract(Value, Increment)

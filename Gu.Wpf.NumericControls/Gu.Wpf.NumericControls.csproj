@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ManualRelayCommand.cs" />
     <Compile Include="NumericUpDown\BaseUpDown.cs" />
-    <Compile Include="NumericUpDown\CommonUpDown.cs" />
     <Compile Include="NumericUpDown\DecimalBox.cs" />
     <Compile Include="NumericUpDown\DoubleBox.cs" />
     <Compile Include="NumericUpDown\FloatBox.cs" />
