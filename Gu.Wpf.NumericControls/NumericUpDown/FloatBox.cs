@@ -15,9 +15,7 @@
         public FloatBox()
             : base(
             (x, y) => x + y,
-            (x, y) => x - y,
-            float.MinValue,
-            float.MaxValue)
+            (x, y) => x - y)
         {
         }
 

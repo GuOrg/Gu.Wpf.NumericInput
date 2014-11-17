@@ -14,9 +14,7 @@
         public DecimalBox()
             : base(
             (x, y) => x + y,
-            (x, y) => x - y,
-            decimal.MinValue,
-            decimal.MaxValue)
+            (x, y) => x - y)
         {
         }
 
