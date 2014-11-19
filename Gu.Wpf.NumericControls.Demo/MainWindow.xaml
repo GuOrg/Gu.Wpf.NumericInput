@@ -16,21 +16,30 @@
             </GroupBox>
             <FrameworkElement Height="20" />
             <GroupBox Header="Tweaked">
-                <numericControls:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                                   ElementName=AllowSpinners}"
-                                           Decimals="{Binding Text,
-                                                              ElementName=Decimals}"
-                                           Increment="{Binding Text,
-                                                               ElementName=Increment}"
-                                           IsReadOnly="{Binding IsChecked,
-                                                                ElementName=IsReadOnly}"
-                                           MaxValue="{Binding Text,
-                                                              ElementName=Max}"
-                                           MinValue="{Binding Text,
-                                                              ElementName=Min}"
-                                           Suffix="{Binding Text,
-                                                            ElementName=Suffix}"
-                                           Value="{Binding DoubleValue}" />
+                <StackPanel>
+                    <numericControls:DoubleBox x:Name="DoubleBox"
+                                               HorizontalAlignment="Left"
+                                               Width="120"
+                                               AllowSpinners="{Binding IsChecked,
+                                                                       ElementName=AllowSpinners}"
+                                               Decimals="{Binding Text,
+                                                                  ElementName=Decimals}"
+                                               Increment="{Binding Text,
+                                                                   ElementName=Increment}"
+                                               IsReadOnly="{Binding IsChecked,
+                                                                    ElementName=IsReadOnly}"
+                                               MaxValue="{Binding Text,
+                                                                  ElementName=Max}"
+                                               MinValue="{Binding Text,
+                                                                  ElementName=Min}"
+                                               Suffix="{Binding Text,
+                                                                ElementName=Suffix}"
+                                               Value="{Binding DoubleValue,
+                                                               UpdateSourceTrigger=LostFocus}" />
+                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=DoubleBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
+                    <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
+                </StackPanel>
+
             </GroupBox>
             <FrameworkElement Height="20" />
             <GroupBox>
