@@ -18,8 +18,8 @@
             <GroupBox Header="Tweaked">
                 <StackPanel>
                     <numericControls:DoubleBox x:Name="DoubleBox"
-                                               HorizontalAlignment="Left"
                                                Width="120"
+                                               HorizontalAlignment="Left"
                                                AllowSpinners="{Binding IsChecked,
                                                                        ElementName=AllowSpinners}"
                                                Decimals="{Binding Text,

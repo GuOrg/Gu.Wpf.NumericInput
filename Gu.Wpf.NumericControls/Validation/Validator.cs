@@ -20,21 +20,22 @@
             new PropertyMetadata(default(string), OnFakeTextChanged));
 
         private readonly NumericBox<T> _numericBox;
+        private T _value;
+        private BindingExpressionBase _binding;
 
         public Validator(NumericBox<T> numericBox)
         {
             _numericBox = numericBox;
-            var binding = new Binding("FakeValue")
-                              {
-                                  Mode = BindingMode.TwoWay,
-                                  UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                                  Source = this,
-                                  NotifyOnValidationError = true
-                              };
-            binding.ValidationRules.Add(new IsDoubleValidationRule());
-            Validation.AddErrorHandler(numericBox, this.OnValidationError);
-            _numericBox.SetBinding(FakeTextProperty, binding);
+            if (_numericBox.IsLoaded)
+            {
+                Bind();
+            }
+            else
+            {
+                _numericBox.Loaded += (_, __) => Bind();
+            }
             _numericBox.TextChanged += NumericBoxOnTextChanged;
+            _numericBox.ValueChanged += NumericBoxOnValueChanged;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -47,6 +48,7 @@
             }
             set
             {
+                _value = value;
                 if (value.Equals(FakeValue))
                 {
                     return;
@@ -86,13 +88,41 @@
 
         private static void OnFakeTextChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((NumericBox<T>)o).SetCurrentValue(TextBox.TextProperty, e.NewValue);
+            o.SetCurrentValue(TextBox.TextProperty, e.NewValue);
+        }
+
+        private void Bind()
+        {
+            var binding = new Binding("FakeValue")
+            {
+                Mode = BindingMode.OneWayToSource,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                Source = this,
+                NotifyOnValidationError = true
+            };
+            binding.ValidationRules.Add(new IsDoubleValidationRule());
+            Validation.AddErrorHandler(_numericBox, this.OnValidationError);
+            _binding = _numericBox.SetBinding(FakeTextProperty, binding);
+            _value = _numericBox.Value;
+            _binding.UpdateTarget();
+            _numericBox.Text = GetFakeText(_numericBox);
         }
 
         private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
             var numericBox = (NumericBox<T>)sender;
             numericBox.SetCurrentValue(FakeTextProperty, numericBox.Text);
+        }
+
+        private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> valueChangedEventArgs)
+        {
+            if (_value.CompareTo(valueChangedEventArgs.NewValue) != 0)
+            {
+                //var fakeText = GetFakeText(_numericBox);
+                //_binding.UpdateTarget();
+                //var text = GetFakeText(_numericBox);
+                //_numericBox.Text = text;
+            }
         }
 
         private void OnValidationError(object sender, ValidationErrorEventArgs validationErrorEventArgs)
