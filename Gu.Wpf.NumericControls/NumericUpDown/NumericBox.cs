@@ -12,7 +12,7 @@
 
     public abstract class NumericBox<T>
         : BaseUpDown
-        where T : struct, IComparable<T>, IFormattable
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
@@ -96,7 +96,13 @@
         {
             _add = add;
             _subtract = subtract;
-            _validator = new Validator<T>(this);
+            _validator = new Validator<T>(
+                this,
+                new DataErrorValidationRule(),
+                new ExceptionValidationRule(),
+                new CanParse<T>(CanParse),
+                new IsGreaterThan<T>(Parse, () => MinValue),
+                new IsLessThan<T>(Parse, () => MaxValue));
         }
 
         [Category("NumericBox"), Browsable(true)]
@@ -177,6 +183,15 @@
             }
         }
 
+        private CultureInfo Culture
+        {
+            get { return Language.GetEquivalentCulture(); }
+        }
+
+        protected abstract bool CanParse(string s, IFormatProvider provider);
+
+        protected abstract T Parse(string s, IFormatProvider provider);
+
         protected virtual void OnIncrementChanged()
         {
             this.CheckSpinners();
@@ -233,6 +248,10 @@
             {
                 return false;
             }
+            if (!CanParse(Text, Culture))
+            {
+                return false;
+            }
             return base.CanIncrease();
         }
 
@@ -248,6 +267,10 @@
         protected override bool CanDecrease()
         {
             if (Comparer<T>.Default.Compare(this.Value, this.MinValue) <= 0)
+            {
+                return false;
+            }
+            if (!CanParse(Text, Culture))
             {
                 return false;
             }

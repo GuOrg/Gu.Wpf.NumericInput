@@ -11,7 +11,7 @@
     using Gu.Wpf.NumericControls.Annotations;
 
     public class Validator<T> : DependencyObject, INotifyPropertyChanged
-        where T : struct, IComparable<T>, IFormattable
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         internal static readonly DependencyProperty FakeTextProperty = DependencyProperty.RegisterAttached(
             "FakeText",
@@ -19,13 +19,24 @@
             typeof(Validator<T>),
             new PropertyMetadata(default(string), OnFakeTextChanged));
 
+        private static readonly DependencyPropertyDescriptor MinDescriptor = DependencyPropertyDescriptor.FromProperty(
+            NumericBox<T>.MinValueProperty, 
+            typeof (NumericBox<T>));
+
+        private static readonly DependencyPropertyDescriptor MaxDescriptor = DependencyPropertyDescriptor.FromProperty(
+            NumericBox<T>.MaxValueProperty,
+            typeof (NumericBox<T>));
+
         private readonly NumericBox<T> _numericBox;
+        private readonly ValidationRule[] _rules;
         private T _value;
         private BindingExpressionBase _binding;
 
-        public Validator(NumericBox<T> numericBox)
+        public Validator(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
             _numericBox = numericBox;
+
+            _rules = rules;
             if (_numericBox.IsLoaded)
             {
                 Bind();
@@ -100,28 +111,35 @@
                 Source = this,
                 NotifyOnValidationError = true
             };
-            binding.ValidationRules.Add(new IsDoubleValidationRule());
+
+            foreach (var rule in _rules)
+            {
+                binding.ValidationRules.Add(rule);
+            }
+
             Validation.AddErrorHandler(_numericBox, this.OnValidationError);
             _binding = _numericBox.SetBinding(FakeTextProperty, binding);
             _value = _numericBox.Value;
             _binding.UpdateTarget();
-            _numericBox.Text = GetFakeText(_numericBox);
+            MinDescriptor.AddValueChanged(_numericBox, (s, e) => _binding.UpdateSource());
+            MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _binding.UpdateSource());
         }
 
         private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            var numericBox = (NumericBox<T>)sender;
-            numericBox.SetCurrentValue(FakeTextProperty, numericBox.Text);
+            _numericBox.SetCurrentValue(FakeTextProperty, _numericBox.Text);
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> valueChangedEventArgs)
         {
             if (_value.CompareTo(valueChangedEventArgs.NewValue) != 0)
             {
-                //var fakeText = GetFakeText(_numericBox);
-                //_binding.UpdateTarget();
-                //var text = GetFakeText(_numericBox);
-                //_numericBox.Text = text;
+                if (_binding.HasValidationError)
+                {
+                    return;
+                }
+                _value = valueChangedEventArgs.NewValue;
+                _binding.UpdateTarget();
             }
         }
 
