@@ -1,5 +1,7 @@
 namespace Gu.Wpf.NumericControls.Tests
 {
+    using System.Windows;
+    using System.Windows.Controls;
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]

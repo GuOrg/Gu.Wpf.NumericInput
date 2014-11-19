@@ -44,16 +44,6 @@
             <FrameworkElement Height="20" />
             <GroupBox>
                 <StackPanel>
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Width" Value="60" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Setter Property="Width" Value="50" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </StackPanel.Resources>
 
                     <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
 
@@ -82,6 +72,11 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Increment: " />
                         <TextBox x:Name="Increment" Text="1" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Vm Value: " />
+                        <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

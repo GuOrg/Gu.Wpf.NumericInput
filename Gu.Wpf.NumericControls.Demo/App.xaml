@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
     </Application.Resources>
 </Application>
