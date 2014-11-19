@@ -3,25 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using Validation;
 
-    [TemplatePart(Name = "PART_Text", Type = typeof(TextBox)),
-     ToolboxItem(false)]
     public abstract class NumericBox<T>
         : BaseUpDown
-        where T : struct, IComparable<T>
+        where T : struct, IComparable<T>, IFormattable
     {
-        private readonly Func<T, T, T> _add;
-        private readonly Func<T, T, T> _subtract;
-        private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
-        private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
-
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
             RoutingStrategy.Direct,
-            typeof(RoutedEventArgs),
+            typeof(ValueChangedEventHandler<T>),
             typeof(NumericBox<T>));
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
@@ -30,11 +26,12 @@
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
                 default(T),
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                OnValueChanged,
-                OnCoerceValueChanged,
-                false,
-                UpdateSourceTrigger.LostFocus));
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault)
+            {
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
+                BindsTwoWayByDefault = true,
+                PropertyChangedCallback = OnValueChanged,
+            });
 
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
             "Increment",
@@ -73,8 +70,42 @@
                 OnDecimalsValueChanged,
                 OnCoerceDecimalsValueChanged));
 
+        private readonly Func<T, T, T> _add;
+        private readonly Func<T, T, T> _subtract;
+        private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
+        private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
+        private Validator<T> _validator;
+
+        protected static void UpdateMetadata(Type type, T increment)
+        {
+            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable));
+            IsReadOnlyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsReadOnlyChanged));
+
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
+            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
+            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="add">How to add two values (x, y) => x + y</param>
+        /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
+        protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract)
+        {
+            _add = add;
+            _subtract = subtract;
+        }
+
+        public override void EndInit()
+        {
+            base.EndInit();
+            this._validator = new Validator<T>(this);
+        }
+
         [Category("NumericBox"), Browsable(true)]
-        public event RoutedEventHandler ValueChanged
+        public event ValueChangedEventHandler<T> ValueChanged
         {
             add
             {
@@ -151,27 +182,6 @@
             }
         }
 
-        protected static void UpdateMetadata(Type type, T increment)
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
-            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
-            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="add">How to add two values (x, y) => x + y</param>
-        /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
-        /// <param name="typeMin">Ex: Int.MinValue</param>
-        /// <param name="typeMax">Ex: Int.MaxValue</param>
-        protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract)
-        {
-            _add = add;
-            _subtract = subtract;
-        }
-
         protected virtual void OnIncrementChanged()
         {
             this.CheckSpinners();
@@ -181,25 +191,15 @@
         {
             if (newValue != oldValue)
             {
-                RoutedEventArgs newEventArgs = new RoutedEventArgs(ValueChangedEvent);
-                newEventArgs.RoutedEvent = ValueChangedEvent;
-                this.RaiseEvent(newEventArgs);
-
-                if (this.HasBeenInitialized)
-                {
-                    this.ConvertValueToText();
-                }
-
+                var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
+                this.RaiseEvent(args);
                 this.CheckSpinners();
             }
         }
 
+        [Obsolete("Fix this")]
         protected virtual void OnDecimalsValueChanged(object newValue, object oldvalue)
         {
-            if (this.HasBeenInitialized)
-            {
-                this.ConvertValueToText();
-            }
         }
 
         protected virtual void OnMinValueChanged(object newValue, object oldValue)
@@ -212,39 +212,24 @@
             this.CheckSpinners();
         }
 
+        [Obsolete("Remove")]
         protected virtual T OnCoerceValueChanged(T value)
         {
-            value = this.ValidateValue(value);
-
-            if (this.HasBeenInitialized)
-            {
-                this.ConvertValueToText();
-            }
-
             return value;
         }
 
         protected virtual object OnCoerceDecimalsValueChanged(object value)
         {
-            int decimals = (int)value;
+            var decimals = (int?)value;
 
-            if (decimals < 0)
+            if (decimals == null || decimals < 0)
             {
-                return "0";
+                return null;
             }
             else
             {
                 return value;
             }
-        }
-
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            if (this.TextBox != null)
-            {
-                this.TextBox.Focus();
-            }
-            base.OnGotFocus(e);
         }
 
         protected override bool CanIncrease()
@@ -320,23 +305,10 @@
             }
         }
 
-        private static object OnCoerceValueChanged(DependencyObject d, object value)
-        {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
-            {
-                return numericBox.OnCoerceValueChanged((T)value);
-            }
-            else
-            {
-                return value;
-            }
-        }
-
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
+            var numericBox = (NumericBox<T>)d;
+            if (!Equals(e.NewValue, e.OldValue))
             {
                 numericBox.OnValueChanged(e.NewValue, e.OldValue);
                 numericBox.CheckSpinners();
@@ -371,6 +343,12 @@
                 numericBox.OnMinValueChanged(e.NewValue, e.OldValue);
                 numericBox.CheckSpinners();
             }
+        }
+
+        private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var baseUpDown = (NumericBox<T>)d;
+            baseUpDown.CheckSpinners();
         }
 
         private T AddIncrement()

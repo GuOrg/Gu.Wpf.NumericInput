@@ -1,0 +1,25 @@
+﻿namespace Gu.Wpf.NumericControls.Validation
+{
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+
+    public class Validator<T> : DependencyObject
+        where T : struct, IComparable<T>
+    {
+        private readonly NumericBox<T> _numericBox;
+        public Validator(NumericBox<T> numericBox)
+        {
+            _numericBox = numericBox;
+            _numericBox.TextChanged += OnTextChanged;
+            _numericBox.ValueChanged += OnValueChanged;
+        }
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void OnValueChanged(object sender, ValueChangedEventArgs<T> e)
+        {
+        }
+    }
+}
