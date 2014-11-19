@@ -84,19 +84,15 @@
                 <ControlTemplate TargetType="{x:Type local:BaseUpDown}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <TextBox Name="PART_Text"
-                                     Grid.Row="0"
                                      Grid.Column="0"
-                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                      Background="{TemplateBinding Background}"
                                      Focusable="True"
                                      FontFamily="{TemplateBinding FontFamily}"
@@ -116,7 +112,21 @@
                                 -->
                             </TextBox>
 
-                            <Grid Grid.Row="0" Grid.Column="1">
+                            <TextBox Grid.Column="1" Text="{TemplateBinding Suffix}">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="IsReadOnly" Value="True" />
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Suffix, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+
+                            <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50*" />
                                     <RowDefinition Height="50*" />
@@ -143,10 +153,8 @@
                         </Grid>
                     </Border>
                 </ControlTemplate>
-
             </Setter.Value>
         </Setter>
-
     </Style>
 
     <!--  DoubleUpDown  -->

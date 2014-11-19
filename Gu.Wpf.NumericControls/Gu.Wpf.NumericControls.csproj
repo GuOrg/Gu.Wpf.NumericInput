@@ -90,8 +90,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Validation\ClearErrors.cs" />
-    <Compile Include="Validation\IsDoubleValidationRule.cs" />
+    <Compile Include="Validation\IsGreaterThan.cs" />
+    <Compile Include="Validation\IsLessThan.cs" />
+    <Compile Include="Validation\CanParse.cs" />
     <Compile Include="Validation\Validator.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

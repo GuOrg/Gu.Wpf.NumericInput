@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.NumericControls
 {
+    using System;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
@@ -17,10 +18,12 @@
             typeof(string),
             typeof(BaseUpDown),
             new FrameworkPropertyMetadata(
-                string.Empty,
+                null,
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange)
                 {
-                    DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    CoerceValueCallback = OnSuffixCoerce 
+                    
                 });
 
         /// <summary>
@@ -172,6 +175,16 @@
             // Not nice to cast like this but want to have ManualRelayCommand as internal
             ((ManualRelayCommand)IncreaseCommand).TryRaiseCanExecuteChanged();
             ((ManualRelayCommand)DecreaseCommand).TryRaiseCanExecuteChanged();
+        }
+
+        private static object OnSuffixCoerce(DependencyObject dependencyObject, object baseValue)
+        {
+            var value = (string)baseValue;
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+            return baseValue;
         }
     }
 }
