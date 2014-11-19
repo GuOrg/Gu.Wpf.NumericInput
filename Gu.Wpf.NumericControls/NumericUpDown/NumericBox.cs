@@ -74,7 +74,7 @@
         private readonly Func<T, T, T> _subtract;
         private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
-        private Validator<T> _validator;
+        private readonly Validator<T> _validator;
 
         protected static void UpdateMetadata(Type type, T increment)
         {
@@ -96,12 +96,7 @@
         {
             _add = add;
             _subtract = subtract;
-        }
-
-        public override void EndInit()
-        {
-            base.EndInit();
-            this._validator = new Validator<T>(this);
+            _validator = new Validator<T>(this);
         }
 
         [Category("NumericBox"), Browsable(true)]
