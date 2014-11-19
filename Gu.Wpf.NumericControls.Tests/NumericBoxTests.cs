@@ -5,7 +5,7 @@
     [RequiresSTA]
     public abstract class NumericBoxTests<T>
         : BaseUpDownTests
-        where T : struct, IComparable<T>
+        where T : struct, IComparable<T>, IFormattable
     {
         private readonly Func<NumericBox<T>> _creator;
         private readonly T _max;

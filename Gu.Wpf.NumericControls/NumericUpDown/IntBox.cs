@@ -9,7 +9,7 @@
     {
         static IntBox()
         {
-            UpdateMetadata(typeof(IntBox), 1, int.MinValue, int.MaxValue, 0);
+            UpdateMetadata(typeof(IntBox), 1);
         }
 
         public IntBox()
@@ -17,38 +17,6 @@
             (x, y) => x + y,
             (x, y) => x - y)
         {
-        }
-
-        protected override void ValidateText(string txt)
-        {
-            int result;
-            if (int.TryParse(txt, out result))
-            {
-                this.Value = result;
-            }
-            else
-            {
-                this.ConvertValueToText();
-            }
-        }
-
-        protected override string ValidInput()
-        {
-            return @"^[-]?[\d]*$";
-        }
-
-        protected override bool ValidValue(string text)
-        {
-            return this.ValidateValue(Convert.ToInt32(text))
-                .ToString() == text;
-        }
-
-        protected override void ConvertValueToText()
-        {
-            if (this.TextBox != null)
-            {
-                this.TextBox.Text = String.Format("{0} {1}", this.Value.ToString(), this.Suffix);
-            }
         }
     }
 }

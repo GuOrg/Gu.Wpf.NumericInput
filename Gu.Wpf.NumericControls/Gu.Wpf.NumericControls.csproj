@@ -74,6 +74,8 @@
     <Compile Include="NumericUpDown\LongBox.cs" />
     <Compile Include="NumericUpDown\NumericBox.cs" />
     <Compile Include="NumericUpDown\ShortBox.cs" />
+    <Compile Include="NumericUpDown\ValueChangedEventArgs.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
@@ -88,6 +90,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Validation\ClearErrors.cs" />
+    <Compile Include="Validation\IsDoubleValidationRule.cs" />
+    <Compile Include="Validation\Validator.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
