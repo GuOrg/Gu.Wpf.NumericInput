@@ -1,8 +1,11 @@
 ﻿namespace Gu.Wpf.NumericControls.Tests
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
+
     using NUnit.Framework;
     [RequiresSTA]
     public abstract class NumericBoxTests<T>
@@ -14,6 +17,9 @@
         private readonly T _min;
         private readonly T _increment;
 
+        private DummyVm<T> _vm;
+        private BindingExpressionBase _bindingExpression;
+
         protected NumericBoxTests(Func<NumericBox<T>> creator, T min, T max, T increment)
         {
             _creator = creator;
@@ -22,7 +28,7 @@
             _increment = increment;
         }
 
-        private NumericBox<T> Sut { get { return (NumericBox<T>)Box; } }
+        public NumericBox<T> Sut { get { return (NumericBox<T>)Box; } }
 
         [SetUp]
         public void SetUp()
@@ -32,7 +38,16 @@
             Sut.MinValue = _min;
             Sut.MaxValue = _max;
             Sut.Increment = _increment;
+            _vm = new DummyVm<T>();
+            var binding = new Binding("Value")
+                              {
+                                  Source = _vm,
+                                  UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
+                                  Mode = BindingMode.TwoWay
+                              };
+            this._bindingExpression = BindingOperations.SetBinding(this.Sut, NumericBox<T>.ValueProperty, binding);
             Sut.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
+
         }
         [TestCase("1", true)]
         [TestCase("1e", false)]
@@ -74,6 +89,19 @@
         public void SetValueValidates(T value, bool expected)
         {
             Sut.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(Sut));
+        }
+
+        [TestCase("9", false)]
+        [TestCase("10", false)]
+        [TestCase("11", true)]
+        [TestCase("-9", false)]
+        [TestCase("-10", false)]
+        [TestCase("-11", true)]
+        [TestCase("1e", true)]
+        public void SetTextValidates(string value, bool expected)
+        {
+            Sut.Text = value;
             Assert.AreEqual(expected, Validation.GetHasError(Sut));
         }
 
@@ -163,41 +191,47 @@
         [Test]
         public void SimpleSetValueFromText()
         {
-            Box.Text = "1";
-            Assert.AreEqual(1, Box.GetValue(NumericBox<double>.ValueProperty));
+            Sut.Text = "1";
+            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
         }
 
-        [Test]
-        public void TextUpdatesWhenValueChanges()
+        [TestCase(1)]
+        public void TextUpdatesWhenValueChanges(T value)
         {
-            Box.SetValue(NumericBox<double>.ValueProperty, 1d);
-            Assert.AreEqual("1", Box.Text);
-        }
-
-        [Test]
-        public void SimpleErrorTextResetsValue()
-        {
-            Box.Text = "1";
-            Assert.AreEqual(1, Box.GetValue(NumericBox<double>.ValueProperty));
-            Box.Text = "1e";
-            Assert.AreEqual(1, Box.GetValue(NumericBox<double>.ValueProperty));
-            Assert.IsTrue(Validation.GetHasError(Box));
+            Sut.SetValue(NumericBox<T>.ValueProperty, value);
+            Assert.AreEqual("1", Sut.Text);
         }
 
         [Test]
         public void AppendDecimalDoesNotTruncateText()
         {
             Sut.Text = "1";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<double>.ValueProperty));
+            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
             Assert.AreEqual("1", Sut.Text);
+            var floats = new[] { typeof(double), typeof(float), typeof(decimal) };
+            if (floats.Contains(typeof(T)))
+            {
+                Sut.Text = "1.";
+                Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+                Assert.AreEqual("1.", Sut.Text);
 
-            Sut.Text = "1.";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<double>.ValueProperty));
-            Assert.AreEqual("1.", Sut.Text);
+                Sut.Text = "1.0";
+                Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+                Assert.AreEqual("1.0", Sut.Text);
+            }
+        }
 
-            Sut.Text = "1.0";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<double>.ValueProperty));
-            Assert.AreEqual("1.0", Sut.Text);
+        [TestCase(1)]
+        public void ErrorTextResetsValueFromSource(T expected)
+        {
+            var startValue = (T)Sut.GetValue(NumericBox<T>.ValueProperty);
+            Sut.Text = "1";
+            Assert.AreEqual(expected, Sut.GetValue(NumericBox<T>.ValueProperty));
+            Sut.Text = "1e";
+            var actual = (T)Sut.GetValue(NumericBox<T>.ValueProperty);
+            var hasError = Validation.GetHasError(Box);
+            Assert.AreEqual(startValue, actual);
+            Assert.IsTrue(hasError);
         }
     }
 }

@@ -18,21 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericControls.Demo", "Gu.Wpf.NumericControls.Demo\Gu.Wpf.NumericControls.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfshub.sandvik.com:8080/tfs/defaultcollection
-		SccProjectUniqueName0 = Gu.Wpf.NumericControls\\Gu.Wpf.NumericControls.csproj
-		SccProjectName0 = Gu.Wpf.NumericControls
-		SccLocalPath0 = Gu.Wpf.NumericControls
-		SccLocalPath1 = .
-		SccProjectUniqueName2 = Gu.Wpf.NumericControls.Tests\\Gu.Wpf.NumericControls.Tests.csproj
-		SccProjectName2 = Gu.Wpf.NumericControls.Tests
-		SccLocalPath2 = Gu.Wpf.NumericControls.Tests
-		SccProjectUniqueName3 = Gu.Wpf.NumericControls.Demo\\Gu.Wpf.NumericControls.Demo.csproj
-		SccProjectName3 = Gu.Wpf.NumericControls.Demo
-		SccLocalPath3 = Gu.Wpf.NumericControls.Demo
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateNugetPackage|Any CPU = CreateNugetPackage|Any CPU
 		Debug|Any CPU = Debug|Any CPU

@@ -1,12 +1,10 @@
 ﻿namespace Gu.Wpf.NumericControls
 {
-    using System;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
-    using Validation;
 
     public abstract class BaseUpDown : TextBox
     {
