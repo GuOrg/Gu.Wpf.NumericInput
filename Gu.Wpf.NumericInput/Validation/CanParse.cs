@@ -6,8 +6,8 @@
 
     public class CanParse<T> : ValidationRule
     {
-        private readonly Func<string, IFormatProvider, bool> _tryParser;
-        public CanParse(Func<string,  IFormatProvider, bool> tryParser)
+        private readonly Func<string, bool> _tryParser;
+        public CanParse(Func<string, bool> tryParser)
         {
             _tryParser = tryParser;
         }
@@ -15,7 +15,7 @@
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var s = (string)value;
-            if (_tryParser(s, cultureInfo))
+            if (_tryParser(s))
             {
                 return ValidationResult.ValidResult;
             }

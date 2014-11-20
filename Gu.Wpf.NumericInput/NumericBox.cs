@@ -217,14 +217,17 @@
             }
         }
 
-        public CultureInfo Culture
+        /// <summary>
+        /// The current value Parse(Text) will throw if bad format
+        /// </summary>
+        internal T CurrentValue
         {
-            get { return Language.GetEquivalentCulture(); }
+            get { return Parse(Text); }
         }
 
-        protected abstract bool CanParse(string s, IFormatProvider provider);
+        protected abstract bool CanParse(string s);
 
-        protected abstract T Parse(string s, IFormatProvider provider);
+        protected abstract T Parse(string s);
 
         protected virtual void OnIncrementChanged()
         {
@@ -277,7 +280,7 @@
             {
                 return false;
             }
-            if (!CanParse(Text, Culture))
+            if (!CanParse(Text))
             {
                 return false;
             }
@@ -289,7 +292,7 @@
             if (CanIncrease())
             {
                 var value = AddIncrement();
-                Value = value;
+                Text = value.ToString(StringFormat, Culture);
             }
         }
 
@@ -299,7 +302,7 @@
             {
                 return false;
             }
-            if (!CanParse(Text, Culture))
+            if (!CanParse(Text))
             {
                 return false;
             }
@@ -311,7 +314,7 @@
             if (CanDecrease())
             {
                 var value = SubtractIncrement();
-                Value = value;
+                Text = value.ToString(StringFormat, Culture);
             }
         }
 
@@ -408,8 +411,9 @@
                 ? MaxValue
                 : TypeMax;
             var subtract = _subtract(min, Increment);
-            return Value.CompareTo(subtract) < 0
-                            ? _add(Value, Increment)
+            var currentValue = CurrentValue;
+            return currentValue.CompareTo(subtract) < 0
+                            ? _add(currentValue, Increment)
                             : min;
         }
 
@@ -419,8 +423,9 @@
                                 ? MinValue
                                 : TypeMin;
             var add = _add(max, Increment);
-            return Value.CompareTo(add) > 0
-                            ? _subtract(Value, Increment)
+            var currentValue = CurrentValue;
+            return currentValue.CompareTo(add) > 0
+                            ? _subtract(currentValue, Increment)
                             : max;
         }
     }
