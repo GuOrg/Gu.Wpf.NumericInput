@@ -9,13 +9,13 @@
         private readonly Func<string, IFormatProvider, bool> _tryParser;
         public CanParse(Func<string,  IFormatProvider, bool> tryParser)
         {
-            this._tryParser = tryParser;
+            _tryParser = tryParser;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var s = (string)value;
-            if (this._tryParser(s, cultureInfo))
+            if (_tryParser(s, cultureInfo))
             {
                 return ValidationResult.ValidResult;
             }

@@ -54,6 +54,6 @@ using System.Resources;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("en")]
-[assembly: GuidAttribute("2026010E-5005-413E-BA3F-18CF88F28B0F")]
+[assembly: NeutralResourcesLanguage("en")]
+[assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]

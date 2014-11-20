@@ -3,7 +3,7 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using Gu.Wpf.NumericInput.Annotations;
+    using Annotations;
 
     public class DummyVm<T> : INotifyPropertyChanged
     {
@@ -15,23 +15,23 @@
         {
             get
             {
-                return this._value;
+                return _value;
             }
             set
             {
-                if (Equals(value, this._value))
+                if (Equals(value, _value))
                 {
                     return;
                 }
-                this._value = value;
-                this.OnPropertyChanged();
+                _value = value;
+                OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = this.PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));

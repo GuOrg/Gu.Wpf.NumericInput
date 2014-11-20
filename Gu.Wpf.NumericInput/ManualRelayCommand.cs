@@ -26,8 +26,8 @@
             {
                 throw new ArgumentNullException("condition");
             }
-            this._action = action;
-            this._condition = condition;
+            _action = action;
+            _condition = condition;
         }
 
         public event EventHandler CanExecuteChanged
@@ -46,13 +46,13 @@
 
         public void TryRaiseCanExecuteChanged()
         {
-            var canExecute = this.CanExecute(null);
-            if (canExecute == this._previousCanExecute)
+            var canExecute = CanExecute(null);
+            if (canExecute == _previousCanExecute)
             {
                 return;
             }
-            this._previousCanExecute = canExecute;
-            var handler = this.InternalCanExecuteChanged;
+            _previousCanExecute = canExecute;
+            var handler = InternalCanExecuteChanged;
             if (handler != null)
             {
                 var application = Application.Current;
@@ -69,13 +69,13 @@
 
         public bool CanExecute(object _)
         {
-            return this._condition();
+            return _condition();
         }
 
         public void Execute(object _)
         {
-            this._action();
-            this.TryRaiseCanExecuteChanged();
+            _action();
+            TryRaiseCanExecuteChanged();
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
@@ -99,11 +99,11 @@
             ////}
             protected override void StartListening(object source)
             {
-                ((ManualRelayCommand)source).InternalCanExecuteChanged += this.DeliverEvent;
+                ((ManualRelayCommand)source).InternalCanExecuteChanged += DeliverEvent;
             }
             protected override void StopListening(object source)
             {
-                ((ManualRelayCommand)source).InternalCanExecuteChanged -= this.DeliverEvent;
+                ((ManualRelayCommand)source).InternalCanExecuteChanged -= DeliverEvent;
             }
         }
     }

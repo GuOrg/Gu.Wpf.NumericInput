@@ -11,7 +11,7 @@
         {
             var numericBox = (INumericBox)values[0];
             _weakReference.SetTarget(numericBox);
-            return this.FormattedText(culture);
+            return FormattedText(culture);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
