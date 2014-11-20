@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Resources;
@@ -55,3 +56,4 @@ using System.Resources;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: GuidAttribute("2026010E-5005-413E-BA3F-18CF88F28B0F")]
+[assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]

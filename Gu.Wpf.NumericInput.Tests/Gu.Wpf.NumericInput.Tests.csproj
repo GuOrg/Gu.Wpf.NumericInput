@@ -72,7 +72,9 @@
     <Compile Include="NumericBoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionExt.cs" />
+    <Compile Include="SandBox\ExplicitBinding.cs" />
     <Compile Include="ShortBoxTests.cs" />
+    <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

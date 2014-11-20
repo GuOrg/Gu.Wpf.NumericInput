@@ -11,7 +11,7 @@
     using Gu.Wpf.NumericInput.Validation;
 
     public abstract class NumericBox<T>
-        : BaseUpDown
+        : BaseUpDown, INumericBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
@@ -131,6 +131,16 @@
             }
         }
 
+
+        IFormattable INumericBox.Value
+        {
+            get
+            {
+                return Value;
+            }
+        }
+
+
         [Description(""), Category("NumericBox"), Browsable(true)]
         public T MaxValue
         {
@@ -141,6 +151,14 @@
             set
             {
                 this.SetValue(MaxValueProperty, value);
+            }
+        }
+
+        IFormattable INumericBox.MaxValue
+        {
+            get
+            {
+                return MaxValue;
             }
         }
 
@@ -157,6 +175,14 @@
             }
         }
 
+        IFormattable INumericBox.MinValue
+        {
+            get
+            {
+                return MinValue;
+            }
+        }
+
         [Description(""), Category("NumericBox"), Browsable(true)]
         public T Increment
         {
@@ -167,6 +193,14 @@
             set
             {
                 this.SetValue(IncrementProperty, value);
+            }
+        }
+
+        IFormattable INumericBox.Increment
+        {
+            get
+            {
+                return Increment;
             }
         }
 
@@ -183,7 +217,7 @@
             }
         }
 
-        private CultureInfo Culture
+        public CultureInfo Culture
         {
             get { return this.Language.GetEquivalentCulture(); }
         }
@@ -205,11 +239,6 @@
                 this.RaiseEvent(args);
                 this.CheckSpinners();
             }
-        }
-
-        [Obsolete("Fix this")]
-        protected virtual void OnDecimalsValueChanged(object newValue, object oldvalue)
-        {
         }
 
         protected virtual void OnMinValueChanged(object newValue, object oldValue)
@@ -303,10 +332,14 @@
 
         private static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
+            var numericBox = (NumericBox<T>)d;
+            if (e.NewValue == null)
             {
-                numericBox.OnDecimalsValueChanged(e.NewValue, e.OldValue);
+                numericBox.StringFormat = "R";
+            }
+            else
+            {
+                numericBox.StringFormat = "F" + e.NewValue;
             }
         }
 

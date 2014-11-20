@@ -83,9 +83,20 @@
                             <TextBlock Text="Vm Value: (LostFocus)" />
                             <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus}" />
                         </StackPanel>
+                       
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Vm Value: (LostFocus, {0:F2})" />
                             <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus, StringFormat='{}{0:F2}'}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Vm Value: (PropertyChanged})" />
+                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Vm Value: (PropertyChanged, {0:F2})" />
+                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:F2}'}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
