@@ -50,13 +50,13 @@
             if (!_isUpdatingText)
             {
                 _isUpdatingValue = true;
-                _proxyBinding.UpdateValue();
+                if (!_proxyBinding.HasValidationError)
+                {
+                    _proxyBinding.UpdateValue();
+                }
                 _isUpdatingValue = false;
             }
-            else
-            {
-                _proxyBinding.ExplicitValidate();
-            }
+            _proxyBinding.ExplicitValidate();
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)

@@ -110,10 +110,10 @@
             }
         }
 
-        public bool CanParse(string s, IFormatProvider provider)
+        public bool CanParse(string s)
         {
             double d;
-            return double.TryParse(s, NumberStyles.Float, provider, out d);
+            return double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out d);
         }
     }
 }

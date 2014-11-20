@@ -30,7 +30,7 @@
             "StringFormat",
             typeof(string),
             typeof(BaseUpDown),
-            new PropertyMetadata("R"));
+            new PropertyMetadata(""));
 
         public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
             "Culture", 
@@ -214,8 +214,8 @@
         protected virtual void CheckSpinners()
         {
             // Not nice to cast like this but want to have ManualRelayCommand as internal
-            ((ManualRelayCommand)IncreaseCommand).TryRaiseCanExecuteChanged();
-            ((ManualRelayCommand)DecreaseCommand).TryRaiseCanExecuteChanged();
+            ((ManualRelayCommand)IncreaseCommand).RaiseCanExecuteChanged();
+            ((ManualRelayCommand)DecreaseCommand).RaiseCanExecuteChanged();
         }
 
         private static object OnSuffixCoerce(DependencyObject dependencyObject, object baseValue)

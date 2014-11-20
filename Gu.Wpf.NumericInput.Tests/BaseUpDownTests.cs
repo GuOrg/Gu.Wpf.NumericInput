@@ -2,7 +2,6 @@
 {
     using NUnit.Framework;
 
-    [TestFixture, RequiresSTA]
     public abstract class BaseUpDownTests
     {
         protected BaseUpDown Box;
