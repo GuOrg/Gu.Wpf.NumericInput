@@ -12,14 +12,14 @@ namespace Gu.Wpf.NumericInput.Validation
 
         public IsLessThan(Func<string, IFormatProvider, T> parser, Func<T> max)
         {
-            this._parser = parser;
-            this._max = max;
+            _parser = parser;
+            _max = max;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var v = this._parser((string)value, cultureInfo);
-            var max = this._max();
+            var v = _parser((string)value, cultureInfo);
+            var max = _max();
             if (v.CompareTo(max) > 0)
             {
                 return new ValidationResult(false, string.Format("{0} > max ({1})", v, max));

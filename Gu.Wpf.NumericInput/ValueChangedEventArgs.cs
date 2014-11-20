@@ -7,22 +7,22 @@
     {
         public ValueChangedEventArgs(T oldValue, T newValue)
         {
-            this.OldValue = oldValue;
-            this.NewValue = newValue;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
 
         public ValueChangedEventArgs(T oldValue, T newValue, RoutedEvent routedEvent)
             : base(routedEvent)
         {
-            this.OldValue = oldValue;
-            this.NewValue = newValue;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
 
         public ValueChangedEventArgs(T oldValue, T newValue, RoutedEvent routedEvent, object source)
             : base(routedEvent, source)
         {
-            this.OldValue = oldValue;
-            this.NewValue = newValue;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
 
         public T OldValue { get; private set; }

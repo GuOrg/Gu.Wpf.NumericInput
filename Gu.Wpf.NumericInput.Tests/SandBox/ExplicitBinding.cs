@@ -6,7 +6,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    using Gu.Wpf.NumericInput.Validation;
+    using Validation;
 
     using NUnit.Framework;
 
@@ -21,7 +21,7 @@
             _dummy = new Dummy();
             var binding = new Binding("Value")
             {
-                Source = this._dummy,
+                Source = _dummy,
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit
             };
@@ -32,32 +32,32 @@
         [Test]
         public void UpdateSource()
         {
-            this._dummy.TextProxy = "1";
-            Assert.AreEqual(0, this._dummy.Value);
-            this._bindingExpression.UpdateSource();
-            Assert.AreEqual(1, this._dummy.Value);
+            _dummy.TextProxy = "1";
+            Assert.AreEqual(0, _dummy.Value);
+            _bindingExpression.UpdateSource();
+            Assert.AreEqual(1, _dummy.Value);
         }
 
         [Test]
         public void UpdateSourceValidates()
         {
-            this._dummy.TextProxy = "1e";
-            Assert.AreEqual(0, this._dummy.Value);
-            this._bindingExpression.UpdateSource();
-            Assert.AreEqual(0, this._dummy.Value);
+            _dummy.TextProxy = "1e";
+            Assert.AreEqual(0, _dummy.Value);
+            _bindingExpression.UpdateSource();
+            Assert.AreEqual(0, _dummy.Value);
             Assert.IsTrue(Validation.GetHasError(_dummy));
 
-            this._dummy.TextProxy = "1";
-            this._bindingExpression.UpdateSource();
-            Assert.AreEqual(1, this._dummy.Value);
+            _dummy.TextProxy = "1";
+            _bindingExpression.UpdateSource();
+            Assert.AreEqual(1, _dummy.Value);
             Assert.IsFalse(Validation.GetHasError(_dummy));
         }
 
         [Test]
         public void ExplicitValidate()
         {
-            this._dummy.TextProxy = "1e";
-            this._bindingExpression.ValidateWithoutUpdate();
+            _dummy.TextProxy = "1e";
+            _bindingExpression.ValidateWithoutUpdate();
             Assert.IsTrue(Validation.GetHasError(_dummy));
         }
 
@@ -65,9 +65,9 @@
         public void UpdateTarget()
         {
             _dummy.Value = 1.0;
-            Assert.AreEqual(null, this._dummy.TextProxy);
-            this._bindingExpression.UpdateTarget();
-            Assert.AreEqual("1", this._dummy.TextProxy);
+            Assert.AreEqual(null, _dummy.TextProxy);
+            _bindingExpression.UpdateTarget();
+            Assert.AreEqual("1", _dummy.TextProxy);
         }
     }
 

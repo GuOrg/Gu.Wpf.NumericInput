@@ -8,7 +8,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    using Gu.Wpf.NumericInput.Validation;
+    using Validation;
 
     public abstract class NumericBox<T>
         : BaseUpDown, INumericBox
@@ -94,15 +94,15 @@
         /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
         protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract)
         {
-            this._add = add;
-            this._subtract = subtract;
-            this._validator = new Validator<T>(
+            _add = add;
+            _subtract = subtract;
+            _validator = new Validator<T>(
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(this.CanParse),
-                new IsGreaterThan<T>(this.Parse, () => this.MinValue),
-                new IsLessThan<T>(this.Parse, () => this.MaxValue));
+                new CanParse<T>(CanParse),
+                new IsGreaterThan<T>(Parse, () => MinValue),
+                new IsLessThan<T>(Parse, () => MaxValue));
         }
 
         [Category("NumericBox"), Browsable(true)]
@@ -110,11 +110,11 @@
         {
             add
             {
-                this.AddHandler(ValueChangedEvent, value);
+                AddHandler(ValueChangedEvent, value);
             }
             remove
             {
-                this.RemoveHandler(ValueChangedEvent, value);
+                RemoveHandler(ValueChangedEvent, value);
             }
         }
 
@@ -123,11 +123,11 @@
         {
             get
             {
-                return (T)this.GetValue(ValueProperty);
+                return (T)GetValue(ValueProperty);
             }
             set
             {
-                this.SetValue(ValueProperty, value);
+                SetValue(ValueProperty, value);
             }
         }
 
@@ -146,11 +146,11 @@
         {
             get
             {
-                return (T)this.GetValue(MaxValueProperty);
+                return (T)GetValue(MaxValueProperty);
             }
             set
             {
-                this.SetValue(MaxValueProperty, value);
+                SetValue(MaxValueProperty, value);
             }
         }
 
@@ -167,11 +167,11 @@
         {
             get
             {
-                return (T)this.GetValue(MinValueProperty);
+                return (T)GetValue(MinValueProperty);
             }
             set
             {
-                this.SetValue(MinValueProperty, value);
+                SetValue(MinValueProperty, value);
             }
         }
 
@@ -188,11 +188,11 @@
         {
             get
             {
-                return (T)this.GetValue(IncrementProperty);
+                return (T)GetValue(IncrementProperty);
             }
             set
             {
-                this.SetValue(IncrementProperty, value);
+                SetValue(IncrementProperty, value);
             }
         }
 
@@ -209,17 +209,17 @@
         {
             get
             {
-                return (int)this.GetValue(DecimalsProperty);
+                return (int)GetValue(DecimalsProperty);
             }
             set
             {
-                this.SetValue(DecimalsProperty, value);
+                SetValue(DecimalsProperty, value);
             }
         }
 
         public CultureInfo Culture
         {
-            get { return this.Language.GetEquivalentCulture(); }
+            get { return Language.GetEquivalentCulture(); }
         }
 
         protected abstract bool CanParse(string s, IFormatProvider provider);
@@ -228,7 +228,7 @@
 
         protected virtual void OnIncrementChanged()
         {
-            this.CheckSpinners();
+            CheckSpinners();
         }
 
         protected virtual void OnValueChanged(object newValue, object oldValue)
@@ -236,19 +236,19 @@
             if (newValue != oldValue)
             {
                 var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
-                this.RaiseEvent(args);
-                this.CheckSpinners();
+                RaiseEvent(args);
+                CheckSpinners();
             }
         }
 
         protected virtual void OnMinValueChanged(object newValue, object oldValue)
         {
-            this.CheckSpinners();
+            CheckSpinners();
         }
 
         protected virtual void OnMaxValueChanged(object newValue, object oldValue)
         {
-            this.CheckSpinners();
+            CheckSpinners();
         }
 
         [Obsolete("Remove")]
@@ -273,11 +273,11 @@
 
         protected override bool CanIncrease()
         {
-            if (Comparer<T>.Default.Compare(this.Value, this.MaxValue) >= 0)
+            if (Comparer<T>.Default.Compare(Value, MaxValue) >= 0)
             {
                 return false;
             }
-            if (!this.CanParse(this.Text, this.Culture))
+            if (!CanParse(Text, Culture))
             {
                 return false;
             }
@@ -286,20 +286,20 @@
 
         protected override void Increase()
         {
-            if (this.CanIncrease())
+            if (CanIncrease())
             {
-                var value = this.AddIncrement();
-                this.Value = value;
+                var value = AddIncrement();
+                Value = value;
             }
         }
 
         protected override bool CanDecrease()
         {
-            if (Comparer<T>.Default.Compare(this.Value, this.MinValue) <= 0)
+            if (Comparer<T>.Default.Compare(Value, MinValue) <= 0)
             {
                 return false;
             }
-            if (!this.CanParse(this.Text, this.Culture))
+            if (!CanParse(Text, Culture))
             {
                 return false;
             }
@@ -308,23 +308,23 @@
 
         protected override void Decrease()
         {
-            if (this.CanDecrease())
+            if (CanDecrease())
             {
-                var value = this.SubtractIncrement();
-                this.Value = value;
+                var value = SubtractIncrement();
+                Value = value;
             }
         }
 
         protected virtual T ValidateValue(T value)
         {
-            if (Comparer<T>.Default.Compare(value, this.MaxValue) == 1)
+            if (Comparer<T>.Default.Compare(value, MaxValue) == 1)
             {
-                return this.MaxValue;
+                return MaxValue;
             }
 
-            if (Comparer<T>.Default.Compare(value, this.MinValue) == -1)
+            if (Comparer<T>.Default.Compare(value, MinValue) == -1)
             {
-                return this.MinValue;
+                return MinValue;
             }
 
             return value;
@@ -404,23 +404,23 @@
 
         private T AddIncrement()
         {
-            var min = Comparer<T>.Default.Compare(this.MaxValue, TypeMax) < 0
-                ? this.MaxValue
+            var min = Comparer<T>.Default.Compare(MaxValue, TypeMax) < 0
+                ? MaxValue
                 : TypeMax;
-            var subtract = this._subtract(min, this.Increment);
-            return this.Value.CompareTo(subtract) < 0
-                            ? this._add(this.Value, this.Increment)
+            var subtract = _subtract(min, Increment);
+            return Value.CompareTo(subtract) < 0
+                            ? _add(Value, Increment)
                             : min;
         }
 
         private T SubtractIncrement()
         {
-            var max = this.MinValue.CompareTo(TypeMin) > 0
-                                ? this.MinValue
+            var max = MinValue.CompareTo(TypeMin) > 0
+                                ? MinValue
                                 : TypeMin;
-            var add = this._add(max, this.Increment);
-            return this.Value.CompareTo(add) > 0
-                            ? this._subtract(this.Value, this.Increment)
+            var add = _add(max, Increment);
+            return Value.CompareTo(add) > 0
+                            ? _subtract(Value, Increment)
                             : max;
         }
     }

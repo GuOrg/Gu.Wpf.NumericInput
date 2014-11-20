@@ -34,7 +34,7 @@
             }
 
             _bindingExpression = BindingOperations.SetBinding(numericBox, TextProxyProperty, binding);
-            Validation.AddErrorHandler(numericBox, this.OnValidationError);
+            Validation.AddErrorHandler(numericBox, OnValidationError);
             UpdateTextProxy();
         }
 
@@ -44,6 +44,7 @@
         {
             get
             {
+                ExplicitValidate();
                 return _bindingExpression.HasValidationError;
             }
         }
@@ -75,12 +76,12 @@
 
         private void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
-            this.RaiseValidationFailed(e);
+            RaiseValidationFailed(e);
         }
 
         protected virtual void RaiseValidationFailed(ValidationErrorEventArgs e)
         {
-            var handler = this.ValidationFailed;
+            var handler = ValidationFailed;
             if (handler != null)
             {
                 handler(this, e);
