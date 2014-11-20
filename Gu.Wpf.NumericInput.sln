@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput", "Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj", "{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FA763A5D-45A1-43A6-B841-B399815CF2FE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Tests", "Gu.Wpf.NumericInput.Tests\Gu.Wpf.NumericInput.Tests.csproj", "{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CreateNugetPackage|Any CPU = CreateNugetPackage|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.CreateNugetPackage|Any CPU.ActiveCfg = CreateNugetPackage|Any CPU
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.CreateNugetPackage|Any CPU.Build.0 = CreateNugetPackage|Any CPU
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.CreateNugetPackage|Any CPU.ActiveCfg = Release|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.CreateNugetPackage|Any CPU.Build.0 = Release|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.CreateNugetPackage|Any CPU.ActiveCfg = Release|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.CreateNugetPackage|Any CPU.Build.0 = Release|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A6534E-F39C-496D-B84E-9B3130822671}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
