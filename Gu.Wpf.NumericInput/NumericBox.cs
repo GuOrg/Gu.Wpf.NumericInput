@@ -78,7 +78,7 @@
 
         protected static void UpdateMetadata(Type type, T increment)
         {
-            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable));
+            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable, OnCurrentTextChanged));
             IsReadOnlyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsReadOnlyChanged));
 
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
@@ -131,7 +131,6 @@
             }
         }
 
-
         IFormattable INumericBox.Value
         {
             get
@@ -139,8 +138,7 @@
                 return Value;
             }
         }
-
-
+        
         [Description(""), Category("NumericBox"), Browsable(true)]
         public T MaxValue
         {
@@ -240,7 +238,6 @@
             {
                 var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
                 RaiseEvent(args);
-                CheckSpinners();
             }
         }
 
@@ -403,6 +400,11 @@
         {
             var baseUpDown = (NumericBox<T>)d;
             baseUpDown.CheckSpinners();
+        }
+
+        private static void OnCurrentTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((NumericBox<T>)d).CheckSpinners();
         }
 
         private T AddIncrement()

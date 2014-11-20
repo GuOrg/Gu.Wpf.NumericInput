@@ -8,7 +8,6 @@
 
     using NUnit.Framework;
 
-    [RequiresSTA]
     public abstract class NumericBoxTests<T>
         : BaseUpDownTests
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -100,10 +99,11 @@
         [TestCase("-10", false)]
         [TestCase("-11", true)]
         [TestCase("1e", true)]
-        public void SetTextValidates(string value, bool expected)
+        public void SetTextValidates(string text, bool expected)
         {
-            Sut.Text = value;
+            Sut.Text = text;
             Assert.AreEqual(expected, Validation.GetHasError(Sut));
+            Assert.AreEqual(text, Sut.Text);
         }
 
         [TestCase(8)]
@@ -158,13 +158,13 @@
             Assert.IsFalse(Sut.DecreaseCommand.CanExecute(null));
         }
 
-        [TestCase(-11, 1)]
-        [TestCase(-9, 0)]
-        public void DecreaseCommand_CanExecuteChanged_OnValueChanged(T newValue, int expected)
+        [TestCase("-11", 1)]
+        [TestCase("-9", 0)]
+        public void DecreaseCommand_CanExecuteChanged_OnTextChanged(string text, int expected)
         {
             var count = 0;
             Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            Sut.Value = newValue;
+            Sut.Text = text;
             Assert.AreEqual(expected, count);
         }
 
@@ -232,6 +232,14 @@
             var hasError = Validation.GetHasError(Box);
             Assert.AreEqual(_vm.Value, actual);
             Assert.IsTrue(hasError);
+        }
+
+        [TestCase(2,"1.234",1.234)]
+        public void ValueNotAffectedByDecimals(int decimals,string text, T expected)
+        {
+            Sut.Text = text;
+            Sut.Decimals = decimals;
+            Assert.AreEqual(expected, Sut.Value);
         }
     }
 }
