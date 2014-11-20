@@ -3,6 +3,8 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
+    using Gu.Wpf.NumericInput.Demo.Annotations;
+
     public class ViewModel : INotifyPropertyChanged
     {
         private double _doubleValue;
