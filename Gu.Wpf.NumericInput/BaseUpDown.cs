@@ -1,6 +1,8 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
+    using System;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -29,6 +31,12 @@
             typeof(string),
             typeof(BaseUpDown),
             new PropertyMetadata("R"));
+
+        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
+            "Culture", 
+            typeof (IFormatProvider), 
+            typeof (BaseUpDown), 
+            new PropertyMetadata(CultureInfo.InvariantCulture));
 
         /// <summary>
         /// Identifies the StringFormat property
@@ -96,6 +104,15 @@
             {
                 SetValue(SuffixProperty, value);
             }
+        }
+
+        /// <summary>
+        /// The Culture used for T -> string
+        /// </summary>
+        public IFormatProvider Culture
+        {
+            get { return (IFormatProvider)GetValue(CultureProperty); }
+            set { SetValue(CultureProperty, value); }
         }
 
         /// <summary>

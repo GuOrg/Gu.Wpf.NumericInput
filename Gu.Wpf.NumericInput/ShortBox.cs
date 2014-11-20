@@ -19,15 +19,15 @@
         {
         }
 
-        protected override bool CanParse(string s, IFormatProvider provider)
+        protected override bool CanParse(string s)
         {
             short d;
-            return short.TryParse(s, NumberStyles.Integer, provider, out d);
+            return short.TryParse(s, NumberStyles.Integer, Culture, out d);
         }
 
-        protected override short Parse(string s, IFormatProvider provider)
+        protected override short Parse(string s)
         {
-            return short.Parse(s, NumberStyles.Integer, provider);
+            return short.Parse(s, NumberStyles.Integer, Culture);
         }
     }
 }

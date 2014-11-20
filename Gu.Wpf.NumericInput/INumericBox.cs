@@ -18,7 +18,7 @@
 
         int? Decimals { get; }
         
-        CultureInfo Culture { get; }
+        IFormatProvider Culture { get; }
 
         string Suffix { get;  }
         

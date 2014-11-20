@@ -19,15 +19,15 @@
         {
         }
         
-        protected override bool CanParse(string s, IFormatProvider provider)
+        protected override bool CanParse(string s)
         {
             double d;
-            return double.TryParse(s, NumberStyles.Float, provider, out d);
+            return double.TryParse(s, NumberStyles.Float, Culture, out d);
         }
 
-        protected override double Parse(string s, IFormatProvider provider)
+        protected override double Parse(string s)
         {
-            return double.Parse(s, NumberStyles.Float, provider);
+            return double.Parse(s, NumberStyles.Float, Culture);
         }
     }
 }
