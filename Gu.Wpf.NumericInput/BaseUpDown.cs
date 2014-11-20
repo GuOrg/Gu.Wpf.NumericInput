@@ -81,8 +81,8 @@
 
         protected BaseUpDown()
         {
-            this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
-            this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
+            IncreaseCommand = new ManualRelayCommand(Increase, CanIncrease);
+            DecreaseCommand = new ManualRelayCommand(Decrease, CanDecrease);
         }
 
         [Description(""), Category("BaseUpDown"), Browsable(true)]
@@ -90,11 +90,11 @@
         {
             get
             {
-                return (string)this.GetValue(SuffixProperty);
+                return (string)GetValue(SuffixProperty);
             }
             set
             {
-                this.SetValue(SuffixProperty, value);
+                SetValue(SuffixProperty, value);
             }
         }
 
@@ -118,11 +118,11 @@
         {
             get
             {
-                return (bool)this.GetValue(AllowSpinnersProperty);
+                return (bool)GetValue(AllowSpinnersProperty);
             }
             set
             {
-                this.SetValue(AllowSpinnersProperty, value);
+                SetValue(AllowSpinnersProperty, value);
             }
         }
 
@@ -133,11 +133,11 @@
         {
             get
             {
-                return (ICommand)this.GetValue(IncreaseCommandProperty);
+                return (ICommand)GetValue(IncreaseCommandProperty);
             }
             protected set
             {
-                this.SetValue(IncreaseCommandPropertyKey, value);
+                SetValue(IncreaseCommandPropertyKey, value);
             }
         }
 
@@ -148,11 +148,11 @@
         {
             get
             {
-                return (ICommand)this.GetValue(DecreaseCommandProperty);
+                return (ICommand)GetValue(DecreaseCommandProperty);
             }
             private set
             {
-                this.SetValue(DecreaseCommandPropertyKey, value);
+                SetValue(DecreaseCommandPropertyKey, value);
             }
         }
 
@@ -168,7 +168,7 @@
         /// <returns></returns>
         protected virtual bool CanIncrease()
         {
-            if (this.IsReadOnly)
+            if (IsReadOnly)
             {
                 return false;
             }
@@ -187,7 +187,7 @@
         /// <returns></returns>
         protected virtual bool CanDecrease()
         {
-            if (this.IsReadOnly)
+            if (IsReadOnly)
             {
                 return false;
             }
@@ -197,8 +197,8 @@
         protected virtual void CheckSpinners()
         {
             // Not nice to cast like this but want to have ManualRelayCommand as internal
-            ((ManualRelayCommand)this.IncreaseCommand).TryRaiseCanExecuteChanged();
-            ((ManualRelayCommand)this.DecreaseCommand).TryRaiseCanExecuteChanged();
+            ((ManualRelayCommand)IncreaseCommand).TryRaiseCanExecuteChanged();
+            ((ManualRelayCommand)DecreaseCommand).TryRaiseCanExecuteChanged();
         }
 
         private static object OnSuffixCoerce(DependencyObject dependencyObject, object baseValue)

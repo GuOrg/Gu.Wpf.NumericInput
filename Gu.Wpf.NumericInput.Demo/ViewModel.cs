@@ -3,7 +3,7 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using Gu.Wpf.NumericInput.Demo.Annotations;
+    using Annotations;
 
     public class ViewModel : INotifyPropertyChanged
     {
@@ -12,22 +12,22 @@
 
         public double DoubleValue
         {
-            get { return this._doubleValue; }
+            get { return _doubleValue; }
             set
             {
-                if (value.Equals(this._doubleValue))
+                if (value.Equals(_doubleValue))
                 {
                     return;
                 }
-                this._doubleValue = value;
-                this.OnPropertyChanged();
+                _doubleValue = value;
+                OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = this.PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));

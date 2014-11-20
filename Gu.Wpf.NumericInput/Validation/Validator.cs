@@ -2,13 +2,10 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Globalization;
-    using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using Gu.Wpf.NumericInput;
-    using Gu.Wpf.NumericInput.Annotations;
+    using NumericInput;
 
     public class Validator<T> : DependencyObject
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -31,11 +28,12 @@
             _numericBox = numericBox;
             _proxyBinding = new ExplicitBinding<T>(numericBox, rules);
 
-            _numericBox.TextChanged += this.NumericBoxOnTextChanged;
-            _numericBox.ValueChanged += this.NumericBoxOnValueChanged;
+            _numericBox.TextChanged += NumericBoxOnTextChanged;
+            _numericBox.ValueChanged += NumericBoxOnValueChanged;
             MinDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             _proxyBinding.ValidationFailed += OnValidationError;
+            _numericBox.LostFocus += OnLostFocus;
         }
 
         private BindingExpression ValueBinding
@@ -70,15 +68,24 @@
             _isUpdatingText = true;
             _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
             _isUpdatingText = false;
+        }
 
+        private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (!_proxyBinding.HasValidationError)
+            {
+                _isUpdatingText = true;
+                _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
+                _isUpdatingText = false;
+            }
         }
 
         private void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
-            var expression = this.ValueBinding;
+            var expression = ValueBinding;
             if (expression != null)
             {
-                this.ValueBinding.UpdateTarget(); // Reset Value from vm binding on failure
+                ValueBinding.UpdateTarget(); // Reset Value from vm binding on failure
                 //_isUpdatingText = true;
                 //_proxyBinding.UpdateTextProxy();
                 //_isUpdatingText = false;

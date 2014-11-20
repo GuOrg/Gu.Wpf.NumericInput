@@ -11,9 +11,9 @@
         public void IncreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (sender, args) =>
+            Box.IncreaseCommand.CanExecuteChanged += (sender, args) =>
                 { count++; };
-            this.Box.IsReadOnly = !this.Box.IsReadOnly;
+            Box.IsReadOnly = !Box.IsReadOnly;
             Assert.AreEqual(1, count);
         }
 
@@ -21,16 +21,16 @@
         [TestCase(false, true)]
         public void IncreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
         {
-            this.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
+            Box.IsReadOnly = @readonly;
+            Assert.AreEqual(expected, Box.IncreaseCommand.CanExecute(null));
         }
 
         [Test]
         public void DecreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            this.Box.IsReadOnly = !this.Box.IsReadOnly;
+            Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            Box.IsReadOnly = !Box.IsReadOnly;
             Assert.AreEqual(1, count);
         }
 
@@ -38,8 +38,8 @@
         [TestCase(false, true)]
         public void DecreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
         {
-            this.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
+            Box.IsReadOnly = @readonly;
+            Assert.AreEqual(expected, Box.DecreaseCommand.CanExecute(null));
         }
     }
 }
