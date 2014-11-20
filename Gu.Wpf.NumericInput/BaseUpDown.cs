@@ -24,6 +24,17 @@
                     
                 });
 
+        private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
+            "StringFormat",
+            typeof(string),
+            typeof(BaseUpDown),
+            new PropertyMetadata("R"));
+
+        /// <summary>
+        /// Identifies the StringFormat property
+        /// </summary>
+        public static readonly DependencyProperty StringFormatProperty = StringFormatPropertyKey.DependencyProperty;
+
         /// <summary>
         /// Identifies the AllowSpinners property
         /// </summary>
@@ -84,6 +95,21 @@
             set
             {
                 this.SetValue(SuffixProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// The stringformat is set using the Decimals property, exposed for binding in template.
+        /// </summary>
+        public string StringFormat
+        {
+            get
+            {
+                return (string)GetValue(StringFormatProperty);
+            }
+            protected set
+            {
+                SetValue(StringFormatPropertyKey, value);
             }
         }
 

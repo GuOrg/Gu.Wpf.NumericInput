@@ -4,7 +4,8 @@
 
     <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
-
+    <local:StringFormatConverter x:Key="StringFormatConverter" />
+    
     <Style x:Key="ArrowStyle" TargetType="{x:Type Path}">
         <Setter Property="Height" Value="5" />
         <Setter Property="Width" Value="16" />
@@ -90,18 +91,22 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Name="PART_Text"
-                                     Grid.Column="0"
+                            <TextBox Grid.Column="0"
                                      Background="{TemplateBinding Background}"
                                      Focusable="True"
                                      FontFamily="{TemplateBinding FontFamily}"
                                      FontSize="{TemplateBinding FontSize}"
                                      FontStretch="{TemplateBinding FontStretch}"
                                      FontStyle="{TemplateBinding FontStyle}"
-                                     IsReadOnly="{TemplateBinding IsReadOnly}"
-                                     Text="{Binding Text,
-                                                    RelativeSource={RelativeSource TemplatedParent},
-                                                    UpdateSourceTrigger=PropertyChanged}">
+                                     IsReadOnly="{TemplateBinding IsReadOnly}">
+                                     <!--Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}">-->
+                                <TextBox.Text>
+                                    <MultiBinding Converter="{StaticResource StringFormatConverter}" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Mode="OneTime"/>
+                                        <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                                        <Binding Path="StringFormat" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </TextBox.Text>
                                 <!--  Don't think we want this by default  -->
                                 <!--
                                     <TextBox.InputBindings>
@@ -130,8 +135,7 @@
                                     <RowDefinition Height="50*" />
                                     <RowDefinition Height="50*" />
                                 </Grid.RowDefinitions>
-                                <RepeatButton Name="PART_Up"
-                                              Grid.Row="0"
+                                <RepeatButton Grid.Row="0"
                                               Grid.Column="0"
                                               Command="{TemplateBinding IncreaseCommand}"
                                               Style="{StaticResource SpinnerButtonStyle}">
@@ -140,8 +144,7 @@
                                     </RepeatButton.Content>
                                 </RepeatButton>
 
-                                <RepeatButton Name="PART_Down"
-                                              Grid.Row="1"
+                                <RepeatButton Grid.Row="1"
                                               Command="{TemplateBinding DecreaseCommand}"
                                               Style="{StaticResource SpinnerButtonStyle}">
                                     <RepeatButton.Content>

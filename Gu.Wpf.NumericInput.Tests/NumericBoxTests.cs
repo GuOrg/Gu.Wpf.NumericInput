@@ -190,7 +190,7 @@
 
 
         [Test]
-        public void SimpleSetValueFromText()
+        public void ValueUpdatesWhenTextIsSet()
         {
             this.Sut.Text = "1";
             Assert.AreEqual(1, this.Sut.GetValue(NumericBox<T>.ValueProperty));
