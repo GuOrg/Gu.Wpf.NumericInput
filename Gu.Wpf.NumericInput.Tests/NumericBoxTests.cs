@@ -225,13 +225,12 @@
         [TestCase(1)]
         public void ErrorTextResetsValueFromSource(T expected)
         {
-            var startValue = (T)this.Sut.GetValue(NumericBox<T>.ValueProperty);
             this.Sut.Text = "1";
             Assert.AreEqual(expected, this.Sut.GetValue(NumericBox<T>.ValueProperty));
             this.Sut.Text = "1e";
             var actual = (T)this.Sut.GetValue(NumericBox<T>.ValueProperty);
             var hasError = Validation.GetHasError(this.Box);
-            Assert.AreEqual(startValue, actual);
+            Assert.AreEqual(_vm.Value, actual);
             Assert.IsTrue(hasError);
         }
     }

@@ -26,6 +26,7 @@
                 Source = numericBox,
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
+                NotifyOnValidationError = true
             };
             foreach (var rule in rules)
             {
@@ -33,8 +34,11 @@
             }
 
             _bindingExpression = BindingOperations.SetBinding(numericBox, TextProxyProperty, binding);
+            Validation.AddErrorHandler(numericBox, this.OnValidationError);
             UpdateTextProxy();
         }
+
+        public event EventHandler<ValidationErrorEventArgs> ValidationFailed;
 
         public bool HasValidationError
         {
@@ -67,6 +71,20 @@
         public void ExplicitValidate()
         {
             _bindingExpression.ValidateWithoutUpdate();
+        }
+
+        private void OnValidationError(object sender, ValidationErrorEventArgs e)
+        {
+            this.RaiseValidationFailed(e);
+        }
+
+        protected virtual void RaiseValidationFailed(ValidationErrorEventArgs e)
+        {
+            var handler = this.ValidationFailed;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 }
