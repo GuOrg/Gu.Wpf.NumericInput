@@ -42,44 +42,55 @@
 
             </GroupBox>
             <FrameworkElement Height="20" />
-            <GroupBox>
-                <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Header="Box settings">
+                    <StackPanel>
 
-                    <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
+                        <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
 
-                    <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
+                        <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Suffix: " />
-                        <TextBox x:Name="Suffix" Text="" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Suffix: " />
+                            <TextBox x:Name="Suffix" Text="" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Decimals: " />
+                            <TextBox x:Name="Decimals" Text="3" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Max: " />
+                            <TextBox x:Name="Max" Text="10" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Min: " />
+                            <TextBox x:Name="Min" Text="-10" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Increment: " />
+                            <TextBox x:Name="Increment" Text="1" />
+                        </StackPanel>
+
                     </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Decimals: " />
-                        <TextBox x:Name="Decimals" Text="3" />
+                </GroupBox>
+                <GroupBox Header="Vm">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Vm Value: (LostFocus)" />
+                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Vm Value: (LostFocus, {0:F2})" />
+                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus, StringFormat='{}{0:F2}'}" />
+                        </StackPanel>
                     </StackPanel>
+                </GroupBox>
+            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Max: " />
-                        <TextBox x:Name="Max" Text="10" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Min: " />
-                        <TextBox x:Name="Min" Text="-10" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Increment: " />
-                        <TextBox x:Name="Increment" Text="1" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Vm Value: " />
-                        <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </StackPanel>
-            </GroupBox>
         </StackPanel>
     </Grid>
 </Window>

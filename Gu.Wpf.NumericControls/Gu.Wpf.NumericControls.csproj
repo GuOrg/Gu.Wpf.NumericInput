@@ -66,15 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManualRelayCommand.cs" />
-    <Compile Include="NumericUpDown\BaseUpDown.cs" />
-    <Compile Include="NumericUpDown\DecimalBox.cs" />
-    <Compile Include="NumericUpDown\DoubleBox.cs" />
-    <Compile Include="NumericUpDown\FloatBox.cs" />
-    <Compile Include="NumericUpDown\IntBox.cs" />
-    <Compile Include="NumericUpDown\LongBox.cs" />
-    <Compile Include="NumericUpDown\NumericBox.cs" />
-    <Compile Include="NumericUpDown\ShortBox.cs" />
-    <Compile Include="NumericUpDown\ValueChangedEventArgs.cs" />
+    <Compile Include="BaseUpDown.cs" />
+    <Compile Include="DecimalBox.cs" />
+    <Compile Include="DoubleBox.cs" />
+    <Compile Include="FloatBox.cs" />
+    <Compile Include="IntBox.cs" />
+    <Compile Include="LongBox.cs" />
+    <Compile Include="NumericBox.cs" />
+    <Compile Include="ShortBox.cs" />
+    <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
