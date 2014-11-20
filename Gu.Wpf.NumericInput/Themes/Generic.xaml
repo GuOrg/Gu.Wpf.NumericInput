@@ -5,7 +5,7 @@
     <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
     <local:StringFormatConverter x:Key="StringFormatConverter" />
-    
+
     <Style x:Key="ArrowStyle" TargetType="{x:Type Path}">
         <Setter Property="Height" Value="5" />
         <Setter Property="Width" Value="16" />
@@ -99,13 +99,22 @@
                                      FontStretch="{TemplateBinding FontStretch}"
                                      FontStyle="{TemplateBinding FontStyle}"
                                      IsReadOnly="{TemplateBinding IsReadOnly}">
-                                <!--Text must be bound like this for culture & validation to work-->
+                                <!--  Text must be bound like this for culture & validation to work  -->
                                 <TextBox.Text>
                                     <MultiBinding Converter="{StaticResource StringFormatConverter}" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Mode="OneTime"/>
-                                        <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
-                                        <Binding Path="StringFormat" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
-                                        <Binding Path="Culture" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
+                                        <Binding Mode="OneTime" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Mode="TwoWay"
+                                                 Path="Text"
+                                                 RelativeSource="{RelativeSource TemplatedParent}"
+                                                 UpdateSourceTrigger="PropertyChanged" />
+                                        <Binding Mode="OneWay"
+                                                 Path="StringFormat"
+                                                 RelativeSource="{RelativeSource TemplatedParent}"
+                                                 UpdateSourceTrigger="PropertyChanged" />
+                                        <Binding Mode="OneWay"
+                                                 Path="Culture"
+                                                 RelativeSource="{RelativeSource TemplatedParent}"
+                                                 UpdateSourceTrigger="PropertyChanged" />
                                     </MultiBinding>
                                 </TextBox.Text>
                                 <!--  Don't think we want this by default  -->

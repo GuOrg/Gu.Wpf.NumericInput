@@ -35,6 +35,7 @@
             add
             {
                 InternalCanExecuteChangedEventManager.AddHandler(this, value);
+                _previousCanExecute = null;
             }
             remove
             {
@@ -44,7 +45,7 @@
 
         private event EventHandler InternalCanExecuteChanged;
 
-        public void TryRaiseCanExecuteChanged()
+        public void RaiseCanExecuteChanged()
         {
             var canExecute = CanExecute(null);
             if (canExecute == _previousCanExecute)
@@ -52,13 +53,14 @@
                 return;
             }
             _previousCanExecute = canExecute;
+
             var handler = InternalCanExecuteChanged;
             if (handler != null)
             {
                 var application = Application.Current;
                 if ( application != null && application.Dispatcher != null)
                 {
-                    application.Dispatcher.BeginInvoke(new Action(() => handler(this, new EventArgs())));
+                    application.Dispatcher.BeginInvoke(new Action(() => handler(this, EventArgs.Empty)));
                 }
                 else
                 {
@@ -75,7 +77,7 @@
         public void Execute(object _)
         {
             _action();
-            TryRaiseCanExecuteChanged();
+            RaiseCanExecuteChanged();
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
