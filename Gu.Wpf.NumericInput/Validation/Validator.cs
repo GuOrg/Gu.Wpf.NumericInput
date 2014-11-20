@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
@@ -23,6 +24,8 @@
         private readonly ExplicitBinding<T> _proxyBinding;
         private readonly NumericBox<T> _numericBox;
 
+        private bool _isUpdatingValue;
+        private bool _isUpdatingText;
         public Validator(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
             _numericBox = numericBox;
@@ -32,6 +35,7 @@
             _numericBox.ValueChanged += this.NumericBoxOnValueChanged;
             MinDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
+            _proxyBinding.ValidationFailed += OnValidationError;
         }
 
         private BindingExpression ValueBinding
@@ -42,32 +46,42 @@
             }
         }
 
-        private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+        private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
             _numericBox.SetCurrentValue(ExplicitBinding<T>.TextProxyProperty, _numericBox.Text);
-            _proxyBinding.UpdateValue();
+            if (!_isUpdatingText)
+            {
+                _isUpdatingValue = true;
+                _proxyBinding.UpdateValue();
+                _isUpdatingValue = false;
+            }
+            else
+            {
+                _proxyBinding.ExplicitValidate();
+            }
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)
         {
+            if (_isUpdatingValue)
+            {
+                return;
+            }
+            _isUpdatingText = true;
+            _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
+            _isUpdatingText = false;
 
-            //if (_value.CompareTo(e.NewValue) != 0)
-            //{
-            //    //if (_binding.HasValidationError)
-            //    //{
-            //    //    return;
-            //    //}
-            //    _numericBox.Text = e.NewValue.ToString();
-            //}
         }
 
-        private void OnValidationError(object sender, ValidationErrorEventArgs validationErrorEventArgs)
+        private void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
             var expression = this.ValueBinding;
             if (expression != null)
             {
-                this.ValueBinding.UpdateTarget(); // Reset local data on failure
-                _proxyBinding.UpdateTextProxy();
+                this.ValueBinding.UpdateTarget(); // Reset Value from vm binding on failure
+                //_isUpdatingText = true;
+                //_proxyBinding.UpdateTextProxy();
+                //_isUpdatingText = false;
             }
         }
     }
