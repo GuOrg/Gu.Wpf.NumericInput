@@ -13,8 +13,8 @@
     public class Validator<T> : DependencyObject, INotifyPropertyChanged
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly DependencyProperty FakeTextProperty = DependencyProperty.RegisterAttached(
-            "FakeText",
+        internal static readonly DependencyProperty TextProxyProperty = DependencyProperty.RegisterAttached(
+            "TextProxy",
             typeof(string),
             typeof(Validator<T>),
             new PropertyMetadata(default(string), OnFakeTextChanged));
@@ -51,7 +51,7 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public T FakeValue
+        public T ValueProxy
         {
             get
             {
@@ -60,7 +60,7 @@
             set
             {
                 _value = value;
-                if (value.Equals(FakeValue))
+                if (value.Equals(this.ValueProxy))
                 {
                     return;
                 }
@@ -77,14 +77,14 @@
             }
         }
 
-        internal static void SetFakeText(NumericBox<T> element, string value)
+        internal static void SetTextProxy(NumericBox<T> element, string value)
         {
-            element.SetValue(FakeTextProperty, value);
+            element.SetValue(TextProxyProperty, value);
         }
 
-        internal static string GetFakeText(NumericBox<T> element)
+        internal static string GetTextProxy(NumericBox<T> element)
         {
-            return (string)element.GetValue(FakeTextProperty);
+            return (string)element.GetValue(TextProxyProperty);
         }
 
         [NotifyPropertyChangedInvocator]
@@ -102,9 +102,14 @@
             o.SetCurrentValue(TextBox.TextProperty, e.NewValue);
         }
 
+        private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+        {
+            _numericBox.SetCurrentValue(TextProxyProperty, _numericBox.Text);
+        }
+
         private void Bind()
         {
-            var binding = new Binding("FakeValue")
+            var binding = new Binding("ValueProxy")
             {
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
@@ -118,16 +123,11 @@
             }
 
             Validation.AddErrorHandler(_numericBox, this.OnValidationError);
-            _binding = _numericBox.SetBinding(FakeTextProperty, binding);
+            _binding = _numericBox.SetBinding(TextProxyProperty, binding);
             _value = _numericBox.Value;
             _binding.UpdateTarget();
             MinDescriptor.AddValueChanged(_numericBox, (s, e) => _binding.UpdateSource());
             MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _binding.UpdateSource());
-        }
-
-        private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
-        {
-            _numericBox.SetCurrentValue(FakeTextProperty, _numericBox.Text);
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> valueChangedEventArgs)
