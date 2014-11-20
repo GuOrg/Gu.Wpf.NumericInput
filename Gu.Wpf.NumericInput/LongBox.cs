@@ -19,15 +19,15 @@
         {
         }
 
-        protected override bool CanParse(string s, IFormatProvider provider)
+        protected override bool CanParse(string s)
         {
             long d;
-            return long.TryParse(s, NumberStyles.Integer, provider, out d);
+            return long.TryParse(s, NumberStyles.Integer, Culture, out d);
         }
 
-        protected override long Parse(string s, IFormatProvider provider)
+        protected override long Parse(string s)
         {
-            return long.Parse(s, NumberStyles.Integer, provider);
+            return long.Parse(s, NumberStyles.Integer, Culture);
         }
     }
 }

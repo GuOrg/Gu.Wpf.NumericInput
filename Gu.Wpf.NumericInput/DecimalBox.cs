@@ -19,15 +19,15 @@
         {
         }
 
-        protected override bool CanParse(string s, IFormatProvider provider)
+        protected override bool CanParse(string s)
         {
             decimal d;
-            return decimal.TryParse(s, NumberStyles.Float, provider, out d);
+            return decimal.TryParse(s, NumberStyles.Float, Culture, out d);
         }
 
-        protected override decimal Parse(string s, IFormatProvider provider)
+        protected override decimal Parse(string s)
         {
-            return decimal.Parse(s, NumberStyles.Float, provider);
+            return decimal.Parse(s, NumberStyles.Float, Culture);
         }
     }
 }

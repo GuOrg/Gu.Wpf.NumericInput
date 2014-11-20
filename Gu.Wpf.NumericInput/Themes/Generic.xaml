@@ -99,12 +99,13 @@
                                      FontStretch="{TemplateBinding FontStretch}"
                                      FontStyle="{TemplateBinding FontStyle}"
                                      IsReadOnly="{TemplateBinding IsReadOnly}">
-                                     <!--Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}">-->
+                                <!--Text must be bound like this for culture & validation to work-->
                                 <TextBox.Text>
                                     <MultiBinding Converter="{StaticResource StringFormatConverter}" UpdateSourceTrigger="PropertyChanged">
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Mode="OneTime"/>
                                         <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
                                         <Binding Path="StringFormat" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
+                                        <Binding Path="Culture" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
                                     </MultiBinding>
                                 </TextBox.Text>
                                 <!--  Don't think we want this by default  -->

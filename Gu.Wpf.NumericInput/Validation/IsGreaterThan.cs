@@ -7,10 +7,10 @@ namespace Gu.Wpf.NumericInput.Validation
     public class IsGreaterThan<T> : ValidationRule
         where T : IComparable<T>
     {
-        private readonly Func<string, IFormatProvider, T> _parser;
+        private readonly Func<string, T> _parser;
         private readonly Func<T> _min;
         
-        public IsGreaterThan(Func<string, IFormatProvider, T> parser, Func<T> min)
+        public IsGreaterThan(Func<string, T> parser, Func<T> min)
         {
             _parser = parser;
             _min = min;
@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput.Validation
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var v = _parser((string)value, cultureInfo);
+            var v = _parser((string)value);
             var min = _min();
             if (v.CompareTo(min) < 0)
             {

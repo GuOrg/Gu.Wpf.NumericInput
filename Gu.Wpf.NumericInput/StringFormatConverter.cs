@@ -11,7 +11,7 @@
         {
             var numericBox = (INumericBox)values[0];
             _weakReference.SetTarget(numericBox);
-            return FormattedText(culture);
+            return FormattedText;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -19,19 +19,22 @@
             INumericBox box;
             if (_weakReference.TryGetTarget(out box))
             {
-                return new[] { box, value, box.StringFormat };
+                return new[] { box, value, box.StringFormat, box.Culture };
             }
             return null;
         }
 
-        private string FormattedText(CultureInfo culture)
+        private string FormattedText
         {
-            INumericBox box;
-            if (_weakReference.TryGetTarget(out box))
+            get
             {
-                return box.Value.ToString(box.StringFormat, culture);
+                INumericBox box;
+                if (_weakReference.TryGetTarget(out box))
+                {
+                    return box.Value.ToString(box.StringFormat, box.Culture);
+                }
+                return "";
             }
-            return "";
         }
     }
 }
