@@ -56,7 +56,10 @@
                 }
                 _isUpdatingValue = false;
             }
-            _proxyBinding.ExplicitValidate();
+            else
+            {
+                _proxyBinding.ExplicitValidate();
+            }
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)

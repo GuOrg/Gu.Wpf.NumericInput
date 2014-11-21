@@ -99,7 +99,7 @@
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(CanParse),
+                new CanParse<T>(s => CanParse(s)),
                 new IsGreaterThan<T>(Parse, () => MinValue),
                 new IsLessThan<T>(Parse, () => MaxValue));
         }
@@ -222,10 +222,20 @@
             get { return Parse(Text); }
         }
 
-        protected abstract bool CanParse(string s);
+        public string FormattedText
+        {
+            get { return Value.ToString(StringFormat, Culture); }
+        }
 
-        protected abstract T Parse(string s);
+        public abstract bool CanParse(string s);
 
+        public abstract T Parse(string s);
+        
+        IFormattable INumericBox.Parse(string s)
+        {
+            return Parse(s);
+        }
+        
         protected virtual void OnIncrementChanged()
         {
             CheckSpinners();

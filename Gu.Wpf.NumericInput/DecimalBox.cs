@@ -19,13 +19,13 @@
         {
         }
 
-        protected override bool CanParse(string s)
+        public override bool CanParse(string s)
         {
             decimal d;
             return decimal.TryParse(s, NumberStyles.Float, Culture, out d);
         }
 
-        protected override decimal Parse(string s)
+        public override decimal Parse(string s)
         {
             return decimal.Parse(s, NumberStyles.Float, Culture);
         }

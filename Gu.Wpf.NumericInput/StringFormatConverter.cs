@@ -4,24 +4,22 @@
     using System.Globalization;
     using System.Windows.Data;
 
-    public class StringFormatConverter : IMultiValueConverter
+    public class StringFormatConverter : IValueConverter
     {
         private readonly WeakReference<INumericBox> _weakReference = new WeakReference<INumericBox>(null);
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public StringFormatConverter(INumericBox box)
         {
-            var numericBox = (INumericBox)values[0];
-            _weakReference.SetTarget(numericBox);
+            _weakReference.SetTarget(box);
+        }
+        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             return FormattedText;
         }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            INumericBox box;
-            if (_weakReference.TryGetTarget(out box))
-            {
-                return new[] { box, value, box.StringFormat, box.Culture };
-            }
-            return null;
+            return Value;
         }
 
         private string FormattedText
@@ -31,9 +29,22 @@
                 INumericBox box;
                 if (_weakReference.TryGetTarget(out box))
                 {
-                    return box.Value.ToString(box.StringFormat, box.Culture);
+                    return box.FormattedText;
                 }
                 return "";
+            }
+        }
+
+        private object Value
+        {
+            get
+            {
+                INumericBox box;
+                if (_weakReference.TryGetTarget(out box))
+                {
+                    return box.Parse(box.Text);
+                }
+                return null;
             }
         }
     }
