@@ -222,6 +222,9 @@
             get { return Parse(Text); }
         }
 
+        /// <summary>
+        /// Value.ToString(StringFormat, Culture)
+        /// </summary>
         public string FormattedText
         {
             get { return Value.ToString(StringFormat, Culture); }
