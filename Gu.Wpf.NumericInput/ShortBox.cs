@@ -19,13 +19,13 @@
         {
         }
 
-        protected override bool CanParse(string s)
+        public override bool CanParse(string s)
         {
             short d;
             return short.TryParse(s, NumberStyles.Integer, Culture, out d);
         }
 
-        protected override short Parse(string s)
+        public override short Parse(string s)
         {
             return short.Parse(s, NumberStyles.Integer, Culture);
         }

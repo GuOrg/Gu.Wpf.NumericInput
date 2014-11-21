@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.NumericInput.Demo
 {
     using System.ComponentModel;
+    using System.Globalization;
     using System.Runtime.CompilerServices;
 
     using Annotations;
@@ -8,7 +9,13 @@
     public class ViewModel : INotifyPropertyChanged
     {
         private double _doubleValue;
+        
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public CultureInfo[] Cultures
+        {
+            get { return new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE") }; }
+        }
 
         public double DoubleValue
         {

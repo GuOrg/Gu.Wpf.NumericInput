@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numericInput="clr-namespace:Gu.Wpf.NumericInput;assembly=Gu.Wpf.NumericInput"
         Title="MainWindow"
@@ -17,7 +18,7 @@
             <FrameworkElement Height="20" />
             <GroupBox Header="Tweaked">
                 <StackPanel>
-                    <numericInput:DoubleBox x:Name="DoubleBox"
+                    <numericInput:DoubleBox x:Name="TweakedDoubleBox"
                                             Width="120"
                                             HorizontalAlignment="Left"
                                             AllowSpinners="{Binding IsChecked,
@@ -36,7 +37,7 @@
                                                              ElementName=Suffix}"
                                             Value="{Binding DoubleValue,
                                                             UpdateSourceTrigger=LostFocus}" />
-                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=DoubleBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
+                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedDoubleBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
                     <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
                 </StackPanel>
 
@@ -49,6 +50,10 @@
                         <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
 
                         <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
+                        <ComboBox x:Name="Culture"
+                                  ItemsSource="{Binding Cultures}"
+                                  SelectedItem="{Binding Culture,
+                                                         ElementName=TweakedDoubleBox}" />
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Suffix: " />
@@ -83,7 +88,7 @@
                             <TextBlock Text="Vm Value: (LostFocus)" />
                             <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus}" />
                         </StackPanel>
-                       
+
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Vm Value: (LostFocus, {0:F2})" />
                             <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus, StringFormat='{}{0:F2}'}" />

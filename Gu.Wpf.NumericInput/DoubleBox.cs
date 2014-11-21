@@ -18,14 +18,14 @@
             (x, y) => x - y)
         {
         }
-        
-        protected override bool CanParse(string s)
+
+        public override bool CanParse(string s)
         {
             double d;
             return double.TryParse(s, NumberStyles.Float, Culture, out d);
         }
 
-        protected override double Parse(string s)
+        public override double Parse(string s)
         {
             return double.Parse(s, NumberStyles.Float, Culture);
         }
