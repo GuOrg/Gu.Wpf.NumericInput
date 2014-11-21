@@ -7,37 +7,28 @@
     using System.Windows.Data;
 
     using NUnit.Framework;
-
     public abstract class NumericBoxTests<T>
         : BaseUpDownTests
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private readonly Func<NumericBox<T>> _creator;
-        private readonly T _max;
-        private readonly T _min;
-        private readonly T _increment;
+        protected abstract Func<NumericBox<T>> Creator { get; }
+        protected abstract T Max { get; }
+        protected abstract T Min { get; }
+        protected abstract T Increment { get; }
 
         private DummyVm<T> _vm;
         private BindingExpressionBase _bindingExpression;
-
-        protected NumericBoxTests(Func<NumericBox<T>> creator, T min, T max, T increment)
-        {
-            _creator = creator;
-            _min = min;
-            _max = max;
-            _increment = increment;
-        }
 
         public NumericBox<T> Sut { get { return (NumericBox<T>)Box; } }
 
         [SetUp]
         public void SetUp()
         {
-            Box = _creator();
+            Box = Creator();
             Sut.IsReadOnly = false;
-            Sut.MinValue = _min;
-            Sut.MaxValue = _max;
-            Sut.Increment = _increment;
+            Sut.MinValue = Min;
+            Sut.MaxValue = Max;
+            Sut.Increment = Increment;
             _vm = new DummyVm<T>();
             var binding = new Binding("Value")
                               {
@@ -47,8 +38,8 @@
                               };
             _bindingExpression = BindingOperations.SetBinding(Sut, NumericBox<T>.ValueProperty, binding);
             Sut.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
-
         }
+
         [TestCase("1", true)]
         [TestCase("1e", false)]
         public void Increase_DecreaseCommand_CanExecute_WithText(string text, bool expected)
@@ -61,7 +52,7 @@
         [Test]
         public void Defaults()
         {
-            var box = _creator();
+            var box = Creator();
             Assert.AreEqual(1, box.Increment);
 
             var typeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
@@ -71,12 +62,13 @@
             Assert.AreEqual(typeMax, box.MaxValue);
         }
 
-        [TestCase(9, true)]
-        [TestCase(10, false)]
-        [TestCase(11, false)]
-        public void IncreaseCommand_CanExecute_Value(T value, bool expected)
+        [TestCase("9", true)]
+        [TestCase("10", false)]
+        [TestCase("11", false)]
+        [TestCase("1e", false)]
+        public void IncreaseCommand_CanExecute_Text(string text, bool expected)
         {
-            Sut.Value = value;
+            Sut.Text = text;
             Assert.AreEqual(expected, Sut.IncreaseCommand.CanExecute(null));
         }
 
@@ -88,8 +80,9 @@
         [TestCase(-11, true)]
         public void SetValueValidates(T value, bool expected)
         {
-            Sut.Value = value;
+            _vm.Value = value;
             Assert.AreEqual(expected, Validation.GetHasError(Sut));
+            Assert.AreEqual(value.ToString(),Sut.Text);
         }
 
         [TestCase("9", false)]
@@ -112,36 +105,45 @@
             Sut.Value = value;
             var count = 0;
             Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
-            Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual(0, count);
-            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
-            Sut.IncreaseCommand.Execute(null);
+            ((ManualRelayCommand)Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
+            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
+
+            Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("9", Sut.Text);
+            Assert.AreEqual(1, count);
+            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
+
+            Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("10", Sut.Text);
+            Assert.AreEqual(2, count);
             Assert.IsFalse(Sut.IncreaseCommand.CanExecute(null));
         }
 
-
-        [TestCase(-9, 0)]
-        [TestCase(9, 0)]
-        [TestCase(11, 1)]
+        [TestCase(-9, 1)]
+        [TestCase(9, 1)]
+        [TestCase(11, 2)]
+        [TestCase(-11, 1)]
         public void IncreaseCommand_CanExecuteChanged_OnValueChanged(T newValue, int expected)
         {
             var count = 0;
             Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            Sut.Value = newValue;
+            ((ManualRelayCommand)Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            Assert.AreEqual(1, count);
+
+            _vm.Value = newValue;
             Assert.AreEqual(expected, count);
         }
 
-        [TestCase(-9, true)]
-        [TestCase(-10, false)]
-        [TestCase(-11, false)]
-        public void DecreaseCommand_CanExecute_Value(T value, bool expected)
+        [TestCase("-9", true)]
+        [TestCase("-10", false)]
+        [TestCase("-11", false)]
+        [TestCase("-1e", false)]
+        public void DecreaseCommand_CanExecute_Text(string text, bool expected)
         {
-            Sut.Value = value;
+            Sut.Text = text;
             Assert.AreEqual(expected, Sut.DecreaseCommand.CanExecute(null));
         }
-
 
         [TestCase(-8)]
         public void DecreaseCommand_CanExecute_OnDecrease(T value)
@@ -150,41 +152,51 @@
             var count = 0;
             Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
             Assert.IsTrue(Sut.DecreaseCommand.CanExecute(null));
+
             Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual(0, count);
-            Assert.IsTrue(Sut.DecreaseCommand.CanExecute(null));
-            Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-9", Sut.Text);
             Assert.AreEqual(1, count);
+            Assert.IsTrue(Sut.DecreaseCommand.CanExecute(null));
+
+            Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-10", Sut.Text);
+            Assert.AreEqual(2, count);
             Assert.IsFalse(Sut.DecreaseCommand.CanExecute(null));
         }
 
-        [TestCase("-11", 1)]
-        [TestCase("-9", 0)]
+        [TestCase("-11", 2)]
+        [TestCase("-9", 1)]
         public void DecreaseCommand_CanExecuteChanged_OnTextChanged(string text, int expected)
         {
             var count = 0;
             Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            ((ManualRelayCommand)Sut.DecreaseCommand).RaiseCanExecuteChanged();
+            Assert.AreEqual(1, count);
             Sut.Text = text;
             Assert.AreEqual(expected, count);
         }
 
-        [TestCase(0, -1)]
-        [TestCase(-9, -10)]
-        [TestCase(-10, -10)]
-        public void DecreaseCommand_Execute(T value, int expected)
+        [TestCase("100", "99", 0)]
+        [TestCase("0", "-1", -1)]
+        [TestCase("-9","-10", -10)]
+        [TestCase("-10","-10", -10)]
+        public void DecreaseCommand_Execute(string text, string expectedText, T expected)
         {
-            Sut.Value = value;
+            Sut.Text = text;
             Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
         }
 
-        [TestCase(0, 1)]
-        [TestCase(9, 10)]
-        [TestCase(10, 10)]
-        public void IncreaseCommand_Execute(T value, int expected)
+        [TestCase("-100", "-99", 0)]
+        [TestCase("0", "1", 1)]
+        [TestCase("9", "10", 10)]
+        [TestCase("10", "10", 10)]
+        public void IncreaseCommand_Execute(string text,string expectedText, T expected)
         {
-            Sut.Value = value;
+            Sut.Text = text;
             Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
         }
 
@@ -203,25 +215,6 @@
             Assert.AreEqual("1", Sut.Text);
         }
 
-        [Test]
-        public void AppendDecimalDoesNotTruncateText()
-        {
-            Sut.Text = "1";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
-            Assert.AreEqual("1", Sut.Text);
-            var floats = new[] { typeof(double), typeof(float), typeof(decimal) };
-            if (floats.Contains(typeof(T)))
-            {
-                Sut.Text = "1.";
-                Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
-                Assert.AreEqual("1.", Sut.Text);
-
-                Sut.Text = "1.0";
-                Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
-                Assert.AreEqual("1.0", Sut.Text);
-            }
-        }
-
         [TestCase(1)]
         public void ErrorTextResetsValueFromSource(T expected)
         {
@@ -232,14 +225,6 @@
             var hasError = Validation.GetHasError(Box);
             Assert.AreEqual(_vm.Value, actual);
             Assert.IsTrue(hasError);
-        }
-
-        [TestCase(2,"1.234",1.234)]
-        public void ValueNotAffectedByDecimals(int decimals,string text, T expected)
-        {
-            Sut.Text = text;
-            Sut.Decimals = decimals;
-            Assert.AreEqual(expected, Sut.Value);
         }
     }
 }

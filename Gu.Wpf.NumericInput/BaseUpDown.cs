@@ -23,7 +23,6 @@
                 {
                     DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     CoerceValueCallback = OnSuffixCoerce 
-                    
                 });
 
         private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
