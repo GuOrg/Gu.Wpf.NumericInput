@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Net.Mime;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -72,6 +73,18 @@
             }
         }
 
+        public string ProxyText
+        {
+            get
+            {
+                return (string)_numericBox.GetValue(TextProxyProperty);
+            }
+            private set
+            {
+                _numericBox.SetCurrentValue(TextProxyProperty, value);
+            }
+        }
+
         internal static void SetTextProxy(NumericBox<T> element, string value)
         {
             element.SetValue(TextProxyProperty, value);
@@ -102,6 +115,14 @@
 
         public void ExplicitValidate()
         {
+#if DEBUG
+            var propertyInfo = _bindingExpression.GetType()
+                                                 .GetProperty("NeedsValidation", BindingFlags.NonPublic|BindingFlags.Instance);
+            var needsValidation =(bool) propertyInfo.GetValue(_bindingExpression);
+            ProxyText = ProxyText; //// Trying this to set NeedsValidation to true.  
+            needsValidation = (bool)propertyInfo.GetValue(_bindingExpression);
+#endif
+            ProxyText = ProxyText; //// Trying this to set NeedsValidation to true. 
             _bindingExpression.ValidateWithoutUpdate();
         }
 

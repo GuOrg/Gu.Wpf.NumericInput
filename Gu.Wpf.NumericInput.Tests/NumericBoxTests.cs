@@ -82,7 +82,29 @@
         {
             _vm.Value = value;
             Assert.AreEqual(expected, Validation.GetHasError(Sut));
-            Assert.AreEqual(value.ToString(),Sut.Text);
+            Assert.AreEqual(value.ToString(Sut.StringFormat, Sut.Culture), Sut.Text);
+        }
+
+        [TestCase(9, false, 8, true)]
+        [TestCase(10, false, 11, false)]
+        [TestCase(11, true, 15, false)]
+        public void SetMaxValidates(T value, bool expected, T newMax, bool expected2)
+        {
+            _vm.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(Sut));
+            Sut.MaxValue = newMax;
+            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
+        }
+
+        [TestCase(-9, false, -8, true)]
+        [TestCase(-10, false, -11, false)]
+        [TestCase(-11, true, -15, false)]
+        public void SetMinValidates(T value, bool expected, T newMax, bool expected2)
+        {
+            _vm.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(Sut));
+            Sut.MinValue = newMax;
+            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
         }
 
         [TestCase("9", false)]
@@ -178,8 +200,8 @@
 
         [TestCase("100", "99", 0)]
         [TestCase("0", "-1", -1)]
-        [TestCase("-9","-10", -10)]
-        [TestCase("-10","-10", -10)]
+        [TestCase("-9", "-10", -10)]
+        [TestCase("-10", "-10", -10)]
         public void DecreaseCommand_Execute(string text, string expectedText, T expected)
         {
             Sut.Text = text;
@@ -192,7 +214,7 @@
         [TestCase("0", "1", 1)]
         [TestCase("9", "10", 10)]
         [TestCase("10", "10", 10)]
-        public void IncreaseCommand_Execute(string text,string expectedText, T expected)
+        public void IncreaseCommand_Execute(string text, string expectedText, T expected)
         {
             Sut.Text = text;
             Sut.IncreaseCommand.Execute(null);

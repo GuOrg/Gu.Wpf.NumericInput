@@ -46,6 +46,11 @@
 
         private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!this.IsTextChanged())
+            {
+                _proxyBinding.ExplicitValidate();
+                return;
+            }
             _numericBox.SetCurrentValue(ExplicitBinding<T>.TextProxyProperty, _numericBox.Text);
             if (!_isUpdatingText)
             {
@@ -69,7 +74,9 @@
                 return;
             }
             _isUpdatingText = true;
-            _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
+            _proxyBinding.UpdateTextProxy();
+            _numericBox.Text = _proxyBinding.ProxyText;
+            _proxyBinding.ExplicitValidate();
             _isUpdatingText = false;
         }
 
@@ -93,6 +100,20 @@
                 //_proxyBinding.UpdateTextProxy();
                 //_isUpdatingText = false;
             }
+        }
+
+        private bool IsTextChanged()
+        {
+            var viewText = _numericBox.Text;
+            var proxyText = (string)_numericBox.GetValue(ExplicitBinding<T>.TextProxyProperty);
+            if (_numericBox.CanParse(viewText) && _numericBox.CanParse(proxyText))
+            {
+                var viewValue = _numericBox.Parse(viewText);
+                var s1 = viewValue.ToString(_numericBox.StringFormat, _numericBox.Culture);
+                var s2 = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
+                return s1 != s2;
+            }
+            return proxyText != viewText;
         }
     }
 }
