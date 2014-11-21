@@ -9,7 +9,7 @@ namespace Gu.Wpf.NumericInput.Tests
     using System.Globalization;
     using NUnit.Framework;
 
-    public abstract class FloatBaseTests<T> :NumericBoxTests<T> 
+    public abstract class FloatBaseTests<T> : NumericBoxTests<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         [Test]
@@ -44,6 +44,17 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.Decimals = decimals;
             Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
+        }
+
+        [TestCase("1.234", 2, "1.23", 4, "1.2340")]
+        public void RoundtripDecimals(string text, int decimals1, string expected1, int decimals2, string expected2)
+        {
+            Sut.Text = text;
+            Sut.Decimals = decimals1;
+            Assert.AreEqual(expected1, Sut.Text);
+
+            Sut.Decimals = decimals2;
+            Assert.AreEqual(expected2, Sut.Text);
         }
     }
 }
