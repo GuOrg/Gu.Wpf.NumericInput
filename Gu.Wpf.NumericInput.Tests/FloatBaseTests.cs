@@ -27,12 +27,14 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual("1.0", Sut.Text);
         }
 
-        [TestCase("sv-SE","1,13",1.23)]
-        public void Culture(string culture, string text, T expected )
+        [TestCase("sv-SE", "1,23", "en-US", "1.23")]
+        [TestCase("en-US", "1.23", "sv-SE", "1,23")]
+        public void Culture(string culture1, string text, string culture2, string expected)
         {
-            Sut.Culture = new CultureInfo(culture);
+            Sut.Culture = new CultureInfo(culture1);
             Sut.Text = text;
-            Assert.AreEqual(expected, Sut.Value);
+            Sut.Culture = new CultureInfo(culture2);
+            Assert.AreEqual(expected, Sut.Text);
         }
 
         [TestCase(2, "1.234", "1.23", 1.234f), Explicit("Dunno how to test this, needs multibinding & converter")]
@@ -43,7 +45,5 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
         }
-
-
     }
 }
