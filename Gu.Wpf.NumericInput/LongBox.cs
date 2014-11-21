@@ -19,13 +19,13 @@
         {
         }
 
-        protected override bool CanParse(string s)
+        public override bool CanParse(string s)
         {
             long d;
             return long.TryParse(s, NumberStyles.Integer, Culture, out d);
         }
 
-        protected override long Parse(string s)
+        public override long Parse(string s)
         {
             return long.Parse(s, NumberStyles.Integer, Culture);
         }

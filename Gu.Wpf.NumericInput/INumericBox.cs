@@ -7,7 +7,7 @@
     public interface INumericBox
     {
         string Text { get; set; }
-        
+
         IFormattable Value { get; }
 
         IFormattable MaxValue { get; }
@@ -38,5 +38,9 @@
         /// Decreases the value by increment
         /// </summary>
         ICommand DecreaseCommand { get; }
+        
+        string FormattedText { get; }
+
+        IFormattable Parse(string s);
     }
 }

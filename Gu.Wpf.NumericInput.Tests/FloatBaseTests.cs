@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gu.Wpf.NumericInput.Tests
 {
+    using System.Globalization;
     using NUnit.Framework;
 
     public abstract class FloatBaseTests<T> :NumericBoxTests<T> 
@@ -26,6 +27,13 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual("1.0", Sut.Text);
         }
 
+        [TestCase("sv-SE","1,13",1.23)]
+        public void Culture(string culture, string text, T expected )
+        {
+            Sut.Culture = new CultureInfo(culture);
+            Sut.Text = text;
+            Assert.AreEqual(expected, Sut.Value);
+        }
 
         [TestCase(2, "1.234", "1.23", 1.234f), Explicit("Dunno how to test this, needs multibinding & converter")]
         public void ValueNotAffectedByDecimals(int decimals, string text, string expectedText, T expected)
@@ -35,5 +43,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
         }
+
+
     }
 }

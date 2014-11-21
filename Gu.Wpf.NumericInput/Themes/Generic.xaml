@@ -4,7 +4,6 @@
 
     <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
-    <local:StringFormatConverter x:Key="StringFormatConverter" />
 
     <Style x:Key="ArrowStyle" TargetType="{x:Type Path}">
         <Setter Property="Height" Value="5" />
@@ -91,7 +90,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox x:Name="TextBox" 
+                            <TextBox x:Name="TextBox"
                                      Grid.Column="0"
                                      Background="{TemplateBinding Background}"
                                      Focusable="True"
@@ -99,25 +98,10 @@
                                      FontSize="{TemplateBinding FontSize}"
                                      FontStretch="{TemplateBinding FontStretch}"
                                      FontStyle="{TemplateBinding FontStyle}"
-                                     IsReadOnly="{TemplateBinding IsReadOnly}">
-                                <!--  Text must be bound like this for culture & validation to work  -->
-                                <TextBox.Text>
-                                    <MultiBinding Converter="{StaticResource StringFormatConverter}" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding Mode="OneTime" RelativeSource="{RelativeSource TemplatedParent}" />
-                                        <Binding Mode="TwoWay"
-                                                 Path="Text"
-                                                 RelativeSource="{RelativeSource TemplatedParent}"
-                                                 UpdateSourceTrigger="PropertyChanged" />
-                                        <Binding Mode="OneWay"
-                                                 Path="StringFormat"
-                                                 RelativeSource="{RelativeSource TemplatedParent}"
-                                                 UpdateSourceTrigger="PropertyChanged" />
-                                        <Binding Mode="OneWay"
-                                                 Path="Culture"
-                                                 RelativeSource="{RelativeSource TemplatedParent}"
-                                                 UpdateSourceTrigger="PropertyChanged" />
-                                    </MultiBinding>
-                                </TextBox.Text>
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     Text="{Binding Text,
+                                                    RelativeSource={RelativeSource TemplatedParent},
+                                                    UpdateSourceTrigger=PropertyChanged}">
                                 <!--  Don't think we want this by default  -->
                                 <!--
                                     <TextBox.InputBindings>
@@ -149,6 +133,7 @@
                                 <RepeatButton Grid.Row="0"
                                               Grid.Column="0"
                                               Command="{TemplateBinding IncreaseCommand}"
+                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
                                               Style="{StaticResource SpinnerButtonStyle}">
                                     <RepeatButton.Content>
                                         <Path Data="{StaticResource UpGeometry}" Style="{StaticResource ArrowStyle}" />
@@ -157,6 +142,7 @@
 
                                 <RepeatButton Grid.Row="1"
                                               Command="{TemplateBinding DecreaseCommand}"
+                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
                                               Style="{StaticResource SpinnerButtonStyle}">
                                     <RepeatButton.Content>
                                         <Path Data="{StaticResource DownGeometry}" Style="{StaticResource ArrowStyle}" />
