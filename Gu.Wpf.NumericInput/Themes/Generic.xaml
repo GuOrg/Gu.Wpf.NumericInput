@@ -14,7 +14,7 @@
     </Style>
 
     <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding AllowSpinners, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
@@ -91,7 +91,8 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0"
+                            <TextBox x:Name="TextBox" 
+                                     Grid.Column="0"
                                      Background="{TemplateBinding Background}"
                                      Focusable="True"
                                      FontFamily="{TemplateBinding FontFamily}"

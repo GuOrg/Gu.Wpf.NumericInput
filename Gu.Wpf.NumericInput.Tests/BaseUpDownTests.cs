@@ -1,7 +1,7 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
     using NUnit.Framework;
-
+    [TestFixture]
     public abstract class BaseUpDownTests
     {
         protected BaseUpDown Box;

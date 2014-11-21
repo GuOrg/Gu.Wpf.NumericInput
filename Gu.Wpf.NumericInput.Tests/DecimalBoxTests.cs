@@ -1,13 +1,26 @@
 namespace Gu.Wpf.NumericInput.Tests
 {
+    using System;
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class DecimalBoxTests : NumericBoxTests<decimal>
+    public class DecimalBoxTests : FloatBaseTests<decimal>
     {
-        public DecimalBoxTests()
-            : base(() => new DecimalBox(), -10, 10, 1)
+        protected override Func<NumericBox<decimal>> Creator
         {
+            get { return () => new DecimalBox(); }
+        }
+        protected override decimal Max
+        {
+            get { return 10; }
+        }
+        protected override decimal Min
+        {
+            get { return -10; }
+        }
+        protected override decimal Increment
+        {
+            get { return 1; }
         }
     }
 }

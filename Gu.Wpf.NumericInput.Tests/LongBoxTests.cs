@@ -1,13 +1,26 @@
 namespace Gu.Wpf.NumericInput.Tests
 {
+    using System;
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
     public class LongBoxTests : NumericBoxTests<long>
     {
-        public LongBoxTests()
-            : base(() => new LongBox(), -10, 10, 1)
+        protected override Func<NumericBox<long>> Creator
         {
+            get { return () => new LongBox(); }
+        }
+        protected override long Max
+        {
+            get { return 10; }
+        }
+        protected override long Min
+        {
+            get { return -10; }
+        }
+        protected override long Increment
+        {
+            get { return 1; }
         }
     }
 }
