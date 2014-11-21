@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -273,11 +272,11 @@
 
         protected override bool CanIncrease()
         {
-            if (Comparer<T>.Default.Compare(Value, MaxValue) >= 0)
+            if (!CanParse(Text))
             {
                 return false;
             }
-            if (!CanParse(Text))
+            if (Comparer<T>.Default.Compare(CurrentValue, MaxValue) >= 0)
             {
                 return false;
             }
@@ -295,11 +294,11 @@
 
         protected override bool CanDecrease()
         {
-            if (Comparer<T>.Default.Compare(Value, MinValue) <= 0)
+            if (!CanParse(Text))
             {
                 return false;
             }
-            if (!CanParse(Text))
+            if (Comparer<T>.Default.Compare(CurrentValue, MinValue) <= 0)
             {
                 return false;
             }

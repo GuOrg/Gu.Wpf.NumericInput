@@ -65,6 +65,7 @@
     <Compile Include="DecimalBoxTests.cs" />
     <Compile Include="DoubleBoxTests.cs" />
     <Compile Include="BaseUpDownTests.cs" />
+    <Compile Include="FloatBaseTests.cs" />
     <Compile Include="FloatBoxTests.cs" />
     <Compile Include="Helpers\DummyVm.cs" />
     <Compile Include="IntBoxTests.cs" />
