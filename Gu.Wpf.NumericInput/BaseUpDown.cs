@@ -35,7 +35,9 @@
             "Culture", 
             typeof (IFormatProvider), 
             typeof (BaseUpDown), 
-            new PropertyMetadata(CultureInfo.InvariantCulture));
+            new FrameworkPropertyMetadata(
+                CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
+                FrameworkPropertyMetadataOptions.AffectsMeasure|FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Identifies the StringFormat property

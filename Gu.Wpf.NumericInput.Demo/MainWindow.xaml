@@ -18,7 +18,7 @@
             <FrameworkElement Height="20" />
             <GroupBox Header="Tweaked">
                 <StackPanel>
-                    <numericInput:DoubleBox x:Name="TweakedDoubleBox"
+                    <numericInput:DoubleBox x:Name="TweakedBox"
                                             Width="120"
                                             HorizontalAlignment="Left"
                                             AllowSpinners="{Binding IsChecked,
@@ -37,7 +37,7 @@
                                                              ElementName=Suffix}"
                                             Value="{Binding DoubleValue,
                                                             UpdateSourceTrigger=LostFocus}" />
-                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedDoubleBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
+                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
                     <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
                 </StackPanel>
 
@@ -53,7 +53,7 @@
                         <ComboBox x:Name="Culture"
                                   ItemsSource="{Binding Cultures}"
                                   SelectedItem="{Binding Culture,
-                                                         ElementName=TweakedDoubleBox}" />
+                                                         ElementName=TweakedBox}" />
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Suffix: " />

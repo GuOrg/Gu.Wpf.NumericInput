@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReproTestIssue", "ReproTestIssue\ReproTestIssue.csproj", "{715AA2DC-A2FA-4140-95DA-F79813E78223}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateNugetPackage|Any CPU = CreateNugetPackage|Any CPU
@@ -44,12 +42,6 @@ Global
 		{33A6534E-F39C-496D-B84E-9B3130822671}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33A6534E-F39C-496D-B84E-9B3130822671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33A6534E-F39C-496D-B84E-9B3130822671}.Release|Any CPU.Build.0 = Release|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.CreateNugetPackage|Any CPU.ActiveCfg = Release|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.CreateNugetPackage|Any CPU.Build.0 = Release|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{715AA2DC-A2FA-4140-95DA-F79813E78223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
