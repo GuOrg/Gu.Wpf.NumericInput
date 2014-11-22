@@ -19,7 +19,7 @@
             {
                 return ValidationResult.ValidResult;
             }
-            return new ValidationResult(false, string.Format("Cannot parse '{0}' to a {1}", s, typeof(T).Name));
+            return new CanParseValidationResult(typeof(T), s, false, string.Format("Cannot parse '{0}' to a {1}", s, typeof(T).Name));
         }
     }
 }

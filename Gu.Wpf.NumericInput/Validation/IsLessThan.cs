@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput.Validation
     using System.Windows.Controls;
 
     public class IsLessThan<T> : ValidationRule
-        where T : IComparable<T>
+        where T : IComparable<T>, IFormattable
     {
         private readonly Func<string, T> _parser;
         private readonly Func<T> _max;
@@ -22,7 +22,7 @@ namespace Gu.Wpf.NumericInput.Validation
             var max = _max();
             if (v.CompareTo(max) > 0)
             {
-                return new ValidationResult(false, string.Format("{0} > max ({1})", v, max));
+                return new IsLessThanValidationResult(v, max, false, string.Format("{0} > max ({1})", v, max));
             }
             return ValidationResult.ValidResult;
         }

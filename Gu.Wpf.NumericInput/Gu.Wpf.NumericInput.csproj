@@ -77,7 +77,10 @@
     <Compile Include="LongBox.cs" />
     <Compile Include="NumericBox.cs" />
     <Compile Include="ShortBox.cs" />
+    <Compile Include="Validation\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />
+    <Compile Include="Validation\IsGreaterThanValidationResult.cs" />
+    <Compile Include="Validation\IsLessThanValidationResult.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

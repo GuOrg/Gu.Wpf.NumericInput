@@ -106,6 +106,10 @@
         {
             var viewText = _numericBox.Text;
             var proxyText = (string)_numericBox.GetValue(ExplicitBinding<T>.TextProxyProperty);
+            if (viewText == proxyText)
+            {
+                return false;
+            }
             if (_numericBox.CanParse(viewText) && _numericBox.CanParse(proxyText))
             {
                 var viewValue = _numericBox.Parse(viewText);

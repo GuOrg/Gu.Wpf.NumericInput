@@ -76,6 +76,7 @@
     <Compile Include="Helpers\ReflectionExt.cs" />
     <Compile Include="SandBox\ExplicitBinding.cs" />
     <Compile Include="ShortBoxTests.cs" />
+    <Compile Include="Todos.cs" />
     <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
