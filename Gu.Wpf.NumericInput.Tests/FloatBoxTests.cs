@@ -4,9 +4,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class FloatBoxTests : FloatBaseTests<float>
+    public class FloatBoxTests : FloatBaseTests<FloatBox, float>
     {
-        protected override Func<NumericBox<float>> Creator
+        protected override Func<FloatBox> Creator
         {
             get { return () => new FloatBox(); }
         }

@@ -8,6 +8,9 @@
     using System.Windows.Data;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Base class that adds a couple of dependency properties to TextBox
+    /// </summary>
     public abstract class BaseBox : TextBox
     {
         /// <summary>
@@ -31,6 +34,9 @@
             typeof(BaseBox),
             new PropertyMetadata(""));
 
+        /// <summary>
+        /// Identifies the Culture property
+        /// </summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
             "Culture", 
             typeof (IFormatProvider), 
@@ -38,6 +44,15 @@
             new FrameworkPropertyMetadata(
                 CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
                 FrameworkPropertyMetadataOptions.AffectsMeasure|FrameworkPropertyMetadataOptions.Inherits));
+
+        /// <summary>
+        /// Identifies the RegexPattern property
+        /// </summary>
+        public static readonly DependencyProperty RegexPatternProperty = DependencyProperty.Register(
+            "RegexPattern", 
+            typeof(string), 
+            typeof(BaseBox), 
+            new PropertyMetadata(default(string)));
 
         /// <summary>
         /// Identifies the StringFormat property
@@ -128,6 +143,22 @@
             protected set
             {
                 SetValue(StringFormatPropertyKey, value);
+            }
+        }
+
+
+        /// <summary>
+        /// Regex pattern for validation
+        /// </summary>
+        public string RegexPattern
+        {
+            get
+            {
+                return (string)GetValue(RegexPatternProperty);
+            }
+            set
+            {
+                SetValue(RegexPatternProperty, value);
             }
         }
 

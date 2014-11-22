@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gu.Wpf.NumericInput.Tests
 {
     using System.Globalization;
     using NUnit.Framework;
 
-    public abstract class FloatBaseTests<T> : NumericBoxTests<T>
-        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
+    public abstract class FloatBaseTests<TBox,T> : NumericBoxTests<TBox,T>
+        where TBox : NumericBox<T>, IDecimals
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T> 
     {
         [Test]
         public void AppendDecimalDoesNotTruncateText()
@@ -41,7 +38,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public void ValueNotAffectedByDecimals(int decimals, string text, string expectedText, T expected)
         {
             Sut.Text = text;
-            Sut.Decimals = decimals;
+            Sut.DecimalDigits = decimals;
             Assert.AreEqual(expectedText, Sut.Text);
             Assert.AreEqual(expected, Sut.Value);
         }
@@ -50,10 +47,10 @@ namespace Gu.Wpf.NumericInput.Tests
         public void RoundtripDecimals(string text, int decimals1, string expected1, int decimals2, string expected2)
         {
             Sut.Text = text;
-            Sut.Decimals = decimals1;
+            Sut.DecimalDigits = decimals1;
             Assert.AreEqual(expected1, Sut.Text);
 
-            Sut.Decimals = decimals2;
+            Sut.DecimalDigits = decimals2;
             Assert.AreEqual(expected2, Sut.Text);
         }
     }

@@ -9,16 +9,26 @@
 
     using Validation;
 
+    /// <summary>
+    /// Baseclass with common functionality for numeric textboxes
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class NumericBox<T>
         : BaseBox, INumericBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
+        /// <summary>
+        /// Identifies the ValueChanged event
+        /// </summary>
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
             RoutingStrategy.Direct,
             typeof(ValueChangedEventHandler<T>),
             typeof(NumericBox<T>));
 
+        /// <summary>
+        /// Identifies the Value property
+        /// </summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value",
             typeof(T),
@@ -32,6 +42,9 @@
                 PropertyChangedCallback = OnValueChanged,
             });
 
+        /// <summary>
+        /// Identifies the Increment property
+        /// </summary>
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
             "Increment",
             typeof(T),
@@ -41,6 +54,9 @@
                 FrameworkPropertyMetadataOptions.None,
                 OnIncrementChanged));
 
+        /// <summary>
+        /// Identifies the MaxValue property
+        /// </summary>
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
             "MaxValue",
             typeof(T),
@@ -50,6 +66,9 @@
                 FrameworkPropertyMetadataOptions.None,
                 OnMaxValueChanged));
 
+        /// <summary>
+        /// Identifies the MinValue property
+        /// </summary>
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
             typeof(T),
@@ -58,16 +77,6 @@
                 default(T),
                 FrameworkPropertyMetadataOptions.None,
                 OnMinValueChanged));
-
-        public static readonly DependencyProperty DecimalsProperty = DependencyProperty.Register(
-            "Decimals",
-            typeof(int?),
-            typeof(NumericBox<T>),
-            new FrameworkPropertyMetadata(
-                null,
-                FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged,
-                OnCoerceDecimalsValueChanged));
 
         private readonly Func<T, T, T> _add;
         private readonly Func<T, T, T> _subtract;
@@ -99,7 +108,8 @@
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(s => CanParse(s)),
+                new CanParse<T>(this.CanParse),
+                new IsMatch(() => RegexPattern),
                 new IsGreaterThan<T>(Parse, () => MinValue),
                 new IsLessThan<T>(Parse, () => MaxValue));
         }
@@ -137,7 +147,7 @@
                 return Value;
             }
         }
-        
+
         [Description(""), Category("NumericBox"), Browsable(true)]
         public T MaxValue
         {
@@ -201,19 +211,6 @@
             }
         }
 
-        [Browsable(true)]
-        public int? Decimals
-        {
-            get
-            {
-                return (int)GetValue(DecimalsProperty);
-            }
-            set
-            {
-                SetValue(DecimalsProperty, value);
-            }
-        }
-
         /// <summary>
         /// The current value Parse(Text) will throw if bad format
         /// </summary>
@@ -233,12 +230,12 @@
         public abstract bool CanParse(string s);
 
         public abstract T Parse(string s);
-        
+
         IFormattable INumericBox.Parse(string s)
         {
             return Parse(s);
         }
-        
+
         protected virtual void OnIncrementChanged()
         {
             CheckSpinners();
@@ -342,7 +339,7 @@
             return value;
         }
 
-        private static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        protected static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var numericBox = (NumericBox<T>)d;
             if (e.NewValue == null)
@@ -355,7 +352,7 @@
             }
         }
 
-        private static object OnCoerceDecimalsValueChanged(DependencyObject d, object value)
+        protected static object OnCoerceDecimalsValueChanged(DependencyObject d, object value)
         {
             var numericBox = d as NumericBox<T>;
             if (numericBox != null)
