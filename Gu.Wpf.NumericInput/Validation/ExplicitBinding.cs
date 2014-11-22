@@ -2,25 +2,45 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    internal class ExplicitBinding<T> : DependencyObject
-        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
+    /// <summary>
+    /// Since we don't want text to be bindable we are binding to this attached property.
+    /// This will enable wpf validation.
+    /// </summary>
+    internal class ExplicitBinding : DependencyObject
     {
-        private readonly NumericBox<T> _numericBox;
-
         /// <summary>
         /// A proxy since Text is not bindable (we want it like this)
         /// </summary>
         internal static readonly DependencyProperty TextProxyProperty = DependencyProperty.RegisterAttached(
             "TextProxy",
             typeof(string),
-            typeof(Validator<T>),
+            typeof(ExplicitBinding),
             new PropertyMetadata(default(string)));
-       
+
+        internal static void SetTextProxy(BaseBox element, string value)
+        {
+            element.SetValue(TextProxyProperty, value);
+        }
+
+        internal static string GetTextProxy(BaseBox element)
+        {
+            return (string)element.GetValue(TextProxyProperty);
+        }
+    }
+
+    /// <summary>
+    /// This is a ~manual~ bidning with explicit two way updates.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    internal class ExplicitBinding<T> : ExplicitBinding
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
+    {
+        private readonly NumericBox<T> _numericBox;
+
         private static readonly DependencyPropertyDescriptor CultureDescriptor = DependencyPropertyDescriptor.FromProperty(
             BaseBox.CultureProperty,
             typeof(NumericBox<T>));
@@ -85,16 +105,6 @@
             }
         }
 
-        internal static void SetTextProxy(NumericBox<T> element, string value)
-        {
-            element.SetValue(TextProxyProperty, value);
-        }
-
-        internal static string GetTextProxy(NumericBox<T> element)
-        {
-            return (string)element.GetValue(TextProxyProperty);
-        }
-
         public void UpdateValue()
         {
             _bindingExpression.UpdateSource();
@@ -117,8 +127,8 @@
         {
 #if DEBUG
             var propertyInfo = _bindingExpression.GetType()
-                                                 .GetProperty("NeedsValidation", BindingFlags.NonPublic|BindingFlags.Instance);
-            var needsValidation =(bool) propertyInfo.GetValue(_bindingExpression);
+                                                 .GetProperty("NeedsValidation", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var needsValidation = (bool)propertyInfo.GetValue(_bindingExpression);
             ProxyText = ProxyText; //// Trying this to set NeedsValidation to true.  
             needsValidation = (bool)propertyInfo.GetValue(_bindingExpression);
 #endif

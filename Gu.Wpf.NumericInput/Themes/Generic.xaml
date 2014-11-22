@@ -106,7 +106,7 @@
 
                             <TextBox x:Name="TextBox"
                                      Grid.Column="0"
-                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     HorizontalAlignment="Stretch"
                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                      AcceptsReturn="{TemplateBinding AcceptsReturn}"
                                      AcceptsTab="{TemplateBinding AcceptsTab}"

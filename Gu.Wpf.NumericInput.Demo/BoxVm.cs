@@ -48,6 +48,7 @@
             this.Configurable = true;
             Min = min;
             Max = max;
+            Culture = Cultures.First();
             Increment = increment;
         }
 
