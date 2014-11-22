@@ -19,7 +19,6 @@
             <GroupBox Header="Tweaked">
                 <StackPanel>
                     <numericInput:DoubleBox x:Name="TweakedBox"
-                                            Width="120"
                                             HorizontalAlignment="Left"
                                             AllowSpinners="{Binding IsChecked,
                                                                     ElementName=AllowSpinners}"
