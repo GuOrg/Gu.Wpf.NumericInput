@@ -1,13 +1,10 @@
 ﻿namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
-    using System.Reflection;
     using System.Runtime.CompilerServices;
-    using System.Windows;
 
     using Gu.Wpf.NumericInput.Demo.Annotations;
 
@@ -65,15 +62,15 @@
         {
             get
             {
-                return this._culture;
+                return _culture;
             }
             set
             {
-                if (Equals(value, this._culture))
+                if (Equals(value, _culture))
                 {
                     return;
                 }
-                this._culture = value;
+                _culture = value;
                 this.OnPropertyChanged();
             }
         }
@@ -168,15 +165,15 @@
         {
             get
             {
-                return this._decimalDigits;
+                return _decimalDigits;
             }
             set
             {
-                if (value == this._decimalDigits)
+                if (value == _decimalDigits)
                 {
                     return;
                 }
-                this._decimalDigits = value;
+                _decimalDigits = value;
                 this.OnPropertyChanged();
             }
         }
@@ -185,15 +182,15 @@
         {
             get
             {
-                return this._allowSpinners;
+                return _allowSpinners;
             }
             set
             {
-                if (value.Equals(this._allowSpinners))
+                if (value.Equals(_allowSpinners))
                 {
                     return;
                 }
-                this._allowSpinners = value;
+                _allowSpinners = value;
                 this.OnPropertyChanged();
             }
         }
@@ -202,15 +199,15 @@
         {
             get
             {
-                return this._isReadonly;
+                return _isReadonly;
             }
             set
             {
-                if (value.Equals(this._isReadonly))
+                if (value.Equals(_isReadonly))
                 {
                     return;
                 }
-                this._isReadonly = value;
+                _isReadonly = value;
                 this.OnPropertyChanged();
             }
         }
@@ -219,15 +216,15 @@
         {
             get
             {
-                return this._suffix;
+                return _suffix;
             }
             set
             {
-                if (value == this._suffix)
+                if (value == _suffix)
                 {
                     return;
                 }
-                this._suffix = value;
+                _suffix = value;
                 this.OnPropertyChanged();
             }
         }
@@ -236,15 +233,15 @@
         {
             get
             {
-                return this._regexPattern;
+                return _regexPattern;
             }
             set
             {
-                if (value == this._regexPattern)
+                if (value == _regexPattern)
                 {
                     return;
                 }
-                this._regexPattern = value;
+                _regexPattern = value;
                 this.OnPropertyChanged();
             }
         }
@@ -253,7 +250,7 @@
 
         public override string ToString()
         {
-            var mode = Configurable ? "Configureble" : "Default";
+            var mode = Configurable ? "Configurable" : "Default";
             return string.Format("{0} ({1})", Type.Name, mode);
         }
 
