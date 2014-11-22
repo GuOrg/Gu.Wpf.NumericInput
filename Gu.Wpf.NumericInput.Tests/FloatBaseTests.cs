@@ -37,7 +37,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expected, Sut.Text);
         }
 
-        [TestCase(2, "1.234", "1.23", 1.234f), Explicit("Dunno how to test this, needs multibinding & converter")]
+        [TestCase(2, "1.234", "1.23", 1.234f)]
         public void ValueNotAffectedByDecimals(int decimals, string text, string expectedText, T expected)
         {
             Sut.Text = text;
