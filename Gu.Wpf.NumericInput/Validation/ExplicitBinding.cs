@@ -8,7 +8,7 @@
 
     /// <summary>
     /// Since we don't want text to be bindable we are binding to this attached property.
-    /// This will enable wpf validation.
+    /// This will enable wpf validation using a binding to the TextProxy attached property.
     /// </summary>
     internal class ExplicitBinding : DependencyObject
     {
