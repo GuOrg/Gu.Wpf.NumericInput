@@ -17,7 +17,7 @@
                 null,
                 FrameworkPropertyMetadataOptions.None,
                 OnDecimalsValueChanged,
-                OnCoerceDecimalsValueChanged));
+                OnCoerceDecimalsValue));
 
         static FloatBox()
         {
