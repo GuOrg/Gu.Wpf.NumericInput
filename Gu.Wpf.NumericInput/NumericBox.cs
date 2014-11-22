@@ -10,7 +10,7 @@
     using Validation;
 
     public abstract class NumericBox<T>
-        : BaseUpDown, INumericBox
+        : BaseBox, INumericBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(

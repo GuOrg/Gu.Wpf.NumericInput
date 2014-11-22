@@ -2,9 +2,9 @@
 {
     using NUnit.Framework;
     [TestFixture]
-    public abstract class BaseUpDownTests
+    public abstract class BaseBoxTests
     {
-        protected BaseUpDown Box;
+        protected BaseBox Box;
 
         [Test]
         public void IncreaseCommand_CanExecuteChanged_OnReadOnlyChanged()

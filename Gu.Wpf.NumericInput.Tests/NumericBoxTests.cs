@@ -8,7 +8,7 @@
 
     using NUnit.Framework;
     public abstract class NumericBoxTests<T>
-        : BaseUpDownTests
+        : BaseBoxTests
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         protected abstract Func<NumericBox<T>> Creator { get; }
