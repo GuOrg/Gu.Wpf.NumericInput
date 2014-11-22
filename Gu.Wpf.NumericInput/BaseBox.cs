@@ -8,7 +8,7 @@
     using System.Windows.Data;
     using System.Windows.Input;
 
-    public abstract class BaseUpDown : TextBox
+    public abstract class BaseBox : TextBox
     {
         /// <summary>
         /// Identifies the Suffix property
@@ -16,7 +16,7 @@
         public static readonly DependencyProperty SuffixProperty = DependencyProperty.Register(
             "Suffix",
             typeof(string),
-            typeof(BaseUpDown),
+            typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange)
@@ -28,13 +28,13 @@
         private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
             "StringFormat",
             typeof(string),
-            typeof(BaseUpDown),
+            typeof(BaseBox),
             new PropertyMetadata(""));
 
         public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
             "Culture", 
             typeof (IFormatProvider), 
-            typeof (BaseUpDown), 
+            typeof (BaseBox), 
             new FrameworkPropertyMetadata(
                 CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
                 FrameworkPropertyMetadataOptions.AffectsMeasure|FrameworkPropertyMetadataOptions.Inherits));
@@ -50,7 +50,7 @@
         public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.Register(
             "AllowSpinners",
             typeof(bool),
-            typeof(BaseUpDown),
+            typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 false,
                 FrameworkPropertyMetadataOptions.AffectsArrange)
@@ -62,7 +62,7 @@
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
             "IncreaseCommand",
             typeof(ICommand),
-            typeof(BaseUpDown),
+            typeof(BaseBox),
             new PropertyMetadata(null));
 
         /// <summary>
@@ -73,7 +73,7 @@
         private static readonly DependencyPropertyKey DecreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
             "DecreaseCommand",
             typeof(ICommand),
-            typeof(BaseUpDown),
+            typeof(BaseBox),
             new PropertyMetadata(null));
 
         /// <summary>
@@ -81,20 +81,20 @@
         /// </summary>
         public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
 
-        static BaseUpDown()
+        static BaseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(BaseUpDown),
-                new FrameworkPropertyMetadata(typeof(BaseUpDown)));
+                typeof(BaseBox),
+                new FrameworkPropertyMetadata(typeof(BaseBox)));
         }
 
-        protected BaseUpDown()
+        protected BaseBox()
         {
             IncreaseCommand = new ManualRelayCommand(Increase, CanIncrease);
             DecreaseCommand = new ManualRelayCommand(Decrease, CanDecrease);
         }
 
-        [Description(""), Category("BaseUpDown"), Browsable(true)]
+        [Description(""), Category("BaseBox"), Browsable(true)]
         public string Suffix
         {
             get

@@ -31,5 +31,14 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.Text = "1.234";
             Assert.AreEqual(1.234, Sut.Value);
         }
+
+        [Test]
+        public void FewerDecimalsUpdatesValue()
+        {
+            Sut.Decimals = 4;
+            Sut.Text = "1.2334";
+            Sut.Text = "1.23";
+            Assert.AreEqual(1.23, Sut.Value);
+        }
     }
 }

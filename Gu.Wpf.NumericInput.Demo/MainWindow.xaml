@@ -13,98 +13,122 @@
     <Grid>
         <StackPanel>
             <GroupBox Header="Default settings">
-                <numericInput:DoubleBox Value="{Binding DoubleValue}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <numericInput:DoubleBox x:Name="RawBox"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Value="{Binding DoubleValue}" />
+                    <Expander Grid.Row="1"
+                              Grid.Column="0"
+                              Header="Debug info">
+                          <ContentPresenter Content="{Binding .,ElementName=RawBox}" ContentTemplate="{StaticResource DebugInfoTemplate}" ></ContentPresenter>  
+                    </Expander>
+                </Grid>
             </GroupBox>
-            <FrameworkElement Height="20" />
-            <GroupBox Header="Tweaked">
+
+            <!--
+                <FrameworkElement Height="20" />
+                
+                <GroupBox Header="Tweaked">
                 <StackPanel>
-                    <numericInput:DoubleBox x:Name="TweakedBox"
-                                            HorizontalAlignment="Left"
-                                            AllowSpinners="{Binding IsChecked,
-                                                                    ElementName=AllowSpinners}"
-                                            Decimals="{Binding Text,
-                                                               ElementName=Decimals}"
-                                            Increment="{Binding Text,
-                                                                ElementName=Increment}"
-                                            IsReadOnly="{Binding IsChecked,
-                                                                 ElementName=IsReadOnly}"
-                                            MaxValue="{Binding Text,
-                                                               ElementName=Max}"
-                                            MinValue="{Binding Text,
-                                                               ElementName=Min}"
-                                            Suffix="{Binding Text,
-                                                             ElementName=Suffix}"
-                                            Value="{Binding DoubleValue,
-                                                            UpdateSourceTrigger=LostFocus}" />
-                    <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
-                    <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
+                <numericInput:DoubleBox x:Name="TweakedBox"
+                HorizontalAlignment="Left"
+                AllowSpinners="{Binding IsChecked,
+                ElementName=AllowSpinners}"
+                Decimals="{Binding Text,
+                ElementName=Decimals}"
+                Increment="{Binding Text,
+                ElementName=Increment}"
+                IsReadOnly="{Binding IsChecked,
+                ElementName=IsReadOnly}"
+                MaxValue="{Binding Text,
+                ElementName=Max}"
+                MinValue="{Binding Text,
+                ElementName=Min}"
+                Suffix="{Binding Text,
+                ElementName=Suffix}"
+                Value="{Binding DoubleValue,
+                UpdateSourceTrigger=LostFocus}" />
+                <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
+                <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
                 </StackPanel>
-
-            </GroupBox>
-            <FrameworkElement Height="20" />
-            <StackPanel Orientation="Horizontal">
+                
+                </GroupBox>
+                
+                <FrameworkElement Height="20" />
+                
+                <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Box settings">
-                    <StackPanel>
-
-                        <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
-
-                        <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
-                        <ComboBox x:Name="Culture"
-                                  ItemsSource="{Binding Cultures}"
-                                  SelectedItem="{Binding Culture,
-                                                         ElementName=TweakedBox}" />
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Suffix: " />
-                            <TextBox x:Name="Suffix" Text="" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Decimals: " />
-                            <TextBox x:Name="Decimals" Text="3" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Max: " />
-                            <TextBox x:Name="Max" Text="10" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Min: " />
-                            <TextBox x:Name="Min" Text="-10" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Increment: " />
-                            <TextBox x:Name="Increment" Text="1" />
-                        </StackPanel>
-
-                    </StackPanel>
+                <StackPanel>
+                
+                <CheckBox x:Name="IsReadOnly" Content="IsReadOnly" />
+                
+                <CheckBox x:Name="AllowSpinners" Content="AllowSpinners" />
+                <ComboBox x:Name="Culture"
+                ItemsSource="{Binding Cultures}"
+                SelectedItem="{Binding Culture,
+                ElementName=TweakedBox}" />
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Suffix: " />
+                <TextBox x:Name="Suffix" Text="" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Decimals: " />
+                <TextBox x:Name="Decimals" Text="3" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Max: " />
+                <TextBox x:Name="Max" Text="10" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Min: " />
+                <TextBox x:Name="Min" Text="-10" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Increment: " />
+                <TextBox x:Name="Increment" Text="1" />
+                </StackPanel>
+                
+                </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Vm">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Vm Value: (LostFocus)" />
-                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Vm Value: (LostFocus, {0:F2})" />
-                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus, StringFormat='{}{0:F2}'}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Vm Value: (PropertyChanged})" />
-                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Vm Value: (PropertyChanged, {0:F2})" />
-                            <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:F2}'}" />
-                        </StackPanel>
-                    </StackPanel>
+                <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Vm Value: (LostFocus)" />
+                <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Vm Value: (LostFocus, {0:F2})" />
+                <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=LostFocus, StringFormat='{}{0:F2}'}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Vm Value: (PropertyChanged})" />
+                <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Vm Value: (PropertyChanged, {0:F2})" />
+                <TextBox Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:F2}'}" />
+                </StackPanel>
+                </StackPanel>
                 </GroupBox>
-            </StackPanel>
+                </StackPanel>
+            -->
 
         </StackPanel>
     </Grid>
