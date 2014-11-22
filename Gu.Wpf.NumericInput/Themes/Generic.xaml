@@ -76,7 +76,13 @@
     <Style x:Key="BaseUpDown"
            BasedOn="{StaticResource {x:Type TextBox}}"
            TargetType="{x:Type local:BaseBox}">
-        <Setter Property="MinWidth" Value="50" />
+
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="AllowDrop" Value="true" />
         <Setter Property="AcceptsReturn" Value="False" />
         <Setter Property="AcceptsTab" Value="False" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
@@ -91,10 +97,9 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid Height="{Binding ActualHeight, ElementName=TextBox}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <TextBox x:Name="TextBox"

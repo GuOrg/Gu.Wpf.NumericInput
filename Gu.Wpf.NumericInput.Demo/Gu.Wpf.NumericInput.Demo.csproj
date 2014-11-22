@@ -58,8 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoxTemplateSelector.cs" />
+    <Compile Include="IBoxVm.cs" />
+    <Compile Include="MainVm.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="BoxVm.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
