@@ -5,9 +5,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using System.Globalization;
     using NUnit.Framework;
 
-    public abstract class FloatBaseTests<TBox,T> : NumericBoxTests<TBox,T>
+    public abstract class FloatBaseTests<TBox, T> : NumericBoxTests<TBox, T>
         where TBox : NumericBox<T>, IDecimals
-        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T> 
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         [Test]
         public void AppendDecimalDoesNotTruncateText()
@@ -26,6 +26,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
         [TestCase("sv-SE", "1,23", "en-US", "1.23")]
         [TestCase("en-US", "1.23", "sv-SE", "1,23")]
+        [TestCase("en-US", "1.23e", "sv-SE", "1.23e")]
         public void Culture(string culture1, string text, string culture2, string expected)
         {
             Sut.Culture = new CultureInfo(culture1);
@@ -34,25 +35,28 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expected, Sut.Text);
         }
 
-        [TestCase(2, "1.234", "1.23", 1.234)]
-        public void ValueNotAffectedByDecimalDigits(int decimals, string text, string expectedText, T expected)
+        [TestCase(2, "1.234", "1.23", "1.234")]
+        public void ValueNotAffectedByDecimalDigits(int decimals, string text, string expectedText, string expected)
         {
             Sut.Text = text;
             Sut.DecimalDigits = decimals;
             Assert.AreEqual(expectedText, Sut.Text);
-            Assert.AreEqual(expected, Sut.Value);
+            var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expected, actual); // Comparing strings cos conversion issue
         }
 
-        [TestCase("1.234", 1.234, "1.23", 1.23)]
-        public void ValueUpdatedOnFewerDecimalDigitsFromUser(string text1, T expected1, string text2, T expected2)
+        [TestCase("1.234", "1.234", "1.23", "1.23")]
+        public void ValueUpdatedOnFewerDecimalDigitsFromUser(string text1, string expected1, string text2, string expected2)
         {
             Sut.DecimalDigits = 5;
 
             Sut.Text = text1;
-            Assert.AreEqual(expected1, Sut.Value);
+            var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expected1, actual);
 
             Sut.Text = text2;
-            Assert.AreEqual(expected2, Sut.Value);
+            var actual2 = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expected2, actual2);
         }
 
         [TestCase("1.234", 2, "1.23", 4, "1.2340")]
@@ -66,14 +70,14 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expected2, Sut.Text);
         }
 
-
         [Test]
         public void AddedDigitsNotTruncated()
         {
             Sut.DecimalDigits = 2;
             Sut.Text = "1.23";
             Sut.Text = "1.234";
-            Assert.AreEqual(1.234, Sut.Value);
+            var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual("1.234", actual);
         }
 
         [Test]
@@ -82,7 +86,8 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.DecimalDigits = 4;
             Sut.Text = "1.2334";
             Sut.Text = "1.23";
-            Assert.AreEqual(1.23, Sut.Value);
+            var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual("1.23", actual);
         }
     }
 }

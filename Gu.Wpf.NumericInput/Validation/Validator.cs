@@ -120,7 +120,15 @@
                 var viewValue = _numericBox.Parse(viewText);
                 var s1 = viewValue.ToString(_numericBox.StringFormat, _numericBox.Culture);
                 var s2 = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
-                return s1 != s2;
+                if (s1 != s2)
+                {
+                    return true;
+                }
+                if (viewText== s1)
+                {
+                    return false;
+                }
+                return true;
             }
             return proxyText != viewText;
         }
