@@ -52,8 +52,7 @@
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
                 default(T),
-                FrameworkPropertyMetadataOptions.None,
-                OnIncrementChanged));
+                FrameworkPropertyMetadataOptions.None));
 
         /// <summary>
         /// Identifies the MaxValue property
@@ -84,17 +83,6 @@
         private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
         private readonly Validator<T> _validator;
-
-        protected static void UpdateMetadata(Type type, T increment)
-        {
-            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable, OnCurrentTextChanged));
-            IsReadOnlyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsReadOnlyChanged));
-
-            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
-            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
-            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
-        }
 
         /// <summary>
         /// 
@@ -237,9 +225,15 @@
             return Parse(s);
         }
 
-        protected virtual void OnIncrementChanged()
+        protected static void UpdateMetadata(Type type, T increment)
         {
-            CheckSpinners();
+            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable, OnCurrentTextChanged));
+            IsReadOnlyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsReadOnlyChanged));
+
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
+            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
+            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
         }
 
         protected virtual void OnValueChanged(object newValue, object oldValue)
@@ -259,12 +253,6 @@
         protected virtual void OnMaxValueChanged(object newValue, object oldValue)
         {
             CheckSpinners();
-        }
-
-        [Obsolete("Remove")]
-        protected virtual T OnCoerceValueChanged(T value)
-        {
-            return value;
         }
 
         protected virtual object OnCoerceDecimalsValueChanged(object value)
@@ -402,16 +390,6 @@
             if (numericBox != null)
             {
                 numericBox.OnMaxValueChanged(e.NewValue, e.OldValue);
-                numericBox.CheckSpinners();
-            }
-        }
-
-        private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
-            {
-                numericBox.OnIncrementChanged();
                 numericBox.CheckSpinners();
             }
         }

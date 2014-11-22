@@ -101,16 +101,13 @@
             if (expression != null)
             {
                 ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
-                //_isUpdatingText = true;
-                //_proxyBinding.UpdateTextProxy();
-                //_isUpdatingText = false;
             }
         }
 
         private bool IsTextChanged()
         {
             var viewText = _numericBox.Text;
-            var proxyText = (string)_numericBox.GetValue(ExplicitBinding<T>.TextProxyProperty);
+            var proxyText = (string)_numericBox.GetValue(ExplicitBinding.TextProxyProperty);
             if (viewText == proxyText)
             {
                 return false;
@@ -124,7 +121,7 @@
                 {
                     return true;
                 }
-                if (viewText== s1)
+                if (viewText == s1)
                 {
                     return false;
                 }
