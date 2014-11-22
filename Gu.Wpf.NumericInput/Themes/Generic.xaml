@@ -85,6 +85,7 @@
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="AcceptsReturn" Value="False" />
         <Setter Property="AcceptsTab" Value="False" />
+        <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
         <Setter Property="AutoWordSelection" Value="True" />
