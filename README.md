@@ -13,7 +13,7 @@ Features:
 - No template parts for easy styling.
 - Uses WPF validation
 - Uses standard .net parsing of strings.
-- Uses explicit culture.
+- Uses explicit culture. Not sure this is ideal but did it any way. The dp inherits.
 - Extends the wpf textbox
 
 Sample:
