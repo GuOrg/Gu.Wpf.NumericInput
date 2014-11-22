@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Net.Mime;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -21,12 +20,13 @@
             typeof(string),
             typeof(Validator<T>),
             new PropertyMetadata(default(string)));
+       
         private static readonly DependencyPropertyDescriptor CultureDescriptor = DependencyPropertyDescriptor.FromProperty(
-            BaseUpDown.CultureProperty,
+            BaseBox.CultureProperty,
             typeof(NumericBox<T>));
 
         private static readonly DependencyPropertyDescriptor StringFormatDescriptor = DependencyPropertyDescriptor.FromProperty(
-            BaseUpDown.StringFormatProperty,
+            BaseBox.StringFormatProperty,
             typeof(NumericBox<T>));
 
         private readonly BindingExpressionBase _bindingExpression;

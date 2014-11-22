@@ -69,7 +69,7 @@
     <Compile Include="StringFormatConverter.cs" />
     <Compile Include="StringFormatConverterExtension.cs" />
     <Compile Include="ManualRelayCommand.cs" />
-    <Compile Include="BaseUpDown.cs" />
+    <Compile Include="BaseBox.cs" />
     <Compile Include="DecimalBox.cs" />
     <Compile Include="DoubleBox.cs" />
     <Compile Include="FloatBox.cs" />
