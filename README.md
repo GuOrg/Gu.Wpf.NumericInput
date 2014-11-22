@@ -4,6 +4,12 @@ Controls for numeric input in WPF.
 Features:
 - Realtime validation of input.
 - Validates as you type even with UpdateSourceTrigger=LostFocus
+- Validates:
+  - CanParse
+  - Min & Max
+  - Regex
+  - Exceptions
+  - DataError
 - No template parts for easy styling.
 - Uses WPF validation
 - Uses standard .net parsing of strings.
