@@ -22,5 +22,14 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             get { return 1; }
         }
+
+        [Test]
+        public void AddedDigitsNotTruncated()
+        {
+            Sut.Decimals = 2;
+            Sut.Text = "1.23";
+            Sut.Text = "1.234";
+            Assert.AreEqual(1.234, Sut.Value);
+        }
     }
 }
