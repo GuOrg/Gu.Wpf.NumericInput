@@ -209,13 +209,13 @@
         /// Invoked when IncreaseCommand.Execute() is executed
         /// </summary>
         /// <returns></returns>
-        protected abstract void Increase();
+        protected abstract void Increase(object parameter);
 
         /// <summary>
         /// Invoked when IncreaseCommand.CanExecute() is executed
         /// </summary>
         /// <returns></returns>
-        protected virtual bool CanIncrease()
+        protected virtual bool CanIncrease(object parameter)
         {
             if (IsReadOnly)
             {
@@ -228,13 +228,13 @@
         /// Invoked when DecreaseCommand.Execute() is executed
         /// </summary>
         /// <returns></returns>
-        protected abstract void Decrease();
+        protected abstract void Decrease(object parameter);
 
         /// <summary>
         /// Invoked when DecreaseCommand.CanExecute() is executed
         /// </summary>
         /// <returns></returns>
-        protected virtual bool CanDecrease()
+        protected virtual bool CanDecrease(object parameter)
         {
             if (IsReadOnly)
             {
