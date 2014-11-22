@@ -18,6 +18,7 @@
         <ListBox x:Name="ListBox"
                  Grid.Column="0"
                  ItemsSource="{Binding Vms}" />
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

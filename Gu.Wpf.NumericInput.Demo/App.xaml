@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
              xmlns:numericInput="clr-namespace:Gu.Wpf.NumericInput;assembly=Gu.Wpf.NumericInput"
+             xmlns:validation="clr-namespace:Gu.Wpf.NumericInput.Validation;assembly=Gu.Wpf.NumericInput"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
@@ -10,32 +11,10 @@
             <StackPanel IsEnabled="False">
                 <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />
                 <TextBlock Text="{Binding Value, StringFormat='Value: {0}'}" />
-                <TextBlock Text="{Binding DataContext.Value, StringFormat='Vm_Value: {0}'}" />
+                <!--  <TextBlock Text="{Binding .(validation:ExplicitBinding.TextProxy), StringFormat='TextProxy: {0}'}" />  -->
             </StackPanel>
         </DataTemplate>
 
-        <!--
-            <numericInput:DoubleBox x:Name="TweakedBox"
-            HorizontalAlignment="Left"
-            AllowSpinners="{Binding IsChecked,
-            ElementName=AllowSpinners}"
-            DecimalDigits="{Binding Text,
-            ElementName=Decimals}"
-            Increment="{Binding Text,
-            ElementName=Increment}"
-            IsReadOnly="{Binding IsChecked,
-            ElementName=IsReadOnly}"
-            MaxValue="{Binding Text,
-            ElementName=Max}"
-            MinValue="{Binding Text,
-            ElementName=Min}"
-            RegexPattern="{Binding Text,
-            ElementName=Regex}"
-            Suffix="{Binding Text,
-            ElementName=Suffix}"
-            Value="{Binding DoubleValue,
-            UpdateSourceTrigger=LostFocus}" />
-        -->
         <DataTemplate x:Key="SettingsDataTemplate" DataType="{x:Type demo:IBoxVm}">
             <GroupBox Header="Settings">
                 <StackPanel>
@@ -60,6 +39,7 @@
                               IsChecked="{Binding AllowSpinners}" />
 
                     <ComboBox x:Name="Culture"
+                              IsSynchronizedWithCurrentItem="True"
                               ItemsSource="{Binding Cultures}"
                               SelectedItem="{Binding Culture}" />
 
@@ -160,42 +140,56 @@
         <demo:BoxTemplateSelector x:Key="BoxTemplateSelector">
             <demo:BoxTemplateSelector.Double>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <numericInput:DoubleBox Value="{Binding Value}" />
+                    <StackPanel>
+                        <numericInput:DoubleBox x:Name="Box" Value="{Binding Value}" />
+                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                    </StackPanel>
                 </DataTemplate>
             </demo:BoxTemplateSelector.Double>
 
             <demo:BoxTemplateSelector.DoubleTweaked>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <numericInput:DoubleBox AllowSpinners="{Binding AllowSpinners}"
-                                            Culture="{Binding Culture}"
-                                            DecimalDigits="{Binding DecimalDigits}"
-                                            Increment="{Binding Increment}"
-                                            IsReadOnly="{Binding IsReadonly}"
-                                            MaxValue="{Binding Max}"
-                                            MinValue="{Binding Min}"
-                                            RegexPattern="{Binding RegexPattern}"
-                                            Suffix="{Binding Suffix}"
-                                            Value="{Binding Value}" />
+                    <StackPanel>
+                        <numericInput:DoubleBox x:Name="Box"
+                                                AllowSpinners="{Binding AllowSpinners}"
+                                                Culture="{Binding Culture}"
+                                                DecimalDigits="{Binding DecimalDigits}"
+                                                Increment="{Binding Increment}"
+                                                IsReadOnly="{Binding IsReadonly}"
+                                                MaxValue="{Binding Max}"
+                                                MinValue="{Binding Min}"
+                                                RegexPattern="{Binding RegexPattern}"
+                                                Suffix="{Binding Suffix}"
+                                                Value="{Binding Value}" />
+                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                    </StackPanel>
                 </DataTemplate>
             </demo:BoxTemplateSelector.DoubleTweaked>
 
             <demo:BoxTemplateSelector.Int>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <numericInput:IntBox Value="{Binding Value}" />
+                    <StackPanel>
+                        <numericInput:IntBox x:Name="Box" Value="{Binding Value}" />
+                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                    </StackPanel>
                 </DataTemplate>
             </demo:BoxTemplateSelector.Int>
 
             <demo:BoxTemplateSelector.IntTweaked>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <numericInput:IntBox AllowSpinners="{Binding AllowSpinners}"
-                                         Culture="{Binding Culture}"
-                                         Increment="{Binding Increment}"
-                                         IsReadOnly="{Binding IsReadonly}"
-                                         MaxValue="{Binding Max}"
-                                         MinValue="{Binding Min}"
-                                         RegexPattern="{Binding RegexPattern}"
-                                         Suffix="{Binding Suffix}"
-                                         Value="{Binding Value}" />
+                    <StackPanel>
+                        <numericInput:IntBox x:Name="Box"
+                                             AllowSpinners="{Binding AllowSpinners}"
+                                             Culture="{Binding Culture}"
+                                             Increment="{Binding Increment}"
+                                             IsReadOnly="{Binding IsReadonly}"
+                                             MaxValue="{Binding Max}"
+                                             MinValue="{Binding Min}"
+                                             RegexPattern="{Binding RegexPattern}"
+                                             Suffix="{Binding Suffix}"
+                                             Value="{Binding Value}" />
+                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                    </StackPanel>
                 </DataTemplate>
             </demo:BoxTemplateSelector.IntTweaked>
         </demo:BoxTemplateSelector>
