@@ -10,7 +10,7 @@
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new MainVm();
         }
     }
 }
