@@ -4,9 +4,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class DecimalBoxTests : FloatBaseTests<decimal>
+    public class DecimalBoxTests : FloatBaseTests<DecimalBox, decimal>
     {
-        protected override Func<NumericBox<decimal>> Creator
+        protected override Func<DecimalBox> Creator
         {
             get { return () => new DecimalBox(); }
         }

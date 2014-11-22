@@ -4,9 +4,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class IntBoxTests : NumericBoxTests<int>
+    public class IntBoxTests : NumericBoxTests<IntBox, int>
     {
-        protected override Func<NumericBox<int>> Creator
+        protected override Func<IntBox> Creator
         {
             get { return () => new IntBox(); }
         }

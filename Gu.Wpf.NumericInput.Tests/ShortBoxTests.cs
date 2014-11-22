@@ -4,9 +4,9 @@
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class ShortBoxTests : NumericBoxTests<short>
+    public class ShortBoxTests : NumericBoxTests<ShortBox, short>
     {
-        protected override Func<NumericBox<short>> Creator
+        protected override Func<ShortBox> Creator
         {
             get { return () => new ShortBox(); }
         }

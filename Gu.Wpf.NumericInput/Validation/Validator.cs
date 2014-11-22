@@ -19,6 +19,10 @@
             NumericBox<T>.MaxValueProperty,
             typeof(NumericBox<T>));
 
+        private static readonly DependencyPropertyDescriptor PatternDescriptor = DependencyPropertyDescriptor.FromProperty(
+            BaseBox.RegexPatternProperty,
+            typeof(NumericBox<T>));
+
         private readonly ExplicitBinding<T> _proxyBinding;
         private readonly NumericBox<T> _numericBox;
 
@@ -33,6 +37,7 @@
             _numericBox.ValueChanged += NumericBoxOnValueChanged;
             MinDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
+            PatternDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             _proxyBinding.ValidationFailed += OnValidationError;
             _numericBox.LostFocus += OnLostFocus;
         }
@@ -49,7 +54,6 @@
         {
             if (!this.IsTextChanged())
             {
-                _proxyBinding.ExplicitValidate();
                 return;
             }
             _numericBox.SetCurrentValue(ExplicitBinding<T>.TextProxyProperty, _numericBox.Text);
@@ -96,7 +100,7 @@
             var expression = ValueBinding;
             if (expression != null)
             {
-                ValueBinding.UpdateTarget(); // Reset Value from vm binding on failure
+                ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
                 //_isUpdatingText = true;
                 //_proxyBinding.UpdateTextProxy();
                 //_isUpdatingText = false;

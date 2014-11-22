@@ -34,7 +34,7 @@
                 </Grid>
             </GroupBox>
 
-            <!--
+            
                 <FrameworkElement Height="20" />
                 
                 <GroupBox Header="Tweaked">
@@ -43,7 +43,7 @@
                 HorizontalAlignment="Left"
                 AllowSpinners="{Binding IsChecked,
                 ElementName=AllowSpinners}"
-                Decimals="{Binding Text,
+                DecimalDigits="{Binding Text,
                 ElementName=Decimals}"
                 Increment="{Binding Text,
                 ElementName=Increment}"
@@ -55,6 +55,7 @@
                 ElementName=Min}"
                 Suffix="{Binding Text,
                 ElementName=Suffix}"
+                                        RegexPattern="{Binding Text,ElementName=Regex}"
                 Value="{Binding DoubleValue,
                 UpdateSourceTrigger=LostFocus}" />
                 <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
@@ -101,7 +102,12 @@
                 <TextBlock Text="Increment: " />
                 <TextBox x:Name="Increment" Text="1" />
                 </StackPanel>
-                
+
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Regex: " />
+                    <TextBox x:Name="Regex" Text="" />
+                  </StackPanel>
+                  
                 </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Vm">
@@ -128,7 +134,7 @@
                 </StackPanel>
                 </GroupBox>
                 </StackPanel>
-            -->
+            
 
         </StackPanel>
     </Grid>
