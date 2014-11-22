@@ -4,9 +4,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class DoubleBoxTests : FloatBaseTests<double>
+    public class DoubleBoxTests : FloatBaseTests<DoubleBox, double>
     {
-        protected override Func<NumericBox<double>> Creator
+        protected override Func<DoubleBox> Creator
         {
             get { return () => new DoubleBox(); }
         }
@@ -26,7 +26,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [Test]
         public void AddedDigitsNotTruncated()
         {
-            Sut.Decimals = 2;
+            Sut.DecimalDigits = 2;
             Sut.Text = "1.23";
             Sut.Text = "1.234";
             Assert.AreEqual(1.234, Sut.Value);
@@ -35,7 +35,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [Test]
         public void FewerDecimalsUpdatesValue()
         {
-            Sut.Decimals = 4;
+            Sut.DecimalDigits = 4;
             Sut.Text = "1.2334";
             Sut.Text = "1.23";
             Assert.AreEqual(1.23, Sut.Value);

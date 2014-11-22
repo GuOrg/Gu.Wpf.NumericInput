@@ -4,9 +4,9 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     [TestFixture, RequiresSTA]
-    public class LongBoxTests : NumericBoxTests<long>
+    public class LongBoxTests : NumericBoxTests<LongBox,long>
     {
-        protected override Func<NumericBox<long>> Creator
+        protected override Func<LongBox> Creator
         {
             get { return () => new LongBox(); }
         }

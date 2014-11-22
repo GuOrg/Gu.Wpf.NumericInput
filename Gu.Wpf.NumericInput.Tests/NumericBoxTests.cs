@@ -7,11 +7,12 @@
     using System.Windows.Data;
 
     using NUnit.Framework;
-    public abstract class NumericBoxTests<T>
+    public abstract class NumericBoxTests<TBox,T>
         : BaseBoxTests
+        where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        protected abstract Func<NumericBox<T>> Creator { get; }
+        protected abstract Func<TBox> Creator { get; }
         protected abstract T Max { get; }
         protected abstract T Min { get; }
         protected abstract T Increment { get; }
@@ -19,7 +20,7 @@
         private DummyVm<T> _vm;
         private BindingExpressionBase _bindingExpression;
 
-        public NumericBox<T> Sut { get { return (NumericBox<T>)Box; } }
+        public TBox Sut { get { return (TBox)Box; } }
 
         [SetUp]
         public void SetUp()

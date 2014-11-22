@@ -81,6 +81,8 @@
     <Compile Include="Validation\ExplicitBinding.cs" />
     <Compile Include="Validation\IsGreaterThanValidationResult.cs" />
     <Compile Include="Validation\IsLessThanValidationResult.cs" />
+    <Compile Include="Validation\IsMatch.cs" />
+    <Compile Include="Validation\IsMatchValidationResult.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

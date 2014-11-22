@@ -1,9 +1,12 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
-    using System.Globalization;
     using System.Windows.Input;
 
+    public interface IDecimals
+    {
+        int? DecimalDigits { get; set; }
+    }
     public interface INumericBox
     {
         string Text { get; set; }
@@ -16,8 +19,6 @@
 
         IFormattable Increment { get; }
 
-        int? Decimals { get; }
-        
         IFormatProvider Culture { get; }
 
         string Suffix { get;  }
