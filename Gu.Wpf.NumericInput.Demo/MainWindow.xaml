@@ -14,6 +14,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
         <ListBox x:Name="ListBox"
                  Grid.Column="0"
                  ItemsSource="{Binding Vms}" />
@@ -49,61 +50,5 @@
                                                 ElementName=ListBox}"
                               ContentTemplate="{StaticResource VmDataTemplate}" />
         </Grid>
-
-        <!--
-            <StackPanel>
-            <GroupBox Header="Default settings">
-            <Grid>
-            <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <numericInput:DoubleBox x:Name="RawBox"
-            Grid.Row="0"
-            Grid.Column="0"
-            Value="{Binding DoubleValue}" />
-            <Expander Grid.Row="1"
-            Grid.Column="0"
-            Header="Debug info">
-            <ContentPresenter Content="{Binding ., ElementName=RawBox}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
-            </Expander>
-            </Grid>
-            </GroupBox>
-            
-            
-            <FrameworkElement Height="20" />
-            
-            <GroupBox Header="Tweaked">
-            <StackPanel>
-            <numericInput:DoubleBox x:Name="TweakedBox"
-            HorizontalAlignment="Left"
-            AllowSpinners="{Binding IsChecked,
-            ElementName=AllowSpinners}"
-            DecimalDigits="{Binding Text,
-            ElementName=Decimals}"
-            Increment="{Binding Text,
-            ElementName=Increment}"
-            IsReadOnly="{Binding IsChecked,
-            ElementName=IsReadOnly}"
-            MaxValue="{Binding Text,
-            ElementName=Max}"
-            MinValue="{Binding Text,
-            ElementName=Min}"
-            RegexPattern="{Binding Text,
-            ElementName=Regex}"
-            Suffix="{Binding Text,
-            ElementName=Suffix}"
-            Value="{Binding DoubleValue,
-            UpdateSourceTrigger=LostFocus}" />
-            <TextBox IsReadOnly="True" Text="{Binding Value, ElementName=TweakedBox, UpdateSourceTrigger=PropertyChanged, StringFormat='Box Value: {0}'}" />
-            <TextBox IsReadOnly="True" Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, StringFormat='Vm Value: {0}'}" />
-            </StackPanel>
-            
-            </GroupBox>
-        -->
     </Grid>
 </Window>

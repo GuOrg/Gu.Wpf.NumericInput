@@ -39,7 +39,7 @@
         {
             get
             {
-                return (int)GetValue(DecimalDigitsProperty);
+                return (int?)GetValue(DecimalDigitsProperty);
             }
             set
             {
