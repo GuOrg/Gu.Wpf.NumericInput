@@ -16,7 +16,7 @@
                 null,
                 FrameworkPropertyMetadataOptions.None,
                 OnDecimalsValueChanged,
-                OnCoerceDecimalsValueChanged));
+                OnCoerceDecimalsValue));
 
         static DecimalBox()
         {

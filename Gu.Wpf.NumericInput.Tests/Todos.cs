@@ -7,19 +7,13 @@
         [Test]
         public void SciFormat()
         {
-            Assert.Fail();
+            Assert.Fail("dunno if we want 1.23E+5");
         }
 
         [Test]
         public void UndoButtonsTest()
         {
             Assert.Fail("Figure out up/down clicks undoable");
-        }
-
-        [Test]
-        public void IncreaseCommandTargetTemplateTextbox()
-        {
-            Assert.Fail("Think current event is overly chatty");
         }
     }
 }
