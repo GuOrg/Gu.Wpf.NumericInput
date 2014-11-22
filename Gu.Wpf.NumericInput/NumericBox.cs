@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Input;
 
     using Validation;
 
@@ -280,7 +281,7 @@
             }
         }
 
-        protected override bool CanIncrease()
+        protected override bool CanIncrease(object parameter)
         {
             if (!CanParse(Text))
             {
@@ -290,19 +291,29 @@
             {
                 return false;
             }
-            return base.CanIncrease();
+            return base.CanIncrease(parameter);
         }
 
-        protected override void Increase()
+        protected override void Increase(object parameter)
         {
-            if (CanIncrease())
+            if (CanIncrease(parameter))
             {
                 var value = AddIncrement();
-                Text = value.ToString(StringFormat, Culture);
+                var text = value.ToString(StringFormat, Culture);
+
+                var textBox = parameter as TextBox;
+                if (textBox != null)
+                {
+                    textBox.SetCurrentValue(TextBox.TextProperty, text);
+                }
+                else
+                {
+                    Text = text;
+                }
             }
         }
 
-        protected override bool CanDecrease()
+        protected override bool CanDecrease(object parameter)
         {
             if (!CanParse(Text))
             {
@@ -312,15 +323,25 @@
             {
                 return false;
             }
-            return base.CanDecrease();
+            return base.CanDecrease(parameter);
         }
 
-        protected override void Decrease()
+        protected override void Decrease(object parameter)
         {
-            if (CanDecrease())
+            if (CanDecrease(parameter))
             {
                 var value = SubtractIncrement();
-                Text = value.ToString(StringFormat, Culture);
+                var text = value.ToString(StringFormat, Culture);
+
+                var textBox = parameter as TextBox;
+                if (textBox != null)
+                {
+                    textBox.SetCurrentValue(TextBox.TextProperty, text);
+                }
+                else
+                {
+                    Text = text;
+                }
             }
         }
 

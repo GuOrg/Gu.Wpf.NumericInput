@@ -13,7 +13,7 @@
     </Style>
 
     <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Focusable" Value="True" />
         <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding AllowSpinners, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
@@ -95,7 +95,8 @@
                 <ControlTemplate TargetType="{x:Type local:BaseBox}">
                     <Border Margin="{TemplateBinding Padding}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            FocusManager.FocusedElement="{Binding ElementName=TextBox}">
                         <Grid Height="{Binding ActualHeight, ElementName=TextBox}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -208,6 +209,7 @@
                                 <RepeatButton Grid.Row="0"
                                               Grid.Column="0"
                                               Command="{TemplateBinding IncreaseCommand}"
+                                              CommandParameter="{Binding ElementName=TextBox}"
                                               FocusManager.FocusedElement="{Binding ElementName=TextBox}"
                                               Style="{StaticResource SpinnerButtonStyle}">
                                     <RepeatButton.Content>
@@ -217,6 +219,7 @@
 
                                 <RepeatButton Grid.Row="1"
                                               Command="{TemplateBinding DecreaseCommand}"
+                                              CommandParameter="{Binding ElementName=TextBox}"
                                               FocusManager.FocusedElement="{Binding ElementName=TextBox}"
                                               Style="{StaticResource SpinnerButtonStyle}">
                                     <RepeatButton.Content>
