@@ -64,7 +64,7 @@
             new FrameworkPropertyMetadata(
                 default(T),
                 FrameworkPropertyMetadataOptions.None,
-                OnMaxValueChanged));
+                (o, e) => ((NumericBox<T>)o).CheckSpinners()));
 
         /// <summary>
         /// Identifies the MinValue property
@@ -76,7 +76,7 @@
             new FrameworkPropertyMetadata(
                 default(T),
                 FrameworkPropertyMetadataOptions.None,
-                OnMinValueChanged));
+                (o, e) => ((NumericBox<T>)o).CheckSpinners()));
 
         private readonly Func<T, T, T> _add;
         private readonly Func<T, T, T> _subtract;
@@ -227,8 +227,15 @@
 
         protected static void UpdateMetadata(Type type, T increment)
         {
-            TextProperty.OverrideMetadata(type, new FrameworkPropertyMetadata("0", FrameworkPropertyMetadataOptions.NotDataBindable, OnCurrentTextChanged));
-            IsReadOnlyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsReadOnlyChanged));
+            TextProperty.OverrideMetadata(
+                type, new FrameworkPropertyMetadata(
+                    "0", 
+                    FrameworkPropertyMetadataOptions.NotDataBindable,
+                    (o, e) => ((NumericBox<T>)o).CheckSpinners()));
+            IsReadOnlyProperty.OverrideMetadata(
+                type, 
+                new FrameworkPropertyMetadata(
+                    (o, e) => ((NumericBox<T>)o).CheckSpinners()));
 
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
@@ -242,20 +249,11 @@
             {
                 var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
                 RaiseEvent(args);
+                CheckSpinners();
             }
         }
 
-        protected virtual void OnMinValueChanged(object newValue, object oldValue)
-        {
-            CheckSpinners();
-        }
-
-        protected virtual void OnMaxValueChanged(object newValue, object oldValue)
-        {
-            CheckSpinners();
-        }
-
-        protected virtual object OnCoerceDecimalsValueChanged(object value)
+        protected virtual object OnCoerceDecimalsValue(object value)
         {
             var decimals = (int?)value;
 
@@ -333,21 +331,6 @@
             }
         }
 
-        protected virtual T ValidateValue(T value)
-        {
-            if (Comparer<T>.Default.Compare(value, MaxValue) == 1)
-            {
-                return MaxValue;
-            }
-
-            if (Comparer<T>.Default.Compare(value, MinValue) == -1)
-            {
-                return MinValue;
-            }
-
-            return value;
-        }
-
         protected static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var numericBox = (NumericBox<T>)d;
@@ -361,12 +344,12 @@
             }
         }
 
-        protected static object OnCoerceDecimalsValueChanged(DependencyObject d, object value)
+        protected static object OnCoerceDecimalsValue(DependencyObject d, object value)
         {
             var numericBox = d as NumericBox<T>;
             if (numericBox != null)
             {
-                return numericBox.OnCoerceDecimalsValueChanged(value);
+                return numericBox.OnCoerceDecimalsValue(value);
             }
             else
             {
@@ -382,37 +365,6 @@
                 numericBox.OnValueChanged(e.NewValue, e.OldValue);
                 numericBox.CheckSpinners();
             }
-        }
-
-        private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
-            {
-                numericBox.OnMaxValueChanged(e.NewValue, e.OldValue);
-                numericBox.CheckSpinners();
-            }
-        }
-
-        private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
-            {
-                numericBox.OnMinValueChanged(e.NewValue, e.OldValue);
-                numericBox.CheckSpinners();
-            }
-        }
-
-        private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var baseUpDown = (NumericBox<T>)d;
-            baseUpDown.CheckSpinners();
-        }
-
-        private static void OnCurrentTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((NumericBox<T>)d).CheckSpinners();
         }
 
         private T AddIncrement()
