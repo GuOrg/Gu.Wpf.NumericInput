@@ -11,7 +11,7 @@
 
         public IsMatch(Func<string> pattern)
         {
-            this._pattern = pattern;
+            _pattern = pattern;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
