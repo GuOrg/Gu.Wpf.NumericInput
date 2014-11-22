@@ -5,7 +5,7 @@
 
     public class CanParseValidationResult : ValidationResult
     {
-        public CanParseValidationResult(Type type, String text, bool isValid, object errorContent)
+        public CanParseValidationResult(Type type, string text, bool isValid, object errorContent)
             : base(isValid, errorContent)
         {
             Type = type;

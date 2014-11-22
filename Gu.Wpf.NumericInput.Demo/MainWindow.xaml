@@ -17,7 +17,8 @@
 
         <ListBox x:Name="ListBox"
                  Grid.Column="0"
-                 ItemsSource="{Binding Vms}" />
+                 ItemsSource="{Binding Vms}"
+                 SelectedIndex="1" />
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

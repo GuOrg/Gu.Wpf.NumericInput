@@ -84,7 +84,9 @@
     <Compile Include="Validation\IsMatch.cs" />
     <Compile Include="Validation\IsMatchValidationResult.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\Annotations.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>

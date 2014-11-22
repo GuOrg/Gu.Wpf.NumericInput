@@ -25,7 +25,7 @@
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange)
                 {
                     DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                    CoerceValueCallback = OnSuffixCoerce 
+                    CoerceValueCallback = OnSuffixCoerce
                 });
 
         private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -38,20 +38,20 @@
         /// Identifies the Culture property
         /// </summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
-            "Culture", 
-            typeof (IFormatProvider), 
-            typeof (BaseBox), 
+            "Culture",
+            typeof(IFormatProvider),
+            typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
-                FrameworkPropertyMetadataOptions.AffectsMeasure|FrameworkPropertyMetadataOptions.Inherits));
+                FrameworkPropertyMetadataOptions.None));
 
         /// <summary>
         /// Identifies the RegexPattern property
         /// </summary>
         public static readonly DependencyProperty RegexPatternProperty = DependencyProperty.Register(
-            "RegexPattern", 
-            typeof(string), 
-            typeof(BaseBox), 
+            "RegexPattern",
+            typeof(string),
+            typeof(BaseBox),
             new PropertyMetadata(default(string)));
 
         /// <summary>
@@ -145,7 +145,6 @@
                 SetValue(StringFormatPropertyKey, value);
             }
         }
-
 
         /// <summary>
         /// Regex pattern for validation

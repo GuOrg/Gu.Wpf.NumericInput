@@ -31,10 +31,10 @@
             {
                 var dp = (DependencyProperty)fieldInfo.GetValue(null);
                 var metadata = dp.DefaultMetadata as FrameworkPropertyMetadata;
-                //if (metadata != null && !metadata.Inherits)
-                //{
-                //    Console.WriteLine("{0} = \"{{TemplateBinding {0}}}\"", dp.Name);
-                //}
+                ////if (metadata != null && !metadata.Inherits)
+                ////{
+                ////    Console.WriteLine("{0} = \"{{TemplateBinding {0}}}\"", dp.Name);
+                ////}
                 Console.WriteLine("{0} = \"{{TemplateBinding {0}}}\" <!-- Inherits: {1} -->", dp.Name, metadata != null ? metadata.Inherits.ToString() : "false");
             }
             Console.WriteLine();
