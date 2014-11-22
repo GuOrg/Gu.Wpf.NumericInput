@@ -13,14 +13,15 @@ namespace Gu.Wpf.NumericInput.Tests
         public void AppendDecimalDoesNotTruncateText()
         {
             Sut.Text = "1";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+            Assert.AreEqual(1, Sut.Value);
             Assert.AreEqual("1", Sut.Text);
+            
             Sut.Text = "1.";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+            Assert.AreEqual(1, Sut.Value);
             Assert.AreEqual("1.", Sut.Text);
 
             Sut.Text = "1.0";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+            Assert.AreEqual(1, Sut.Value);
             Assert.AreEqual("1.0", Sut.Text);
         }
 
@@ -38,6 +39,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase(2, "1.234", "1.23", "1.234")]
         public void ValueNotAffectedByDecimalDigits(int decimals, string text, string expectedText, string expected)
         {
+            Sut.DecimalDigits = 3;
             Sut.Text = text;
             Sut.DecimalDigits = decimals;
             Assert.AreEqual(expectedText, Sut.Text);

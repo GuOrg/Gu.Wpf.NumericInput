@@ -6,16 +6,16 @@
 
     internal class ManualRelayCommand : ICommand
     {
-        private readonly Action _action;
-        private readonly Func<bool> _condition;
+        private readonly Action<object> _action;
+        private readonly Func<object, bool> _condition;
         private bool? _previousCanExecute = null;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="action"></param>
         /// <param name="condition"></param>
-        /// <param name="raiseCanExecuteOnDispatcher">Default true, use false in tests</param>
-        internal ManualRelayCommand(Action action, Func<bool> condition)
+        internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
         {
             if (action == null)
             {
@@ -58,7 +58,7 @@
             if (handler != null)
             {
                 var application = Application.Current;
-                if ( application != null && application.Dispatcher != null)
+                if (application != null && application.Dispatcher != null)
                 {
                     application.Dispatcher.BeginInvoke(new Action(() => handler(this, EventArgs.Empty)));
                 }
@@ -69,14 +69,14 @@
             }
         }
 
-        public bool CanExecute(object _)
+        public bool CanExecute(object parameter)
         {
-            return _condition();
+            return _condition(parameter);
         }
 
-        public void Execute(object _)
+        public void Execute(object parameter)
         {
-            _action();
+            _action(parameter);
             RaiseCanExecuteChanged();
         }
 
