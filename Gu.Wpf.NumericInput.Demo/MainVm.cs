@@ -15,9 +15,9 @@
             _vms = new ObservableCollection<IBoxVm>
                        {
                            new BoxVm<double>(typeof(DoubleBox)),
-                           new BoxVm<double>(typeof(DoubleBox), -10, 10,1),
+                           new BoxVm<double>(typeof(DoubleBox), -10, 10, 1),
                            new BoxVm<int>(typeof(IntBox)),
-                           new BoxVm<int>(typeof(IntBox), -10, 10,1)
+                           new BoxVm<int>(typeof(IntBox), -10, 10, 1)
                        };
         }
 

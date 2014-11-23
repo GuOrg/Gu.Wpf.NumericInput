@@ -15,7 +15,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.Text = "1";
             Assert.AreEqual(1, Sut.Value);
             Assert.AreEqual("1", Sut.Text);
-            
+
             Sut.Text = "1.";
             Assert.AreEqual(1, Sut.Value);
             Assert.AreEqual("1.", Sut.Text);
@@ -67,6 +67,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.Text = text;
             Sut.DecimalDigits = decimals1;
             Assert.AreEqual(expected1, Sut.Text);
+            Assert.AreEqual(text, Sut.Value.ToString(CultureInfo.InvariantCulture));
 
             Sut.DecimalDigits = decimals2;
             Assert.AreEqual(expected2, Sut.Text);
@@ -90,6 +91,23 @@ namespace Gu.Wpf.NumericInput.Tests
             Sut.Text = "1.23";
             var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual("1.23", actual);
+        }
+
+        [TestCase("sv-SE", "1,23", "en-US", "1.2", "1.23")]
+        [TestCase("en-US", "1.23", "sv-SE", "1,2", "1.23")]
+        [TestCase("en-US", "1.23e", "sv-SE", "1.23e", "0")]
+        public void ChangeCultureDoesNotTruncDecimals(string culture1, string text, string culture2, string expected, string expectedValue)
+        {
+            Sut.DecimalDigits = 1;
+            Sut.Culture = new CultureInfo(culture1);
+            Sut.Text = text;
+            var value1 = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expectedValue, value1);
+
+            Sut.Culture = new CultureInfo(culture2);
+            Assert.AreEqual(expected, Sut.Text);
+            var value2 = Sut.Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expectedValue, value2);
         }
     }
 }

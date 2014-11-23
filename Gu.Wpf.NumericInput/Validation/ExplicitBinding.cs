@@ -21,12 +21,12 @@
             typeof(ExplicitBinding),
             new PropertyMetadata(default(string)));
 
-        internal static void SetTextProxy(BaseBox element, string value)
+        internal static void SetTextProxy(INumericBox element, string value)
         {
             element.SetValue(TextProxyProperty, value);
         }
 
-        internal static string GetTextProxy(BaseBox element)
+        internal static string GetTextProxy(INumericBox element)
         {
             return (string)element.GetValue(TextProxyProperty);
         }
@@ -51,16 +51,19 @@
 
         private readonly BindingExpressionBase _bindingExpression;
 
+        private StringFormatConverter _stringFormatConverter;
+
         public ExplicitBinding(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
             _numericBox = numericBox;
+            this._stringFormatConverter = new StringFormatConverter(numericBox);
             var binding = new Binding(NumericBox<T>.ValueProperty.Name)
             {
                 Source = numericBox,
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
                 NotifyOnValidationError = true,
-                Converter = new StringFormatConverter(numericBox)
+                Converter = this._stringFormatConverter
             };
             foreach (var rule in rules)
             {
@@ -75,6 +78,10 @@
         }
 
         public event EventHandler<ValidationErrorEventArgs> ValidationFailed;
+
+        public bool IsUpdatingText { get; set; }
+       
+        public bool IsUpdatingValue { get; set; }
 
         public bool HasValidationError
         {
@@ -107,19 +114,26 @@
 
         public void UpdateValue()
         {
+            IsUpdatingValue = true;
             _bindingExpression.UpdateSource();
+            IsUpdatingValue = false;
         }
 
         public void UpdateTextProxy()
         {
+            IsUpdatingText = true;
             _bindingExpression.UpdateTarget();
+            _numericBox.Text = _stringFormatConverter.FormattedText;
+            IsUpdatingText = false;
         }
 
         public void UpdateFormat()
         {
             if (!_bindingExpression.HasValidationError)
             {
-                _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
+                IsUpdatingText = true;
+                _numericBox.Text = _stringFormatConverter.FormattedText;
+                IsUpdatingText = false;
             }
         }
 

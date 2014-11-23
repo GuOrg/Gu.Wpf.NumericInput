@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="INumericBox.cs" />
     <Compile Include="StringFormatConverter.cs" />
-    <Compile Include="StringFormatConverterExtension.cs" />
     <Compile Include="ManualRelayCommand.cs" />
     <Compile Include="BaseBox.cs" />
     <Compile Include="DecimalBox.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Validation\IsLessThanValidationResult.cs" />
     <Compile Include="Validation\IsMatch.cs" />
     <Compile Include="Validation\IsMatchValidationResult.cs" />
+    <Compile Include="Validation\StringHelper.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\Annotations.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
