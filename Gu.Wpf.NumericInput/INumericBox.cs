@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
+    using System.Windows;
     using System.Windows.Input;
 
     public interface IDecimals
@@ -39,9 +40,13 @@
         /// Decreases the value by increment
         /// </summary>
         ICommand DecreaseCommand { get; }
-        
-        string FormattedText { get; }
 
         IFormattable Parse(string s);
+
+        bool CanParse(string s);
+
+        void SetValue(DependencyProperty property, object value);
+
+        object GetValue(DependencyProperty property);
     }
 }

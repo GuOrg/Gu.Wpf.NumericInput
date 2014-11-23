@@ -1,13 +1,14 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
 
     using NUnit.Framework;
-    public abstract class NumericBoxTests<TBox,T>
+    public abstract class NumericBoxTests<TBox, T>
         : BaseBoxTests
         where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -108,18 +109,31 @@
             Assert.AreEqual(expected2, Validation.GetHasError(Sut));
         }
 
-        [TestCase("9", false)]
-        [TestCase("10", false)]
-        [TestCase("11", true)]
-        [TestCase("-9", false)]
-        [TestCase("-10", false)]
-        [TestCase("-11", true)]
-        [TestCase("1e", true)]
-        public void SetTextValidates(string text, bool expected)
+        [TestCase("9", 9, false)]
+        [TestCase("10", 10, false)]
+        [TestCase("11", 0, true)]
+        [TestCase("-9", -9, false)]
+        [TestCase("-10", -10, false)]
+        [TestCase("-11", 0, true)]
+        [TestCase("1e", 0, true)]
+        public void SetTextValidates(string text, T expectedValue, bool expected)
         {
             Sut.Text = text;
             Assert.AreEqual(expected, Validation.GetHasError(Sut));
             Assert.AreEqual(text, Sut.Text);
+            Assert.AreEqual(Sut.Value, expectedValue);
+        }
+
+        [TestCase(1, "11", true, "1", false)]
+        public void SetTextTwiceTest(T vmValue, string text1, bool expected1, string text2, bool expected2)
+        {
+            _vm.Value = vmValue;
+            Sut.Text = text1;
+            Assert.AreEqual(expected1, Validation.GetHasError(Sut));
+
+            Sut.Text = text2;
+            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
+            //Assert.Fail("11 -> 1");
         }
 
         [TestCase(8)]
@@ -223,10 +237,9 @@
             Assert.AreEqual(expected, Sut.Value);
         }
 
-        [Test]
+        [Test, Explicit("Can't test this yet")]
         public void IncreaseCommand_Execute_Undo()
         {
-            // Not sure this can be tested
             Sut.IsUndoEnabled = true;
             Sut.Text = "0";
             Sut.IncreaseCommand.Execute(null);
@@ -235,7 +248,7 @@
             Assert.AreEqual("0", Sut.Text);
         }
 
-        [Test]
+        [Test, Explicit("Can't test this yet")]
         public void DecreaseCommand_Execute_Undo()
         {
             // Not sure this can be tested
@@ -263,14 +276,16 @@
             Assert.AreEqual("1", Sut.Text);
         }
 
-        [TestCase(1)]
-        public void ErrorTextResetsValueFromSource(T expected)
+        [Test]
+        public void ValidationErrorResetsValue()
         {
             Sut.Text = "1";
-            Assert.AreEqual(expected, Sut.GetValue(NumericBox<T>.ValueProperty));
+            Assert.AreEqual("1", Sut.Value.ToString(CultureInfo.InvariantCulture));
             Sut.Text = "1e";
-            var actual = (T)Sut.GetValue(NumericBox<T>.ValueProperty);
+
             var hasError = Validation.GetHasError(Box);
+            Assert.AreEqual("1e", Sut.Text);
+            var actual = Sut.Value;
             Assert.AreEqual(_vm.Value, actual);
             Assert.IsTrue(hasError);
         }

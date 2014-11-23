@@ -19,6 +19,7 @@
         private bool _isReadonly;
         private string _suffix;
         private string _regexPattern;
+        private T _increment;
 
         public BoxVm(Type type)
         {
@@ -143,14 +144,14 @@
 
         public T Increment
         {
-            get { return _value; }
+            get { return _increment; }
             set
             {
-                if (value.Equals(_value))
+                if (value.Equals(_increment))
                 {
                     return;
                 }
-                _value = value;
+                _increment = value;
                 OnPropertyChanged();
             }
         }
