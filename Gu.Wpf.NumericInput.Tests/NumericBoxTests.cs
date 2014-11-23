@@ -223,6 +223,31 @@
             Assert.AreEqual(expected, Sut.Value);
         }
 
+        [Test]
+        public void IncreaseCommand_Execute_Undo()
+        {
+            // Not sure this can be tested
+            Sut.IsUndoEnabled = true;
+            Sut.Text = "0";
+            Sut.IncreaseCommand.Execute(null);
+            Assert.IsTrue(Sut.CanUndo);
+            Sut.Undo();
+            Assert.AreEqual("0", Sut.Text);
+        }
+
+        [Test]
+        public void DecreaseCommand_Execute_Undo()
+        {
+            // Not sure this can be tested
+            var window = Sut.ShowInWindow();
+            Sut.IsUndoEnabled = true;
+            Sut.Text = "0";
+            Sut.DecreaseCommand.Execute(null);
+            Assert.IsTrue(Sut.CanUndo);
+            Sut.Undo();
+            Assert.AreEqual("0", Sut.Text);
+            window.Close();
+        }
 
         [Test]
         public void ValueUpdatesWhenTextIsSet()

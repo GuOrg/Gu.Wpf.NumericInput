@@ -288,18 +288,7 @@
                 var text = value.ToString(StringFormat, Culture);
 
                 var textBox = parameter as TextBox;
-                if (textBox != null)
-                {
-                    // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
-                    // Dunno if nice, testing it for now
-                    textBox.SelectAll();
-                    textBox.SelectedText = text;
-                    textBox.Select(0, 0);
-                }
-                else
-                {
-                    Text = text;
-                }
+                SetTextUndoable(textBox ?? this, text);
             }
         }
 
@@ -324,18 +313,7 @@
                 var text = value.ToString(StringFormat, Culture);
 
                 var textBox = parameter as TextBox;
-                if (textBox != null)
-                {
-                    // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
-                    // Dunno if nice, testing it for now
-                    textBox.SelectAll();
-                    textBox.SelectedText = text;
-                    textBox.Select(0, 0);
-                }
-                else
-                {
-                    Text = text;
-                }
+                SetTextUndoable(textBox ?? this, text);
             }
         }
 
@@ -373,6 +351,15 @@
                 numericBox.OnValueChanged(e.NewValue, e.OldValue);
                 numericBox.CheckSpinners();
             }
+        }
+
+        private static void SetTextUndoable(TextBox textBox, string text)
+        {
+            // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
+            // Dunno if nice, testing it for now
+            textBox.SelectAll();
+            textBox.SelectedText = text;
+            textBox.Select(0, 0);
         }
 
         private T AddIncrement()

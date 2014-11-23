@@ -68,6 +68,7 @@
     <Compile Include="BaseBoxTests.cs" />
     <Compile Include="FloatBaseTests.cs" />
     <Compile Include="FloatBoxTests.cs" />
+    <Compile Include="Helpers\UiTestHelper.cs" />
     <Compile Include="Helpers\DummyVm.cs" />
     <Compile Include="IntBoxTests.cs" />
     <Compile Include="LongBoxTests.cs" />
