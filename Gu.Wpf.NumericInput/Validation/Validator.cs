@@ -25,8 +25,6 @@
         private readonly ExplicitBinding<T> _proxyBinding;
         private readonly NumericBox<T> _numericBox;
 
-        private bool _isUpdatingValue;
-        private bool _isUpdatingText;
         public Validator(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
             _numericBox = numericBox;
@@ -53,17 +51,16 @@
         {
             if (!this.IsTextChanged())
             {
+                _proxyBinding.ExplicitValidate();
                 return;
             }
             _numericBox.SetCurrentValue(ExplicitBinding<T>.TextProxyProperty, _numericBox.Text);
-            if (!_isUpdatingText)
+            if (!_proxyBinding.IsUpdatingText)
             {
-                _isUpdatingValue = true;
                 if (!_proxyBinding.HasValidationError)
                 {
                     _proxyBinding.UpdateValue();
                 }
-                _isUpdatingValue = false;
             }
             else
             {
@@ -73,24 +70,20 @@
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)
         {
-            if (_isUpdatingValue)
+            if (_proxyBinding.IsUpdatingValue)
             {
                 return;
             }
-            _isUpdatingText = true;
             _proxyBinding.UpdateTextProxy();
-            _numericBox.Text = _proxyBinding.ProxyText;
-            _proxyBinding.ExplicitValidate();
-            _isUpdatingText = false;
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
             if (!_proxyBinding.HasValidationError)
             {
-                _isUpdatingText = true;
+                _proxyBinding.IsUpdatingText = true;
                 _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
-                _isUpdatingText = false;
+                _proxyBinding.IsUpdatingText = false;
             }
         }
 
@@ -99,7 +92,9 @@
             var expression = ValueBinding;
             if (expression != null)
             {
+                _proxyBinding.IsUpdatingValue = true;
                 ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
+                _proxyBinding.IsUpdatingValue = false;
             }
         }
 
@@ -111,19 +106,8 @@
             {
                 return false;
             }
-            if (_numericBox.CanParse(viewText) && _numericBox.CanParse(proxyText))
+            if (viewText.HasMoreDecimalDigitsThan(proxyText, _numericBox))
             {
-                var viewValue = _numericBox.Parse(viewText);
-                var s1 = viewValue.ToString(_numericBox.StringFormat, _numericBox.Culture);
-                var s2 = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
-                if (s1 != s2)
-                {
-                    return true;
-                }
-                if (viewText == s1)
-                {
-                    return false;
-                }
                 return true;
             }
             return proxyText != viewText;

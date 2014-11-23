@@ -208,14 +208,6 @@
             get { return Parse(Text); }
         }
 
-        /// <summary>
-        /// Value.ToString(StringFormat, Culture)
-        /// </summary>
-        public string FormattedText
-        {
-            get { return Value.ToString(StringFormat, Culture); }
-        }
-
         public abstract bool CanParse(string s);
 
         public abstract T Parse(string s);
