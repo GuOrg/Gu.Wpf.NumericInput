@@ -15,6 +15,7 @@ Features:
 - Uses standard .net parsing of strings.
 - Uses explicit culture. Not sure this is ideal but did it any way. The dp inherits.
 - Extends the wpf textbox
+- Compatible with textbox undo/redo. Up/down also.
 
 Sample:
     
