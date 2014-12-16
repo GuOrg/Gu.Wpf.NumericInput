@@ -54,7 +54,7 @@
                 _proxyBinding.ExplicitValidate();
                 return;
             }
-            _numericBox.SetCurrentValue(ExplicitBinding<T>.TextProxyProperty, _numericBox.Text);
+            _numericBox.SetCurrentValue(ExplicitBinding.TextProxyProperty, _numericBox.Text);
             if (!_proxyBinding.IsUpdatingText)
             {
                 if (!_proxyBinding.HasValidationError)
