@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
 
     using Gu.Wpf.NumericInput.Demo.Annotations;
 
@@ -132,7 +133,7 @@
                     return;
                 }
                 _value = value;
-                OnPropertyChanged();
+                this.OnPropertyChanged();
             }
         }
 

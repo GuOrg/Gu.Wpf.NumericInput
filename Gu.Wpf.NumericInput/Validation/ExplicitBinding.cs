@@ -139,13 +139,6 @@
 
         public void ExplicitValidate()
         {
-#if DEBUG
-            var propertyInfo = _bindingExpression.GetType()
-                                                 .GetProperty("NeedsValidation", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var needsValidation = (bool)propertyInfo.GetValue(_bindingExpression);
-            ProxyText = ProxyText; //// Trying this to set NeedsValidation to true.  
-            needsValidation = (bool)propertyInfo.GetValue(_bindingExpression);
-#endif
             ProxyText = ProxyText; //// Trying this to set NeedsValidation to true. 
             _bindingExpression.ValidateWithoutUpdate();
         }
