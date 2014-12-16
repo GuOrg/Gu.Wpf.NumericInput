@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput", "Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj", "{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}"
 EndProject
@@ -18,6 +18,21 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfshub.sandvik.com:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Gu.Wpf.NumericInput.Demo\\Gu.Wpf.NumericInput.Demo.csproj
+		SccProjectName1 = Gu.Wpf.NumericInput.Demo
+		SccLocalPath1 = Gu.Wpf.NumericInput.Demo
+		SccProjectUniqueName2 = Gu.Wpf.NumericInput.Tests\\Gu.Wpf.NumericInput.Tests.csproj
+		SccProjectName2 = Gu.Wpf.NumericInput.Tests
+		SccLocalPath2 = Gu.Wpf.NumericInput.Tests
+		SccProjectUniqueName3 = Gu.Wpf.NumericInput\\Gu.Wpf.NumericInput.csproj
+		SccProjectName3 = Gu.Wpf.NumericInput
+		SccLocalPath3 = Gu.Wpf.NumericInput
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateNugetPackage|Any CPU = CreateNugetPackage|Any CPU
 		Debug|Any CPU = Debug|Any CPU
