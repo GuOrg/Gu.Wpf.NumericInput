@@ -103,6 +103,9 @@
                 new FrameworkPropertyMetadata(typeof(BaseBox)));
         }
 
+        /// <summary>
+        /// Creates an instance of <see cref="T:Gu.NumericInput.BaseBox"/>
+        /// </summary>
         protected BaseBox()
         {
             IncreaseCommand = new ManualRelayCommand(Increase, CanIncrease);

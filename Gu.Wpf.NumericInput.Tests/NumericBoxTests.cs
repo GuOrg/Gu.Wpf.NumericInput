@@ -240,7 +240,8 @@
         [Test, Explicit("Can't test this yet")]
         public void IncreaseCommand_Execute_Undo()
         {
-            Sut.IsUndoEnabled = true;
+            Assert.IsTrue(Sut.IsUndoEnabled);
+            Assert.AreEqual(100, Sut.UndoLimit);
             Sut.Text = "0";
             Sut.IncreaseCommand.Execute(null);
             Assert.IsTrue(Sut.CanUndo);
