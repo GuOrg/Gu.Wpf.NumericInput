@@ -9,7 +9,7 @@
 
     using Gu.Wpf.NumericInput.Demo.Annotations;
 
-    public class BoxVm<T> : IBoxVm
+    public class BoxVm<T> : IBoxVm, IDataErrorInfo
     {
         private T _value;
         private T _min;
@@ -276,6 +276,21 @@
                 return null;
             }
             return dependencyProperty.GetValue(instance);
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Value" && Equals(Value, 3))
+                {
+                    return "IDataErrorInfo says anything but 3 please!";
+                }
+                return null;
+            }
+        }
+        public string Error
+        {
+            get { return string.Empty; }
         }
     }
 }
