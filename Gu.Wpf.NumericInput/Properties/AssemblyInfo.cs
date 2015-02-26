@@ -3,12 +3,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Resources;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Gu.Wpf.NumericControls")]
+[assembly: AssemblyTitle("Gu.Wpf.NumericInput")]
 [assembly: AssemblyDescription("Controls for numeric input")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Johan Larsson")]
@@ -52,9 +53,11 @@ using System.Resources;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.1.1.0")]
-[assembly: AssemblyFileVersion("0.1.1.0")]
+[assembly: AssemblyVersion("0.1.1.1")]
+[assembly: AssemblyFileVersion("0.1.1.1")]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Demo", AllInternalsVisible = true)]
+[assembly: XmlnsDefinition("http://gu.se/NumericInput", "Gu.Wpf.NumericInput")]
+[assembly: XmlnsPrefix("http://gu.se/NumericInput", "numeric")]
