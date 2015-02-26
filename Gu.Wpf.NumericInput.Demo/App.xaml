@@ -2,12 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
-             xmlns:numericInput="clr-namespace:Gu.Wpf.NumericInput;assembly=Gu.Wpf.NumericInput"
+             xmlns:numeric="http://gu.se/NumericInput"
              xmlns:validation="clr-namespace:Gu.Wpf.NumericInput.Validation;assembly=Gu.Wpf.NumericInput"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numericInput:INumericBox}">
+        <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numeric:INumericBox}">
             <StackPanel IsEnabled="False">
                 <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />
                 <TextBlock Text="{Binding Value, StringFormat='Value: {0}'}" />
@@ -141,7 +141,7 @@
             <demo:BoxTemplateSelector.Double>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
                     <StackPanel>
-                        <numericInput:DoubleBox x:Name="Box" Value="{Binding Value}" />
+                        <numeric:DoubleBox x:Name="Box" Value="{Binding Value}" />
                         <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
                     </StackPanel>
                 </DataTemplate>
@@ -150,17 +150,17 @@
             <demo:BoxTemplateSelector.DoubleTweaked>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
                     <StackPanel>
-                        <numericInput:DoubleBox x:Name="Box"
-                                                AllowSpinners="{Binding AllowSpinners}"
-                                                Culture="{Binding Culture}"
-                                                DecimalDigits="{Binding DecimalDigits}"
-                                                Increment="{Binding Increment}"
-                                                IsReadOnly="{Binding IsReadonly}"
-                                                MaxValue="{Binding Max}"
-                                                MinValue="{Binding Min}"
-                                                RegexPattern="{Binding RegexPattern}"
-                                                Suffix="{Binding Suffix}"
-                                                Value="{Binding Value}" />
+                        <numeric:DoubleBox x:Name="Box"
+                                           AllowSpinners="{Binding AllowSpinners}"
+                                           Culture="{Binding Culture}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Increment="{Binding Increment}"
+                                           IsReadOnly="{Binding IsReadonly}"
+                                           MaxValue="{Binding Max}"
+                                           MinValue="{Binding Min}"
+                                           RegexPattern="{Binding RegexPattern}"
+                                           Suffix="{Binding Suffix}"
+                                           Value="{Binding Value}" />
                         <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
                     </StackPanel>
                 </DataTemplate>
@@ -169,7 +169,7 @@
             <demo:BoxTemplateSelector.Int>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
                     <StackPanel>
-                        <numericInput:IntBox x:Name="Box" Value="{Binding Value}" />
+                        <numeric:IntBox x:Name="Box" Value="{Binding Value}" />
                         <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
                     </StackPanel>
                 </DataTemplate>
@@ -178,16 +178,16 @@
             <demo:BoxTemplateSelector.IntTweaked>
                 <DataTemplate DataType="{x:Type demo:IBoxVm}">
                     <StackPanel>
-                        <numericInput:IntBox x:Name="Box"
-                                             AllowSpinners="{Binding AllowSpinners}"
-                                             Culture="{Binding Culture}"
-                                             Increment="{Binding Increment}"
-                                             IsReadOnly="{Binding IsReadonly}"
-                                             MaxValue="{Binding Max}"
-                                             MinValue="{Binding Min}"
-                                             RegexPattern="{Binding RegexPattern}"
-                                             Suffix="{Binding Suffix}"
-                                             Value="{Binding Value}" />
+                        <numeric:IntBox x:Name="Box"
+                                        AllowSpinners="{Binding AllowSpinners}"
+                                        Culture="{Binding Culture}"
+                                        Increment="{Binding Increment}"
+                                        IsReadOnly="{Binding IsReadonly}"
+                                        MaxValue="{Binding Max}"
+                                        MinValue="{Binding Min}"
+                                        RegexPattern="{Binding RegexPattern}"
+                                        Suffix="{Binding Suffix}"
+                                        Value="{Binding Value}" />
                         <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
                     </StackPanel>
                 </DataTemplate>
