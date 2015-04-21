@@ -7,36 +7,55 @@
              xmlns:numeric="http://gu.se/NumericInput"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             >
+    <UserControl.Resources>
+        <Style x:Key="Meh" TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="MinLines" Value="1" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <WrapPanel Orientation="Vertical">
             <GroupBox Header="Textbox">
-                <TextBox Width="120"
-                         HorizontalAlignment="Left"
-                         FontSize="14"
-                         Text="{Binding Value}" />
+                <TextBox HorizontalAlignment="Left"
+                         VerticalAlignment="Stretch"
+                         AllowDrop="True"
+                         Style="{StaticResource Meh}"
+                         Text="Aj"
+                         />
             </GroupBox>
             <GroupBox Header="Default style">
-                <numeric:DoubleBox Width="120"
-                                   HorizontalAlignment="Left"
-                                   AllowSpinners="True"
-                                   FontSize="12"
+                <numeric:DoubleBox HorizontalAlignment="Left"
+                                   AllowSpinners="False"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
-                                   Value="{Binding Value}" />
+                                   Style="{StaticResource Meh}"
+                                   Value="{Binding Value}"
+                                   />
             </GroupBox>
 
             <GroupBox Header="No spinners style and simple validation template">
                 <numeric:DoubleBox Width="120"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   FontSize="12"
-                                   Padding="10"
+                                   FontSize="36"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
+                                   Padding="10"
                                    Style="{StaticResource BaseUpDownNoSpinners}"
                                    Validation.ErrorTemplate="{StaticResource SimpleValidationErrorTemplate}"
-                                   Value="{Binding Value}" />
+                                   Value="{Binding Value}"
+                                   />
             </GroupBox>
         </WrapPanel>
     </Grid>
