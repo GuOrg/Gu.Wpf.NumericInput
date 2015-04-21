@@ -59,10 +59,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BoxTemplateSelector.cs" />
+    <Compile Include="DoubleBoxView.xaml.cs">
+      <DependentUpon>DoubleBoxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IBoxVm.cs" />
     <Compile Include="MainVm.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="BoxVm.cs" />
+    <Page Include="DoubleBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

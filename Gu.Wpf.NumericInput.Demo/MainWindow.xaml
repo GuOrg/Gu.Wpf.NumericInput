@@ -9,48 +9,57 @@
         Height="350"
         d:DataContext="{d:DesignInstance demo:MainVm}"
         mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <TabControl>
+        <TabItem Header="Debug">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="ListBox"
-                 Grid.Column="0"
-                 ItemsSource="{Binding Vms}"
-                 SelectedIndex="1" />
+                <ListBox x:Name="ListBox"
+                         Grid.Column="0"
+                         ItemsSource="{Binding Vms}"
+                         SelectedIndex="1" />
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <GroupBox Grid.Row="0"
-                      Grid.Column="0"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      HorizontalContentAlignment="Left"
-                      VerticalContentAlignment="Top"
-                      Header="{Binding SelectedItem,
-                                       ElementName=ListBox}">
-                <ContentPresenter Content="{Binding SelectedItem, ElementName=ListBox}" ContentTemplateSelector="{StaticResource BoxTemplateSelector}" />
-            </GroupBox>
-            <ContentPresenter Grid.Row="1"
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Row="0"
                               Grid.Column="0"
-                              Content="{Binding SelectedItem,
-                                                ElementName=ListBox}"
-                              ContentTemplate="{StaticResource SettingsDataTemplate}"
-                              IsEnabled="{Binding SelectedItem.Configurable,
-                                                  ElementName=ListBox}" />
-            <ContentPresenter Grid.Row="1"
-                              Grid.Column="1"
-                              Content="{Binding SelectedItem,
-                                                ElementName=ListBox}"
-                              ContentTemplate="{StaticResource VmDataTemplate}" />
-        </Grid>
-    </Grid>
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              HorizontalContentAlignment="Left"
+                              VerticalContentAlignment="Top"
+                              Header="{Binding SelectedItem,
+                                               ElementName=ListBox}">
+                        <ContentPresenter Content="{Binding SelectedItem, ElementName=ListBox}" ContentTemplateSelector="{StaticResource BoxTemplateSelector}" />
+                    </GroupBox>
+                    <ContentPresenter Grid.Row="1"
+                                      Grid.Column="0"
+                                      Content="{Binding SelectedItem,
+                                                        ElementName=ListBox}"
+                                      ContentTemplate="{StaticResource SettingsDataTemplate}"
+                                      IsEnabled="{Binding SelectedItem.Configurable,
+                                                          ElementName=ListBox}" />
+                    <ContentPresenter Grid.Row="1"
+                                      Grid.Column="1"
+                                      Content="{Binding SelectedItem,
+                                                        ElementName=ListBox}"
+                                      ContentTemplate="{StaticResource VmDataTemplate}" />
+                </Grid>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="DoubleBox">
+            <demo:DoubleBoxView />
+        </TabItem>
+    </TabControl>
+
 </Window>
