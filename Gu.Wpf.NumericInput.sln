@@ -7,9 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput", "Gu.W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FA763A5D-45A1-43A6-B841-B399815CF2FE}"
 	ProjectSection(SolutionItems) = preProject
+		Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.nuspec = Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.nuspec
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\nuspec.2010.7.xsd = .nuget\nuspec.2010.7.xsd
+		.nuget\nuspec.2011.8.xsd = .nuget\nuspec.2011.8.xsd
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject

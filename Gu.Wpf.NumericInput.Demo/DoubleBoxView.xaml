@@ -10,18 +10,28 @@
              mc:Ignorable="d">
     <Grid>
         <WrapPanel Orientation="Vertical">
+            <GroupBox Header="Textbox">
+                <TextBox Width="120"
+                         HorizontalAlignment="Left"
+                         FontSize="14"
+                         Text="{Binding Value}" />
+            </GroupBox>
             <GroupBox Header="Default style">
-                <numeric:DoubleBox Width="60"
+                <numeric:DoubleBox Width="120"
                                    HorizontalAlignment="Left"
                                    AllowSpinners="True"
+                                   FontSize="12"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
                                    Value="{Binding Value}" />
             </GroupBox>
 
             <GroupBox Header="No spinners style and simple validation template">
-                <numeric:DoubleBox Width="60"
+                <numeric:DoubleBox Width="120"
                                    HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   Padding="10"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
                                    Style="{StaticResource BaseUpDownNoSpinners}"
