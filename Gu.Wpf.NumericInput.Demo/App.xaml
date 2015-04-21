@@ -6,7 +6,7 @@
              xmlns:validation="clr-namespace:Gu.Wpf.NumericInput.Validation;assembly=Gu.Wpf.NumericInput"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+       
         <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numeric:INumericBox}">
             <StackPanel IsEnabled="False">
                 <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />

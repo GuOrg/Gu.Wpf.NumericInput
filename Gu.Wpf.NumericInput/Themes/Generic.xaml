@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Gu.Wpf.NumericInput">
-
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    
     <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
 
@@ -201,7 +202,7 @@
                                 </TextBox.Style>
                             </TextBox>
 
-                            <Grid Grid.Column="2">
+                            <Grid Grid.Column="2" Visibility="{TemplateBinding AllowSpinners, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50*" />
                                     <RowDefinition Height="50*" />
