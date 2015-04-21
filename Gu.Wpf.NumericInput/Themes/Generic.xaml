@@ -12,7 +12,7 @@
         <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
     </Style>
 
-    <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type RepeatButton}">
+    <Style TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
@@ -210,8 +210,7 @@
                                               Grid.Column="0"
                                               Command="{TemplateBinding IncreaseCommand}"
                                               CommandParameter="{Binding ElementName=TextBox}"
-                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                                              Style="{StaticResource SpinnerButtonStyle}">
+                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}">
                                     <RepeatButton.Content>
                                         <Path Data="{StaticResource UpGeometry}" Style="{StaticResource ArrowStyle}" />
                                     </RepeatButton.Content>
@@ -220,8 +219,7 @@
                                 <RepeatButton Grid.Row="1"
                                               Command="{TemplateBinding DecreaseCommand}"
                                               CommandParameter="{Binding ElementName=TextBox}"
-                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                                              Style="{StaticResource SpinnerButtonStyle}">
+                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}">
                                     <RepeatButton.Content>
                                         <Path Data="{StaticResource DownGeometry}" Style="{StaticResource ArrowStyle}" />
                                     </RepeatButton.Content>
