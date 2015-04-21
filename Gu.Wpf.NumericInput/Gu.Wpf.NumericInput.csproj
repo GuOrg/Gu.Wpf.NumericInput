@@ -65,6 +65,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumericBox.cs" />
+    <Compile Include="IDecimals.cs" />
     <Compile Include="INumericBox.cs" />
     <Compile Include="StringFormatConverter.cs" />
     <Compile Include="ManualRelayCommand.cs" />
@@ -74,7 +76,7 @@
     <Compile Include="FloatBox.cs" />
     <Compile Include="IntBox.cs" />
     <Compile Include="LongBox.cs" />
-    <Compile Include="NumericBox.cs" />
+    <Compile Include="NumericBox`1.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="Validation\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />

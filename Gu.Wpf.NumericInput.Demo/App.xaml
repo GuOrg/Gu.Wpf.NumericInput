@@ -6,151 +6,156 @@
              xmlns:validation="clr-namespace:Gu.Wpf.NumericInput.Validation;assembly=Gu.Wpf.NumericInput"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-       
-        <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numeric:INumericBox}">
-            <StackPanel IsEnabled="False">
-                <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />
-                <TextBlock Text="{Binding Value, StringFormat='Value: {0}'}" />
-                <!--  <TextBlock Text="{Binding .(validation:ExplicitBinding.TextProxy), StringFormat='TextProxy: {0}'}" />  -->
-            </StackPanel>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Gu.Wpf.NumericInput;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <DataTemplate x:Key="SettingsDataTemplate" DataType="{x:Type demo:IBoxVm}">
-            <GroupBox Header="Settings">
-                <StackPanel>
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="MinWidth" Value="60" />
-                            <Setter Property="HorizontalAlignment" Value="Left" />
-                        </Style>
 
-                        <Style TargetType="{x:Type TextBox}">
-                            <Setter Property="MinWidth" Value="60" />
-                            <Setter Property="HorizontalAlignment" Value="Left" />
-                        </Style>
-                    </StackPanel.Resources>
+            <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numeric:INumericBox}">
+                <StackPanel IsEnabled="False">
+                    <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />
+                    <TextBlock Text="{Binding Value, StringFormat='Value: {0}'}" />
+                    <!--  <TextBlock Text="{Binding .(validation:ExplicitBinding.TextProxy), StringFormat='TextProxy: {0}'}" />  -->
+                </StackPanel>
+            </DataTemplate>
 
-                    <CheckBox x:Name="IsReadOnly"
+            <DataTemplate x:Key="SettingsDataTemplate" DataType="{x:Type demo:IBoxVm}">
+                <GroupBox Header="Settings">
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="MinWidth" Value="60" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                            </Style>
+
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="MinWidth" Value="60" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <CheckBox x:Name="IsReadOnly"
                               Content="IsReadOnly"
                               IsChecked="{Binding IsReadonly}" />
 
-                    <CheckBox x:Name="AllowSpinners"
+                        <CheckBox x:Name="AllowSpinners"
                               Content="AllowSpinners"
                               IsChecked="{Binding AllowSpinners}" />
 
-                    <ComboBox x:Name="Culture"
+                        <ComboBox x:Name="Culture"
                               IsSynchronizedWithCurrentItem="True"
                               ItemsSource="{Binding Cultures}"
                               SelectedItem="{Binding Culture}" />
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Suffix: " />
-                        <TextBox x:Name="Suffix" Text="{Binding Suffix}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Suffix: " />
+                            <TextBox x:Name="Suffix" Text="{Binding Suffix}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Decimals: " />
+                            <TextBox x:Name="Decimals" Text="{Binding DecimalDigits, TargetNullValue=''}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Max: " />
+                            <TextBox x:Name="Max" Text="{Binding Max}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Min: " />
+                            <TextBox x:Name="Min" Text="{Binding Min}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Increment: " />
+                            <TextBox x:Name="Increment" Text="{Binding Increment}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Regex: " />
+                            <TextBox x:Name="Regex" Text="{Binding RegexPattern}" />
+                        </StackPanel>
+
                     </StackPanel>
+                </GroupBox>
+            </DataTemplate>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Decimals: " />
-                        <TextBox x:Name="Decimals" Text="{Binding DecimalDigits, TargetNullValue=''}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Max: " />
-                        <TextBox x:Name="Max" Text="{Binding Max}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Min: " />
-                        <TextBox x:Name="Min" Text="{Binding Min}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Increment: " />
-                        <TextBox x:Name="Increment" Text="{Binding Increment}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Regex: " />
-                        <TextBox x:Name="Regex" Text="{Binding RegexPattern}" />
-                    </StackPanel>
-
-                </StackPanel>
-            </GroupBox>
-        </DataTemplate>
-
-        <DataTemplate x:Key="VmDataTemplate" DataType="{x:Type demo:IBoxVm}">
-            <GroupBox Header="ViewModel">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" MinWidth="50" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0"
+            <DataTemplate x:Key="VmDataTemplate" DataType="{x:Type demo:IBoxVm}">
+                <GroupBox Header="ViewModel">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" MinWidth="50" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0"
                                Grid.Column="0"
                                Grid.ColumnSpan="2">
                         (Standard wpf textboxes)
-                    </TextBlock>
-                    <TextBlock Grid.Row="1"
+                        </TextBlock>
+                        <TextBlock Grid.Row="1"
                                Grid.Column="0"
                                Text="Vm Value: (LostFocus)" />
-                    <TextBox Grid.Row="1"
+                        <TextBox Grid.Row="1"
                              Grid.Column="1"
                              Text="{Binding Value,
                                             UpdateSourceTrigger=LostFocus}" />
 
-                    <TextBlock Grid.Row="2"
+                        <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Text="Vm Value: (LostFocus, {0:F2})" />
-                    <TextBox Grid.Row="2"
+                        <TextBox Grid.Row="2"
                              Grid.Column="1"
                              Text="{Binding Value,
                                             UpdateSourceTrigger=LostFocus,
                                             StringFormat='{}{0:F2}'}" />
 
-                    <TextBlock Grid.Row="3"
+                        <TextBlock Grid.Row="3"
                                Grid.Column="0"
                                Text="Vm Value: (PropertyChanged})" />
-                    <TextBox Grid.Row="3"
+                        <TextBox Grid.Row="3"
                              Grid.Column="1"
                              Text="{Binding Value,
                                             UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Grid.Row="4"
+                        <TextBlock Grid.Row="4"
                                Grid.Column="0"
                                Text="Vm Value: (PropertyChanged, {0:F2})" />
-                    <TextBox Grid.Row="4"
+                        <TextBox Grid.Row="4"
                              Grid.Column="1"
                              Text="{Binding Value,
                                             UpdateSourceTrigger=PropertyChanged,
                                             StringFormat='{}{0:F2}'}" />
-                </Grid>
-            </GroupBox>
-        </DataTemplate>
+                    </Grid>
+                </GroupBox>
+            </DataTemplate>
 
-        <demo:BoxTemplateSelector x:Key="BoxTemplateSelector">
-            <demo:BoxTemplateSelector.Double>
-                <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <StackPanel>
-                        <numeric:DoubleBox x:Name="Box" Value="{Binding Value}" />
-                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
-                    </StackPanel>
-                </DataTemplate>
-            </demo:BoxTemplateSelector.Double>
+            <demo:BoxTemplateSelector x:Key="BoxTemplateSelector">
+                <demo:BoxTemplateSelector.Double>
+                    <DataTemplate DataType="{x:Type demo:IBoxVm}">
+                        <StackPanel>
+                            <numeric:DoubleBox x:Name="Box" Value="{Binding Value}" />
+                            <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </demo:BoxTemplateSelector.Double>
 
-            <demo:BoxTemplateSelector.DoubleTweaked>
-                <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <StackPanel>
-                        <numeric:DoubleBox x:Name="Box"
+                <demo:BoxTemplateSelector.DoubleTweaked>
+                    <DataTemplate DataType="{x:Type demo:IBoxVm}">
+                        <StackPanel>
+                            <numeric:DoubleBox x:Name="Box"
                                            AllowSpinners="{Binding AllowSpinners}"
                                            Culture="{Binding Culture}"
                                            DecimalDigits="{Binding DecimalDigits}"
@@ -161,24 +166,24 @@
                                            RegexPattern="{Binding RegexPattern}"
                                            Suffix="{Binding Suffix}"
                                            Value="{Binding Value}" />
-                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
-                    </StackPanel>
-                </DataTemplate>
-            </demo:BoxTemplateSelector.DoubleTweaked>
+                            <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </demo:BoxTemplateSelector.DoubleTweaked>
 
-            <demo:BoxTemplateSelector.Int>
-                <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <StackPanel>
-                        <numeric:IntBox x:Name="Box" Value="{Binding Value}" />
-                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
-                    </StackPanel>
-                </DataTemplate>
-            </demo:BoxTemplateSelector.Int>
+                <demo:BoxTemplateSelector.Int>
+                    <DataTemplate DataType="{x:Type demo:IBoxVm}">
+                        <StackPanel>
+                            <numeric:IntBox x:Name="Box" Value="{Binding Value}" />
+                            <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </demo:BoxTemplateSelector.Int>
 
-            <demo:BoxTemplateSelector.IntTweaked>
-                <DataTemplate DataType="{x:Type demo:IBoxVm}">
-                    <StackPanel>
-                        <numeric:IntBox x:Name="Box"
+                <demo:BoxTemplateSelector.IntTweaked>
+                    <DataTemplate DataType="{x:Type demo:IBoxVm}">
+                        <StackPanel>
+                            <numeric:IntBox x:Name="Box"
                                         AllowSpinners="{Binding AllowSpinners}"
                                         Culture="{Binding Culture}"
                                         Increment="{Binding Increment}"
@@ -188,10 +193,11 @@
                                         RegexPattern="{Binding RegexPattern}"
                                         Suffix="{Binding Suffix}"
                                         Value="{Binding Value}" />
-                        <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
-                    </StackPanel>
-                </DataTemplate>
-            </demo:BoxTemplateSelector.IntTweaked>
-        </demo:BoxTemplateSelector>
+                            <ContentPresenter Content="{Binding ., ElementName=Box}" ContentTemplate="{StaticResource DebugInfoTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </demo:BoxTemplateSelector.IntTweaked>
+            </demo:BoxTemplateSelector>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

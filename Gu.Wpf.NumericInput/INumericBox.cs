@@ -4,10 +4,6 @@
     using System.Windows;
     using System.Windows.Input;
 
-    public interface IDecimals
-    {
-        int? DecimalDigits { get; set; }
-    }
     public interface INumericBox
     {
         string Text { get; set; }

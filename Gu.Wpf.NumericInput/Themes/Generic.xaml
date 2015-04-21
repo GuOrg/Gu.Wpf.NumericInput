@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Gu.Wpf.NumericInput">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    
+
     <Geometry x:Key="UpGeometry">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="DownGeometry">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
 
@@ -23,7 +23,60 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="ValidationErrorTemplate">
+    <Style x:Key="_TextBoxStyle"
+           BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="local:NumericBox.SelectAllOnClick" Value="True" />
+        <Setter Property="VerticalAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="AcceptsReturn" Value="{Binding AcceptsReturn, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="AcceptsTab" Value="{Binding AcceptsTab, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="AutoWordSelection" Value="{Binding AutoWordSelection, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="CaretBrush" Value="{Binding CaretBrush, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="CharacterCasing" Value="{Binding CharacterCasing, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="FontFamily" Value="{Binding FontFamily, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="FontSize" Value="{Binding FontSize, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="FontStretch" Value="{Binding FontStretch, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="FontStyle" Value="{Binding FontStyle, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="IsInactiveSelectionHighlightEnabled" Value="{Binding IsInactiveSelectionHighlightEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="IsReadOnly" Value="{Binding IsReadOnly, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="IsReadOnlyCaretVisible" Value="{Binding IsReadOnlyCaretVisible, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="IsTabStop" Value="{Binding IsTabStop, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="IsUndoEnabled" Value="{Binding IsUndoEnabled, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="MaxLength" Value="{Binding MaxLength, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="MaxLines" Value="1" />
+        <Setter Property="MinLines" Value="1" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="SelectionBrush" Value="{Binding SelectionBrush, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="SelectionOpacity" Value="{Binding SelectionOpacity, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="TabIndex" Value="{Binding TabIndex, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="TextAlignment" Value="{Binding TextAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="TextDecorations" Value="{Binding TextDecorations, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="UndoLimit" Value="{Binding UndoLimit, RelativeSource={RelativeSource AncestorType={x:Type local:BaseBox}}}" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+    </Style>
+
+    <Style x:Key="_SuffixStyle"
+           BasedOn="{StaticResource _TextBoxStyle}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="local:NumericBox.SelectAllOnClick" Value="False" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Suffix, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="ValidationErrorListTemplate">
         <DockPanel SnapsToDevicePixels="True">
             <ListBox Background="{x:Null}"
                      BorderThickness="0"
@@ -73,8 +126,37 @@
         </DockPanel>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="SimpleValidationErrorTemplate">
+        <Grid SnapsToDevicePixels="True">
+            <Border Width="12"
+                    Height="12"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    Padding="2">
+                <Grid>
+                    <Ellipse Width="12"
+                             Height="12"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Fill="Red"
+                             SnapsToDevicePixels="True" />
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="8"
+                               FontWeight="Heavy"
+                               Foreground="White"
+                               SnapsToDevicePixels="True"
+                               Text="X"
+                               TextAlignment="Center" />
+                </Grid>
+            </Border>
+            <AdornedElementPlaceholder x:Name="ErrorAdorner" />
+        </Grid>
+    </ControlTemplate>
+
     <!--  BaseUpDown  -->
-    <Style x:Key="BaseUpDown"
+    <Style x:Key="BaseUpDownWithSpinners"
            BasedOn="{StaticResource {x:Type TextBox}}"
            TargetType="{x:Type local:BaseBox}">
 
@@ -90,7 +172,7 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
         <Setter Property="AutoWordSelection" Value="True" />
-        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorTemplate}" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorListTemplate}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:BaseBox}">
@@ -108,42 +190,10 @@
                             <TextBox x:Name="TextBox"
                                      Grid.Column="0"
                                      HorizontalAlignment="Stretch"
-                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                     AcceptsReturn="{TemplateBinding AcceptsReturn}"
-                                     AcceptsTab="{TemplateBinding AcceptsTab}"
-                                     AutoWordSelection="{TemplateBinding AutoWordSelection}"
-                                     Background="{TemplateBinding Background}"
-                                     BorderBrush="{x:Null}"
-                                     BorderThickness="0"
-                                     CaretBrush="{TemplateBinding CaretBrush}"
-                                     CharacterCasing="{TemplateBinding CharacterCasing}"
-                                     FontFamily="{TemplateBinding FontFamily}"
-                                     FontSize="{TemplateBinding FontSize}"
-                                     FontStretch="{TemplateBinding FontStretch}"
-                                     FontStyle="{TemplateBinding FontStyle}"
-                                     FontWeight="{TemplateBinding FontWeight}"
-                                     Foreground="{TemplateBinding Foreground}"
-                                     HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                     IsInactiveSelectionHighlightEnabled="{TemplateBinding IsInactiveSelectionHighlightEnabled}"
-                                     IsReadOnly="{TemplateBinding IsReadOnly}"
-                                     IsReadOnlyCaretVisible="{TemplateBinding IsReadOnlyCaretVisible}"
-                                     IsTabStop="{TemplateBinding IsTabStop}"
-                                     IsUndoEnabled="{TemplateBinding IsUndoEnabled}"
-                                     MaxLength="{TemplateBinding MaxLength}"
-                                     MaxLines="{TemplateBinding MaxLines}"
-                                     MinLines="{TemplateBinding MinLines}"
-                                     Padding="{TemplateBinding Padding}"
-                                     SelectionBrush="{TemplateBinding SelectionBrush}"
-                                     SelectionOpacity="{TemplateBinding SelectionOpacity}"
-                                     TabIndex="{TemplateBinding TabIndex}"
+                                     Style="{StaticResource _TextBoxStyle}"
                                      Text="{Binding Text,
                                                     RelativeSource={RelativeSource TemplatedParent},
-                                                    UpdateSourceTrigger=PropertyChanged}"
-                                     TextAlignment="{TemplateBinding TextAlignment}"
-                                     TextDecorations="{TemplateBinding TextDecorations}"
-                                     TextWrapping="{TemplateBinding TextWrapping}"
-                                     UndoLimit="{TemplateBinding UndoLimit}"
-                                     VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}">
+                                                    UpdateSourceTrigger=PropertyChanged}">
                                 <!--  Text must be bound with UpdateSourceTrigger=PropertyChanged in template for realtime validation  -->
                                 <!--
                                     <TextBox.InputBindings>
@@ -154,53 +204,8 @@
                             </TextBox>
 
                             <TextBox Grid.Column="1"
-                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                     AcceptsReturn="{TemplateBinding AcceptsReturn}"
-                                     AcceptsTab="{TemplateBinding AcceptsTab}"
-                                     AutoWordSelection="{TemplateBinding AutoWordSelection}"
-                                     Background="{TemplateBinding Background}"
-                                     BorderBrush="{x:Null}"
-                                     BorderThickness="0"
-                                     CaretBrush="{TemplateBinding CaretBrush}"
-                                     CharacterCasing="{TemplateBinding CharacterCasing}"
-                                     FontFamily="{TemplateBinding FontFamily}"
-                                     FontSize="{TemplateBinding FontSize}"
-                                     FontStretch="{TemplateBinding FontStretch}"
-                                     FontStyle="{TemplateBinding FontStyle}"
-                                     FontWeight="{TemplateBinding FontWeight}"
-                                     Foreground="{TemplateBinding Foreground}"
-                                     HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                                     IsInactiveSelectionHighlightEnabled="{TemplateBinding IsInactiveSelectionHighlightEnabled}"
-                                     IsReadOnly="True"
-                                     IsReadOnlyCaretVisible="{TemplateBinding IsReadOnlyCaretVisible}"
-                                     IsTabStop="False"
-                                     IsUndoEnabled="{TemplateBinding IsUndoEnabled}"
-                                     MaxLength="{TemplateBinding MaxLength}"
-                                     MaxLines="{TemplateBinding MaxLines}"
-                                     MinLines="{TemplateBinding MinLines}"
-                                     Padding="{TemplateBinding Padding}"
-                                     SelectionBrush="{TemplateBinding SelectionBrush}"
-                                     SelectionOpacity="{TemplateBinding SelectionOpacity}"
-                                     Text="{TemplateBinding Suffix}"
-                                     TextAlignment="{TemplateBinding TextAlignment}"
-                                     TextDecorations="{TemplateBinding TextDecorations}"
-                                     TextWrapping="{TemplateBinding TextWrapping}"
-                                     UndoLimit="{TemplateBinding UndoLimit}"
-                                     VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}">
-
-                                <TextBox.Style>
-                                    <Style TargetType="{x:Type TextBox}">
-                                        <Setter Property="IsReadOnly" Value="True" />
-
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Suffix, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
+                                     Style="{StaticResource _SuffixStyle}"
+                                     Text="{TemplateBinding Suffix}" />
 
                             <Grid Grid.Column="2" Visibility="{TemplateBinding AllowSpinners, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
@@ -233,22 +238,77 @@
         </Setter>
     </Style>
 
+    <Style x:Key="BaseUpDownNoSpinners"
+           BasedOn="{StaticResource {x:Type TextBox}}"
+           TargetType="{x:Type local:BaseBox}">
+
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="AcceptsReturn" Value="False" />
+        <Setter Property="AcceptsTab" Value="False" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="AutoWordSelection" Value="True" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorListTemplate}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:BaseBox}">
+                    <Border Margin="{TemplateBinding Padding}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            FocusManager.FocusedElement="{Binding ElementName=TextBox}">
+                        <Grid Height="{Binding ActualHeight, ElementName=TextBox}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TextBox"
+                                     Grid.Column="0"
+                                     HorizontalAlignment="Stretch"
+                                     Style="{StaticResource _TextBoxStyle}"
+                                     Text="{Binding Text,
+                                                    RelativeSource={RelativeSource TemplatedParent},
+                                                    UpdateSourceTrigger=PropertyChanged}">
+                                <!--  Text must be bound with UpdateSourceTrigger=PropertyChanged in template for realtime validation  -->
+                                <!--
+                                    <TextBox.InputBindings>
+                                    <KeyBinding Key="Up" Command="{Binding IncreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <KeyBinding Key="Down" Command="{Binding DecreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </TextBox.InputBindings>
+                                -->
+                            </TextBox>
+
+                            <TextBox Grid.Column="1"
+                                     Style="{StaticResource _SuffixStyle}"
+                                     Text="{TemplateBinding Suffix}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--  DoubleUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:DoubleBox}" />
+
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:DoubleBox}" />
 
     <!--  DecimalUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:DecimalBox}" />
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:DecimalBox}" />
 
     <!--  FloatUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:FloatBox}" />
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:FloatBox}" />
 
     <!--  LongUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:LongBox}" />
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:LongBox}" />
 
     <!--  IntegerUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:IntBox}" />
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:IntBox}" />
 
     <!--  ShortUpDown  -->
-    <Style BasedOn="{StaticResource BaseUpDown}" TargetType="{x:Type local:ShortBox}" />
+    <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:ShortBox}" />
 
 </ResourceDictionary>
