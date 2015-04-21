@@ -53,8 +53,8 @@ using System.Windows.Markup;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.1.1.1")]
-[assembly: AssemblyFileVersion("0.1.1.1")]
+[assembly: AssemblyVersion("0.1.1.2")]
+[assembly: AssemblyFileVersion("0.1.1.2")]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]
