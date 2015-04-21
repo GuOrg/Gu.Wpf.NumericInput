@@ -9,19 +9,9 @@
 
     <Style x:Key="ArrowStyle" TargetType="{x:Type Path}">
         <!--  <Setter Property="Height" Value="5" />  -->
-        <Setter Property="Width" Value="16" />
+        <!--<Setter Property="Width" Value="16" />-->
         <Setter Property="Stretch" Value="Uniform" />
         <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RepeatButton}}" />
-    </Style>
-
-    <Style TargetType="{x:Type RepeatButton}">
-        <Setter Property="Focusable" Value="True" />
-        <Setter Property="Visibility" Value="Collapsed" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding AllowSpinners, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                <Setter Property="Visibility" Value="Visible" />
-            </DataTrigger>
-        </Style.Triggers>
     </Style>
 
     <Style x:Key="_TextBoxStyle"
@@ -190,87 +180,6 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:BaseBox}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                            >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <TextBox x:Name="TextBox"
-                                     Grid.Column="0"
-                                     HorizontalAlignment="Stretch"
-                                     Padding="{TemplateBinding Padding}"
-                                     Style="{StaticResource _TextBoxStyle}"
-                                     Text="{Binding Text,
-                                                    RelativeSource={RelativeSource TemplatedParent},
-                                                    UpdateSourceTrigger=PropertyChanged}"
-                                     >
-                                <!--  Text must be bound with UpdateSourceTrigger=PropertyChanged in template for realtime validation  -->
-                                <!--
-                                    <TextBox.InputBindings>
-                                    <KeyBinding Key="Up" Command="{Binding IncreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
-                                    <KeyBinding Key="Down" Command="{Binding DecreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
-                                    </TextBox.InputBindings>
-                                -->
-                            </TextBox>
-
-                            <TextBox Grid.Column="1"
-                                     Style="{StaticResource _SuffixStyle}"
-                                     Text="{TemplateBinding Suffix}"
-                                     />
-
-                            <Grid Grid.Column="2"
-                                  Visibility="{TemplateBinding AllowSpinners,
-                                                               Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50*" />
-                                    <RowDefinition Height="50*" />
-                                </Grid.RowDefinitions>
-                                <RepeatButton Grid.Row="0"
-                                              VerticalAlignment="Stretch"
-                                              VerticalContentAlignment="Center"
-                                              Command="{TemplateBinding IncreaseCommand}"
-                                              CommandParameter="{Binding ElementName=TextBox}"
-                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                                              >
-                                    <RepeatButton.Content>
-                                        <Path Data="{StaticResource UpGeometry}" Style="{StaticResource ArrowStyle}" />
-                                    </RepeatButton.Content>
-                                </RepeatButton>
-
-                                <RepeatButton Grid.Row="1"
-                                              VerticalAlignment="Stretch"
-                                              VerticalContentAlignment="Center"
-                                              Command="{TemplateBinding DecreaseCommand}"
-                                              CommandParameter="{Binding ElementName=TextBox}"
-                                              FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                                              >
-                                    <RepeatButton.Content>
-                                        <Path Data="{StaticResource DownGeometry}" Style="{StaticResource ArrowStyle}" />
-                                    </RepeatButton.Content>
-                                </RepeatButton>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="BaseUpDownNoSpinners"
-           BasedOn="{StaticResource BaseUpDownWithSpinners}"
-           TargetType="{x:Type local:BaseBox}"
-           >
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:BaseBox}">
                     <Border Margin="{TemplateBinding Padding}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -307,24 +216,104 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <!--  DoubleUpDown  -->
+        <Style.Triggers>
+            <Trigger Property="AllowSpinners" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:BaseBox}">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    FocusManager.FocusedElement="{Binding ElementName=TextBox}"
+                                    >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
+                                    <TextBox x:Name="TextBox"
+                                             Grid.Column="0"
+                                             HorizontalAlignment="Stretch"
+                                             Padding="{TemplateBinding Padding}"
+                                             Style="{StaticResource _TextBoxStyle}"
+                                             Text="{Binding Text,
+                                                            RelativeSource={RelativeSource TemplatedParent},
+                                                            UpdateSourceTrigger=PropertyChanged}"
+                                             >
+                                        <!--  Text must be bound with UpdateSourceTrigger=PropertyChanged in template for realtime validation  -->
+                                        <!--
+                                    <TextBox.InputBindings>
+                                    <KeyBinding Key="Up" Command="{Binding IncreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <KeyBinding Key="Down" Command="{Binding DecreaseCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </TextBox.InputBindings>
+                                        -->
+                                    </TextBox>
+
+                                    <TextBox Grid.Column="1"
+                                             Style="{StaticResource _SuffixStyle}"
+                                             Text="{TemplateBinding Suffix}"
+                                             />
+
+                                    <Grid Grid.Column="2"
+                                          Height="{TemplateBinding Height}"
+                                          Visibility="{TemplateBinding AllowSpinners,
+                                                                       Converter={StaticResource BooleanToVisibilityConverter}}"
+                                          >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50*" />
+                                            <RowDefinition Height="50*" />
+                                        </Grid.RowDefinitions>
+                                        <RepeatButton Grid.Row="0"
+                                                      VerticalAlignment="Stretch"
+                                                      VerticalContentAlignment="Center"
+                                                      Command="{TemplateBinding IncreaseCommand}"
+                                                      CommandParameter="{Binding ElementName=TextBox}"
+                                                      FocusManager.FocusedElement="{Binding ElementName=TextBox}"
+                                                      >
+                                            <RepeatButton.Content>
+                                                <Path Data="{StaticResource UpGeometry}" Style="{StaticResource ArrowStyle}" />
+                                            </RepeatButton.Content>
+                                        </RepeatButton>
+
+                                        <RepeatButton Grid.Row="1"
+                                                      VerticalAlignment="Stretch"
+                                                      VerticalContentAlignment="Center"
+                                                      Command="{TemplateBinding DecreaseCommand}"
+                                                      CommandParameter="{Binding ElementName=TextBox}"
+                                                      FocusManager.FocusedElement="{Binding ElementName=TextBox}"
+                                                      >
+                                            <RepeatButton.Content>
+                                                <Path Data="{StaticResource DownGeometry}" Style="{StaticResource ArrowStyle}" />
+                                            </RepeatButton.Content>
+                                        </RepeatButton>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  DoubleBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:DoubleBox}" />
 
-    <!--  DecimalUpDown  -->
+    <!--  DecimalBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:DecimalBox}" />
 
-    <!--  FloatUpDown  -->
+    <!--  FloatBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:FloatBox}" />
 
-    <!--  LongUpDown  -->
+    <!--  LongBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:LongBox}" />
 
-    <!--  IntegerUpDown  -->
+    <!--  IntBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:IntBox}" />
 
-    <!--  ShortUpDown  -->
+    <!--  ShortBox  -->
     <Style BasedOn="{StaticResource BaseUpDownWithSpinners}" TargetType="{x:Type local:ShortBox}" />
 
 </ResourceDictionary>
