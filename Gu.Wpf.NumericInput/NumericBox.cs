@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Input;
 
-    using Validation;
+    using Gu.Wpf.NumericInput.Validation;
 
     /// <summary>
     /// Baseclass with common functionality for numeric textboxes
@@ -78,11 +78,17 @@
                 FrameworkPropertyMetadataOptions.None,
                 (o, e) => ((NumericBox<T>)o).CheckSpinners()));
 
+        public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
+            "NumberStyles",
+            typeof(NumberStyles), 
+            typeof(NumericBox<T>), 
+            new PropertyMetadata(NumberStyles.Any));
+
         private readonly Func<T, T, T> _add;
         private readonly Func<T, T, T> _subtract;
         private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
-        private readonly Validator<T> _validator;
+        private readonly Validator<T> _validator; // Keeping this alive 
 
         /// <summary>
         /// 
@@ -97,7 +103,7 @@
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(this.CanParse),
+                new CanParse<T>(CanParse),
                 new IsMatch(() => RegexPattern),
                 new IsGreaterThan<T>(Parse, () => MinValue),
                 new IsLessThan<T>(Parse, () => MaxValue));
@@ -119,10 +125,7 @@
         [Description(""), Category("NumericBox"), Browsable(true)]
         public T Value
         {
-            get
-            {
-                return (T)GetValue(ValueProperty);
-            }
+            get { return (T)GetValue(ValueProperty); }
             set
             {
                 SetValue(ValueProperty, value);
@@ -131,10 +134,7 @@
 
         IFormattable INumericBox.Value
         {
-            get
-            {
-                return Value;
-            }
+            get { return Value; }
         }
 
         [Description(""), Category("NumericBox"), Browsable(true)]
@@ -198,6 +198,15 @@
             {
                 return Increment;
             }
+        }
+
+        /// <summary>
+        /// The number styles used for validation
+        /// </summary>
+        public NumberStyles NumberStyles
+        {
+            get { return (NumberStyles)GetValue(NumberStylesProperty); }
+            set { SetValue(NumberStylesProperty, value); }
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
-    using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Windows;
 
     [ToolboxItem(true)]
     public class ShortBox : NumericBox<short>
@@ -10,6 +10,12 @@
         static ShortBox()
         {
             UpdateMetadata(typeof(ShortBox), 1);
+            NumberStylesProperty.OverrideMetadata(typeof(ShortBox),
+                new FrameworkPropertyMetadata(
+                    NumberStyles.AllowExponent |
+                    NumberStyles.AllowLeadingSign |
+                    NumberStyles.AllowLeadingWhite |
+                    NumberStyles.AllowTrailingWhite));
         }
 
         public ShortBox()
