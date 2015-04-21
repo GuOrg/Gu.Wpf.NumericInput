@@ -5,7 +5,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using NumericInput;
 
     public class Validator<T> : DependencyObject
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -17,6 +16,12 @@
         private static readonly DependencyPropertyDescriptor MaxDescriptor = DependencyPropertyDescriptor.FromProperty(
             NumericBox<T>.MaxValueProperty,
             typeof(NumericBox<T>));
+
+        private static readonly DependencyPropertyDescriptor NumberStylesDescriptor =
+            DependencyPropertyDescriptor.FromProperty(NumericBox<T>.NumberStylesProperty, typeof(NumericBox<T>));
+
+        private static readonly DependencyPropertyDescriptor CultureDescriptor =
+            DependencyPropertyDescriptor.FromProperty(BaseBox.CultureProperty, typeof(NumericBox<T>));
 
         private static readonly DependencyPropertyDescriptor PatternDescriptor = DependencyPropertyDescriptor.FromProperty(
             BaseBox.RegexPatternProperty,
@@ -34,6 +39,8 @@
             _numericBox.ValueChanged += NumericBoxOnValueChanged;
             MinDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
+            NumberStylesDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
+            CultureDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             PatternDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
             _proxyBinding.ValidationFailed += OnValidationError;
             _numericBox.LostFocus += OnLostFocus;

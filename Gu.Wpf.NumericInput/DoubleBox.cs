@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
-    using System;
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
@@ -24,6 +23,13 @@
         static DoubleBox()
         {
             UpdateMetadata(typeof(DoubleBox), 1d);
+            NumberStylesProperty.OverrideMetadata(typeof(DoubleBox),
+                new FrameworkPropertyMetadata(
+                    NumberStyles.AllowDecimalPoint |
+                    NumberStyles.AllowExponent |
+                    NumberStyles.AllowLeadingSign |
+                    NumberStyles.AllowLeadingWhite |
+                    NumberStyles.AllowTrailingWhite));
         }
 
         public DoubleBox()

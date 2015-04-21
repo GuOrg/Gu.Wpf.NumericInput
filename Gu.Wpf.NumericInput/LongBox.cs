@@ -1,8 +1,8 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
-    using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Windows;
 
     [ToolboxItem(true)]
     public class LongBox : NumericBox<long>
@@ -10,6 +10,12 @@
         static LongBox()
         {
             UpdateMetadata(typeof(LongBox), 1);
+            NumberStylesProperty.OverrideMetadata(typeof(LongBox),
+                new FrameworkPropertyMetadata(
+                    NumberStyles.AllowExponent |
+                    NumberStyles.AllowLeadingSign |
+                    NumberStyles.AllowLeadingWhite |
+                    NumberStyles.AllowTrailingWhite));
         }
 
         public LongBox()
