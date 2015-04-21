@@ -128,8 +128,8 @@
 
     <ControlTemplate x:Key="SimpleValidationErrorTemplate">
         <Grid SnapsToDevicePixels="True">
-            <Border Width="12"
-                    Height="12"
+            <Border Width="16"
+                    Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="Transparent"
@@ -163,14 +163,16 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="MinWidth" Value="120" />
-        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinWidth" Value="20" />
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="AcceptsReturn" Value="False" />
         <Setter Property="AcceptsTab" Value="False" />
         <Setter Property="TextAlignment" Value="Right" />
-        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="MinLines" Value="1" />
+        <Setter Property="MaxLines" Value="1" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="AutoWordSelection" Value="True" />
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorListTemplate}" />
         <Setter Property="Template">
@@ -239,22 +241,8 @@
     </Style>
 
     <Style x:Key="BaseUpDownNoSpinners"
-           BasedOn="{StaticResource {x:Type TextBox}}"
+           BasedOn="{StaticResource BaseUpDownWithSpinners}"
            TargetType="{x:Type local:BaseBox}">
-
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="MinWidth" Value="120" />
-        <Setter Property="MinHeight" Value="20" />
-        <Setter Property="AllowDrop" Value="true" />
-        <Setter Property="AcceptsReturn" Value="False" />
-        <Setter Property="AcceptsTab" Value="False" />
-        <Setter Property="TextAlignment" Value="Right" />
-        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="AutoWordSelection" Value="True" />
-        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorListTemplate}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:BaseBox}">
