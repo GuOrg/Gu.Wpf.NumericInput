@@ -18,6 +18,7 @@
             <Setter Property="BorderThickness" Value="5" />
             <Setter Property="TextWrapping" Value="NoWrap" />
             <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="MinLines" Value="1" />
             <Setter Property="MaxLines" Value="1" />
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
@@ -27,16 +28,12 @@
     <Grid>
         <WrapPanel Orientation="Vertical">
             <GroupBox Header="Textbox">
-                <TextBox HorizontalAlignment="Left"
-                         VerticalAlignment="Stretch"
-                         AllowDrop="True"
-                         Style="{StaticResource Meh}"
+                <TextBox Style="{StaticResource Meh}"
                          Text="Aj"
                          />
             </GroupBox>
             <GroupBox Header="Default style">
-                <numeric:DoubleBox HorizontalAlignment="Left"
-                                   AllowSpinners="False"
+                <numeric:DoubleBox AllowSpinners="False"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
                                    Style="{StaticResource Meh}"
@@ -45,14 +42,9 @@
             </GroupBox>
 
             <GroupBox Header="No spinners style and simple validation template">
-                <numeric:DoubleBox Width="120"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   FontSize="36"
-                                   MaxValue="{Binding Max}"
+                <numeric:DoubleBox MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
-                                   Padding="10"
-                                   Style="{StaticResource BaseUpDownNoSpinners}"
+                                   Style="{StaticResource Meh}"
                                    Validation.ErrorTemplate="{StaticResource SimpleValidationErrorTemplate}"
                                    Value="{Binding Value}"
                                    />
