@@ -24,7 +24,7 @@
 
         public BoxVm(Type type)
         {
-            this.Type = type;
+            Type = type;
             this.Configurable = false;
             var instance = Activator.CreateInstance(type);
             //var dps = type.GetFields(BindingFlags.Static | BindingFlags.Public |BindingFlags.FlattenHierarchy)
@@ -42,8 +42,8 @@
         }
 
         public BoxVm(Type type, T min, T max, T increment)
+            : this(type)
         {
-            this.Type = type;
             this.Configurable = true;
             Min = min;
             Max = max;
@@ -51,7 +51,7 @@
             Increment = increment;
         }
 
-        public Type Type { get; set; }
+        public Type Type { get; private set; }
 
         public bool Configurable { get; private set; }
 
@@ -271,7 +271,7 @@
             var propertyInfos = instance.GetType()
                                         .GetProperties();
             var dependencyProperty = propertyInfos.SingleOrDefault(x => x.Name == name);
-            if (dependencyProperty == null || ! dependencyProperty.CanRead)
+            if (dependencyProperty == null || !dependencyProperty.CanRead)
             {
                 return null;
             }
