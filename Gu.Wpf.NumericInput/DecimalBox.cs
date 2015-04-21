@@ -21,7 +21,13 @@
         static DecimalBox()
         {
             UpdateMetadata(typeof(DecimalBox), 1m);
-
+            NumberStylesProperty.OverrideMetadata(typeof(DecimalBox),
+                new FrameworkPropertyMetadata(
+                    NumberStyles.AllowDecimalPoint |
+                    NumberStyles.AllowExponent |
+                    NumberStyles.AllowLeadingSign |
+                    NumberStyles.AllowLeadingWhite |
+                    NumberStyles.AllowTrailingWhite));
         }
 
         public DecimalBox()
