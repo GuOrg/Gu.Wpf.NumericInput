@@ -53,11 +53,12 @@ using System.Windows.Markup;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.2.1.0")]
-[assembly: AssemblyFileVersion("0.2.1.0")]
+[assembly: AssemblyVersion("0.2.2.0")]
+[assembly: AssemblyFileVersion("0.2.2.0")]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Demo", AllInternalsVisible = true)]
 [assembly: XmlnsDefinition("http://gu.se/NumericInput", "Gu.Wpf.NumericInput")]
+[assembly: XmlnsDefinition("http://gu.se/NumericInput", "Gu.Wpf.NumericInput.Validation")]
 [assembly: XmlnsPrefix("http://gu.se/NumericInput", "numeric")]
