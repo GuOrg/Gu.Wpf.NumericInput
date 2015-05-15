@@ -13,13 +13,17 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" KeyboardNavigation.TabNavigation="Cycle">
+        <StackPanel Grid.Column="0"
+                    KeyboardNavigation.TabNavigation="Cycle"
+                    >
             <TextBox />
             <TextBox />
             <TextBox />
         </StackPanel>
 
-        <StackPanel Grid.Column="1" KeyboardNavigation.TabNavigation="Cycle">
+        <StackPanel Grid.Column="1"
+                    KeyboardNavigation.TabNavigation="Cycle"
+                    >
             <numeric:DoubleBox />
             <numeric:DoubleBox />
             <numeric:DoubleBox />

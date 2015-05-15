@@ -8,7 +8,8 @@
         Width="525"
         Height="350"
         d:DataContext="{d:DesignInstance demo:MainVm}"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        >
     <TabControl>
         <TabItem Header="Debug">
             <Grid>
@@ -20,7 +21,8 @@
                 <ListBox x:Name="ListBox"
                          Grid.Column="0"
                          ItemsSource="{Binding Vms}"
-                         SelectedIndex="1" />
+                         SelectedIndex="1"
+                         />
 
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -38,8 +40,12 @@
                               HorizontalContentAlignment="Left"
                               VerticalContentAlignment="Top"
                               Header="{Binding SelectedItem,
-                                               ElementName=ListBox}">
-                        <ContentPresenter Content="{Binding SelectedItem, ElementName=ListBox}" ContentTemplateSelector="{StaticResource BoxTemplateSelector}" />
+                                               ElementName=ListBox}"
+                              >
+                        <ContentPresenter Content="{Binding SelectedItem,
+                                                            ElementName=ListBox}"
+                                          ContentTemplateSelector="{StaticResource BoxTemplateSelector}"
+                                          />
                     </GroupBox>
                     <ContentPresenter Grid.Row="1"
                                       Grid.Column="0"
@@ -47,12 +53,14 @@
                                                         ElementName=ListBox}"
                                       ContentTemplate="{StaticResource SettingsDataTemplate}"
                                       IsEnabled="{Binding SelectedItem.Configurable,
-                                                          ElementName=ListBox}" />
+                                                          ElementName=ListBox}"
+                                      />
                     <ContentPresenter Grid.Row="1"
                                       Grid.Column="1"
                                       Content="{Binding SelectedItem,
                                                         ElementName=ListBox}"
-                                      ContentTemplate="{StaticResource VmDataTemplate}" />
+                                      ContentTemplate="{StaticResource VmDataTemplate}"
+                                      />
                 </Grid>
             </Grid>
         </TabItem>
