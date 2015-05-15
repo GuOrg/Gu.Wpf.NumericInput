@@ -60,6 +60,10 @@
         <TabItem Header="DoubleBox">
             <demo:DoubleBoxView />
         </TabItem>
+
+        <TabItem Header="Focus">
+            <demo:FocusView />
+        </TabItem>
     </TabControl>
 
 </Window>
