@@ -59,24 +59,24 @@
         /// </summary>
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
             "MaxValue",
-            typeof(T),
+            typeof(T?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
-                default(T),
+                null,
                 FrameworkPropertyMetadataOptions.None,
-                (o, e) => ((NumericBox<T>)o).CheckSpinners()));
+                OnMaxValueChanged));
 
         /// <summary>
         /// Identifies the MinValue property
         /// </summary>
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
-            typeof(T),
+            typeof(T?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
-                default(T),
+                null,
                 FrameworkPropertyMetadataOptions.None,
-                (o, e) => ((NumericBox<T>)o).CheckSpinners()));
+                OnMinValueChanged));
 
         public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
             "NumberStyles",
@@ -107,6 +107,8 @@
                 new IsMatch(() => RegexPattern),
                 new IsGreaterThan<T>(Parse, () => MinValue),
                 new IsLessThan<T>(Parse, () => MaxValue));
+            MaxLimit = TypeMax;
+            MinLimit = TypeMin;
         }
 
         [Category("NumericBox"), Browsable(true)]
@@ -138,17 +140,19 @@
         }
 
         [Description(""), Category("NumericBox"), Browsable(true)]
-        public T MaxValue
+        public T? MaxValue
         {
             get
             {
-                return (T)GetValue(MaxValueProperty);
+                return (T?)GetValue(MaxValueProperty);
             }
             set
             {
                 SetValue(MaxValueProperty, value);
             }
         }
+
+        public T MaxLimit { get; private set; }
 
         IFormattable INumericBox.MaxValue
         {
@@ -159,17 +163,19 @@
         }
 
         [Description(""), Category("NumericBox"), Browsable(true)]
-        public T MinValue
+        public T? MinValue
         {
             get
             {
-                return (T)GetValue(MinValueProperty);
+                return (T?)GetValue(MinValueProperty);
             }
             set
             {
                 SetValue(MinValueProperty, value);
             }
         }
+
+        public T MinLimit { get; private set; }
 
         IFormattable INumericBox.MinValue
         {
@@ -240,8 +246,6 @@
 
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
-            MaxValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMax));
-            MinValueProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(TypeMin));
         }
 
         protected virtual void OnValueChanged(object newValue, object oldValue)
@@ -274,7 +278,7 @@
             {
                 return false;
             }
-            if (Comparer<T>.Default.Compare(CurrentValue, MaxValue) >= 0)
+            if (Comparer<T>.Default.Compare(CurrentValue, MaxLimit) >= 0)
             {
                 return false;
             }
@@ -299,7 +303,7 @@
             {
                 return false;
             }
-            if (Comparer<T>.Default.Compare(CurrentValue, MinValue) <= 0)
+            if (Comparer<T>.Default.Compare(CurrentValue, MinLimit) <= 0)
             {
                 return false;
             }
@@ -354,6 +358,21 @@
             }
         }
 
+        private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (NumericBox<T>)d;
+            box.CheckSpinners();
+            var newMax = e.NewValue as T?;
+            box.MaxLimit = newMax ?? TypeMax;
+        }
+        private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (NumericBox<T>)d;
+            box.CheckSpinners();
+            var newMin = e.NewValue as T?;
+            box.MinLimit = newMin ?? TypeMin;
+        }
+
         private static void SetTextUndoable(TextBox textBox, string text)
         {
             // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
@@ -365,8 +384,8 @@
 
         private T AddIncrement()
         {
-            var min = Comparer<T>.Default.Compare(MaxValue, TypeMax) < 0
-                ? MaxValue
+            var min = MaxLimit.CompareTo(TypeMax) < 0
+                ? MaxLimit
                 : TypeMax;
             var subtract = _subtract(min, Increment);
             var currentValue = CurrentValue;
@@ -377,8 +396,8 @@
 
         private T SubtractIncrement()
         {
-            var max = MinValue.CompareTo(TypeMin) > 0
-                                ? MinValue
+            var max = MinLimit.CompareTo(TypeMin) > 0
+                                ? MinLimit
                                 : TypeMin;
             var add = _add(max, Increment);
             var currentValue = CurrentValue;
