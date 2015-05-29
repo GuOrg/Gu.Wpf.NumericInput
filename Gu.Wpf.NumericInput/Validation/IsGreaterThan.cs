@@ -5,12 +5,12 @@ namespace Gu.Wpf.NumericInput.Validation
     using System.Windows.Controls;
 
     public class IsGreaterThan<T> : ValidationRule
-        where T : IComparable<T>, IFormattable
+        where T : struct, IComparable<T>, IFormattable
     {
         private readonly Func<string, T> _parser;
-        private readonly Func<T> _min;
+        private readonly Func<T?> _min;
 
-        public IsGreaterThan(Func<string, T> parser, Func<T> min)
+        public IsGreaterThan(Func<string, T> parser, Func<T?> min)
         {
             _parser = parser;
             _min = min;
@@ -18,11 +18,16 @@ namespace Gu.Wpf.NumericInput.Validation
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var v = _parser((string)value);
             var min = _min();
-            if (v.CompareTo(min) < 0)
+            if (min == null)
             {
-                return new IsGreaterThanValidationResult(v, min, false, string.Format("{0} < min ({1})", v, min));
+                return ValidationResult.ValidResult;
+            }
+            var v = _parser((string)value);
+
+            if (v.CompareTo(min.Value) < 0)
+            {
+                return new IsGreaterThanValidationResult(v, min.Value, false, string.Format("{0} < min ({1})", v, min));
             }
             return ValidationResult.ValidResult;
         }

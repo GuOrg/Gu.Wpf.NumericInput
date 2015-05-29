@@ -10,11 +10,6 @@
         private readonly Func<object, bool> _condition;
         private bool? _previousCanExecute = null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="action"></param>
-        /// <param name="condition"></param>
         internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
         {
             if (action == null)
