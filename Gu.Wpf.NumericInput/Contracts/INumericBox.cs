@@ -16,30 +16,41 @@
 
         IFormattable Increment { get; }
 
+        /// <summary>
+        /// Gets the culture for the control.
+        /// The control has an explicit culture and does not use <see cref="System.Threading.Thread.CurrentUICulture"/>
+        /// </summary>
         IFormatProvider Culture { get; }
 
-        string Suffix { get;  }
-        
         /// <summary>
-        /// The stringformat is set using the Decimals property, exposed for binding in template.
+        /// Gets the suffix is text placed after the value.
+        /// </summary>
+        string Suffix { get;  }
+
+        /// <summary>
+        /// Gets the stringformat. Changing <see cref="IDecimals.DecimalDigits"/> updates the value.
+        /// Exposed for binding in template.
         /// </summary>
         string StringFormat { get; }
 
-        bool AllowSpinners { get; }
-        
         /// <summary>
-        /// Increases the value by increment
+        /// Gets a value that indicates if spinbuttons should be visible
+        /// </summary>
+        bool AllowSpinners { get; }
+
+        /// <summary>
+        /// Gets the command that increases <see cref="Value"/> by <see cref="Increment"/>
         /// </summary>
         ICommand IncreaseCommand { get; }
-        
+
         /// <summary>
-        /// Decreases the value by increment
+        /// Gets the command the decreases <see cref="Value"/> by <see cref="Increment"/>
         /// </summary>
         ICommand DecreaseCommand { get; }
 
         IFormattable Parse(string s);
 
-        bool CanParse(string s);
+        bool CanParse(string text);
 
         void SetValue(DependencyProperty property, object value);
 

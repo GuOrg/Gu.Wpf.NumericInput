@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for FocusView.xaml
+    /// Interaction logic for StyledDoubleBoxView.xaml
     /// </summary>
-    public partial class FocusView : UserControl
+    public partial class StyledDoubleBoxView : UserControl
     {
-        public FocusView()
+        public StyledDoubleBoxView()
         {
             InitializeComponent();
         }

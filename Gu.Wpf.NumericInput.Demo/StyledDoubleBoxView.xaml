@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DoubleBoxView"
+﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.StyledDoubleBoxView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,12 +7,12 @@
              xmlns:numeric="http://gu.se/NumericInput"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d"
-             >
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <demo:StyledDoubleBoxVm />
+    </UserControl.DataContext>
     <UserControl.Resources>
-        <Style x:Key="Meh"
-               TargetType="{x:Type TextBox}"
-               >
+        <Style x:Key="Meh" TargetType="{x:Type TextBox}">
             <Setter Property="Padding" Value="5" />
             <Setter Property="Background" Value="BlanchedAlmond" />
             <Setter Property="FontSize" Value="12" />
@@ -31,26 +31,16 @@
     <Grid>
         <WrapPanel Orientation="Vertical">
             <GroupBox Header="Textbox">
-                <TextBox Style="{StaticResource Meh}"
-                         Text="Aj"
-                         />
+                <TextBox Style="{StaticResource Meh}" Text="{Binding Text}" />
             </GroupBox>
             <GroupBox Header="Default style">
-                <numeric:DoubleBox AllowSpinners="False"
-                                   MaxValue="{Binding Max}"
-                                   MinValue="{Binding Min}"
-                                   Style="{StaticResource Meh}"
-                                   Value="{Binding Value}"
-                                   />
+                <numeric:DoubleBox Style="{StaticResource Meh}" Value="{Binding Value}" />
             </GroupBox>
 
             <GroupBox Header="No spinners style and simple validation template">
-                <numeric:DoubleBox MaxValue="{Binding Max}"
-                                   MinValue="{Binding Min}"
-                                   Style="{StaticResource Meh}"
-                                   Validation.ErrorTemplate="{StaticResource SimpleValidationErrorTemplate}"
-                                   Value="{Binding Value}"
-                                   />
+                <numeric:DoubleBox Style="{StaticResource Meh}"
+                                   Validation.ErrorTemplate="{StaticResource {x:Static numeric:NumericBox.SimpleValidationErrorTemplateKey}}"
+                                   Value="{Binding Value}" />
             </GroupBox>
         </WrapPanel>
     </Grid>

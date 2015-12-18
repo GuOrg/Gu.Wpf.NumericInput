@@ -4,6 +4,9 @@
     using System.Globalization;
     using System.Windows;
 
+    /// <summary>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="double"/>
+    /// </summary>
     [ToolboxItem(true)]
     public class DoubleBox : NumericBox<double>, IDecimals
     {
@@ -17,13 +20,13 @@
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged,
-                OnCoerceDecimalsValue));
+                OnDecimalsValueChanged));
 
         static DoubleBox()
         {
             UpdateMetadata(typeof(DoubleBox), 1d);
-            NumberStylesProperty.OverrideMetadata(typeof(DoubleBox),
+            NumberStylesProperty.OverrideMetadata(
+                typeof(DoubleBox),
                 new FrameworkPropertyMetadata(
                     NumberStyles.AllowDecimalPoint |
                     NumberStyles.AllowExponent |
@@ -39,31 +42,25 @@
         {
         }
 
-        /// <summary>
-        /// The number of decimals to display in the UI, null uses default.
-        /// </summary>
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        /// <inheritdoc/>
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public int? DecimalDigits
         {
-            get
-            {
-                return (int?)GetValue(DecimalDigitsProperty);
-            }
-            set
-            {
-                SetValue(DecimalDigitsProperty, value);
-            }
+            get { return (int?)this.GetValue(DecimalDigitsProperty); }
+            set { this.SetValue(DecimalDigitsProperty, value); }
         }
 
-        public override bool CanParse(string s)
+        public override bool CanParse(string text)
         {
             double d;
-            return double.TryParse(s, NumberStyles.Float, Culture, out d);
+            return double.TryParse(text, this.NumberStyles, this.Culture, out d);
         }
 
-        public override double Parse(string s)
+        public override double Parse(string text)
         {
-            return double.Parse(s, NumberStyles.Float, Culture);
+            return double.Parse(text, this.NumberStyles, this.Culture);
         }
     }
 }

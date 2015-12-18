@@ -59,16 +59,73 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BoxTemplateSelector.cs" />
-    <Compile Include="DoubleBoxView.xaml.cs">
+    <Compile Include="DebugViews\DecimalBoxView.xaml.cs">
+      <DependentUpon>DecimalBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\DecimalBoxVm.cs">
+      <DependentUpon>DecimalBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\DoubleBoxView.xaml.cs">
       <DependentUpon>DoubleBoxView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DebugViews\DoubleBoxVm.cs">
+      <DependentUpon>DoubleBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\IntBoxView.xaml.cs">
+      <DependentUpon>IntBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\IntBoxVm.cs">
+      <DependentUpon>IntBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\ShortBoxView.xaml.cs">
+      <DependentUpon>ShortBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViews\ShortBoxVm.cs">
+      <DependentUpon>ShortBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DemoView.xaml.cs">
+      <DependentUpon>DemoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DemoVm.cs">
+      <DependentUpon>DemoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="StyledDoubleBoxView.xaml.cs">
+      <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FocusView.xaml.cs">
+      <DependentUpon>FocusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FocusVm.cs">
       <DependentUpon>FocusView.xaml</DependentUpon>
     </Compile>
     <Compile Include="IBoxVm.cs" />
     <Compile Include="MainVm.cs" />
     <Compile Include="BoxVm.cs" />
-    <Page Include="DoubleBoxView.xaml">
+    <Compile Include="StyledDoubleBoxVm.cs">
+      <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DebugViews\DecimalBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugViews\DoubleBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugViews\IntBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugViews\ShortBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DemoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyledDoubleBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -93,25 +150,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="paket.references" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +170,17 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1')">
+      <ItemGroup>
+        <Reference Include="Gu.PropertyGrid">
+          <HintPath>..\packages\Gu.PropertyGrid\lib\net45\Gu.PropertyGrid.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.5' Or $(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1')">
       <ItemGroup>

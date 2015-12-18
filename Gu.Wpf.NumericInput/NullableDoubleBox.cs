@@ -17,13 +17,13 @@ namespace Gu.Wpf.NumericInput
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged,
-                OnCoerceDecimalsValue));
+                OnDecimalsValueChanged));
 
         static NullableDoubleBox()
         {
             UpdateMetadata(typeof(NullableDoubleBox), 1d);
-            NumberStylesProperty.OverrideMetadata(typeof(NullableDoubleBox),
+            NumberStylesProperty.OverrideMetadata(
+                typeof(NullableDoubleBox),
                 new FrameworkPropertyMetadata(
                     NumberStyles.AllowDecimalPoint |
                     NumberStyles.AllowExponent |

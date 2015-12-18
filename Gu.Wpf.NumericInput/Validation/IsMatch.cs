@@ -7,22 +7,28 @@
 
     public class IsMatch : ValidationRule
     {
-        private readonly Func<string> _pattern;
+        private readonly Func<string> patternGetter;
 
-        public IsMatch(Func<string> pattern)
+        public IsMatch(Func<string> patternGetter)
         {
-            _pattern = pattern;
+            this.patternGetter = patternGetter;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var s = (string)value;
-            var pattern = _pattern();
-            if (string.IsNullOrEmpty(pattern) || Regex.IsMatch(s, pattern))
+            var text = (string)value;
+            var pattern = this.patternGetter();
+            if (string.IsNullOrEmpty(pattern))
             {
                 return ValidationResult.ValidResult;
             }
-            return new IsMatchValidationResult(s, pattern, false, string.Format("{0} does not match pattern: {1}", s, pattern));
+
+            if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, pattern))
+            {
+                return ValidationResult.ValidResult;
+            }
+
+            return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}");
         }
     }
 }

@@ -3,11 +3,11 @@
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for FocusView.xaml
+    /// Interaction logic for DemoView.xaml
     /// </summary>
-    public partial class FocusView : UserControl
+    public partial class DemoView : UserControl
     {
-        public FocusView()
+        public DemoView()
         {
             InitializeComponent();
         }
