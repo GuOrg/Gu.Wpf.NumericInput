@@ -5,30 +5,32 @@ namespace Gu.Wpf.NumericInput.Validation
     using System.Windows.Controls;
 
     public class IsLessThan<T> : ValidationRule
-        where T :struct, IComparable<T>, IFormattable
+        where T : struct, IComparable<T>, IFormattable
     {
-        private readonly Func<string, T> _parser;
-        private readonly Func<T?> _max;
+        private readonly Func<string, T> parser;
+        private readonly Func<T?> maxGetter;
 
-        public IsLessThan(Func<string, T> parser, Func<T?> max)
+        public IsLessThan(Func<string, T> parser, Func<T?> maxGetter)
         {
-            _parser = parser;
-            _max = max;
+            this.parser = parser;
+            this.maxGetter = maxGetter;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var max = _max();
+            var max = this.maxGetter();
             if (max == null)
             {
                 return ValidationResult.ValidResult;
             }
-            var v = _parser((string)value);
+
+            var v = this.parser((string)value);
 
             if (v.CompareTo(max.Value) > 0)
             {
-                return new IsLessThanValidationResult(v, max.Value, false, string.Format("{0} > max ({1})", v, max));
+                return new IsLessThanValidationResult(v, max.Value, false, $"{v} > max ({max})");
             }
+
             return ValidationResult.ValidResult;
         }
     }

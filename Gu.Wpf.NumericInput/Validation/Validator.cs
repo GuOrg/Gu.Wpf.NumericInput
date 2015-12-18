@@ -27,96 +27,94 @@
             BaseBox.RegexPatternProperty,
             typeof(NumericBox<T>));
 
-        private readonly ExplicitBinding<T> _proxyBinding;
-        private readonly NumericBox<T> _numericBox;
+        private readonly ExplicitBinding<T> proxyBinding;
+        private readonly NumericBox<T> numericBox;
 
         public Validator(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
-            _numericBox = numericBox;
-            _proxyBinding = new ExplicitBinding<T>(numericBox, rules);
+            this.numericBox = numericBox;
+            this.proxyBinding = new ExplicitBinding<T>(numericBox, rules);
 
-            _numericBox.TextChanged += NumericBoxOnTextChanged;
-            _numericBox.ValueChanged += NumericBoxOnValueChanged;
-            MinDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
-            MaxDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
-            NumberStylesDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
-            CultureDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
-            PatternDescriptor.AddValueChanged(_numericBox, (s, e) => _proxyBinding.ExplicitValidate());
-            _proxyBinding.ValidationFailed += OnValidationError;
-            _numericBox.LostFocus += OnLostFocus;
+            this.numericBox.TextChanged += this.NumericBoxOnTextChanged;
+            this.numericBox.ValueChanged += this.NumericBoxOnValueChanged;
+            MinDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            MaxDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            NumberStylesDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            CultureDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            PatternDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            this.proxyBinding.ValidationFailed += this.OnValidationError;
+            this.numericBox.LostFocus += this.OnLostFocus;
         }
 
-        private BindingExpression ValueBinding
-        {
-            get
-            {
-                return BindingOperations.GetBindingExpression(_numericBox, NumericBox<T>.ValueProperty);
-            }
-        }
+        private BindingExpression ValueBinding => BindingOperations.GetBindingExpression(this.numericBox, NumericBox<T>.ValueProperty);
 
         private void NumericBoxOnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (!this.IsTextChanged())
             {
-                _proxyBinding.ExplicitValidate();
+                this.proxyBinding.ExplicitValidate();
                 return;
             }
-            _numericBox.SetCurrentValue(ExplicitBinding.TextProxyProperty, _numericBox.Text);
-            if (!_proxyBinding.IsUpdatingText)
+
+            this.numericBox.SetCurrentValue(ExplicitBinding.TextProxyProperty, this.numericBox.Text);
+            if (!this.proxyBinding.IsUpdatingText)
             {
-                if (!_proxyBinding.HasValidationError)
+                if (!this.proxyBinding.HasValidationError)
                 {
-                    _proxyBinding.UpdateValue();
+                    this.proxyBinding.UpdateValue();
                 }
             }
             else
             {
-                _proxyBinding.ExplicitValidate();
+                this.proxyBinding.ExplicitValidate();
             }
         }
 
         private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)
         {
-            if (_proxyBinding.IsUpdatingValue)
+            if (this.proxyBinding.IsUpdatingValue)
             {
                 return;
             }
-            _proxyBinding.UpdateTextProxy();
+
+            this.proxyBinding.UpdateTextProxy();
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (!_proxyBinding.HasValidationError)
+            if (!this.proxyBinding.HasValidationError)
             {
-                _proxyBinding.IsUpdatingText = true;
-                _numericBox.Text = _numericBox.Value.ToString(_numericBox.StringFormat, _numericBox.Culture);
-                _proxyBinding.IsUpdatingText = false;
+                this.proxyBinding.IsUpdatingText = true;
+                this.numericBox.Text = this.numericBox.Value.ToString(this.numericBox.StringFormat, this.numericBox.Culture);
+                this.proxyBinding.IsUpdatingText = false;
             }
         }
 
         private void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
-            var expression = ValueBinding;
+            var expression = this.ValueBinding;
             if (expression != null)
             {
-                _proxyBinding.IsUpdatingValue = true;
-                ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
-                _proxyBinding.IsUpdatingValue = false;
+                this.proxyBinding.IsUpdatingValue = true;
+                this.ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
+                this.proxyBinding.IsUpdatingValue = false;
             }
         }
 
         private bool IsTextChanged()
         {
-            var viewText = _numericBox.Text;
-            var proxyText = (string)_numericBox.GetValue(ExplicitBinding.TextProxyProperty);
+            var viewText = this.numericBox.Text;
+            var proxyText = (string)this.numericBox.GetValue(ExplicitBinding.TextProxyProperty);
             if (viewText == proxyText)
             {
                 return false;
             }
-            if (viewText.HasMoreDecimalDigitsThan(proxyText, _numericBox))
+
+            if (viewText.HasMoreDecimalDigitsThan(proxyText, this.numericBox))
             {
                 return true;
             }
+
             return proxyText != viewText;
         }
     }

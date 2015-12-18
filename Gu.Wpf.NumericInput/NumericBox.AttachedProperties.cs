@@ -9,7 +9,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Input;
     using System.Windows.Media;
 
-    public static class NumericBox
+    public static partial class NumericBox
     {
         public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnClick",
@@ -19,8 +19,8 @@ namespace Gu.Wpf.NumericInput
 
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
-            typeof (bool), 
-            typeof (NumericBox),
+            typeof(bool),
+            typeof(NumericBox),
             new PropertyMetadata(false, OnSelectAllOnDoubleClickChanged));
 
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
@@ -108,6 +108,7 @@ namespace Gu.Wpf.NumericInput
             {
                 return;
             }
+
             textBoxBase.SelectAll();
         }
 
@@ -152,7 +153,7 @@ namespace Gu.Wpf.NumericInput
             var baseBox = d as BaseBox;
             if (baseBox != null)
             {
-                baseBox.Culture =(IFormatProvider) e.NewValue;
+                baseBox.Culture = (IFormatProvider)e.NewValue;
             }
         }
     }

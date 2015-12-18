@@ -56,6 +56,7 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Compile Include="Internals\DecimalDigitsToStringFormatConverterTests.cs" />
     <Compile Include="NamespacesTests.cs" />
     <Compile Include="CodeGen\DumpTemplateBindings.cs" />
     <Compile Include="DecimalBoxTests.cs" />

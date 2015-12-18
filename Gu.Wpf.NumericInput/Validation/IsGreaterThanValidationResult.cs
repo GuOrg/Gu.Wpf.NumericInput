@@ -8,12 +8,12 @@
         public IsGreaterThanValidationResult(IFormattable value, IFormattable min, bool isValid, object errorContent)
             : base(isValid, errorContent)
         {
-            Value = value;
-            Min = min;
+            this.Value = value;
+            this.Min = min;
         }
 
-        public IFormattable Value { get; private set; }
-        
-        public IFormattable Min { get; private set; }
+        public IFormattable Value { get; }
+
+        public IFormattable Min { get; }
     }
 }

@@ -8,69 +8,38 @@
         Width="525"
         Height="350"
         d:DataContext="{d:DesignInstance demo:MainVm}"
-        mc:Ignorable="d"
-        >
+        mc:Ignorable="d">
     <TabControl>
-        <TabItem Header="Debug">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <ListBox x:Name="ListBox"
-                         Grid.Column="0"
-                         ItemsSource="{Binding Vms}"
-                         SelectedIndex="1"
-                         />
-
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Row="0"
-                              Grid.Column="0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Top"
-                              HorizontalContentAlignment="Left"
-                              VerticalContentAlignment="Top"
-                              Header="{Binding SelectedItem,
-                                               ElementName=ListBox}"
-                              >
-                        <ContentPresenter Content="{Binding SelectedItem,
-                                                            ElementName=ListBox}"
-                                          ContentTemplateSelector="{StaticResource BoxTemplateSelector}"
-                                          />
-                    </GroupBox>
-                    <ContentPresenter Grid.Row="1"
-                                      Grid.Column="0"
-                                      Content="{Binding SelectedItem,
-                                                        ElementName=ListBox}"
-                                      ContentTemplate="{StaticResource SettingsDataTemplate}"
-                                      IsEnabled="{Binding SelectedItem.Configurable,
-                                                          ElementName=ListBox}"
-                                      />
-                    <ContentPresenter Grid.Row="1"
-                                      Grid.Column="1"
-                                      Content="{Binding SelectedItem,
-                                                        ElementName=ListBox}"
-                                      ContentTemplate="{StaticResource VmDataTemplate}"
-                                      />
-                </Grid>
-            </Grid>
+        <TabItem Header="Demo">
+            <demo:DemoView />
         </TabItem>
 
-        <TabItem Header="DoubleBox">
-            <demo:DoubleBoxView />
+        <TabItem Header="Debug">
+            <UniformGrid Rows="1">
+                <GroupBox Header="DoubleBox">
+                    <demo:DoubleBoxView HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </GroupBox>
+
+                <GroupBox Header="DecimalBox">
+                    <demo:DecimalBoxView HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </GroupBox>
+
+                <GroupBox Header="IntBox">
+                    <demo:IntBoxView HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </GroupBox>
+
+                <GroupBox Header="ShortBox">
+                    <demo:ShortBoxView HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </GroupBox>
+            </UniformGrid>
+        </TabItem>
+
+        <TabItem Header="Styled">
+            <demo:StyledDoubleBoxView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
 
         <TabItem Header="Focus">
-            <demo:FocusView />
+            <demo:FocusView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
     </TabControl>
 

@@ -4,23 +4,26 @@
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
              xmlns:numeric="http://gu.se/NumericInput"
              xmlns:validation="clr-namespace:Gu.Wpf.NumericInput.Validation;assembly=Gu.Wpf.NumericInput"
+             xmlns:propertyGrid="http://gu.se/PropertyGrid"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Gu.Wpf.NumericInput;component/Themes/Generic.xaml" />
-            </ResourceDictionary.MergedDictionaries>
 
+            <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type demo:IBoxVm}">
+                <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.NestedPropertyGridStyleKey}}">
+                    <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="ViewModel:" />
 
-            <DataTemplate x:Key="DebugInfoTemplate" DataType="{x:Type numeric:INumericBox}">
-                <StackPanel IsEnabled="False">
-                    <TextBlock Text="{Binding Text, StringFormat='Text: {0}'}" />
-                    <TextBlock Text="{Binding Value, StringFormat='Value: {0}'}" />
-                    <!--  <TextBlock Text="{Binding .(validation:ExplicitBinding.TextProxy), StringFormat='TextProxy: {0}'}" />  -->
-                </StackPanel>
+                    <HeaderedContentControl Header="CurrentValue">
+                        <TextBlock Text="{Binding Value}" />
+                    </HeaderedContentControl>
+
+                    <HeaderedContentControl Header="Edit Value">
+                        <TextBox Text="{Binding Value}" />
+                    </HeaderedContentControl>
+                </ItemsControl>
             </DataTemplate>
 
-            <DataTemplate x:Key="SettingsDataTemplate" DataType="{x:Type demo:IBoxVm}">
+            <!--<DataTemplate x:Key="SettingsDataTemplate" DataType="{x:Type demo:IBoxVm}">
                 <GroupBox Header="Settings">
                     <StackPanel>
                         <StackPanel.Resources>
@@ -197,7 +200,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </demo:BoxTemplateSelector.IntTweaked>
-            </demo:BoxTemplateSelector>
+            </demo:BoxTemplateSelector>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

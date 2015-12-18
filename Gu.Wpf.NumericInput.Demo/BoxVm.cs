@@ -3,177 +3,136 @@
     using System;
     using System.ComponentModel;
     using System.Globalization;
-    using System.Linq;
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public class BoxVm<T> : IBoxVm, IDataErrorInfo
+    public abstract class BoxVm<TBox, TValue> : IDataErrorInfo
+        where TBox : NumericBox<TValue> 
+        where TValue : struct, IComparable<TValue>, IFormattable, IConvertible, IEquatable<TValue>
     {
-        private T _value;
-        private T _min;
-        private T _max;
-        private CultureInfo _culture;
-        private int? _decimalDigits;
-        private bool _allowSpinners;
-        private bool _isReadonly;
-        private string _suffix;
-        private string _regexPattern;
-        private T _increment;
+        private TValue value;
+        private TValue? min;
+        private TValue? max;
+        private IFormatProvider culture;
+        private int? decimalDigits;
+        private bool allowSpinners;
+        private bool isReadOnly;
+        private string suffix;
+        private string regexPattern;
+        private TValue increment;
 
-        public BoxVm(Type type)
+        protected BoxVm()
         {
-            Type = type;
-            this.Configurable = false;
-            var instance = Activator.CreateInstance(type);
-            //var dps = type.GetFields(BindingFlags.Static | BindingFlags.Public |BindingFlags.FlattenHierarchy)
-            //                     .Where(x => x.FieldType == typeof(DependencyProperty))
-            //                     .Select(x => (DependencyProperty)x.GetValue(null))
-            //                     .ToArray();
-            Culture = (CultureInfo)this.DefaultValue(instance, "Culture");
-            Min = (T)this.DefaultValue(instance, "MinValue");
-            Max = (T)this.DefaultValue(instance, "MaxValue");
-            Increment = (T)this.DefaultValue(instance, "Increment");
-            DecimalDigits = (int?)this.DefaultValue(instance, "DecimalDigits");
-            AllowSpinners = (bool)this.DefaultValue(instance, "AllowSpinners");
-            RegexPattern = (string)this.DefaultValue(instance, "RegexPattern");
-            Suffix = (string)this.DefaultValue(instance, "Suffix");
+            min = DefaultValue(x => x.MinValue);
+            max = DefaultValue(x => x.MaxValue);
+            culture = DefaultValue(x => x.Culture);
+            //decimalDigits = DefaultValue(x => x.Dec);
+            allowSpinners = DefaultValue(x => x.AllowSpinners);
+            isReadOnly = DefaultValue(x => x.IsReadOnly);
+            increment = DefaultValue(x => x.Increment);
+            suffix = DefaultValue(x => x.Suffix);
+            regexPattern = DefaultValue(x => x.RegexPattern);
+            increment = DefaultValue(x => x.Increment); 
         }
 
-        public BoxVm(Type type, T min, T max, T increment)
-            : this(type)
-        {
-            this.Configurable = true;
-            Min = min;
-            Max = max;
-            Culture = Cultures.First();
-            Increment = increment;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public Type Type { get; private set; }
+        public Type Type => typeof(TBox);
 
-        public bool Configurable { get; private set; }
+        public CultureInfo[] Cultures => new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE") };
 
-        public CultureInfo[] Cultures
-        {
-            get { return new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE") }; }
-        }
-
-        public CultureInfo Culture
+        public IFormatProvider Culture
         {
             get
             {
-                return _culture;
+                return culture;
             }
             set
             {
-                if (Equals(value, _culture))
+                if (Equals(value, culture))
                 {
                     return;
                 }
-                _culture = value;
+                culture = value;
                 this.OnPropertyChanged();
             }
         }
 
-        public T Min
+        public TValue? Min
         {
             get
             {
-                return _min;
+                return min;
             }
             set
             {
-                if (Equals(value, _min))
+                if (Equals(value, min))
                 {
                     return;
                 }
-                _min = value;
+                min = value;
                 this.OnPropertyChanged();
             }
         }
 
-        IFormattable IBoxVm.Min
-        {
-            get { return (IFormattable)this.Min; }
-            set { this.Min = (T)value; }
-        }
-
-        public T Max
+        public TValue? Max
         {
             get
             {
-                return _max;
+                return max;
             }
             set
             {
-                if (Equals(value, _max))
+                if (Equals(value, max))
                 {
                     return;
                 }
-                _max = value;
+                max = value;
                 this.OnPropertyChanged();
             }
         }
 
-        IFormattable IBoxVm.Max
+        public TValue Value
         {
-            get { return (IFormattable)this.Max; }
-            set { this.Max = (T)value; }
-        }
-
-        public T Value
-        {
-            get { return _value; }
+            get { return value; }
             set
             {
-                if (value.Equals(_value))
+                if (value.Equals(this.value))
                 {
                     return;
                 }
-                _value = value;
+                this.value = value;
                 this.OnPropertyChanged();
             }
         }
 
-        IFormattable IBoxVm.Value
+        public TValue Increment
         {
-            get { return (IFormattable)this.Value; }
-            set { this.Value = (T)value; }
-        }
-
-        public T Increment
-        {
-            get { return _increment; }
+            get { return increment; }
             set
             {
-                if (value.Equals(_increment))
+                if (value.Equals(increment))
                 {
                     return;
                 }
-                _increment = value;
+                increment = value;
                 OnPropertyChanged();
             }
-        }
-
-        IFormattable IBoxVm.Increment
-        {
-            get { return (IFormattable)this.Increment; }
-            set { this.Increment = (T)value; }
         }
 
         public int? DecimalDigits
         {
             get
             {
-                return _decimalDigits;
+                return decimalDigits;
             }
             set
             {
-                if (value == _decimalDigits)
+                if (value == decimalDigits)
                 {
                     return;
                 }
-                _decimalDigits = value;
+                decimalDigits = value;
                 this.OnPropertyChanged();
             }
         }
@@ -182,32 +141,32 @@
         {
             get
             {
-                return _allowSpinners;
+                return allowSpinners;
             }
             set
             {
-                if (value.Equals(_allowSpinners))
+                if (value.Equals(allowSpinners))
                 {
                     return;
                 }
-                _allowSpinners = value;
+                allowSpinners = value;
                 this.OnPropertyChanged();
             }
         }
 
-        public bool IsReadonly
+        public bool IsReadOnly
         {
             get
             {
-                return _isReadonly;
+                return isReadOnly;
             }
             set
             {
-                if (value.Equals(_isReadonly))
+                if (value.Equals(isReadOnly))
                 {
                     return;
                 }
-                _isReadonly = value;
+                isReadOnly = value;
                 this.OnPropertyChanged();
             }
         }
@@ -216,15 +175,15 @@
         {
             get
             {
-                return _suffix;
+                return suffix;
             }
             set
             {
-                if (value == _suffix)
+                if (value == suffix)
                 {
                     return;
                 }
-                _suffix = value;
+                suffix = value;
                 this.OnPropertyChanged();
             }
         }
@@ -233,48 +192,19 @@
         {
             get
             {
-                return _regexPattern;
+                return regexPattern;
             }
             set
             {
-                if (value == _regexPattern)
+                if (value == regexPattern)
                 {
                     return;
                 }
-                _regexPattern = value;
+                regexPattern = value;
                 this.OnPropertyChanged();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public override string ToString()
-        {
-            var mode = Configurable ? "Configurable" : "Default";
-            return string.Format("{0} ({1})", Type.Name, mode);
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        private object DefaultValue(object instance, string name)
-        {
-            var propertyInfos = instance.GetType()
-                                        .GetProperties();
-            var dependencyProperty = propertyInfos.SingleOrDefault(x => x.Name == name);
-            if (dependencyProperty == null || !dependencyProperty.CanRead)
-            {
-                return null;
-            }
-            return dependencyProperty.GetValue(instance);
-        }
         public string this[string columnName]
         {
             get
@@ -286,9 +216,19 @@
                 return null;
             }
         }
-        public string Error
+
+        public string Error => string.Empty;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            get { return string.Empty; }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private static T DefaultValue<T>(Func<TBox, T> property)
+        {
+            var instance = Activator.CreateInstance<TBox>();
+            return property(instance);
         }
     }
 }
