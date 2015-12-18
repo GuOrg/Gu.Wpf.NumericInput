@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Gu.Wpf.NumericInput.Demo"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:numeric="http://gu.se/NumericInput"
+             xmlns:propertyGrid="http://gu.se/PropertyGrid"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:DemoVm />
+    </UserControl.DataContext>
+    <UniformGrid Columns="3">
+        <StackPanel>
+            <GroupBox VerticalAlignment="Top" Header="DoubleBox">
+                <numeric:DoubleBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                   Culture="{Binding Settings.Culture}"
+                                   DecimalDigits="{Binding Settings.DecimalDigits}"
+                                   Increment="{Binding Settings.Increment}"
+                                   IsReadOnly="{Binding Settings.IsReadOnly}"
+                                   MaxValue="{Binding Settings.Max}"
+                                   MinValue="{Binding Settings.Min}"
+                                   RegexPattern="{Binding Settings.RegexPattern}"
+                                   Suffix="{Binding Settings.Suffix}"
+                                   Value="{Binding DoubleValue}" />
+            </GroupBox>
+
+            <GroupBox VerticalAlignment="Top" Header="IntBox">
+                <numeric:IntBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                Culture="{Binding Settings.Culture}"
+                                Increment="{Binding Settings.Increment}"
+                                IsReadOnly="{Binding Settings.IsReadOnly}"
+                                MaxValue="{Binding Settings.Max}"
+                                MinValue="{Binding Settings.Min}"
+                                RegexPattern="{Binding Settings.RegexPattern}"
+                                Suffix="{Binding Settings.Suffix}"
+                                Value="{Binding IntValue}" />
+            </GroupBox>
+
+            <GroupBox VerticalAlignment="Top" Header="DecimalBox">
+                <numeric:DecimalBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                    Culture="{Binding Settings.Culture}"
+                                    DecimalDigits="{Binding Settings.DecimalDigits}"
+                                    Increment="{Binding Settings.Increment}"
+                                    IsReadOnly="{Binding Settings.IsReadOnly}"
+                                    MaxValue="{Binding Settings.Max}"
+                                    MinValue="{Binding Settings.Min}"
+                                    RegexPattern="{Binding Settings.RegexPattern}"
+                                    Suffix="{Binding Settings.Suffix}"
+                                    Value="{Binding DecimalValue}" />
+            </GroupBox>
+
+            <GroupBox VerticalAlignment="Top" Header="ShortBox">
+                <numeric:ShortBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                  Culture="{Binding Settings.Culture}"
+                                  Increment="{Binding Settings.Increment}"
+                                  IsReadOnly="{Binding Settings.IsReadOnly}"
+                                  MaxValue="{Binding Settings.Max}"
+                                  MinValue="{Binding Settings.Min}"
+                                  RegexPattern="{Binding Settings.RegexPattern}"
+                                  Suffix="{Binding Settings.Suffix}"
+                                  Value="{Binding ShortValue}" />
+            </GroupBox>
+        </StackPanel>
+
+        <Border>
+            <!--  Intentionally empty for validation errors  -->
+        </Border>
+
+        <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
+            <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Settings:" />
+
+            <HeaderedContentControl Header="IsReadOnly">
+                <CheckBox IsChecked="{Binding Settings.IsReadOnly}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Culture">
+                <ComboBox IsSynchronizedWithCurrentItem="True"
+                          ItemsSource="{Binding Settings.Cultures}"
+                          SelectedItem="{Binding Settings.Culture}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Suffix">
+                <TextBox Text="{Binding Settings.Suffix}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Decimals">
+                <TextBox Text="{Binding Settings.DecimalDigits, TargetNullValue=''}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Max">
+                <TextBox Text="{Binding Settings.Max, TargetNullValue=''}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Min">
+                <TextBox Text="{Binding Settings.Min, TargetNullValue=''}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowSpinners">
+                <CheckBox IsChecked="{Binding Settings.AllowSpinners}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Increment">
+                <TextBox Text="{Binding Settings.Increment, TargetNullValue=''}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="RegexPattern">
+                <TextBox Text="{Binding Settings.RegexPattern}" />
+            </HeaderedContentControl>
+        </ItemsControl>
+    </UniformGrid>
+</UserControl>

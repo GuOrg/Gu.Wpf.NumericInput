@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,7 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>bin\Release\Gu.Wpf.NumericInput.XML</DocumentationFile>
   </PropertyGroup>
@@ -51,10 +52,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NumericBox.cs" />
+    <Compile Include="Internals\DecimalDigitsToStringFormatConverter.cs" />
+    <Compile Include="NumericBox.Keys.cs" />
+    <Compile Include="NumericBox.AttachedProperties.cs" />
     <Compile Include="Contracts\IDecimals.cs" />
     <Compile Include="Contracts\INumericBox.cs" />
-    <Compile Include="StringFormatConverter.cs" />
+    <Compile Include="Internals\StringFormatConverter.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
     <Compile Include="BaseBox.cs" />
     <Compile Include="DecimalBox.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="ShortBox.cs" />
     <Compile Include="Validation\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />
+    <Compile Include="Validation\ExplicitBinding{T}.cs" />
     <Compile Include="Validation\IsGreaterThanValidationResult.cs" />
     <Compile Include="Validation\IsLessThanValidationResult.cs" />
     <Compile Include="Validation\IsMatch.cs" />
@@ -76,36 +80,27 @@
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Validation\IsGreaterThan.cs" />
     <Compile Include="Validation\IsLessThan.cs" />
     <Compile Include="Validation\CanParse.cs" />
     <Compile Include="Validation\Validator.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Gu.Wpf.NumericInput.ruleset" />
     <None Include="paket.references" />
     <None Include="paket.template" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Spinners.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Validation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

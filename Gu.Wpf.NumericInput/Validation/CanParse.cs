@@ -4,22 +4,24 @@
     using System.Globalization;
     using System.Windows.Controls;
 
-    public class CanParse<T> : ValidationRule
+    internal class CanParse<T> : ValidationRule
     {
-        private readonly Func<string, bool> _tryParser;
+        private readonly Func<string, bool> tryParser;
+
         public CanParse(Func<string, bool> tryParser)
         {
-            _tryParser = tryParser;
+            this.tryParser = tryParser;
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var s = (string)value;
-            if (_tryParser(s))
+            if (this.tryParser(s))
             {
                 return ValidationResult.ValidResult;
             }
-            return new CanParseValidationResult(typeof(T), s, false, string.Format("Cannot parse '{0}' to a {1}", s, typeof(T).Name));
+
+            return new CanParseValidationResult(typeof(T), s, false, $"Cannot parse '{s}' to a {typeof(T).Name}");
         }
     }
 }

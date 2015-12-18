@@ -4,6 +4,9 @@
     using System.Globalization;
     using System.Windows;
 
+    /// <summary>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="float"/>
+    /// </summary>
     [ToolboxItem(true)]
     public class FloatBox : NumericBox<float>, IDecimals
     {
@@ -15,13 +18,13 @@
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged,
-                OnCoerceDecimalsValue));
+                OnDecimalsValueChanged));
 
         static FloatBox()
         {
             UpdateMetadata(typeof(FloatBox), 1f);
-            NumberStylesProperty.OverrideMetadata(typeof(DecimalBox), 
+            NumberStylesProperty.OverrideMetadata(
+                typeof(DecimalBox),
                 new FrameworkPropertyMetadata(
                     NumberStyles.AllowDecimalPoint |
                     NumberStyles.AllowExponent |
@@ -37,31 +40,25 @@
         {
         }
 
-        /// <summary>
-        /// The number of decimals to display in the UI, null uses default.
-        /// </summary>
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        /// <inheritdoc/>
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public int? DecimalDigits
         {
-            get
-            {
-                return (int?)GetValue(DecimalDigitsProperty);
-            }
-            set
-            {
-                SetValue(DecimalDigitsProperty, value);
-            }
+            get { return (int?)this.GetValue(DecimalDigitsProperty); }
+            set { this.SetValue(DecimalDigitsProperty, value); }
         }
 
-        public override bool CanParse(string s)
+        public override bool CanParse(string text)
         {
             float d;
-            return float.TryParse(s, NumberStyles.Float, Culture, out d);
+            return float.TryParse(text, this.NumberStyles, this.Culture, out d);
         }
 
-        public override float Parse(string s)
+        public override float Parse(string text)
         {
-            return float.Parse(s, NumberStyles.Float, Culture);
+            return float.Parse(text, this.NumberStyles, this.Culture);
         }
     }
 }

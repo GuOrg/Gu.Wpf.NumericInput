@@ -13,7 +13,7 @@
     /// <summary>
     /// Baseclass with common functionality for numeric textboxes
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the <see cref="Value"/> property</typeparam>
     public abstract class NumericBox<T>
         : BaseBox, INumericBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -80,156 +80,114 @@
 
         public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
             "NumberStyles",
-            typeof(NumberStyles), 
-            typeof(NumericBox<T>), 
+            typeof(NumberStyles),
+            typeof(NumericBox<T>),
             new PropertyMetadata(NumberStyles.Any));
 
-        private readonly Func<T, T, T> _add;
-        private readonly Func<T, T, T> _subtract;
         private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
-        private readonly Validator<T> _validator; // Keeping this alive 
+        private readonly Func<T, T, T> add;
+        private readonly Func<T, T, T> subtract;
+        private readonly Validator<T> validator; // Keep this alive
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NumericBox{T}"/> class.
         /// </summary>
         /// <param name="add">How to add two values (x, y) => x + y</param>
         /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
         protected NumericBox(Func<T, T, T> add, Func<T, T, T> subtract)
         {
-            _add = add;
-            _subtract = subtract;
-            _validator = new Validator<T>(
+            this.add = add;
+            this.subtract = subtract;
+            this.validator = new Validator<T>(
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(CanParse),
-                new IsMatch(() => RegexPattern),
-                new IsGreaterThan<T>(Parse, () => MinValue),
-                new IsLessThan<T>(Parse, () => MaxValue));
-            MaxLimit = TypeMax;
-            MinLimit = TypeMin;
+                new CanParse<T>(this.CanParse),
+                new IsMatch(() => this.RegexPattern),
+                new IsGreaterThan<T>(this.Parse, () => this.MinValue),
+                new IsLessThan<T>(this.Parse, () => this.MaxValue));
+            this.MaxLimit = TypeMax;
+            this.MinLimit = TypeMin;
         }
 
-        [Category("NumericBox"), Browsable(true)]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public event ValueChangedEventHandler<T> ValueChanged
         {
-            add
-            {
-                AddHandler(ValueChangedEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(ValueChangedEvent, value);
-            }
+            add { this.AddHandler(ValueChangedEvent, value); }
+            remove { this.RemoveHandler(ValueChangedEvent, value); }
         }
 
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public T Value
         {
-            get { return (T)GetValue(ValueProperty); }
-            set
-            {
-                SetValue(ValueProperty, value);
-            }
+            get { return (T)this.GetValue(ValueProperty); }
+            set { this.SetValue(ValueProperty, value); }
         }
 
-        IFormattable INumericBox.Value
-        {
-            get { return Value; }
-        }
+        IFormattable INumericBox.Value => this.Value;
 
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public T? MaxValue
         {
-            get
-            {
-                return (T?)GetValue(MaxValueProperty);
-            }
-            set
-            {
-                SetValue(MaxValueProperty, value);
-            }
+            get { return (T?)this.GetValue(MaxValueProperty); }
+            set { this.SetValue(MaxValueProperty, value); }
         }
 
-        public T MaxLimit { get; private set; }
+        IFormattable INumericBox.MaxValue => this.MaxValue;
 
-        IFormattable INumericBox.MaxValue
-        {
-            get
-            {
-                return MaxValue;
-            }
-        }
-
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public T? MinValue
         {
-            get
-            {
-                return (T?)GetValue(MinValueProperty);
-            }
-            set
-            {
-                SetValue(MinValueProperty, value);
-            }
+            get { return (T?)this.GetValue(MinValueProperty); }
+            set { this.SetValue(MinValueProperty, value); }
         }
 
-        public T MinLimit { get; private set; }
+        IFormattable INumericBox.MinValue => this.MinValue;
 
-        IFormattable INumericBox.MinValue
-        {
-            get
-            {
-                return MinValue;
-            }
-        }
-
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public T Increment
         {
-            get
-            {
-                return (T)GetValue(IncrementProperty);
-            }
-            set
-            {
-                SetValue(IncrementProperty, value);
-            }
+            get { return (T)this.GetValue(IncrementProperty); }
+            set { this.SetValue(IncrementProperty, value); }
         }
 
-        IFormattable INumericBox.Increment
-        {
-            get
-            {
-                return Increment;
-            }
-        }
+        IFormattable INumericBox.Increment => this.Increment;
 
         /// <summary>
-        /// The number styles used for validation
+        /// Gets or sets the number styles used for validation
         /// </summary>
         public NumberStyles NumberStyles
         {
-            get { return (NumberStyles)GetValue(NumberStylesProperty); }
-            set { SetValue(NumberStylesProperty, value); }
+            get { return (NumberStyles)this.GetValue(NumberStylesProperty); }
+            set { this.SetValue(NumberStylesProperty, value); }
         }
 
         /// <summary>
-        /// The current value Parse(Text) will throw if bad format
+        /// Gets the current value. Will throw if bad format
         /// </summary>
-        internal T CurrentValue
+        internal T CurrentValue => this.Parse(this.Text);
+
+        internal T MaxLimit { get; private set; }
+
+        internal T MinLimit { get; private set; }
+
+        public abstract bool CanParse(string text);
+
+        public abstract T Parse(string text);
+
+        IFormattable INumericBox.Parse(string text)
         {
-            get { return Parse(Text); }
-        }
-
-        public abstract bool CanParse(string s);
-
-        public abstract T Parse(string s);
-
-        IFormattable INumericBox.Parse(string s)
-        {
-            return Parse(s);
+            return this.Parse(text);
         }
 
         protected static void UpdateMetadata(Type type, T increment)
@@ -248,49 +206,45 @@
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
         }
 
+        protected static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var numericBox = (NumericBox<T>)d;
+            numericBox.StringFormat = (string)DecimalDigitsToStringFormatConverter.Default.Convert(e.NewValue, null, null, null);
+
+            // not sure if binding StringFormat to DecimalDigits is nicer
+        }
+
         protected virtual void OnValueChanged(object newValue, object oldValue)
         {
             if (newValue != oldValue)
             {
                 var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
-                RaiseEvent(args);
-                CheckSpinners();
-            }
-        }
-
-        protected virtual object OnCoerceDecimalsValue(object value)
-        {
-            var decimals = (int?)value;
-
-            if (decimals == null || decimals < 0)
-            {
-                return null;
-            }
-            else
-            {
-                return value;
+                this.RaiseEvent(args);
+                this.CheckSpinners();
             }
         }
 
         protected override bool CanIncrease(object parameter)
         {
-            if (!CanParse(Text))
+            if (!this.CanParse(this.Text))
             {
                 return false;
             }
-            if (Comparer<T>.Default.Compare(CurrentValue, MaxLimit) >= 0)
+
+            if (Comparer<T>.Default.Compare(this.CurrentValue, this.MaxLimit) >= 0)
             {
                 return false;
             }
+
             return base.CanIncrease(parameter);
         }
 
         protected override void Increase(object parameter)
         {
-            if (CanIncrease(parameter))
+            if (this.CanIncrease(parameter))
             {
-                var value = AddIncrement();
-                var text = value.ToString(StringFormat, Culture);
+                var value = this.AddIncrement();
+                var text = value.ToString(this.StringFormat, this.Culture);
 
                 var textBox = parameter as TextBox;
                 SetTextUndoable(textBox ?? this, text);
@@ -299,52 +253,28 @@
 
         protected override bool CanDecrease(object parameter)
         {
-            if (!CanParse(Text))
+            if (!this.CanParse(this.Text))
             {
                 return false;
             }
-            if (Comparer<T>.Default.Compare(CurrentValue, MinLimit) <= 0)
+
+            if (Comparer<T>.Default.Compare(this.CurrentValue, this.MinLimit) <= 0)
             {
                 return false;
             }
+
             return base.CanDecrease(parameter);
         }
 
         protected override void Decrease(object parameter)
         {
-            if (CanDecrease(parameter))
+            if (this.CanDecrease(parameter))
             {
-                var value = SubtractIncrement();
-                var text = value.ToString(StringFormat, Culture);
+                var value = this.SubtractIncrement();
+                var text = value.ToString(this.StringFormat, this.Culture);
 
                 var textBox = parameter as TextBox;
                 SetTextUndoable(textBox ?? this, text);
-            }
-        }
-
-        protected static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var numericBox = (NumericBox<T>)d;
-            if (e.NewValue == null)
-            {
-                numericBox.StringFormat = "R";
-            }
-            else
-            {
-                numericBox.StringFormat = "F" + e.NewValue;
-            }
-        }
-
-        protected static object OnCoerceDecimalsValue(DependencyObject d, object value)
-        {
-            var numericBox = d as NumericBox<T>;
-            if (numericBox != null)
-            {
-                return numericBox.OnCoerceDecimalsValue(value);
-            }
-            else
-            {
-                return value;
             }
         }
 
@@ -365,6 +295,7 @@
             var newMax = e.NewValue as T?;
             box.MaxLimit = newMax ?? TypeMax;
         }
+
         private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
@@ -384,25 +315,25 @@
 
         private T AddIncrement()
         {
-            var min = MaxLimit.CompareTo(TypeMax) < 0
-                ? MaxLimit
+            var min = this.MaxLimit.CompareTo(TypeMax) < 0
+                ? this.MaxLimit
                 : TypeMax;
-            var subtract = _subtract(min, Increment);
-            var currentValue = CurrentValue;
-            return currentValue.CompareTo(subtract) < 0
-                            ? _add(currentValue, Increment)
+            var incremented = this.subtract(min, this.Increment);
+            var currentValue = this.CurrentValue;
+            return currentValue.CompareTo(incremented) < 0
+                            ? this.add(currentValue, this.Increment)
                             : min;
         }
 
         private T SubtractIncrement()
         {
-            var max = MinLimit.CompareTo(TypeMin) > 0
-                                ? MinLimit
+            var max = this.MinLimit.CompareTo(TypeMin) > 0
+                                ? this.MinLimit
                                 : TypeMin;
-            var add = _add(max, Increment);
-            var currentValue = CurrentValue;
-            return currentValue.CompareTo(add) > 0
-                            ? _subtract(currentValue, Increment)
+            var incremented = this.add(max, this.Increment);
+            var currentValue = this.CurrentValue;
+            return currentValue.CompareTo(incremented) > 0
+                            ? this.subtract(currentValue, this.Increment)
                             : max;
         }
     }

@@ -4,6 +4,9 @@
     using System.Globalization;
     using System.Windows;
 
+    /// <summary>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="decimal"/>
+    /// </summary>
     [ToolboxItem(true)]
     public class DecimalBox : NumericBox<decimal>, IDecimals
     {
@@ -15,13 +18,13 @@
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged,
-                OnCoerceDecimalsValue));
+                OnDecimalsValueChanged));
 
         static DecimalBox()
         {
             UpdateMetadata(typeof(DecimalBox), 1m);
-            NumberStylesProperty.OverrideMetadata(typeof(DecimalBox),
+            NumberStylesProperty.OverrideMetadata(
+                typeof(DecimalBox),
                 new FrameworkPropertyMetadata(
                     NumberStyles.AllowDecimalPoint |
                     NumberStyles.AllowExponent |
@@ -37,31 +40,25 @@
         {
         }
 
-        /// <summary>
-        /// The number of decimals to display in the UI, null uses default.
-        /// </summary>
-        [Description(""), Category("NumericBox"), Browsable(true)]
+        /// <inheritdoc/>
+        [Description("")]
+        [Category("NumericBox")]
+        [Browsable(true)]
         public int? DecimalDigits
         {
-            get
-            {
-                return (int?)GetValue(DecimalDigitsProperty);
-            }
-            set
-            {
-                SetValue(DecimalDigitsProperty, value);
-            }
+            get { return (int?)this.GetValue(DecimalDigitsProperty); }
+            set { this.SetValue(DecimalDigitsProperty, value); }
         }
 
-        public override bool CanParse(string s)
+        public override bool CanParse(string text)
         {
             decimal d;
-            return decimal.TryParse(s, NumberStyles.Float, Culture, out d);
+            return decimal.TryParse(text, this.NumberStyles, this.Culture, out d);
         }
 
-        public override decimal Parse(string s)
+        public override decimal Parse(string text)
         {
-            return decimal.Parse(s, NumberStyles.Float, Culture);
+            return decimal.Parse(text, this.NumberStyles, this.Culture);
         }
     }
 }

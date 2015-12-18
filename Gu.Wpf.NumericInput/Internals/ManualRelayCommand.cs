@@ -6,23 +6,24 @@
 
     internal class ManualRelayCommand : ICommand
     {
-        private readonly Action<object> _action;
-        private readonly Func<object, bool> _condition;
-        private bool? _previousCanExecute = null;
+        private readonly Action<object> action;
+        private readonly Func<object, bool> condition;
+        private bool? previousCanExecute = null;
 
         internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
         {
             if (action == null)
             {
-                throw new ArgumentNullException("action");
+                throw new ArgumentNullException(nameof(action));
             }
 
             if (condition == null)
             {
-                throw new ArgumentNullException("condition");
+                throw new ArgumentNullException(nameof(condition));
             }
-            _action = action;
-            _condition = condition;
+
+            this.action = action;
+            this.condition = condition;
         }
 
         public event EventHandler CanExecuteChanged
@@ -30,8 +31,9 @@
             add
             {
                 InternalCanExecuteChangedEventManager.AddHandler(this, value);
-                _previousCanExecute = null;
+                this.previousCanExecute = null;
             }
+
             remove
             {
                 InternalCanExecuteChangedEventManager.RemoveHandler(this, value);
@@ -42,18 +44,19 @@
 
         public void RaiseCanExecuteChanged()
         {
-            var canExecute = CanExecute(null);
-            if (canExecute == _previousCanExecute)
+            var canExecute = this.CanExecute(null);
+            if (canExecute == this.previousCanExecute)
             {
                 return;
             }
-            _previousCanExecute = canExecute;
 
-            var handler = InternalCanExecuteChanged;
+            this.previousCanExecute = canExecute;
+
+            var handler = this.InternalCanExecuteChanged;
             if (handler != null)
             {
                 var application = Application.Current;
-                if (application != null && application.Dispatcher != null)
+                if (application?.Dispatcher != null)
                 {
                     application.Dispatcher.BeginInvoke(new Action(() => handler(this, EventArgs.Empty)));
                 }
@@ -66,41 +69,46 @@
 
         public bool CanExecute(object parameter)
         {
-            return _condition(parameter);
+            return this.condition(parameter);
         }
 
         public void Execute(object parameter)
         {
-            _action(parameter);
-            RaiseCanExecuteChanged();
+            this.action(parameter);
+            this.RaiseCanExecuteChanged();
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
         {
             private static readonly InternalCanExecuteChangedEventManager Manager = new InternalCanExecuteChangedEventManager();
+
             static InternalCanExecuteChangedEventManager()
             {
                 SetCurrentManager(typeof(InternalCanExecuteChangedEventManager), Manager);
             }
+
             internal static void AddHandler(ManualRelayCommand source, EventHandler handler)
             {
                 Manager.ProtectedAddHandler(source, handler);
             }
+
             internal static void RemoveHandler(ManualRelayCommand source, EventHandler handler)
             {
                 Manager.ProtectedRemoveHandler(source, handler);
             }
+
             ////protected override ListenerList NewListenerList()
             ////{
             ////    return new ListenerList();
             ////}
             protected override void StartListening(object source)
             {
-                ((ManualRelayCommand)source).InternalCanExecuteChanged += DeliverEvent;
+                ((ManualRelayCommand)source).InternalCanExecuteChanged += this.DeliverEvent;
             }
+
             protected override void StopListening(object source)
             {
-                ((ManualRelayCommand)source).InternalCanExecuteChanged -= DeliverEvent;
+                ((ManualRelayCommand)source).InternalCanExecuteChanged -= this.DeliverEvent;
             }
         }
     }

@@ -11,8 +11,8 @@ namespace Gu.Wpf.NumericInput.Validation
             this.Pattern = pattern;
         }
 
-        public string Text { get; private set; }
+        public string Text { get; }
 
-        public string Pattern { get; private set; }
+        public string Pattern { get; }
     }
 }

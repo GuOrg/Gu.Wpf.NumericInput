@@ -3,17 +3,20 @@
     using System;
     using System.Windows.Controls;
 
+    /// <summary>
+    /// This <see cref="ValidationResult"/> is returned when <see cref="Value"/> is not less than <see cref="Max"/>
+    /// </summary>
     public class IsLessThanValidationResult : ValidationResult
     {
         public IsLessThanValidationResult(IFormattable value, IFormattable max, bool isValid, object errorContent)
             : base(isValid, errorContent)
         {
-            Value = value;
-            Max = max;
+            this.Value = value;
+            this.Max = max;
         }
 
-        public IFormattable Value { get; private set; }
+        public IFormattable Value { get; }
 
-        public IFormattable Max { get; private set; }
+        public IFormattable Max { get; }
     }
 }
