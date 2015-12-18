@@ -5,9 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using System.Threading.Tasks;
-
-    using Gu.Wpf.NumericInput.Demo.Annotations;
+    using JetBrains.Annotations;
 
     public class BoxVm<T> : IBoxVm, IDataErrorInfo
     {

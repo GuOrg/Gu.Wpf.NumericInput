@@ -1,0 +1,9 @@
+﻿type project
+title Gu.Wpf.NumericInput
+tags wpf xaml numeric textbox
+projectUrl https://github.com/JohanLarsson/Gu.Wpf.NumericInput
+licenseUrl http://opensource.org/licenses/MIT
+
+excludeddependencies
+  JetBrains.Annotations
+  StyleCop.Analyzers
