@@ -39,24 +39,10 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateNugetPackage|AnyCPU'">
-    <OutputPath>bin\CreateNugetPackage\</OutputPath>
-    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\CreateNugetPackage\Gu.Wpf.NumericInput.xml</DocumentationFile>
-    <BuildPackage>true</BuildPackage>
+    <DocumentationFile>bin\Release\Gu.Wpf.NumericInput.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -66,17 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NumericBox.cs" />
-    <Compile Include="IDecimals.cs" />
-    <Compile Include="INumericBox.cs" />
+    <Compile Include="Contracts\IDecimals.cs" />
+    <Compile Include="Contracts\INumericBox.cs" />
     <Compile Include="StringFormatConverter.cs" />
-    <Compile Include="ManualRelayCommand.cs" />
+    <Compile Include="Internals\ManualRelayCommand.cs" />
     <Compile Include="BaseBox.cs" />
     <Compile Include="DecimalBox.cs" />
     <Compile Include="DoubleBox.cs" />
     <Compile Include="FloatBox.cs" />
     <Compile Include="IntBox.cs" />
     <Compile Include="LongBox.cs" />
-    <Compile Include="NumericBox`1.cs" />
+    <Compile Include="NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="Validation\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />
@@ -86,9 +72,6 @@
     <Compile Include="Validation\IsMatchValidationResult.cs" />
     <Compile Include="Validation\StringHelper.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
-    <Compile Include="Properties\Annotations.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
@@ -111,6 +94,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="paket.references" />
+    <None Include="paket.template" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,7 +109,6 @@
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -132,4 +116,15 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\Newtonsoft.Json.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+  </ItemGroup>
 </Project>
