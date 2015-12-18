@@ -3,7 +3,7 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using Annotations;
+    using JetBrains.Annotations;
 
     public class DummyVm<T> : INotifyPropertyChanged
     {
@@ -31,11 +31,7 @@
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
