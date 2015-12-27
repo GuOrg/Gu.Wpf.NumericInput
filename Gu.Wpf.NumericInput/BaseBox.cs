@@ -24,17 +24,30 @@ namespace Gu.Wpf.NumericInput
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
-                null,
+                OnSuffixChanged,
                 OnSuffixCoerce)
             {
                 DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
+
+        private static readonly DependencyPropertyKey HasSuffixPropertyKey = DependencyProperty.RegisterReadOnly(
+            "HasSuffix",
+            typeof(bool),
+            typeof(BaseBox),
+            new PropertyMetadata(false));
+
+        public static readonly DependencyProperty HasSuffixProperty = HasSuffixPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
             "StringFormat",
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// Identifies the StringFormat property
+        /// </summary>
+        public static readonly DependencyProperty StringFormatProperty = StringFormatPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Identifies the Culture property
@@ -55,11 +68,6 @@ namespace Gu.Wpf.NumericInput
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(default(string)));
-
-        /// <summary>
-        /// Identifies the StringFormat property
-        /// </summary>
-        public static readonly DependencyProperty StringFormatProperty = StringFormatPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Identifies the AllowSpinners property
@@ -117,14 +125,14 @@ namespace Gu.Wpf.NumericInput
         [Browsable(true)]
         public string Suffix
         {
-            get
-            {
-                return (string)this.GetValue(SuffixProperty);
-            }
-            set
-            {
-                this.SetValue(SuffixProperty, value);
-            }
+            get { return (string)this.GetValue(SuffixProperty); }
+            set { this.SetValue(SuffixProperty, value); }
+        }
+
+        public bool HasSuffix
+        {
+            get { return (bool)this.GetValue(HasSuffixProperty); }
+            protected set { this.SetValue(HasSuffixPropertyKey, value); }
         }
 
         /// <summary>
@@ -238,6 +246,11 @@ namespace Gu.Wpf.NumericInput
             }
 
             base.OnIsKeyboardFocusWithinChanged(e);
+        }
+
+        private static void OnSuffixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((BaseBox)d).HasSuffix = !string.IsNullOrEmpty(e.NewValue as string);
         }
 
         private static object OnSuffixCoerce(DependencyObject dependencyObject, object baseValue)

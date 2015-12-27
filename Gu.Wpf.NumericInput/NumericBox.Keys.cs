@@ -23,6 +23,12 @@
 
         public static ResourceKey SimpleValidationErrorTemplateKey { get; } = CreateKey();
 
+        public static ResourceKey WithSpinnersTemplateKey { get; } = CreateKey();
+
+        public static ResourceKey WithSuffixTemplateKey { get; } = CreateKey();
+
+        public static ResourceKey WithSpinnersAndSuffixTemplateKey { get; } = CreateKey();
+
         private static ComponentResourceKey CreateKey([CallerMemberName] string caller = null)
         {
             return new ComponentResourceKey(typeof(NumericBox), caller);

@@ -1,6 +1,7 @@
 source http://www.nuget.org/api/v2/
 
-nuget NUnit ~> 2
+nuget NUnit 2.6.4
 nuget JetBrains.Annotations
 nuget StyleCop.Analyzers -prerelease
 nuget Gu.PropertyGrid
+nuget TestStack.White
