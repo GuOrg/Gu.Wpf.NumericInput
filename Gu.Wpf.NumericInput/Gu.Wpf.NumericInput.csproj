@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internals\DecimalDigitsToStringFormatConverter.cs" />
+    <Compile Include="Internals\IsNullOrEmptyConverter.cs" />
     <Compile Include="NumericBox.Keys.cs" />
     <Compile Include="NumericBox.AttachedProperties.cs" />
     <Compile Include="Contracts\IDecimals.cs" />
