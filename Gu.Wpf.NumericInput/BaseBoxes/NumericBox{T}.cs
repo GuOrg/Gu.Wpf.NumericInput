@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
     using Gu.Wpf.NumericInput.Validation;
 
     /// <summary>
@@ -69,15 +71,16 @@
 
         protected static void UpdateMetadata(Type type, T increment)
         {
-            TextProperty.OverrideMetadata(
-                type, new FrameworkPropertyMetadata(
-                    "0",
-                    FrameworkPropertyMetadataOptions.NotDataBindable,
-                    (o, e) => ((NumericBox<T>)o).CheckSpinners()));
-            IsReadOnlyProperty.OverrideMetadata(
-                type,
-                new FrameworkPropertyMetadata(
-                    (o, e) => ((NumericBox<T>)o).CheckSpinners()));
+            //TextProperty.OverrideMetadata(
+            //    type, new FrameworkPropertyMetadata(
+            //        "0",
+            //        FrameworkPropertyMetadataOptions.NotDataBindable,
+            //        (o, e) => ((NumericBox<T>)o).CheckSpinners()));
+
+            //IsReadOnlyProperty.OverrideMetadata(
+            //    type,
+            //    new FrameworkPropertyMetadata(
+            //        (o, e) => ((NumericBox<T>)o).CheckSpinners()));
 
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
@@ -164,6 +167,22 @@
             textBox.SelectAll();
             textBox.SelectedText = text;
             textBox.Select(0, 0);
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.Property == IsReadOnlyProperty)
+            {
+                this.CheckSpinners();
+            }
+
+            base.OnPropertyChanged(e);
+        }
+
+        protected override void OnTextChanged(TextChangedEventArgs e)
+        {
+            this.CheckSpinners();
+            base.OnTextChanged(e);
         }
 
         private T AddIncrement()
