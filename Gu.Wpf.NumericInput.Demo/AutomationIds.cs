@@ -26,6 +26,13 @@
         public static readonly string DoubleBox2 = Create();
         public static readonly string DoubleBox3 = Create();
 
+        public static readonly string AllowLeadingWhiteBox = Create();
+        public static readonly string AllowTrailingWhiteBox = Create();
+        public static readonly string AllowLeadingSignBox = Create();
+        public static readonly string AllowDecimalPointBox = Create();
+        public static readonly string AllowThousandsBox = Create();
+        public static readonly string AllowExponentBox = Create();
+
         private static string Create([CallerMemberName] string name = null)
         {
             return name;

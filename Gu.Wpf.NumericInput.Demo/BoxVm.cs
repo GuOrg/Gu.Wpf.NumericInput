@@ -14,6 +14,7 @@
         private TValue? min;
         private TValue? max;
         private IFormatProvider culture;
+        private NumberStyles numberStyles;
         private int? decimalDigits;
         private bool allowSpinners;
         private bool isReadOnly;
@@ -26,6 +27,7 @@
             min = DefaultValue(x => x.MinValue);
             max = DefaultValue(x => x.MaxValue);
             culture = DefaultValue(x => x.Culture);
+            this.numberStyles = DefaultValue(x => x.NumberStyles);
             //decimalDigits = DefaultValue(x => x.Dec);
             allowSpinners = DefaultValue(x => x.AllowSpinners);
             isReadOnly = DefaultValue(x => x.IsReadOnly);
@@ -55,6 +57,123 @@
                 }
                 culture = value;
                 this.OnPropertyChanged();
+            }
+        }
+
+        public NumberStyles NumberStyles
+        {
+            get { return this.numberStyles; }
+            set
+            {
+                if (value == this.numberStyles)
+                {
+                    return;
+                }
+
+                this.numberStyles = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.AllowLeadingWhite));
+                this.OnPropertyChanged(nameof(this.AllowTrailingWhite));
+                this.OnPropertyChanged(nameof(this.AllowLeadingSign));
+                this.OnPropertyChanged(nameof(this.AllowDecimalPoint));
+                this.OnPropertyChanged(nameof(this.AllowExponent));
+                this.OnPropertyChanged(nameof(this.AllowThousands));
+            }
+        }
+
+        public bool AllowLeadingWhite
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowLeadingWhite); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowLeadingWhite;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowLeadingWhite;
+                }
+            }
+        }
+
+        public bool AllowTrailingWhite
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowTrailingWhite); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowTrailingWhite;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowTrailingWhite;
+                }
+            }
+        }
+
+        public bool AllowLeadingSign
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowLeadingSign); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowLeadingSign;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowLeadingSign;
+                }
+            }
+        }
+
+        public bool AllowDecimalPoint
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowDecimalPoint); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowDecimalPoint;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowDecimalPoint;
+                }
+            }
+        }
+
+        public bool AllowExponent
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowExponent); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowExponent;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowExponent;
+                }
+            }
+        }
+
+        public bool AllowThousands
+        {
+            get { return this.NumberStyles.HasFlag(NumberStyles.AllowThousands); }
+            set
+            {
+                if (value)
+                {
+                    this.NumberStyles |= NumberStyles.AllowThousands;
+                }
+                else
+                {
+                    this.NumberStyles &= ~NumberStyles.AllowThousands;
+                }
             }
         }
 
