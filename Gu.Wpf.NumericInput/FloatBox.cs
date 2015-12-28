@@ -8,29 +8,15 @@
     /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="float"/>
     /// </summary>
     [ToolboxItem(true)]
-    public class FloatBox : NumericBox<float>, IDecimals
+    public class FloatBox : DecimalDigitsBox<float>, IDecimals
     {
-        /// <summary>
-        /// Identifies the Decimals property
-        /// </summary>
-        public static readonly DependencyProperty DecimalDigitsProperty = DoubleBox.DecimalDigitsProperty.AddOwner(
-            typeof(FloatBox),
-            new FrameworkPropertyMetadata(
-                null,
-                FrameworkPropertyMetadataOptions.None,
-                OnDecimalsValueChanged));
-
         static FloatBox()
         {
             UpdateMetadata(typeof(FloatBox), 1f);
             NumberStylesProperty.OverrideMetadata(
-                typeof(DecimalBox),
+                typeof(FloatBox),
                 new FrameworkPropertyMetadata(
-                    NumberStyles.AllowDecimalPoint |
-                    NumberStyles.AllowExponent |
-                    NumberStyles.AllowLeadingSign |
-                    NumberStyles.AllowLeadingWhite |
-                    NumberStyles.AllowTrailingWhite));
+                    NumberStyles.Float));
         }
 
         public FloatBox()
@@ -38,16 +24,6 @@
             (x, y) => x + y,
             (x, y) => x - y)
         {
-        }
-
-        /// <inheritdoc/>
-        [Description("")]
-        [Category("NumericBox")]
-        [Browsable(true)]
-        public int? DecimalDigits
-        {
-            get { return (int?)this.GetValue(DecimalDigitsProperty); }
-            set { this.SetValue(DecimalDigitsProperty, value); }
         }
 
         public override bool CanParse(string text)

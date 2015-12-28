@@ -15,7 +15,7 @@
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
-        <Setter Property="local:NumericBox.SelectAllOnDoubleClick" Value="True" />
+        <Setter Property="local:NumericBox.SelectAllOnClick" Value="True" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="MinLines" Value="1" />
         <Setter Property="Padding" Value="0" />
@@ -52,7 +52,7 @@
     <Style x:Key="{x:Static local:NumericBox.SuffixTextBoxStyleKey}"
            BasedOn="{StaticResource {x:Static local:NumericBox.TextBoxStyleKey}}"
            TargetType="{x:Type TextBox}">
-        <Setter Property="local:NumericBox.SelectAllOnDoubleClick" Value="False" />
+        <!--<Setter Property="local:NumericBox.SelectAllOnDoubleClick" Value="False" />-->
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Focusable" Value="False" />

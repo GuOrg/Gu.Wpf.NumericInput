@@ -1,11 +1,10 @@
-﻿using System.Windows.Controls.Primitives;
-
-namespace Gu.Wpf.NumericInput
+﻿namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
 
@@ -15,19 +14,26 @@ namespace Gu.Wpf.NumericInput
             "SelectAllOnClick",
             typeof(bool),
             typeof(NumericBox),
-            new PropertyMetadata(false, OnSelectAllOnClickChanged));
+            new PropertyMetadata(
+                BooleanBoxes.False,
+                OnSelectAllOnClickChanged));
 
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
             typeof(bool),
             typeof(NumericBox),
-            new PropertyMetadata(false, OnSelectAllOnDoubleClickChanged));
+            new PropertyMetadata(
+                BooleanBoxes.False,
+                OnSelectAllOnDoubleClickChanged));
 
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
             "Culture",
             typeof(IFormatProvider),
             typeof(NumericBox),
-            new FrameworkPropertyMetadata(CultureInfo.InvariantCulture, FrameworkPropertyMetadataOptions.Inherits, OnCultureChanged));
+            new FrameworkPropertyMetadata(
+                CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
+                FrameworkPropertyMetadataOptions.Inherits,
+                OnCultureChanged));
 
         private static readonly string GotKeyboardFocusEventName = "GotKeyboardFocus";
         private static readonly string PreviewMouseLeftButtonDownEventName = "PreviewMouseLeftButtonDown";
@@ -55,12 +61,12 @@ namespace Gu.Wpf.NumericInput
             return (bool)element.GetValue(SelectAllOnDoubleClickProperty);
         }
 
-        public static void SetCulture(this BaseBox element, CultureInfo value)
+        public static void SetCulture(this FrameworkElement element, CultureInfo value)
         {
             element.SetValue(CultureProperty, value);
         }
 
-        public static CultureInfo GetCulture(this BaseBox element)
+        public static CultureInfo GetCulture(this FrameworkElement element)
         {
             return (CultureInfo)element.GetValue(CultureProperty);
         }
@@ -70,7 +76,7 @@ namespace Gu.Wpf.NumericInput
             var box = d as TextBoxBase;
             if (box != null)
             {
-                var isSelecting = (e.NewValue as bool?).GetValueOrDefault(false);
+                var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
                 if (isSelecting)
                 {
                     WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.AddHandler(box, GotKeyboardFocusEventName, OnKeyboardFocusSelectText);
@@ -89,7 +95,7 @@ namespace Gu.Wpf.NumericInput
             var box = d as TextBoxBase;
             if (box != null)
             {
-                var isSelecting = (e.NewValue as bool?).GetValueOrDefault(false);
+                var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
                 if (isSelecting)
                 {
                     WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, MouseDoubleClickEventName, OnMouseDoubleClick);
@@ -104,12 +110,7 @@ namespace Gu.Wpf.NumericInput
         private static void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var textBoxBase = GetParentFromVisualTree(e.OriginalSource);
-            if (textBoxBase == null)
-            {
-                return;
-            }
-
-            textBoxBase.SelectAll();
+            textBoxBase?.SelectAll();
         }
 
         private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -142,10 +143,7 @@ namespace Gu.Wpf.NumericInput
         private static void OnKeyboardFocusSelectText(object sender, KeyboardFocusChangedEventArgs e)
         {
             var box = e.OriginalSource as TextBox;
-            if (box != null)
-            {
-                box.SelectAll();
-            }
+            box?.SelectAll();
         }
 
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
