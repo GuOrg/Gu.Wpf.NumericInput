@@ -86,7 +86,6 @@
     <Compile Include="DemoVm.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="StyledDoubleBoxView.xaml.cs">
       <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
     </Compile>

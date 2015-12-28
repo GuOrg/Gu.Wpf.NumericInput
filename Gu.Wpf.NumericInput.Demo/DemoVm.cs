@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Gu.Wpf.NumericInput.Demo.Annotations;
+    using JetBrains.Annotations;
 
     public class DemoVm : INotifyPropertyChanged
     {

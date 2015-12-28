@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using System.IO;
     using Gu.Wpf.NumericInput.Demo;
 
     public static class Info
