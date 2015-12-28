@@ -31,10 +31,10 @@
             //decimalDigits = DefaultValue(x => x.Dec);
             allowSpinners = DefaultValue(x => x.AllowSpinners);
             isReadOnly = DefaultValue(x => x.IsReadOnly);
-            increment = DefaultValue(x => x.Increment);
+            increment = DefaultValue(x => x.Increment).Value;
             suffix = DefaultValue(x => x.Suffix);
             regexPattern = DefaultValue(x => x.RegexPattern);
-            increment = DefaultValue(x => x.Increment); 
+            increment = DefaultValue(x => x.Increment).Value; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

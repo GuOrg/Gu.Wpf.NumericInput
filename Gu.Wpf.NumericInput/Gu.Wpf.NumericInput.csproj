@@ -52,21 +52,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseBoxes\BaseBox.cs" />
+    <Compile Include="BaseBoxes\DecimalDigitsBox{T}.cs" />
+    <Compile Include="BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
+    <Compile Include="BaseBoxes\NumericBox{T}.Events.cs" />
+    <Compile Include="Internals\BindingHelper.cs" />
+    <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Internals\DecimalDigitsToStringFormatConverter.cs" />
     <Compile Include="Internals\IsNullOrEmptyConverter.cs" />
-    <Compile Include="NumericBox.Keys.cs" />
-    <Compile Include="NumericBox.AttachedProperties.cs" />
+    <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
+    <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
     <Compile Include="Contracts\IDecimals.cs" />
     <Compile Include="Contracts\INumericBox.cs" />
     <Compile Include="Internals\StringFormatConverter.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
-    <Compile Include="BaseBox.cs" />
+    <Compile Include="BaseBoxes\BaseBox.DependencyProperties.cs" />
     <Compile Include="DecimalBox.cs" />
     <Compile Include="DoubleBox.cs" />
     <Compile Include="FloatBox.cs" />
     <Compile Include="IntBox.cs" />
+    <Compile Include="Internals\VisualTreeHelperExt.cs" />
     <Compile Include="LongBox.cs" />
-    <Compile Include="NumericBox{T}.cs" />
+    <Compile Include="BaseBoxes\NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="Validation\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />
@@ -123,4 +130,5 @@
       <Paket>True</Paket>
     </Analyzer>
   </ItemGroup>
+  <ItemGroup />
 </Project>

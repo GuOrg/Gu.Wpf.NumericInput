@@ -1,13 +1,16 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
+    using System;
+    using System.Windows;
     using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
-    using TestStack.White;
     using TestStack.White.Factory;
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.ListBoxItems;
     using TestStack.White.UIItems.TabItems;
+    using TestStack.White.Utility;
     using TestStack.White.WindowsAPI;
+    using Application = TestStack.White.Application;
 
     public class DoubleBoxTests
     {
@@ -272,6 +275,55 @@
                     Assert.AreEqual(true, doubleBox1.IsFocussed);
                     Assert.AreEqual(false, doubleBox2.IsFocussed);
                     Assert.AreEqual(false, doubleBox3.IsFocussed);
+                }
+            }
+
+            [Test]
+            public void Undo()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    inputBox.Enter("1.2");
+                    inputBox.Enter("3.4");
+
+                    window.Keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
+                    window.Keyboard.Enter("z");
+                    window.Keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
+
+                    vmValueBox.Click();
+                    Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                }
+            }
+
+            [Test, RequiresSTA]
+            public void CopyTest()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var attachedKeyboard = window.Keyboard;
+                    inputBox.Text = "1.2";
+                    attachedKeyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
+                    attachedKeyboard.Enter("ac");
+                    attachedKeyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
+
+                    //check the text is the same as that on the clipboard
+                    Retry.For(() =>
+                    {
+                        var clipboardText = Clipboard.GetText();
+                        Assert.AreEqual("1.2", clipboardText);
+                    }, TimeSpan.FromSeconds(5));
                 }
             }
         }

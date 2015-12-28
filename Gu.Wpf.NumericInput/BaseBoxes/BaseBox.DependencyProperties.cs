@@ -12,7 +12,7 @@ namespace Gu.Wpf.NumericInput
     /// <summary>
     /// Base class that adds a couple of dependency properties to TextBox
     /// </summary>
-    public abstract class BaseBox : TextBox
+    public abstract partial class BaseBox : TextBox
     {
         /// <summary>
         /// Identifies the Suffix property
@@ -25,10 +25,7 @@ namespace Gu.Wpf.NumericInput
                 null,
                 FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                 OnSuffixChanged,
-                OnSuffixCoerce)
-            {
-                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            });
+                OnSuffixCoerce));
 
         private static readonly DependencyPropertyKey HasSuffixPropertyKey = DependencyProperty.RegisterReadOnly(
             "HasSuffix",
@@ -58,7 +55,7 @@ namespace Gu.Wpf.NumericInput
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
-                FrameworkPropertyMetadataOptions.None));
+                FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Identifies the RegexPattern property
@@ -78,11 +75,7 @@ namespace Gu.Wpf.NumericInput
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 false,
-                FrameworkPropertyMetadataOptions.AffectsArrange)
-            {
-                BindsTwoWayByDefault = true,
-                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            });
+                FrameworkPropertyMetadataOptions.AffectsArrange));
 
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
             "IncreaseCommand",
@@ -109,15 +102,6 @@ namespace Gu.Wpf.NumericInput
         static BaseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
-        }
-
-        /// <summary>
-        /// Creates an instance of <see cref="T:Gu.NumericInput.BaseBox"/>
-        /// </summary>
-        protected BaseBox()
-        {
-            this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
-            this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
         }
 
         [Description("")]
@@ -186,66 +170,6 @@ namespace Gu.Wpf.NumericInput
         {
             get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
             private set { this.SetValue(DecreaseCommandPropertyKey, value); }
-        }
-
-        /// <summary>
-        /// Invoked when IncreaseCommand.Execute() is executed
-        /// </summary>
-        /// <param name="parameter">The inner <see cref="TextBox"/> showing the value in the controltemplate</param>
-        protected abstract void Increase(object parameter);
-
-        /// <summary>
-        /// Invoked when IncreaseCommand.CanExecute() is executed
-        /// </summary>
-        /// <param name="parameter">The inner <see cref="TextBox"/> showing the value in the controltemplate</param>
-        /// <returns>True if the value can be increased</returns>
-        protected virtual bool CanIncrease(object parameter)
-        {
-            if (this.IsReadOnly)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Invoked when DecreaseCommand.Execute() is executed
-        /// </summary>
-        /// <param name="parameter">The inner <see cref="TextBox"/> showing the value in the controltemplate</param>
-        protected abstract void Decrease(object parameter);
-
-        /// <summary>
-        /// Invoked when DecreaseCommand.CanExecute() is executed
-        /// </summary>
-        /// <param name="parameter">The inner <see cref="TextBox"/> showing the value in the controltemplate</param>
-        /// <returns>True if the value can be decreased</returns>
-        protected virtual bool CanDecrease(object parameter)
-        {
-            if (this.IsReadOnly)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        protected virtual void CheckSpinners()
-        {
-            // Not nice to cast like this but want to have ManualRelayCommand as internal
-            ((ManualRelayCommand)this.IncreaseCommand).RaiseCanExecuteChanged();
-            ((ManualRelayCommand)this.DecreaseCommand).RaiseCanExecuteChanged();
-        }
-
-        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
-        {
-            if (Equals(e.NewValue, false))
-            {
-                // this is needed because the inner textbox gets focus
-                this.RaiseEvent(new RoutedEventArgs(LostFocusEvent));
-            }
-
-            base.OnIsKeyboardFocusWithinChanged(e);
         }
 
         private static void OnSuffixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
