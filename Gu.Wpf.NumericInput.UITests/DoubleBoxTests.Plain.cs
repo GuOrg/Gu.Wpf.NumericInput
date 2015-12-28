@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using Gu.Wpf.NumericInput.Demo;
-    using Gu.Wpf.NumericInput.UITests.Helpers;
     using NUnit.Framework;
     using TestStack.White;
     using TestStack.White.Factory;
@@ -43,10 +42,78 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    Assert.AreEqual(vmValueBox.Text, inputBox.Text);
                     Assert.AreNotEqual("1.2", inputBox.Text);
                     vmValueBox.Enter("1.2");
                     inputBox.Click();
                     Assert.AreEqual("1.2", inputBox.Text);
+                }
+            }
+
+            [Test]
+            public void Culture()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var cultureBox = groupBox.Get<ComboBox>(AutomationIds.CultureBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    Assert.AreNotEqual("1.2", inputBox.Text);
+                    inputBox.Enter("1.2");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+
+                    cultureBox.Select("sv-SE");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1,2", inputBox.Text);
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+
+                    inputBox.Enter("2.3");
+                    Assert.AreEqual("2.3", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+
+                    cultureBox.Select("en-US");
+                    vmValueBox.Click();
+                    Assert.AreEqual("2.3", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", vmValueBox.Text); // maybe we want to update source here idk.
+                }
+            }
+
+            [Test]
+            public void NumberStylesAllowLeadingSign()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var signBox = groupBox.Get<CheckBox>(AutomationIds.AllowLeadingSignBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    inputBox.Enter("-1.2");
+                    vmValueBox.Click();
+                    Assert.AreEqual("-1.2", inputBox.Text);
+                    Assert.AreEqual("-1.2", vmValueBox.Text);
+
+                    signBox.Checked = false;
+                    vmValueBox.Click();
+                    Assert.AreEqual("-1.2", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("-1.2", vmValueBox.Text);
+
+                    signBox.Checked = true;
+                    vmValueBox.Click();
+                    Assert.AreEqual("-1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("-1.2", vmValueBox.Text);
                 }
             }
 
@@ -88,42 +155,6 @@
                     vmValueBox.Click();
                     Assert.AreEqual("1.2346", inputBox.Text);
                     Assert.AreEqual("1.234567", vmValueBox.Text);
-                }
-            }
-
-            [Test]
-            public void Culture()
-            {
-                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
-                {
-                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
-                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
-                    page.Select();
-                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var cultureBox = groupBox.Get<ComboBox>(AutomationIds.CultureBox);
-                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
-                    Assert.AreNotEqual("1.2", inputBox.Text);
-                    inputBox.Enter("1.2");
-                    vmValueBox.Click();
-                    Assert.AreEqual("1.2", inputBox.Text);
-                    Assert.AreEqual("1.2", vmValueBox.Text);
-
-                    cultureBox.Select("sv-SE");
-                    vmValueBox.Click();
-                    Assert.AreEqual("1,2", inputBox.Text);
-                    Assert.AreEqual("1.2", vmValueBox.Text);
-
-                    inputBox.Enter("2.3");
-                    Assert.AreEqual("2.3", inputBox.Text);
-                    Assert.AreEqual(true, inputBox.HasValidationError());
-                    Assert.AreEqual("1.2", vmValueBox.Text);
-
-                    cultureBox.Select("en-US");
-                    vmValueBox.Click();
-                    Assert.AreEqual("2.3", inputBox.Text);
-                    Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("1.2", vmValueBox.Text); // maybe we want to update source here idk.
                 }
             }
 

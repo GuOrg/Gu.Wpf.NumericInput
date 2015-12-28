@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.UITests.Helpers
+﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
     using System.Windows.Automation;
