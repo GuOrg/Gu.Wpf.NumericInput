@@ -21,7 +21,9 @@
                                   IsReadOnly="{Binding IsReadOnly}"
                                   MaxValue="{Binding Max}"
                                   MinValue="{Binding Min}"
-                                  NumberStyles="{Binding NumberStyles}"
+                                  NumberStyles="{Binding NumberStyles,
+                                                         Mode=OneWay,
+                                                         UpdateSourceTrigger=PropertyChanged}"
                                   RegexPattern="{Binding RegexPattern}"
                                   Suffix="{Binding Suffix}"
                                   Value="{Binding Value}" />
