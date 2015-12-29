@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests.SandBox
 {
-    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -12,62 +11,62 @@
 
     public class ExplicitBindingSandbox
     {
-        private Dummy _dummy;
-        private BindingExpressionBase _bindingExpression;
+        private Dummy dummy;
+        private BindingExpressionBase bindingExpression;
 
         [SetUp]
         public void SetUp()
         {
-            _dummy = new Dummy();
+            this.dummy = new Dummy();
             var binding = new Binding("Value")
             {
-                Source = _dummy,
+                Source = this.dummy,
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit
             };
-            binding.ValidationRules.Add(new CanParse<double>(_dummy.CanParse));
-            _bindingExpression = BindingOperations.SetBinding(_dummy, Dummy.TextProxyProperty, binding);
+            binding.ValidationRules.Add(new CanParse<double>(this.dummy.CanParse));
+            this.bindingExpression = BindingOperations.SetBinding(this.dummy, Dummy.TextProxyProperty, binding);
         }
 
         [Test]
         public void UpdateSource()
         {
-            _dummy.TextProxy = "1";
-            Assert.AreEqual(0, _dummy.Value);
-            _bindingExpression.UpdateSource();
-            Assert.AreEqual(1, _dummy.Value);
+            this.dummy.TextProxy = "1";
+            Assert.AreEqual(0, this.dummy.Value);
+            this.bindingExpression.UpdateSource();
+            Assert.AreEqual(1, this.dummy.Value);
         }
 
         [Test]
         public void UpdateSourceValidates()
         {
-            _dummy.TextProxy = "1e";
-            Assert.AreEqual(0, _dummy.Value);
-            _bindingExpression.UpdateSource();
-            Assert.AreEqual(0, _dummy.Value);
-            Assert.IsTrue(Validation.GetHasError(_dummy));
+            this.dummy.TextProxy = "1e";
+            Assert.AreEqual(0, this.dummy.Value);
+            this.bindingExpression.UpdateSource();
+            Assert.AreEqual(0, this.dummy.Value);
+            Assert.IsTrue(Validation.GetHasError(this.dummy));
 
-            _dummy.TextProxy = "1";
-            _bindingExpression.UpdateSource();
-            Assert.AreEqual(1, _dummy.Value);
-            Assert.IsFalse(Validation.GetHasError(_dummy));
+            this.dummy.TextProxy = "1";
+            this.bindingExpression.UpdateSource();
+            Assert.AreEqual(1, this.dummy.Value);
+            Assert.IsFalse(Validation.GetHasError(this.dummy));
         }
 
         [Test]
         public void ExplicitValidate()
         {
-            _dummy.TextProxy = "1e";
-            _bindingExpression.ValidateWithoutUpdate();
-            Assert.IsTrue(Validation.GetHasError(_dummy));
+            this.dummy.TextProxy = "1e";
+            this.bindingExpression.ValidateWithoutUpdate();
+            Assert.IsTrue(Validation.GetHasError(this.dummy));
         }
 
         [Test]
         public void UpdateTarget()
         {
-            _dummy.Value = 1.0;
-            Assert.AreEqual(null, _dummy.TextProxy);
-            _bindingExpression.UpdateTarget();
-            Assert.AreEqual("1", _dummy.TextProxy);
+            this.dummy.Value = 1.0;
+            Assert.AreEqual(null, this.dummy.TextProxy);
+            this.bindingExpression.UpdateTarget();
+            Assert.AreEqual("1", this.dummy.TextProxy);
         }
     }
 
@@ -91,22 +90,22 @@
         {
             get
             {
-                return (double)GetValue(ValueProperty);
+                return (double) this.GetValue(ValueProperty);
             }
             set
             {
-                SetValue(ValueProperty, value);
+                this.SetValue(ValueProperty, value);
             }
         }
         public string TextProxy
         {
             get
             {
-                return (string)GetValue(TextProxyProperty);
+                return (string) this.GetValue(TextProxyProperty);
             }
             set
             {
-                SetValue(TextProxyProperty, value);
+                this.SetValue(TextProxyProperty, value);
             }
         }
 

@@ -6,12 +6,12 @@
     [RequiresSTA]
     public class StringHelperTests
     {
-        private DoubleBox _box;
+        private DoubleBox box;
 
         [SetUp]
         public void SetUp()
         {
-            _box = new DoubleBox();
+            this.box = new DoubleBox();
         }
 
         [TestCase("1.2", "1.23", false)]
@@ -21,7 +21,7 @@
         [TestCase("2.23", "1.2", false)]
         public void HasMoreDecimalDigitsThan(string first, string other, bool expected)
         {
-            var actual = first.HasMoreDecimalDigitsThan(other, _box);
+            var actual = first.HasMoreDecimalDigitsThan(other, this.box);
             Assert.AreEqual(expected, actual);
         }
     }

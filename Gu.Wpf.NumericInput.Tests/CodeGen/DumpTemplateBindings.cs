@@ -12,15 +12,15 @@
         [TestCase(typeof(TextBox)), Explicit]
         public void TemplateBindDepedencyProperties(Type type)
         {
-            writeTemplateBindings(type);
+            this.WriteTemplateBindings(type);
             while (type.BaseType != typeof(Object))
             {
                 type = type.BaseType;
-                writeTemplateBindings(type);
+                this.WriteTemplateBindings(type);
             }
         }
 
-        private void writeTemplateBindings(Type type)
+        private void WriteTemplateBindings(Type type)
         {
             Console.WriteLine("#####  {0}  #####", type.Name);
 

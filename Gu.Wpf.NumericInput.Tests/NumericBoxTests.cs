@@ -2,7 +2,6 @@
 {
     using System;
     using System.Globalization;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -13,48 +12,51 @@
         where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
+        public TBox Sut => (TBox)this.Box;
+
         protected abstract Func<TBox> Creator { get; }
+
         protected abstract T Max { get; }
+
         protected abstract T Min { get; }
+
         protected abstract T Increment { get; }
 
-        private DummyVm<T> _vm;
-        private BindingExpressionBase _bindingExpression;
-
-        public TBox Sut { get { return (TBox)Box; } }
+        private DummyVm<T> vm;
+        private BindingExpressionBase bindingExpression;
 
         [SetUp]
         public void SetUp()
         {
-            Box = Creator();
-            Sut.IsReadOnly = false;
-            Sut.MinValue = Min;
-            Sut.MaxValue = Max;
-            Sut.Increment = Increment;
-            _vm = new DummyVm<T>();
+            this.Box = this.Creator();
+            this.Sut.IsReadOnly = false;
+            this.Sut.MinValue = this.Min;
+            this.Sut.MaxValue = this.Max;
+            this.Sut.Increment = this.Increment;
+            this.vm = new DummyVm<T>();
             var binding = new Binding("Value")
                               {
-                                  Source = _vm,
+                                  Source = this.vm,
                                   UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
                                   Mode = BindingMode.TwoWay
                               };
-            _bindingExpression = BindingOperations.SetBinding(Sut, NumericBox<T>.ValueProperty, binding);
-            Sut.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
+            this.bindingExpression = BindingOperations.SetBinding(this.Sut, NumericBox<T>.ValueProperty, binding);
+            this.Sut.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
         }
 
         [TestCase("1", true)]
         [TestCase("1e", false)]
         public void Increase_DecreaseCommand_CanExecute_WithText(string text, bool expected)
         {
-            Box.Text = text;
-            Assert.AreEqual(expected, Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(expected, Box.IncreaseCommand.CanExecute(null));
+            this.Box.Text = text;
+            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
+            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
         }
 
         [Test]
         public void Defaults()
         {
-            var box = Creator();
+            var box = this.Creator();
             Assert.AreEqual(1, box.Increment);
 
             var typeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
@@ -72,8 +74,8 @@
         [TestCase("1e", false)]
         public void IncreaseCommand_CanExecute_Text(string text, bool expected)
         {
-            Sut.Text = text;
-            Assert.AreEqual(expected, Sut.IncreaseCommand.CanExecute(null));
+            this.Sut.Text = text;
+            Assert.AreEqual(expected, this.Sut.IncreaseCommand.CanExecute(null));
         }
 
         [TestCase(9, false)]
@@ -84,9 +86,9 @@
         [TestCase(-11, true)]
         public void SetValueValidates(T value, bool expected)
         {
-            _vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(Sut));
-            Assert.AreEqual(value.ToString(Sut.StringFormat, Sut.Culture), Sut.Text);
+            this.vm.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+            Assert.AreEqual(value.ToString(this.Sut.StringFormat, this.Sut.Culture), this.Sut.Text);
         }
 
         [TestCase(9, false, 8, true)]
@@ -94,10 +96,10 @@
         [TestCase(11, true, 15, false)]
         public void SetMaxValidates(T value, bool expected, T newMax, bool expected2)
         {
-            _vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(Sut));
-            Sut.MaxValue = newMax;
-            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
+            this.vm.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+            this.Sut.MaxValue = newMax;
+            Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
         }
 
         [TestCase(-9, false, -8, true)]
@@ -105,10 +107,10 @@
         [TestCase(-11, true, -15, false)]
         public void SetMinValidates(T value, bool expected, T newMax, bool expected2)
         {
-            _vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(Sut));
-            Sut.MinValue = newMax;
-            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
+            this.vm.Value = value;
+            Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+            this.Sut.MinValue = newMax;
+            Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
         }
 
         [TestCase("9", 9, false)]
@@ -120,43 +122,43 @@
         [TestCase("1e", 0, true)]
         public void SetTextValidates(string text, T expectedValue, bool expected)
         {
-            Sut.Text = text;
-            Assert.AreEqual(expected, Validation.GetHasError(Sut));
-            Assert.AreEqual(text, Sut.Text);
-            Assert.AreEqual(Sut.Value, expectedValue);
+            this.Sut.Text = text;
+            Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+            Assert.AreEqual(text, this.Sut.Text);
+            Assert.AreEqual(this.Sut.Value, expectedValue);
         }
 
         [TestCase(1, "11", true, "1", false)]
         public void SetTextTwiceTest(T vmValue, string text1, bool expected1, string text2, bool expected2)
         {
-            _vm.Value = vmValue;
-            Sut.Text = text1;
-            Assert.AreEqual(expected1, Validation.GetHasError(Sut));
+            this.vm.Value = vmValue;
+            this.Sut.Text = text1;
+            Assert.AreEqual(expected1, Validation.GetHasError(this.Sut));
 
-            Sut.Text = text2;
-            Assert.AreEqual(expected2, Validation.GetHasError(Sut));
+            this.Sut.Text = text2;
+            Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
             //Assert.Fail("11 -> 1");
         }
 
         [TestCase(8)]
         public void IncreaseCommand_CanExecuteChanged_OnIncrease(T value)
         {
-            Sut.Value = value;
+            this.Sut.Value = value;
             var count = 0;
-            Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            ((ManualRelayCommand) this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
-            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
+            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
 
-            Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual("9", Sut.Text);
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("9", this.Sut.Text);
             Assert.AreEqual(1, count);
-            Assert.IsTrue(Sut.IncreaseCommand.CanExecute(null));
+            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
 
-            Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual("10", Sut.Text);
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("10", this.Sut.Text);
             Assert.AreEqual(2, count);
-            Assert.IsFalse(Sut.IncreaseCommand.CanExecute(null));
+            Assert.IsFalse(this.Sut.IncreaseCommand.CanExecute(null));
         }
 
         [TestCase(-9, 1)]
@@ -166,11 +168,11 @@
         public void IncreaseCommand_CanExecuteChanged_OnValueChanged(T newValue, int expected)
         {
             var count = 0;
-            Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            ((ManualRelayCommand) this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
 
-            _vm.Value = newValue;
+            this.vm.Value = newValue;
             Assert.AreEqual(expected, count);
         }
 
@@ -180,27 +182,27 @@
         [TestCase("-1e", false)]
         public void DecreaseCommand_CanExecute_Text(string text, bool expected)
         {
-            Sut.Text = text;
-            Assert.AreEqual(expected, Sut.DecreaseCommand.CanExecute(null));
+            this.Sut.Text = text;
+            Assert.AreEqual(expected, this.Sut.DecreaseCommand.CanExecute(null));
         }
 
         [TestCase(-8)]
         public void DecreaseCommand_CanExecute_OnDecrease(T value)
         {
-            Sut.Value = value;
+            this.Sut.Value = value;
             var count = 0;
-            Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            Assert.IsTrue(Sut.DecreaseCommand.CanExecute(null));
+            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
 
-            Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-9", Sut.Text);
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-9", this.Sut.Text);
             Assert.AreEqual(1, count);
-            Assert.IsTrue(Sut.DecreaseCommand.CanExecute(null));
+            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
 
-            Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-10", Sut.Text);
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-10", this.Sut.Text);
             Assert.AreEqual(2, count);
-            Assert.IsFalse(Sut.DecreaseCommand.CanExecute(null));
+            Assert.IsFalse(this.Sut.DecreaseCommand.CanExecute(null));
         }
 
         [TestCase("-11", 2)]
@@ -208,10 +210,10 @@
         public void DecreaseCommand_CanExecuteChanged_OnTextChanged(string text, int expected)
         {
             var count = 0;
-            Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)Sut.DecreaseCommand).RaiseCanExecuteChanged();
+            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            ((ManualRelayCommand) this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
-            Sut.Text = text;
+            this.Sut.Text = text;
             Assert.AreEqual(expected, count);
         }
 
@@ -221,10 +223,10 @@
         [TestCase("-10", "-10", -10)]
         public void DecreaseCommand_Execute(string text, string expectedText, T expected)
         {
-            Sut.Text = text;
-            Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual(expectedText, Sut.Text);
-            Assert.AreEqual(expected, Sut.Value);
+            this.Sut.Text = text;
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Sut.Text);
+            Assert.AreEqual(expected, this.Sut.Value);
         }
 
         [TestCase("-100", "-99", 0)]
@@ -233,63 +235,63 @@
         [TestCase("10", "10", 10)]
         public void IncreaseCommand_Execute(string text, string expectedText, T expected)
         {
-            Sut.Text = text;
-            Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual(expectedText, Sut.Text);
-            Assert.AreEqual(expected, Sut.Value);
+            this.Sut.Text = text;
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Sut.Text);
+            Assert.AreEqual(expected, this.Sut.Value);
         }
 
         [Test, Explicit("Can't test this yet")]
         public void IncreaseCommand_Execute_Undo()
         {
-            Assert.IsTrue(Sut.IsUndoEnabled);
-            Assert.AreEqual(100, Sut.UndoLimit);
-            Sut.Text = "0";
-            Sut.IncreaseCommand.Execute(null);
-            Assert.IsTrue(Sut.CanUndo);
-            Sut.Undo();
-            Assert.AreEqual("0", Sut.Text);
+            Assert.IsTrue(this.Sut.IsUndoEnabled);
+            Assert.AreEqual(100, this.Sut.UndoLimit);
+            this.Sut.Text = "0";
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.IsTrue(this.Sut.CanUndo);
+            this.Sut.Undo();
+            Assert.AreEqual("0", this.Sut.Text);
         }
 
         [Test, Explicit("Can't test this yet")]
         public void DecreaseCommand_Execute_Undo()
         {
             // Not sure this can be tested
-            var window = Sut.ShowInWindow();
-            Sut.IsUndoEnabled = true;
-            Sut.Text = "0";
-            Sut.DecreaseCommand.Execute(null);
-            Assert.IsTrue(Sut.CanUndo);
-            Sut.Undo();
-            Assert.AreEqual("0", Sut.Text);
+            var window = this.Sut.ShowInWindow();
+            this.Sut.IsUndoEnabled = true;
+            this.Sut.Text = "0";
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.IsTrue(this.Sut.CanUndo);
+            this.Sut.Undo();
+            Assert.AreEqual("0", this.Sut.Text);
             window.Close();
         }
 
         [Test]
         public void ValueUpdatesWhenTextIsSet()
         {
-            Sut.Text = "1";
-            Assert.AreEqual(1, Sut.GetValue(NumericBox<T>.ValueProperty));
+            this.Sut.Text = "1";
+            Assert.AreEqual(1, this.Sut.GetValue(NumericBox<T>.ValueProperty));
         }
 
         [TestCase(1)]
         public void TextUpdatesWhenValueChanges(T value)
         {
-            Sut.SetValue(NumericBox<T>.ValueProperty, value);
-            Assert.AreEqual("1", Sut.Text);
+            this.Sut.SetValue(NumericBox<T>.ValueProperty, value);
+            Assert.AreEqual("1", this.Sut.Text);
         }
 
         [Test]
         public void ValidationErrorResetsValue()
         {
-            Sut.Text = "1";
-            Assert.AreEqual("1", Sut.Value.ToString(CultureInfo.InvariantCulture));
-            Sut.Text = "1e";
+            this.Sut.Text = "1";
+            Assert.AreEqual("1", this.Sut.Value.ToString(CultureInfo.InvariantCulture));
+            this.Sut.Text = "1e";
 
-            var hasError = Validation.GetHasError(Box);
-            Assert.AreEqual("1e", Sut.Text);
-            var actual = Sut.Value;
-            Assert.AreEqual(_vm.Value, actual);
+            var hasError = Validation.GetHasError(this.Box);
+            Assert.AreEqual("1e", this.Sut.Text);
+            var actual = this.Sut.Value;
+            Assert.AreEqual(this.vm.Value, actual);
             Assert.IsTrue(hasError);
         }
     }
