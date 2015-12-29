@@ -56,28 +56,28 @@
     </ApplicationDefinition>
     <Compile Include="AutomationIds.cs" />
     <Compile Include="BoxTemplateSelector.cs" />
-    <Compile Include="DebugViews\DecimalBoxView.xaml.cs">
+    <Compile Include="BoxViews\DecimalBoxView.xaml.cs">
       <DependentUpon>DecimalBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\DecimalBoxVm.cs">
+    <Compile Include="BoxViews\DecimalBoxVm.cs">
       <DependentUpon>DecimalBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\DoubleBoxView.xaml.cs">
+    <Compile Include="BoxViews\DoubleBoxView.xaml.cs">
       <DependentUpon>DoubleBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\DoubleBoxVm.cs">
+    <Compile Include="BoxViews\DoubleBoxVm.cs">
       <DependentUpon>DoubleBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\IntBoxView.xaml.cs">
+    <Compile Include="BoxViews\IntBoxView.xaml.cs">
       <DependentUpon>IntBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\IntBoxVm.cs">
+    <Compile Include="BoxViews\IntBoxVm.cs">
       <DependentUpon>IntBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\ShortBoxView.xaml.cs">
+    <Compile Include="BoxViews\ShortBoxView.xaml.cs">
       <DependentUpon>ShortBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugViews\ShortBoxVm.cs">
+    <Compile Include="BoxViews\ShortBoxVm.cs">
       <DependentUpon>ShortBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DemoView.xaml.cs">
@@ -101,19 +101,19 @@
     <Compile Include="StyledDoubleBoxVm.cs">
       <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
     </Compile>
-    <Page Include="DebugViews\DecimalBoxView.xaml">
+    <Page Include="BoxViews\DecimalBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DebugViews\DoubleBoxView.xaml">
+    <Page Include="BoxViews\DoubleBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DebugViews\IntBoxView.xaml">
+    <Page Include="BoxViews\IntBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DebugViews\ShortBoxView.xaml">
+    <Page Include="BoxViews\ShortBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
