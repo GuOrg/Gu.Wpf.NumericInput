@@ -31,10 +31,9 @@
             this.decimalDigits = DefaultValue(x => (x as DecimalDigitsBox<TValue>)?.DecimalDigits);
             this.allowSpinners = DefaultValue(x => x.AllowSpinners);
             this.isReadOnly = DefaultValue(x => x.IsReadOnly);
-            this.increment = DefaultValue(x => x.Increment).Value;
+            this.increment = DefaultValue(x => x.Increment);
             this.suffix = DefaultValue(x => x.Suffix);
             this.regexPattern = DefaultValue(x => x.RegexPattern);
-            this.increment = DefaultValue(x => x.Increment).Value; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

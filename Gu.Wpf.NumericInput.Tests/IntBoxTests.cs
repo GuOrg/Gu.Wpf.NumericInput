@@ -6,21 +6,15 @@ namespace Gu.Wpf.NumericInput.Tests
     [TestFixture, RequiresSTA]
     public class IntBoxTests : NumericBoxTests<IntBox, int>
     {
+        protected override int Max => 10;
+
+        protected override int Min => -10;
+
+        protected override int Increment => 1;
+
         protected override Func<IntBox> Creator
         {
             get { return () => new IntBox(); }
-        }
-        protected override int Max
-        {
-            get { return 10; }
-        }
-        protected override int Min
-        {
-            get { return -10; }
-        }
-        protected override int Increment
-        {
-            get { return 1; }
         }
     }
 }

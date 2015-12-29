@@ -6,21 +6,15 @@ namespace Gu.Wpf.NumericInput.Tests
     [TestFixture, RequiresSTA]
     public class DoubleBoxTests : FloatBaseTests<DoubleBox, double>
     {
+        protected override double Max => 10;
+
+        protected override double Min => -10;
+
+        protected override double Increment => 1;
+
         protected override Func<DoubleBox> Creator
         {
             get { return () => new DoubleBox(); }
-        }
-        protected override double Max
-        {
-            get { return 10; }
-        }
-        protected override double Min
-        {
-            get { return -10; }
-        }
-        protected override double Increment
-        {
-            get { return 1; }
         }
     }
 }
