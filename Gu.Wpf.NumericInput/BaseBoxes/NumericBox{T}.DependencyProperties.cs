@@ -3,13 +3,11 @@
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Data;
 
     public abstract partial class NumericBox<T>
     {
-        /// <summary>
-        /// Identifies the Value property
-        /// </summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value",
             typeof(T),
@@ -22,9 +20,6 @@
                 false,
                 UpdateSourceTrigger.LostFocus));
 
-        /// <summary>
-        /// Identifies the MinValue property
-        /// </summary>
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
             typeof(T?),
@@ -33,9 +28,6 @@
                 null,
                 OnMinValueChanged));
 
-        /// <summary>
-        /// Identifies the MaxValue property
-        /// </summary>
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
             "MaxValue",
             typeof(T?),
@@ -48,18 +40,29 @@
             "NumberStyles",
             typeof(NumberStyles),
             typeof(NumericBox<T>),
-            new PropertyMetadata(NumberStyles.Any));
+            new PropertyMetadata(NumberStyles.None));
 
-        /// <summary>
-        /// Identifies the Increment property
-        /// </summary>
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
             "Increment",
-            typeof(T?),
+            typeof(T),
             typeof(NumericBox<T>),
             new PropertyMetadata(
-                null,
+                default(T),
                 OnIncrementChanged));
+
+        static NumericBox()
+        {
+            var metadata = TextProperty.GetMetadata(typeof(TextBox));
+            TextProperty.OverrideMetadata(
+                typeof(NumericBox<T>),
+                new FrameworkPropertyMetadata(
+                    metadata.DefaultValue,
+                    FrameworkPropertyMetadataOptions.NotDataBindable | FrameworkPropertyMetadataOptions.Journal,
+                    metadata.PropertyChangedCallback,
+                    metadata.CoerceValueCallback,
+                    true,
+                    UpdateSourceTrigger.LostFocus));
+        }
 
         [Category("NumericBox")]
         [Browsable(true)]

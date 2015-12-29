@@ -14,9 +14,8 @@ namespace Gu.Wpf.NumericInput
             "DecimalDigits",
             typeof(int?),
             typeof(DecimalDigitsBox<T>),
-            new FrameworkPropertyMetadata(
+            new PropertyMetadata(
                 null,
-                FrameworkPropertyMetadataOptions.None,
                 OnDecimalsValueChanged));
 
         protected DecimalDigitsBox(Func<T, T, T> add, Func<T, T, T> subtract)

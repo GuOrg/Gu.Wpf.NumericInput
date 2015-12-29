@@ -6,7 +6,7 @@ namespace Gu.Wpf.NumericInput.Tests
     using NUnit.Framework;
 
     public abstract class FloatBaseTests<TBox, T> : NumericBoxTests<TBox, T>
-        where TBox : NumericBox<T>, IDecimals
+        where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         [Test]
@@ -39,9 +39,9 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase(2, "1.234", "1.23", "1.234")]
         public void ValueNotAffectedByDecimalDigits(int decimals, string text, string expectedText, string expected)
         {
-            Sut.DecimalDigits = 3;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 3);
             Sut.Text = text;
-            Sut.DecimalDigits = decimals;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals);
             Assert.AreEqual(expectedText, Sut.Text);
             var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expected, actual); // Comparing strings cos conversion issue
@@ -50,7 +50,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("1.234", "1.234", "1.23", "1.23")]
         public void ValueUpdatedOnFewerDecimalDigitsFromUser(string text1, string expected1, string text2, string expected2)
         {
-            Sut.DecimalDigits = 5;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 5);
 
             Sut.Text = text1;
             var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
@@ -65,18 +65,18 @@ namespace Gu.Wpf.NumericInput.Tests
         public void RoundtripDecimals(string text, int decimals1, string expected1, int decimals2, string expected2)
         {
             Sut.Text = text;
-            Sut.DecimalDigits = decimals1;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
             Assert.AreEqual(expected1, Sut.Text);
             Assert.AreEqual(text, Sut.Value.ToString(CultureInfo.InvariantCulture));
 
-            Sut.DecimalDigits = decimals2;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
             Assert.AreEqual(expected2, Sut.Text);
         }
 
         [Test]
         public void AddedDigitsNotTruncated()
         {
-            Sut.DecimalDigits = 2;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 2);
             Sut.Text = "1.23";
             Sut.Text = "1.234";
             var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
@@ -86,7 +86,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [Test]
         public void FewerDecimalsUpdatesValue()
         {
-            Sut.DecimalDigits = 4;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 4);
             Sut.Text = "1.2334";
             Sut.Text = "1.23";
             var actual = Sut.Value.ToString(CultureInfo.InvariantCulture);
@@ -98,7 +98,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("en-US", "1.23e", "sv-SE", "1.23e", "0")]
         public void ChangeCultureDoesNotTruncDecimals(string culture1, string text, string culture2, string expected, string expectedValue)
         {
-            Sut.DecimalDigits = 1;
+            Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 1);
             Sut.Culture = new CultureInfo(culture1);
             Sut.Text = text;
             var value1 = Sut.Value.ToString(CultureInfo.InvariantCulture);

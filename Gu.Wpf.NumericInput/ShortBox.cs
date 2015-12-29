@@ -9,19 +9,16 @@
     {
         static ShortBox()
         {
-            UpdateMetadata(typeof(ShortBox), 1);
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ShortBox), new FrameworkPropertyMetadata(typeof(ShortBox)));
             NumberStylesProperty.OverrideMetadata(
                 typeof(ShortBox),
-                new FrameworkPropertyMetadata(
-                    NumberStyles.Integer |
-                    NumberStyles.AllowLeadingSign |
-                    NumberStyles.AllowLeadingWhite |
-                    NumberStyles.AllowTrailingWhite));
+                new PropertyMetadata(NumberStyles.Integer));
+            IncrementProperty.OverrideMetadataWithDefaultValue<short>(typeof(ShortBox), 1);
         }
 
         public ShortBox()
             : base(
-            (x, y) => (short)(x + y), 
+            (x, y) => (short)(x + y),
             (x, y) => (short)(x - y))
         {
         }
@@ -29,12 +26,12 @@
         public override bool CanParse(string text)
         {
             short d;
-            return short.TryParse(text, NumberStyles.Integer, this.Culture, out d);
+            return short.TryParse(text, this.NumberStyles, this.Culture, out d);
         }
 
         public override short Parse(string text)
         {
-            return short.Parse(text, NumberStyles.Integer, this.Culture);
+            return short.Parse(text, this.NumberStyles, this.Culture);
         }
     }
 }
