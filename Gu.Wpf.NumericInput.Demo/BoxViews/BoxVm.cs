@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public abstract class BoxVm<TBox, TValue> : IDataErrorInfo
+    public abstract class BoxVm<TBox, TValue> : IDataErrorInfo, INotifyPropertyChanged
         where TBox : NumericBox<TValue> 
         where TValue : struct, IComparable<TValue>, IFormattable, IConvertible, IEquatable<TValue>
     {
@@ -24,17 +24,17 @@
 
         protected BoxVm()
         {
-            min = DefaultValue(x => x.MinValue);
-            max = DefaultValue(x => x.MaxValue);
-            culture = DefaultValue(x => x.Culture);
+            this.min = DefaultValue(x => x.MinValue);
+            this.max = DefaultValue(x => x.MaxValue);
+            this.culture = DefaultValue(x => x.Culture);
             this.numberStyles = DefaultValue(x => x.NumberStyles);
-            //decimalDigits = DefaultValue(x => x.Dec);
-            allowSpinners = DefaultValue(x => x.AllowSpinners);
-            isReadOnly = DefaultValue(x => x.IsReadOnly);
-            increment = DefaultValue(x => x.Increment).Value;
-            suffix = DefaultValue(x => x.Suffix);
-            regexPattern = DefaultValue(x => x.RegexPattern);
-            increment = DefaultValue(x => x.Increment).Value; 
+            this.decimalDigits = DefaultValue(x => (x as DecimalDigitsBox<TValue>)?.DecimalDigits);
+            this.allowSpinners = DefaultValue(x => x.AllowSpinners);
+            this.isReadOnly = DefaultValue(x => x.IsReadOnly);
+            this.increment = DefaultValue(x => x.Increment).Value;
+            this.suffix = DefaultValue(x => x.Suffix);
+            this.regexPattern = DefaultValue(x => x.RegexPattern);
+            this.increment = DefaultValue(x => x.Increment).Value; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -47,15 +47,15 @@
         {
             get
             {
-                return culture;
+                return this.culture;
             }
             set
             {
-                if (Equals(value, culture))
+                if (Equals(value, this.culture))
                 {
                     return;
                 }
-                culture = value;
+                this.culture = value;
                 this.OnPropertyChanged();
             }
         }
@@ -181,15 +181,15 @@
         {
             get
             {
-                return min;
+                return this.min;
             }
             set
             {
-                if (Equals(value, min))
+                if (Equals(value, this.min))
                 {
                     return;
                 }
-                min = value;
+                this.min = value;
                 this.OnPropertyChanged();
             }
         }
@@ -198,22 +198,22 @@
         {
             get
             {
-                return max;
+                return this.max;
             }
             set
             {
-                if (Equals(value, max))
+                if (Equals(value, this.max))
                 {
                     return;
                 }
-                max = value;
+                this.max = value;
                 this.OnPropertyChanged();
             }
         }
 
         public TValue Value
         {
-            get { return value; }
+            get { return this.value; }
             set
             {
                 if (value.Equals(this.value))
@@ -227,15 +227,15 @@
 
         public TValue Increment
         {
-            get { return increment; }
+            get { return this.increment; }
             set
             {
-                if (value.Equals(increment))
+                if (value.Equals(this.increment))
                 {
                     return;
                 }
-                increment = value;
-                OnPropertyChanged();
+                this.increment = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -243,15 +243,15 @@
         {
             get
             {
-                return decimalDigits;
+                return this.decimalDigits;
             }
             set
             {
-                if (value == decimalDigits)
+                if (value == this.decimalDigits)
                 {
                     return;
                 }
-                decimalDigits = value;
+                this.decimalDigits = value;
                 this.OnPropertyChanged();
             }
         }
@@ -260,15 +260,15 @@
         {
             get
             {
-                return allowSpinners;
+                return this.allowSpinners;
             }
             set
             {
-                if (value.Equals(allowSpinners))
+                if (value.Equals(this.allowSpinners))
                 {
                     return;
                 }
-                allowSpinners = value;
+                this.allowSpinners = value;
                 this.OnPropertyChanged();
             }
         }
@@ -277,15 +277,15 @@
         {
             get
             {
-                return isReadOnly;
+                return this.isReadOnly;
             }
             set
             {
-                if (value.Equals(isReadOnly))
+                if (value.Equals(this.isReadOnly))
                 {
                     return;
                 }
-                isReadOnly = value;
+                this.isReadOnly = value;
                 this.OnPropertyChanged();
             }
         }
@@ -294,15 +294,15 @@
         {
             get
             {
-                return suffix;
+                return this.suffix;
             }
             set
             {
-                if (value == suffix)
+                if (value == this.suffix)
                 {
                     return;
                 }
-                suffix = value;
+                this.suffix = value;
                 this.OnPropertyChanged();
             }
         }
@@ -311,15 +311,15 @@
         {
             get
             {
-                return regexPattern;
+                return this.regexPattern;
             }
             set
             {
-                if (value == regexPattern)
+                if (value == this.regexPattern)
                 {
                     return;
                 }
-                regexPattern = value;
+                this.regexPattern = value;
                 this.OnPropertyChanged();
             }
         }
@@ -328,7 +328,7 @@
         {
             get
             {
-                if (columnName == "Value" && Equals(Value, 3))
+                if (columnName == "Value" && Equals(this.Value, 3))
                 {
                     return "IDataErrorInfo says anything but 3 please!";
                 }
@@ -341,7 +341,7 @@
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private static T DefaultValue<T>(Func<TBox, T> property)

@@ -55,7 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutomationIds.cs" />
-    <Compile Include="BoxTemplateSelector.cs" />
+    <Compile Include="BoxViews\BoxTemplateSelector.cs" />
     <Compile Include="BoxViews\DecimalBoxView.xaml.cs">
       <DependentUpon>DecimalBoxView.xaml</DependentUpon>
     </Compile>
@@ -95,9 +95,9 @@
     <Compile Include="FocusVm.cs">
       <DependentUpon>FocusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IBoxVm.cs" />
+    <Compile Include="BoxViews\IBoxVm.cs" />
     <Compile Include="MainVm.cs" />
-    <Compile Include="BoxVm.cs" />
+    <Compile Include="BoxViews\BoxVm.cs" />
     <Compile Include="StyledDoubleBoxVm.cs">
       <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
     </Compile>
