@@ -8,14 +8,13 @@
     /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="double"/>
     /// </summary>
     [ToolboxItem(true)]
-    public class DoubleBox : DecimalDigitsBox<double>, IDecimals
+    public class DoubleBox : DecimalDigitsBox<double>
     {
         static DoubleBox()
         {
-            UpdateMetadata(typeof(DoubleBox), 1d);
-            NumberStylesProperty.OverrideMetadata(
-                typeof(DoubleBox),
-                new PropertyMetadata(NumberStyles.Float));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DoubleBox), new FrameworkPropertyMetadata(typeof(DoubleBox)));
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(DoubleBox), NumberStyles.Float);
+            IncrementProperty.OverrideMetadataWithDefaultValue<double>(typeof(DoubleBox), 1);
         }
 
         public DoubleBox()

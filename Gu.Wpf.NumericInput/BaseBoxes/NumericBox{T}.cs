@@ -69,12 +69,6 @@
             return this.Parse(text);
         }
 
-        protected static void UpdateMetadata(Type type, T increment)
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
-        }
-
         protected virtual void OnValueChanged(object newValue, object oldValue)
         {
             if (newValue != oldValue)
