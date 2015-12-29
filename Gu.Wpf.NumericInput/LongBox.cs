@@ -12,14 +12,11 @@
     {
         static LongBox()
         {
-            UpdateMetadata(typeof(LongBox), 1);
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LongBox), new FrameworkPropertyMetadata(typeof(LongBox)));
             NumberStylesProperty.OverrideMetadata(
                 typeof(LongBox),
-                new FrameworkPropertyMetadata(
-                    NumberStyles.Integer |
-                    NumberStyles.AllowLeadingSign |
-                    NumberStyles.AllowLeadingWhite |
-                    NumberStyles.AllowTrailingWhite));
+                new PropertyMetadata(NumberStyles.Integer));
+            IncrementProperty.OverrideMetadataWithDefaultValue<long>(typeof(LongBox), 1);
         }
 
         public LongBox()

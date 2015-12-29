@@ -8,15 +8,15 @@
     /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="float"/>
     /// </summary>
     [ToolboxItem(true)]
-    public class FloatBox : DecimalDigitsBox<float>, IDecimals
+    public class FloatBox : DecimalDigitsBox<float>
     {
         static FloatBox()
         {
-            UpdateMetadata(typeof(FloatBox), 1f);
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatBox), new FrameworkPropertyMetadata(typeof(FloatBox)));
             NumberStylesProperty.OverrideMetadata(
                 typeof(FloatBox),
-                new FrameworkPropertyMetadata(
-                    NumberStyles.Float));
+                new PropertyMetadata(NumberStyles.Float));
+            IncrementProperty.OverrideMetadataWithDefaultValue<float>(typeof(FloatBox), 1);
         }
 
         public FloatBox()

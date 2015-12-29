@@ -12,14 +12,11 @@
     {
         static IntBox()
         {
-            UpdateMetadata(typeof(IntBox), 1);
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(IntBox), new FrameworkPropertyMetadata(typeof(IntBox)));
             NumberStylesProperty.OverrideMetadata(
                 typeof(IntBox),
-                new FrameworkPropertyMetadata(
-                    NumberStyles.Integer |
-                    NumberStyles.AllowLeadingSign |
-                    NumberStyles.AllowLeadingWhite |
-                    NumberStyles.AllowTrailingWhite));
+                new PropertyMetadata(NumberStyles.Integer));
+            IncrementProperty.OverrideMetadataWithDefaultValue<int>(typeof(IntBox), 1);
         }
 
         public IntBox()

@@ -59,10 +59,10 @@
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Internals\DecimalDigitsToStringFormatConverter.cs" />
+    <Compile Include="Internals\DependencyPropertyExt.cs" />
     <Compile Include="Internals\IsNullOrEmptyConverter.cs" />
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
-    <Compile Include="Contracts\IDecimals.cs" />
     <Compile Include="Contracts\INumericBox.cs" />
     <Compile Include="Internals\StringFormatConverter.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
