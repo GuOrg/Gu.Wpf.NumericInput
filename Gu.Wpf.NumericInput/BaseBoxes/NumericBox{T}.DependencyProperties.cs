@@ -99,9 +99,9 @@
 
         [Category("NumericBox")]
         [Browsable(true)]
-        public T? Increment
+        public T Increment
         {
-            get { return (T?)this.GetValue(IncrementProperty); }
+            get { return (T)this.GetValue(IncrementProperty); }
             set { this.SetValue(IncrementProperty, value); }
         }
 

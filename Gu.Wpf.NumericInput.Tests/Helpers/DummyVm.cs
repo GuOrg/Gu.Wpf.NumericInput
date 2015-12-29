@@ -7,7 +7,7 @@
 
     public class DummyVm<T> : INotifyPropertyChanged
     {
-        private T _value = default(T);
+        private T value = default(T);
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,23 +15,23 @@
         {
             get
             {
-                return _value;
+                return this.value;
             }
             set
             {
-                if (Equals(value, _value))
+                if (Equals(value, this.value))
                 {
                     return;
                 }
-                _value = value;
-                OnPropertyChanged();
+                this.value = value;
+                this.OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

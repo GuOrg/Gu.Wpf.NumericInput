@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Data;
     using Gu.Wpf.NumericInput.Validation;
 
     /// <summary>
@@ -81,11 +79,6 @@
 
         protected override bool CanIncrease(object parameter)
         {
-            if (this.Increment == null)
-            {
-                return false;
-            }
-
             if (!this.CanParse(this.Text))
             {
                 return false;
@@ -113,11 +106,6 @@
 
         protected override bool CanDecrease(object parameter)
         {
-            if (this.Increment == null)
-            {
-                return false;
-            }
-
             if (!this.CanParse(this.Text))
             {
                 return false;
@@ -173,10 +161,10 @@
             var min = this.MaxLimit.CompareTo(TypeMax) < 0
                 ? this.MaxLimit
                 : TypeMax;
-            var incremented = this.subtract(min, this.Increment.Value);
+            var incremented = this.subtract(min, this.Increment);
             var currentValue = this.CurrentValue;
             return currentValue.CompareTo(incremented) < 0
-                            ? this.add(currentValue, this.Increment.Value)
+                            ? this.add(currentValue, this.Increment)
                             : min;
         }
 
@@ -185,10 +173,10 @@
             var max = this.MinLimit.CompareTo(TypeMin) > 0
                                 ? this.MinLimit
                                 : TypeMin;
-            var incremented = this.add(max, this.Increment.Value);
+            var incremented = this.add(max, this.Increment);
             var currentValue = this.CurrentValue;
             return currentValue.CompareTo(incremented) > 0
-                            ? this.subtract(currentValue, this.Increment.Value)
+                            ? this.subtract(currentValue, this.Increment)
                             : max;
         }
     }
