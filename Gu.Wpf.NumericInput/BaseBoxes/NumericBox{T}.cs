@@ -71,17 +71,6 @@
 
         protected static void UpdateMetadata(Type type, T increment)
         {
-            //TextProperty.OverrideMetadata(
-            //    type, new FrameworkPropertyMetadata(
-            //        "0",
-            //        FrameworkPropertyMetadataOptions.NotDataBindable,
-            //        (o, e) => ((NumericBox<T>)o).CheckSpinners()));
-
-            //IsReadOnlyProperty.OverrideMetadata(
-            //    type,
-            //    new FrameworkPropertyMetadata(
-            //        (o, e) => ((NumericBox<T>)o).CheckSpinners()));
-
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IncrementProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(increment));
         }
