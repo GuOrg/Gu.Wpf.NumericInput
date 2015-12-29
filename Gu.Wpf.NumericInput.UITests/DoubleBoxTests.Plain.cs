@@ -289,10 +289,14 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
-                    inputBox.Enter("1");
-                    inputBox.KeyIn(KeyboardInput.SpecialKeys.CONTROL);
-                    inputBox.Enter("z");
-                    //inputBox.KeyIn(KeyboardInput.SpecialKeys.CONTROL);
+                    Assert.AreEqual("0", inputBox.Text);
+                    var keyboard = window.Keyboard;
+                    inputBox.Click();
+                    keyboard.Enter("1");
+                    Assert.AreEqual("10", inputBox.Text);
+                    keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
+                    keyboard.Enter("z");
+                    keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
                     Assert.AreEqual("0", inputBox.Text);
                     Assert.AreEqual("0", vmValueBox.Text);
                 }
