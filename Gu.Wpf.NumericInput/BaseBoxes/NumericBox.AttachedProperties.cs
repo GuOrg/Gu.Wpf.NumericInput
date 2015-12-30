@@ -35,10 +35,6 @@
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnCultureChanged));
 
-        private static readonly string GotKeyboardFocusEventName = "GotKeyboardFocus";
-        private static readonly string PreviewMouseLeftButtonDownEventName = "PreviewMouseLeftButtonDown";
-        private static readonly string MouseDoubleClickEventName = "MouseDoubleClick";
-
         [AttachedPropertyBrowsableForChildrenAttribute(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(TextBoxBase))]
         public static bool GetSelectAllOnClick(this TextBoxBase o)
@@ -79,13 +75,13 @@
                 var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
                 if (isSelecting)
                 {
-                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.AddHandler(box, GotKeyboardFocusEventName, OnKeyboardFocusSelectText);
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, PreviewMouseLeftButtonDownEventName, OnMouseLeftButtonDown);
+                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.AddHandler(box, nameof(box.GotKeyboardFocus), OnKeyboardFocusSelectText);
+                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, nameof(box.PreviewMouseLeftButtonDown), OnMouseLeftButtonDown);
                 }
                 else
                 {
-                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.RemoveHandler(box, GotKeyboardFocusEventName, OnKeyboardFocusSelectText);
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, PreviewMouseLeftButtonDownEventName, OnMouseLeftButtonDown);
+                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.RemoveHandler(box, nameof(box.GotKeyboardFocus), OnKeyboardFocusSelectText);
+                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, nameof(box.PreviewMouseLeftButtonDown), OnMouseLeftButtonDown);
                 }
             }
         }
@@ -98,11 +94,11 @@
                 var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
                 if (isSelecting)
                 {
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, MouseDoubleClickEventName, OnMouseDoubleClick);
+                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, nameof(box.MouseDoubleClick), OnMouseDoubleClick);
                 }
                 else
                 {
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, MouseDoubleClickEventName, OnMouseDoubleClick);
+                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, nameof(box.MouseDoubleClick), OnMouseDoubleClick);
                 }
             }
         }

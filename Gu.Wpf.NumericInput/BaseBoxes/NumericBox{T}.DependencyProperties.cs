@@ -82,8 +82,8 @@
         [Browsable(true)]
         public bool CanValueBeNull
         {
-            get { return (bool)GetValue(CanValueBeNullProperty); }
-            set { SetValue(CanValueBeNullProperty, value); }
+            get { return (bool) this.GetValue(CanValueBeNullProperty); }
+            set { this.SetValue(CanValueBeNullProperty, value); }
         }
 
         [Category("NumericBox")]
