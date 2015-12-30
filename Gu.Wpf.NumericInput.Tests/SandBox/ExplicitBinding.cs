@@ -5,8 +5,6 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    using Validation;
-
     using NUnit.Framework;
 
     [Explicit]

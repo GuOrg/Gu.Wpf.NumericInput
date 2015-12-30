@@ -3,40 +3,44 @@ namespace Gu.Wpf.NumericInput
     using System;
     using System.Globalization;
     using System.Windows.Controls;
-    using Gu.Wpf.NumericInput.Validation;
+    using System.Windows.Data;
 
     internal class IsLessThanOrEqualToMaxRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private readonly Func<string, T?> parser;
-        private readonly Func<T?> maxGetter;
+        internal static readonly IsLessThanOrEqualToMaxRule<T> Default = new IsLessThanOrEqualToMaxRule<T>();
 
-        public IsLessThanOrEqualToMaxRule(Func<string, T?> parser, Func<T?> maxGetter)
+        private IsLessThanOrEqualToMaxRule()
+            : base(ValidationStep.ConvertedProposedValue, false)
         {
-            this.parser = parser;
-            this.maxGetter = maxGetter;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var max = this.maxGetter();
-            if (max == null)
+            var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            if (box.MaxValue == null)
             {
                 return ValidationResult.ValidResult;
             }
 
-            var v = this.parser((string)value);
-            if (v == null)
+            if (value == null)
             {
-                return new IsLessThanValidationResult(null, max.Value, false, $"Value cannot be null when {nameof(NumericBox<T>.MaxValue)} is set");
+                return new IsLessThanValidationResult(null, box.MaxValue, false, $"Value cannot be null when {nameof(NumericBox<T>.MaxValue)} is set");
             }
 
-            if (v.Value.CompareTo(max.Value) > 0)
+            var max = box.MaxValue.Value;
+            var v = (T)value;
+            if (v.CompareTo(max) > 0)
             {
-                return new IsLessThanValidationResult(v, max.Value, false, $"{v} > max ({max})");
+                return new IsLessThanValidationResult(v, max, false, $"{v} > max ({max})");
             }
 
             return ValidationResult.ValidResult;
+        }
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            throw new InvalidOperationException("Should not get here");
         }
     }
 }

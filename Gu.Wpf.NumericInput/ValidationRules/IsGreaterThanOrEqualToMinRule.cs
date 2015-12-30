@@ -3,40 +3,44 @@ namespace Gu.Wpf.NumericInput
     using System;
     using System.Globalization;
     using System.Windows.Controls;
-    using Gu.Wpf.NumericInput.Validation;
+    using System.Windows.Data;
 
     internal class IsGreaterThanOrEqualToMinRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private readonly Func<string, T?> parser;
-        private readonly Func<T?> minGetter;
+        internal static readonly IsGreaterThanOrEqualToMinRule<T> Default = new IsGreaterThanOrEqualToMinRule<T>();
 
-        public IsGreaterThanOrEqualToMinRule(Func<string, T?> parser, Func<T?> minGetter)
+        private IsGreaterThanOrEqualToMinRule()
+            : base(ValidationStep.ConvertedProposedValue, false)
         {
-            this.parser = parser;
-            this.minGetter = minGetter;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var min = this.minGetter();
-            if (min == null)
+            var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            if (box.MinValue == null)
             {
                 return ValidationResult.ValidResult;
             }
 
-            var v = this.parser((string)value);
-            if (v == null)
+            if (value == null)
             {
-                return new IsGreaterThanValidationResult(null, min.Value, false, $"Value cannot be null when {nameof(NumericBox<T>.MinValue)} is set");
+                return new IsGreaterThanValidationResult(null, box.MinValue, false, $"Value cannot be null when {nameof(NumericBox<T>.MinValue)} is set");
             }
 
-            if (v.Value.CompareTo(min.Value) < 0)
+            var min = box.MinValue.Value;
+            var v = (T)value;
+            if (v.CompareTo(min) < 0)
             {
-                return new IsGreaterThanValidationResult(v, min.Value, false, $"{v} < min ({min})");
+                return new IsGreaterThanValidationResult(v, min, false, $"{v} < min ({min})");
             }
 
             return ValidationResult.ValidResult;
+        }
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            throw new InvalidOperationException("Should not get here");
         }
     }
 }

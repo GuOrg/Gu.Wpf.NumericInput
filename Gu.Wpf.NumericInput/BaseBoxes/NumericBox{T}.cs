@@ -31,12 +31,10 @@
             this.subtract = subtract;
             this.validator = new Validator<T>(
                 this,
-                new DataErrorValidationRule(),
-                new ExceptionValidationRule(),
                 CanParse<T>.Default,
                 IsMatch.Default,
-                new IsGreaterThanOrEqualToMinRule<T>(this.Parse, () => this.MinValue),
-                new IsLessThanOrEqualToMaxRule<T>(this.Parse, () => this.MaxValue));
+                IsGreaterThanOrEqualToMinRule<T>.Default,
+                IsLessThanOrEqualToMaxRule<T>.Default);
         }
 
         IFormattable INumericBox.Value => this.Value;
