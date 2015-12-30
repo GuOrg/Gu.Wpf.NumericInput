@@ -151,18 +151,12 @@ namespace Gu.Wpf.NumericInput
             set { this.SetValue(AllowSpinnersProperty, value); }
         }
 
-        /// <summary>
-        /// Gets or sets increases the value by increment
-        /// </summary>
         public ICommand IncreaseCommand
         {
             get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
             private set { this.SetValue(IncreaseCommandPropertyKey, value); }
         }
 
-        /// <summary>
-        /// Gets decreases the value by increment
-        /// </summary>
         public ICommand DecreaseCommand
         {
             get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
