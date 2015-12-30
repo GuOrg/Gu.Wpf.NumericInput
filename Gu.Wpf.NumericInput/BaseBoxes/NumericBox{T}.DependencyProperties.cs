@@ -24,7 +24,13 @@
             "CanValueBeNull",
             typeof(bool),
             typeof(NumericBox<T>),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(default(bool), OnCanBeNullChanged));
+
+        public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
+            "NumberStyles",
+            typeof(NumberStyles),
+            typeof(NumericBox<T>),
+            new PropertyMetadata(NumberStyles.None, OnNumberStylesChanged));
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
@@ -41,12 +47,6 @@
             new PropertyMetadata(
                 null,
                 OnMaxValueChanged));
-
-        public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
-            "NumberStyles",
-            typeof(NumberStyles),
-            typeof(NumericBox<T>),
-            new PropertyMetadata(NumberStyles.None));
 
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
             "Increment",
@@ -88,6 +88,14 @@
 
         [Category("NumericBox")]
         [Browsable(true)]
+        public NumberStyles NumberStyles
+        {
+            get { return (NumberStyles)this.GetValue(NumberStylesProperty); }
+            set { this.SetValue(NumberStylesProperty, value); }
+        }
+
+        [Category("NumericBox")]
+        [Browsable(true)]
         public T? MinValue
         {
             get { return (T?)this.GetValue(MinValueProperty); }
@@ -100,15 +108,6 @@
         {
             get { return (T?)this.GetValue(MaxValueProperty); }
             set { this.SetValue(MaxValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the number styles used for validation
-        /// </summary>
-        public NumberStyles NumberStyles
-        {
-            get { return (NumberStyles)this.GetValue(NumberStylesProperty); }
-            set { this.SetValue(NumberStylesProperty, value); }
         }
 
         [Category("NumericBox")]
@@ -129,20 +128,30 @@
             }
         }
 
-        private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.CheckSpinners();
-            var newMax = e.NewValue as T?;
-            box.MaxLimit = newMax ?? TypeMax;
+            box.RaiseEvent(ValidationDirtyEventArgs);
+        }
+
+        private static void OnNumberStylesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (NumericBox<T>)d;
+            box.RaiseEvent(ValidationDirtyEventArgs);
         }
 
         private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
             box.CheckSpinners();
-            var newMin = e.NewValue as T?;
-            box.MinLimit = newMin ?? TypeMin;
+            box.RaiseEvent(ValidationDirtyEventArgs);
+        }
+
+        private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (NumericBox<T>)d;
+            box.CheckSpinners();
+            box.RaiseEvent(ValidationDirtyEventArgs);
         }
 
         private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

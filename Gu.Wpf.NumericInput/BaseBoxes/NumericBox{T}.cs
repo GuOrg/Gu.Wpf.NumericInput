@@ -37,8 +37,6 @@
                 new IsMatch(() => this.RegexPattern),
                 new IsGreaterThanOrEqualToMinRule<T>(this.Parse, () => this.MinValue),
                 new IsLessThanOrEqualToMaxRule<T>(this.Parse, () => this.MaxValue));
-            this.MaxLimit = TypeMax;
-            this.MinLimit = TypeMin;
         }
 
         IFormattable INumericBox.Value => this.Value;
@@ -54,9 +52,9 @@
         /// </summary>
         internal T? CurrentValue => this.Parse(this.Text);
 
-        internal T MaxLimit { get; private set; }
+        internal T MaxLimit => this.MaxValue ?? TypeMax;
 
-        internal T MinLimit { get; private set; }
+        internal T MinLimit => this.MinValue ?? TypeMin;
 
         public abstract bool TryParse(string text, out T result);
 

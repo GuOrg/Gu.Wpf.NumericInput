@@ -34,16 +34,14 @@ namespace Gu.Wpf.NumericInput
 
         public static readonly DependencyProperty HasSuffixProperty = HasSuffixPropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey StringFormatPropertyKey = DependencyProperty.RegisterReadOnly(
-            "StringFormat",
-            typeof(string),
-            typeof(BaseBox),
-            new PropertyMetadata(string.Empty));
-
         /// <summary>
         /// Identifies the StringFormat property
         /// </summary>
-        public static readonly DependencyProperty StringFormatProperty = StringFormatPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register(
+            "StringFormat",
+            typeof(string),
+            typeof(BaseBox),
+            new PropertyMetadata(string.Empty, OnStringFormatChanged));
 
         /// <summary>
         /// Identifies the Culture property
@@ -54,7 +52,8 @@ namespace Gu.Wpf.NumericInput
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
-                FrameworkPropertyMetadataOptions.Inherits));
+                FrameworkPropertyMetadataOptions.Inherits,
+                OnCultureChanged));
 
         /// <summary>
         /// Identifies the RegexPattern property
@@ -63,7 +62,7 @@ namespace Gu.Wpf.NumericInput
             "RegexPattern",
             typeof(string),
             typeof(BaseBox),
-            new PropertyMetadata(default(string)));
+            new PropertyMetadata(default(string), OnPatternChanged));
 
         /// <summary>
         /// Identifies the AllowSpinners property
@@ -132,7 +131,7 @@ namespace Gu.Wpf.NumericInput
         public string StringFormat
         {
             get { return (string)this.GetValue(StringFormatProperty); }
-            protected set { this.SetValue(StringFormatPropertyKey, value); }
+            set { this.SetValue(StringFormatProperty, value); }
         }
 
         /// <summary>
@@ -144,7 +143,6 @@ namespace Gu.Wpf.NumericInput
             set { this.SetValue(RegexPatternProperty, value); }
         }
 
-        [Description("")]
         [Category("NumericBox")]
         [Browsable(true)]
         public bool AllowSpinners
@@ -159,7 +157,7 @@ namespace Gu.Wpf.NumericInput
         public ICommand IncreaseCommand
         {
             get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
-            protected set { this.SetValue(IncreaseCommandPropertyKey, value); }
+            private set { this.SetValue(IncreaseCommandPropertyKey, value); }
         }
 
         /// <summary>
@@ -169,6 +167,25 @@ namespace Gu.Wpf.NumericInput
         {
             get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
             private set { this.SetValue(DecreaseCommandPropertyKey, value); }
+        }
+
+        private static void OnStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (BaseBox)d;
+            box.RaiseEvent(FormatDirtyEventArgs);
+        }
+
+        private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (BaseBox)d;
+            box.RaiseEvent(FormatDirtyEventArgs);
+            box.RaiseEvent(ValidationDirtyEventArgs);
+        }
+
+        private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (BaseBox)d;
+            box.RaiseEvent(ValidationDirtyEventArgs);
         }
 
         private static void OnSuffixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
