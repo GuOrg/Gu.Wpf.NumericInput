@@ -191,6 +191,33 @@
                 }
             }
 
+
+            [Test]
+            public void StringFormat()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var stringFormatBox = groupBox.Get<TextBox>(AutomationIds.StringFormatBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+
+                    inputBox.Enter("100000");
+                    stringFormatBox.Enter("N2");
+                    inputBox.Click();
+                    Assert.AreEqual("100,000.00", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    groupBox.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = true;
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    inputBox.Click();
+                    vmValueBox.Click();
+                    Assert.AreEqual("100000", vmValueBox.Text);
+                }
+            }
+
             [Test]
             public void Max()
             {
