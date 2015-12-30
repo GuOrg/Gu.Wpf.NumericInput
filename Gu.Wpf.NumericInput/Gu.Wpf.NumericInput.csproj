@@ -88,8 +88,8 @@
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Validation\IsGreaterThan.cs" />
-    <Compile Include="Validation\IsLessThan.cs" />
+    <Compile Include="Validation\IsGreaterThanOrEqualToMinRule.cs" />
+    <Compile Include="Validation\IsLessThanOrEqualToMaxRule.cs" />
     <Compile Include="Validation\CanParse.cs" />
     <Compile Include="Validation\Validator.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />

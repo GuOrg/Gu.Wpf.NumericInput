@@ -7,10 +7,10 @@
     using JetBrains.Annotations;
 
     public abstract class BoxVm<TBox, TValue> : IDataErrorInfo, INotifyPropertyChanged
-        where TBox : NumericBox<TValue> 
+        where TBox : NumericBox<TValue>
         where TValue : struct, IComparable<TValue>, IFormattable, IConvertible, IEquatable<TValue>
     {
-        private TValue value;
+        private TValue? value = default(TValue);
         private TValue? min;
         private TValue? max;
         private IFormatProvider culture;
@@ -21,6 +21,7 @@
         private string suffix;
         private string regexPattern;
         private TValue increment;
+        private bool canValueBeNull;
 
         protected BoxVm()
         {
@@ -210,7 +211,7 @@
             }
         }
 
-        public TValue Value
+        public TValue? Value
         {
             get { return this.value; }
             set
@@ -220,6 +221,17 @@
                     return;
                 }
                 this.value = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool CanValueBeNull
+        {
+            get { return this.canValueBeNull; }
+            set
+            {
+                if (value == this.canValueBeNull) return;
+                this.canValueBeNull = value;
                 this.OnPropertyChanged();
             }
         }

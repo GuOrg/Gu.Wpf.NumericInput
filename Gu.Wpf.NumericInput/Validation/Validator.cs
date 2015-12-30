@@ -70,7 +70,7 @@
             }
         }
 
-        private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T> e)
+        private void NumericBoxOnValueChanged(object sender, ValueChangedEventArgs<T?> e)
         {
             if (this.proxyBinding.IsUpdatingValue)
             {
@@ -85,7 +85,7 @@
             if (!this.proxyBinding.HasValidationError)
             {
                 this.proxyBinding.IsUpdatingText = true;
-                this.numericBox.Text = this.numericBox.Value.ToString(this.numericBox.StringFormat, this.numericBox.Culture);
+                this.numericBox.Text = this.numericBox.Value?.ToString(this.numericBox.StringFormat, this.numericBox.Culture) ?? string.Empty;
                 this.proxyBinding.IsUpdatingText = false;
             }
         }

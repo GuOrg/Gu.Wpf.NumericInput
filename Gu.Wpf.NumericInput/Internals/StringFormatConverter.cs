@@ -22,7 +22,7 @@
                 INumericBox box;
                 if (this.weakReference.TryGetTarget(out box))
                 {
-                    return box.Value.ToString(box.StringFormat, box.Culture);
+                    return box.Value?.ToString(box.StringFormat, box.Culture) ?? string.Empty;
                 }
 
                 return string.Empty;

@@ -35,8 +35,8 @@
                 new ExceptionValidationRule(),
                 new CanParse<T>(this.CanParse),
                 new IsMatch(() => this.RegexPattern),
-                new IsGreaterThan<T>(this.Parse, () => this.MinValue),
-                new IsLessThan<T>(this.Parse, () => this.MaxValue));
+                new IsGreaterThanOrEqualToMinRule<T>(this.Parse, () => this.MinValue),
+                new IsLessThanOrEqualToMaxRule<T>(this.Parse, () => this.MaxValue));
             this.MaxLimit = TypeMax;
             this.MinLimit = TypeMin;
         }
@@ -52,15 +52,40 @@
         /// <summary>
         /// Gets the current value. Will throw if bad format
         /// </summary>
-        internal T CurrentValue => this.Parse(this.Text);
+        internal T? CurrentValue => this.Parse(this.Text);
 
         internal T MaxLimit { get; private set; }
 
         internal T MinLimit { get; private set; }
 
-        public abstract bool CanParse(string text);
+        public abstract bool TryParse(string text, out T result);
 
-        public abstract T Parse(string text);
+        public bool CanParse(string text)
+        {
+            if (this.CanValueBeNull && string.IsNullOrEmpty(text))
+            {
+                return true;
+            }
+
+            T temp;
+            return this.TryParse(text, out temp);
+        }
+
+        public T? Parse(string text)
+        {
+            if (this.CanValueBeNull && string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+
+            T result;
+            if (this.TryParse(text, out result))
+            {
+                return result;
+            }
+
+            throw new FormatException($"Could not parse {text} to an instance of {typeof(T)}");
+        }
 
         IFormattable INumericBox.Parse(string text)
         {
@@ -71,7 +96,7 @@
         {
             if (newValue != oldValue)
             {
-                var args = new ValueChangedEventArgs<T>((T)oldValue, (T)newValue, ValueChangedEvent, this);
+                var args = new ValueChangedEventArgs<T?>((T?)oldValue, (T?)newValue, ValueChangedEvent, this);
                 this.RaiseEvent(args);
                 this.CheckSpinners();
             }
@@ -79,12 +104,12 @@
 
         protected override bool CanIncrease(object parameter)
         {
-            if (!this.CanParse(this.Text))
+            if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
             {
                 return false;
             }
 
-            if (Comparer<T>.Default.Compare(this.CurrentValue, this.MaxLimit) >= 0)
+            if (Comparer<T>.Default.Compare(this.CurrentValue.Value, this.MaxLimit) >= 0)
             {
                 return false;
             }
@@ -106,12 +131,12 @@
 
         protected override bool CanDecrease(object parameter)
         {
-            if (!this.CanParse(this.Text))
+            if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
             {
                 return false;
             }
 
-            if (Comparer<T>.Default.Compare(this.CurrentValue, this.MinLimit) <= 0)
+            if (Comparer<T>.Default.Compare(this.CurrentValue.Value, this.MinLimit) <= 0)
             {
                 return false;
             }
@@ -162,7 +187,7 @@
                 ? this.MaxLimit
                 : TypeMax;
             var incremented = this.subtract(min, this.Increment);
-            var currentValue = this.CurrentValue;
+            var currentValue = this.CurrentValue.Value;
             return currentValue.CompareTo(incremented) < 0
                             ? this.add(currentValue, this.Increment)
                             : min;
@@ -174,7 +199,7 @@
                                 ? this.MinLimit
                                 : TypeMin;
             var incremented = this.add(max, this.Increment);
-            var currentValue = this.CurrentValue;
+            var currentValue = this.CurrentValue.Value;
             return currentValue.CompareTo(incremented) > 0
                             ? this.subtract(currentValue, this.Increment)
                             : max;

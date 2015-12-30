@@ -15,6 +15,7 @@
             <validation:DoubleBox x:Name="InputBox"
                                   AllowSpinners="{Binding AllowSpinners}"
                                   AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                                  CanValueBeNull="{Binding CanValueBeNull}"
                                   Culture="{Binding Culture}"
                                   DecimalDigits="{Binding DecimalDigits}"
                                   Increment="{Binding Increment}"
@@ -41,6 +42,10 @@
                     <TextBlock Text="{Binding Value, ElementName=InputBox}" />
                 </HeaderedContentControl>
 
+                <HeaderedContentControl Header="CanValueBeNull">
+                    <CheckBox IsChecked="{Binding CanValueBeNull, ElementName=InputBox}" />
+                </HeaderedContentControl>
+                
                 <HeaderedContentControl Header="StringFormat">
                     <TextBlock Text="{Binding StringFormat, ElementName=InputBox}" />
                 </HeaderedContentControl>
