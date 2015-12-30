@@ -173,6 +173,7 @@ namespace Gu.Wpf.NumericInput
         {
             var box = (BaseBox)d;
             box.RaiseEvent(FormatDirtyEventArgs);
+            box.RaiseEvent(ValidationDirtyEventArgs);
         }
 
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

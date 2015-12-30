@@ -22,6 +22,7 @@
         private string regexPattern;
         private TValue increment;
         private bool canValueBeNull;
+        private string stringFormat;
 
         protected BoxVm()
         {
@@ -263,6 +264,17 @@
                     return;
                 }
                 this.decimalDigits = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public string StringFormat
+        {
+            get { return this.stringFormat; }
+            set
+            {
+                if (value == this.stringFormat) return;
+                this.stringFormat = value;
                 this.OnPropertyChanged();
             }
         }
