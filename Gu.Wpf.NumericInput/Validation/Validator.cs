@@ -9,28 +9,6 @@
     public class Validator<T> : DependencyObject
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private static readonly DependencyPropertyDescriptor CanValueBeNullDescriptor = DependencyPropertyDescriptor.FromProperty(
-                NumericBox<T>.CanValueBeNullProperty,
-                typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor MinDescriptor = DependencyPropertyDescriptor.FromProperty(
-            NumericBox<T>.MinValueProperty,
-            typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor MaxDescriptor = DependencyPropertyDescriptor.FromProperty(
-            NumericBox<T>.MaxValueProperty,
-            typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor NumberStylesDescriptor =
-            DependencyPropertyDescriptor.FromProperty(NumericBox<T>.NumberStylesProperty, typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor CultureDescriptor =
-            DependencyPropertyDescriptor.FromProperty(BaseBox.CultureProperty, typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor PatternDescriptor = DependencyPropertyDescriptor.FromProperty(
-            BaseBox.RegexPatternProperty,
-            typeof(NumericBox<T>));
-
         private readonly ExplicitBinding<T> proxyBinding;
         private readonly NumericBox<T> numericBox;
 
@@ -41,12 +19,7 @@
 
             this.numericBox.TextChanged += this.NumericBoxOnTextChanged;
             this.numericBox.ValueChanged += this.NumericBoxOnValueChanged;
-            CanValueBeNullDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
-            MinDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
-            MaxDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
-            NumberStylesDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
-            CultureDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
-            PatternDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
+            numericBox.ValidationDirty += this.OnValidationDirty;
             this.proxyBinding.ValidationFailed += this.OnValidationError;
             this.numericBox.LostFocus += this.OnLostFocus;
         }
@@ -104,6 +77,11 @@
                 this.ValueBinding.UpdateTarget(); // Reset Value to value from from vm binding.
                 this.proxyBinding.IsUpdatingValue = false;
             }
+        }
+
+        private void OnValidationDirty(object sender, RoutedEventArgs routedEventArgs)
+        {
+            this.proxyBinding.ExplicitValidate();
         }
 
         private bool IsTextChanged()

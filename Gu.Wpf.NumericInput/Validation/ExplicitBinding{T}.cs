@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
 
@@ -12,14 +13,6 @@
     internal class ExplicitBinding<T> : ExplicitBinding
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private static readonly DependencyPropertyDescriptor CultureDescriptor = DependencyPropertyDescriptor.FromProperty(
-            BaseBox.CultureProperty,
-            typeof(NumericBox<T>));
-
-        private static readonly DependencyPropertyDescriptor StringFormatDescriptor = DependencyPropertyDescriptor.FromProperty(
-            BaseBox.StringFormatProperty,
-            typeof(NumericBox<T>));
-
         private readonly BindingExpressionBase bindingExpression;
         private readonly StringFormatConverter stringFormatConverter;
         private readonly NumericBox<T> numericBox;
@@ -44,9 +37,7 @@
             this.bindingExpression = BindingOperations.SetBinding(numericBox, TextProxyProperty, binding);
             Validation.AddErrorHandler(numericBox, this.OnValidationError);
             this.UpdateTextProxy();
-
-            CultureDescriptor.AddValueChanged(numericBox, (s, e) => this.UpdateFormat());
-            StringFormatDescriptor.AddValueChanged(numericBox, (s, e) => this.UpdateFormat());
+            numericBox.FormatDirty += OnFormatDirty;
         }
 
         internal event EventHandler<ValidationErrorEventArgs> ValidationFailed;
@@ -99,7 +90,7 @@
 
         internal void ExplicitValidate()
         {
-            this.ProxyText = this.ProxyText; //// Trying this to set NeedsValidation to true. 
+            this.ProxyText = this.ProxyText; //// Trying this to set NeedsValidation to true.
             this.bindingExpression.ValidateWithoutUpdate();
         }
 
@@ -116,6 +107,11 @@
             }
 
             this.RaiseValidationFailed(e);
+        }
+
+        private void OnFormatDirty(object sender, RoutedEventArgs e)
+        {
+            this.UpdateFormat();
         }
     }
 }
