@@ -26,15 +26,9 @@
         {
         }
 
-        public override bool CanParse(string text)
+        public override bool TryParse(string text, out float result)
         {
-            float d;
-            return float.TryParse(text, this.NumberStyles, this.Culture, out d);
-        }
-
-        public override float Parse(string text)
-        {
-            return float.Parse(text, this.NumberStyles, this.Culture);
+            return float.TryParse(text, this.NumberStyles, this.Culture, out result);
         }
     }
 }

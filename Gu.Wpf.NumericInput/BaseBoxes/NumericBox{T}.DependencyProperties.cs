@@ -10,15 +10,21 @@
     {
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value",
-            typeof(T),
+            typeof(T?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
-                default(T),
+                null,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 OnValueChanged,
                 null,
                 false,
                 UpdateSourceTrigger.LostFocus));
+
+        public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.Register(
+            "CanValueBeNull",
+            typeof(bool),
+            typeof(NumericBox<T>),
+            new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",
@@ -66,10 +72,18 @@
 
         [Category("NumericBox")]
         [Browsable(true)]
-        public T Value
+        public T? Value
         {
-            get { return (T)this.GetValue(ValueProperty); }
+            get { return (T?)this.GetValue(ValueProperty); }
             set { this.SetValue(ValueProperty, value); }
+        }
+
+        [Category("NumericBox")]
+        [Browsable(true)]
+        public bool CanValueBeNull
+        {
+            get { return (bool)GetValue(CanValueBeNullProperty); }
+            set { SetValue(CanValueBeNullProperty, value); }
         }
 
         [Category("NumericBox")]

@@ -54,9 +54,12 @@
 
         protected virtual void CheckSpinners()
         {
-            // Not nice to cast like this but want to have ManualRelayCommand as internal
-            ((ManualRelayCommand)this.IncreaseCommand).RaiseCanExecuteChanged();
-            ((ManualRelayCommand)this.DecreaseCommand).RaiseCanExecuteChanged();
+            if (this.AllowSpinners)
+            {
+                // Not nice to cast like this but want to have ManualRelayCommand as internal
+                ((ManualRelayCommand)this.IncreaseCommand).RaiseCanExecuteChanged();
+                ((ManualRelayCommand)this.DecreaseCommand).RaiseCanExecuteChanged();
+            }
         }
 
         protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
