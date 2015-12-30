@@ -3,25 +3,33 @@
     using System;
     using System.Globalization;
     using System.Windows.Controls;
+    using System.Windows.Data;
 
     internal class CanParse<T> : ValidationRule
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private readonly Func<string, bool> tryParser;
+        internal static readonly CanParse<T> Default = new CanParse<T>();
 
-        public CanParse(Func<string, bool> tryParser)
+        private CanParse()
+            : base(ValidationStep.RawProposedValue, false)
         {
-            this.tryParser = tryParser;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var s = (string)value;
-            if (this.tryParser(s))
+            var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            var text = (string)value;
+            if (box.CanParse(text))
             {
                 return ValidationResult.ValidResult;
             }
 
-            return new CanParseValidationResult(typeof(T), s, false, $"Cannot parse '{s}' to a {typeof(T).Name}");
+            return new CanParseValidationResult(typeof(T), text, false, $"Cannot parse '{text}' to a {typeof(T).Name}");
+        }
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            throw new InvalidOperationException("Should not get here");
         }
     }
 }

@@ -4,32 +4,51 @@
     using System.Globalization;
     using System.Text.RegularExpressions;
     using System.Windows.Controls;
-    using Gu.Wpf.NumericInput.Validation;
+    using System.Windows.Data;
 
     internal class IsMatch : ValidationRule
     {
-        private readonly Func<string> patternGetter;
+        internal static readonly IsMatch Default = new IsMatch();
 
-        public IsMatch(Func<string> patternGetter)
+        private IsMatch()
+            : base(ValidationStep.RawProposedValue, false)
         {
-            this.patternGetter = patternGetter;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
+            var box = (BaseBox)((BindingExpression)owner).ResolvedSource;
             var text = (string)value;
-            var pattern = this.patternGetter();
+            var pattern = box.RegexPattern;
             if (string.IsNullOrEmpty(pattern))
             {
                 return ValidationResult.ValidResult;
             }
 
-            if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, pattern))
+            if (string.IsNullOrEmpty(text))
             {
-                return ValidationResult.ValidResult;
+                var formatted = text == null ? "null" : "string.Empty";
+                return new IsMatchValidationResult(text, pattern, false, $"{formatted} does not match pattern: {pattern}");
             }
 
-            return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}");
+            try
+            {
+                if (Regex.IsMatch(text, pattern))
+                {
+                    return ValidationResult.ValidResult;
+                }
+
+                return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}");
+            }
+            catch (Exception e)
+            {
+                return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}. Threw exception: {e.Message}");
+            }
+        }
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            throw new InvalidOperationException("Should not get here");
         }
     }
 }

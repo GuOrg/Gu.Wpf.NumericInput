@@ -191,7 +191,6 @@
                 }
             }
 
-
             [Test]
             public void StringFormat()
             {
