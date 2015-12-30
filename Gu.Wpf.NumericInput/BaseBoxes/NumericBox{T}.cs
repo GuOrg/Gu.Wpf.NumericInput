@@ -33,8 +33,8 @@
                 this,
                 new DataErrorValidationRule(),
                 new ExceptionValidationRule(),
-                new CanParse<T>(this.CanParse),
-                new IsMatch(() => this.RegexPattern),
+                CanParse<T>.Default,
+                IsMatch.Default,
                 new IsGreaterThanOrEqualToMinRule<T>(this.Parse, () => this.MinValue),
                 new IsLessThanOrEqualToMaxRule<T>(this.Parse, () => this.MaxValue));
         }
