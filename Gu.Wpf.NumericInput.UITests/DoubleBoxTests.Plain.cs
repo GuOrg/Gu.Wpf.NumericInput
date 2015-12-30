@@ -54,6 +54,36 @@
             }
 
             [Test]
+            public void CanBeNull()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    var canBeNullBox = groupBox.Get<CheckBox>(AutomationIds.CanBeNullBox);
+
+                    canBeNullBox.Checked = true;
+                    Assert.AreEqual("0", inputBox.Text);
+                    inputBox.Enter("");
+                    vmValueBox.Click();
+                    Assert.AreEqual("", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+
+                    canBeNullBox.Checked = false;
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+
+                    inputBox.Enter("1");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                }
+            }
+
+            [Test]
             public void Culture()
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))

@@ -1,10 +1,11 @@
-namespace Gu.Wpf.NumericInput.Validation
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
     using System.Windows.Controls;
+    using Gu.Wpf.NumericInput.Validation;
 
-    public class IsLessThanOrEqualToMaxRule<T> : ValidationRule
+    internal class IsLessThanOrEqualToMaxRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         private readonly Func<string, T?> parser;
