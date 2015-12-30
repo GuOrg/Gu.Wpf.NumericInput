@@ -9,6 +9,7 @@
 
     using NUnit.Framework;
 
+    [Explicit]
     public class ExplicitBindingSandbox
     {
         private Dummy dummy;
@@ -24,7 +25,7 @@
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit
             };
-            binding.ValidationRules.Add(new CanParse<double>(this.dummy.CanParse));
+            binding.ValidationRules.Add(CanParse<double>.Default);
             this.bindingExpression = BindingOperations.SetBinding(this.dummy, Dummy.TextProxyProperty, binding);
         }
 
