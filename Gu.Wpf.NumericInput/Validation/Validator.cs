@@ -9,6 +9,10 @@
     public class Validator<T> : DependencyObject
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
+        private static readonly DependencyPropertyDescriptor CanValueBeNullDescriptor = DependencyPropertyDescriptor.FromProperty(
+                NumericBox<T>.CanValueBeNullProperty,
+                typeof(NumericBox<T>));
+
         private static readonly DependencyPropertyDescriptor MinDescriptor = DependencyPropertyDescriptor.FromProperty(
             NumericBox<T>.MinValueProperty,
             typeof(NumericBox<T>));
@@ -37,6 +41,7 @@
 
             this.numericBox.TextChanged += this.NumericBoxOnTextChanged;
             this.numericBox.ValueChanged += this.NumericBoxOnValueChanged;
+            CanValueBeNullDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
             MinDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
             MaxDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());
             NumberStylesDescriptor.AddValueChanged(this.numericBox, (s, e) => this.proxyBinding.ExplicitValidate());

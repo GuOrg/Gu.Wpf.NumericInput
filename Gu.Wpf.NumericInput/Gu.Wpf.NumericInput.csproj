@@ -75,22 +75,22 @@
     <Compile Include="LongBox.cs" />
     <Compile Include="BaseBoxes\NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
-    <Compile Include="Validation\CanParseValidationResult.cs" />
+    <Compile Include="ValidationResults\CanParseValidationResult.cs" />
     <Compile Include="Validation\ExplicitBinding.cs" />
     <Compile Include="Validation\ExplicitBinding{T}.cs" />
-    <Compile Include="Validation\IsGreaterThanValidationResult.cs" />
-    <Compile Include="Validation\IsLessThanValidationResult.cs" />
-    <Compile Include="Validation\IsMatch.cs" />
-    <Compile Include="Validation\IsMatchValidationResult.cs" />
+    <Compile Include="ValidationResults\IsGreaterThanValidationResult.cs" />
+    <Compile Include="ValidationResults\IsLessThanValidationResult.cs" />
+    <Compile Include="ValidationRules\IsMatch.cs" />
+    <Compile Include="ValidationResults\IsMatchValidationResult.cs" />
     <Compile Include="Validation\StringHelper.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Validation\IsGreaterThanOrEqualToMinRule.cs" />
-    <Compile Include="Validation\IsLessThanOrEqualToMaxRule.cs" />
-    <Compile Include="Validation\CanParse.cs" />
+    <Compile Include="ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
+    <Compile Include="ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
+    <Compile Include="ValidationRules\CanParse.cs" />
     <Compile Include="Validation\Validator.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />
     <None Include="paket.references" />

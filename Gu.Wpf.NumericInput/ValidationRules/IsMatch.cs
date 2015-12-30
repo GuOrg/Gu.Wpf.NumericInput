@@ -1,11 +1,12 @@
-﻿namespace Gu.Wpf.NumericInput.Validation
+﻿namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
     using System.Text.RegularExpressions;
     using System.Windows.Controls;
+    using Gu.Wpf.NumericInput.Validation;
 
-    public class IsMatch : ValidationRule
+    internal class IsMatch : ValidationRule
     {
         private readonly Func<string> patternGetter;
 

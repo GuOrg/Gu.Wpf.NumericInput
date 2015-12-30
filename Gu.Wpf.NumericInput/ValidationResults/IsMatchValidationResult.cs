@@ -1,4 +1,4 @@
-namespace Gu.Wpf.NumericInput.Validation
+namespace Gu.Wpf.NumericInput
 {
     using System.Windows.Controls;
 

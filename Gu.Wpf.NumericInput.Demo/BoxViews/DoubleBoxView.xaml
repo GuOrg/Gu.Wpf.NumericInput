@@ -42,10 +42,6 @@
                     <TextBlock Text="{Binding Value, ElementName=InputBox}" />
                 </HeaderedContentControl>
 
-                <HeaderedContentControl Header="CanValueBeNull">
-                    <CheckBox IsChecked="{Binding CanValueBeNull, ElementName=InputBox}" />
-                </HeaderedContentControl>
-                
                 <HeaderedContentControl Header="StringFormat">
                     <TextBlock Text="{Binding StringFormat, ElementName=InputBox}" />
                 </HeaderedContentControl>
@@ -69,6 +65,10 @@
 
             <HeaderedContentControl Header="IsReadOnly">
                 <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.IsReadonlyBox}" IsChecked="{Binding IsReadOnly}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="CanValueBeNull">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull, ElementName=InputBox}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Culture">

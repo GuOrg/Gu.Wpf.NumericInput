@@ -1,10 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput.Validation
 {
-    using System;
-    using System.ComponentModel;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
 
     /// <summary>
     /// Since we don't want text to be bindable we are binding to this attached property.
