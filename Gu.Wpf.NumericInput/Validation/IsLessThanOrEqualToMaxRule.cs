@@ -4,13 +4,13 @@ namespace Gu.Wpf.NumericInput.Validation
     using System.Globalization;
     using System.Windows.Controls;
 
-    public class IsLessThan<T> : ValidationRule
-        where T : struct, IComparable<T>, IFormattable
+    public class IsLessThanOrEqualToMaxRule<T> : ValidationRule
+        where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        private readonly Func<string, T> parser;
+        private readonly Func<string, T?> parser;
         private readonly Func<T?> maxGetter;
 
-        public IsLessThan(Func<string, T> parser, Func<T?> maxGetter)
+        public IsLessThanOrEqualToMaxRule(Func<string, T?> parser, Func<T?> maxGetter)
         {
             this.parser = parser;
             this.maxGetter = maxGetter;
@@ -25,8 +25,12 @@ namespace Gu.Wpf.NumericInput.Validation
             }
 
             var v = this.parser((string)value);
+            if (v == null)
+            {
+                return new IsLessThanValidationResult(null, max.Value, false, $"Value cannot be null when {nameof(NumericBox<T>.MaxValue)} is set");
+            }
 
-            if (v.CompareTo(max.Value) > 0)
+            if (v.Value.CompareTo(max.Value) > 0)
             {
                 return new IsLessThanValidationResult(v, max.Value, false, $"{v} > max ({max})");
             }

@@ -13,8 +13,8 @@
         public void IncreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (sender, args) =>
-                { count++; };
+            this.Box.AllowSpinners = true;
+            this.Box.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
             this.Box.IsReadOnly = !this.Box.IsReadOnly;
             Assert.AreEqual(1, count);
         }
@@ -31,6 +31,7 @@
         public void DecreaseCommand_CanExecuteChanged_OnReadOnlyChanged()
         {
             var count = 0;
+            this.Box.AllowSpinners = true;
             this.Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
             this.Box.IsReadOnly = !this.Box.IsReadOnly;
             Assert.AreEqual(1, count);

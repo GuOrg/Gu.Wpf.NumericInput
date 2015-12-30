@@ -9,6 +9,11 @@
 
         internal static bool HasMoreDecimalDigitsThan(this string self, string other, INumericBox box)
         {
+            if (string.IsNullOrWhiteSpace(self))
+            {
+                return false;
+            }
+
             if (self == other)
             {
                 return false;

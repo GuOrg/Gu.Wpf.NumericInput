@@ -168,6 +168,7 @@
         public void IncreaseCommand_CanExecuteChanged_OnValueChanged(T newValue, int expected)
         {
             var count = 0;
+            this.Box.AllowSpinners = true;
             this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
             ((ManualRelayCommand) this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
@@ -210,6 +211,7 @@
         public void DecreaseCommand_CanExecuteChanged_OnTextChanged(string text, int expected)
         {
             var count = 0;
+            this.Box.AllowSpinners = true;
             this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
             ((ManualRelayCommand) this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
@@ -285,7 +287,7 @@
         public void ValidationErrorResetsValue()
         {
             this.Sut.Text = "1";
-            Assert.AreEqual("1", this.Sut.Value.ToString(CultureInfo.InvariantCulture));
+            Assert.AreEqual("1", this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture));
             this.Sut.Text = "1e";
 
             var hasError = Validation.GetHasError(this.Box);

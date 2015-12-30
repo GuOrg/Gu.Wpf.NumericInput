@@ -11,12 +11,12 @@
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
             RoutingStrategy.Direct,
-            typeof(ValueChangedEventHandler<T>),
+            typeof(ValueChangedEventHandler<T?>),
             typeof(NumericBox<T>));
 
         [Category("NumericBox")]
         [Browsable(true)]
-        public event ValueChangedEventHandler<T> ValueChanged
+        public event ValueChangedEventHandler<T?> ValueChanged
         {
             add { this.AddHandler(ValueChangedEvent, value); }
             remove { this.RemoveHandler(ValueChangedEvent, value); }

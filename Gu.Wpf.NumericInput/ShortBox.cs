@@ -23,15 +23,9 @@
         {
         }
 
-        public override bool CanParse(string text)
+        public override bool TryParse(string text, out short result)
         {
-            short d;
-            return short.TryParse(text, this.NumberStyles, this.Culture, out d);
-        }
-
-        public override short Parse(string text)
-        {
-            return short.Parse(text, this.NumberStyles, this.Culture);
+            return short.TryParse(text, this.NumberStyles, this.Culture, out result);
         }
     }
 }

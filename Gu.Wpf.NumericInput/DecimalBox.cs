@@ -24,15 +24,9 @@
         {
         }
 
-        public override bool CanParse(string text)
+        public override bool TryParse(string text, out decimal result)
         {
-            decimal d;
-            return decimal.TryParse(text, this.NumberStyles, this.Culture, out d);
-        }
-
-        public override decimal Parse(string text)
-        {
-            return decimal.Parse(text, this.NumberStyles, this.Culture);
+            return decimal.TryParse(text, this.NumberStyles, this.Culture, out result);
         }
     }
 }

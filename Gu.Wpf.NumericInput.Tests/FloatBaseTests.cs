@@ -43,7 +43,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.Text = text;
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals);
             Assert.AreEqual(expectedText, this.Sut.Text);
-            var actual = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var actual = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expected, actual); // Comparing strings cos conversion issue
         }
 
@@ -53,11 +53,11 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 5);
 
             this.Sut.Text = text1;
-            var actual = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var actual = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expected1, actual);
 
             this.Sut.Text = text2;
-            var actual2 = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var actual2 = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expected2, actual2);
         }
 
@@ -67,7 +67,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.Text = text;
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
             Assert.AreEqual(expected1, this.Sut.Text);
-            Assert.AreEqual(text, this.Sut.Value.ToString(CultureInfo.InvariantCulture));
+            Assert.AreEqual(text, this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture));
 
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
             Assert.AreEqual(expected2, this.Sut.Text);
@@ -79,7 +79,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 2);
             this.Sut.Text = "1.23";
             this.Sut.Text = "1.234";
-            var actual = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var actual = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual("1.234", actual);
         }
 
@@ -89,7 +89,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 4);
             this.Sut.Text = "1.2334";
             this.Sut.Text = "1.23";
-            var actual = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var actual = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual("1.23", actual);
         }
 
@@ -101,12 +101,12 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 1);
             this.Sut.Culture = new CultureInfo(culture1);
             this.Sut.Text = text;
-            var value1 = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var value1 = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expectedValue, value1);
 
             this.Sut.Culture = new CultureInfo(culture2);
             Assert.AreEqual(expected, this.Sut.Text);
-            var value2 = this.Sut.Value.ToString(CultureInfo.InvariantCulture);
+            var value2 = this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture);
             Assert.AreEqual(expectedValue, value2);
         }
     }
