@@ -10,8 +10,7 @@
     /// Baseclass with common functionality for numeric textboxes
     /// </summary>
     /// <typeparam name="T">The type of the <see cref="Value"/> property</typeparam>
-    public abstract partial class NumericBox<T>
-        : BaseBox, INumericBox
+    public abstract partial class NumericBox<T> : BaseBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         private static readonly T TypeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
@@ -36,14 +35,6 @@
                 IsGreaterThanOrEqualToMinRule<T>.Default,
                 IsLessThanOrEqualToMaxRule<T>.Default);
         }
-
-        IFormattable INumericBox.Value => this.Value;
-
-        IFormattable INumericBox.MaxValue => this.MaxValue;
-
-        IFormattable INumericBox.MinValue => this.MinValue;
-
-        IFormattable INumericBox.Increment => this.Increment;
 
         /// <summary>
         /// Gets the current value. Will throw if bad format
@@ -81,11 +72,6 @@
             }
 
             throw new FormatException($"Could not parse {text} to an instance of {typeof(T)}");
-        }
-
-        IFormattable INumericBox.Parse(string text)
-        {
-            return this.Parse(text);
         }
 
         protected virtual void OnValueChanged(object newValue, object oldValue)
