@@ -13,21 +13,22 @@
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         private readonly BindingExpressionBase bindingExpression;
-        private readonly StringFormatConverter stringFormatConverter;
         private readonly NumericBox<T> numericBox;
 
         internal ExplicitBinding(NumericBox<T> numericBox, params ValidationRule[] rules)
         {
             this.numericBox = numericBox;
-            this.stringFormatConverter = new StringFormatConverter(numericBox);
-            var binding = new Binding(NumericBox<T>.ValueProperty.Name)
+            var binding = new Binding
             {
+                Path = BindingHelper.GetPath(NumericBox<T>.ValueProperty),
                 Source = numericBox,
                 Mode = BindingMode.OneWayToSource,
                 UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
                 NotifyOnValidationError = true,
-                Converter = this.stringFormatConverter
+                Converter = StringFormatConverter<T>.Default,
+                ConverterParameter = numericBox,
             };
+
             foreach (var rule in rules)
             {
                 binding.ValidationRules.Add(rule);
@@ -54,8 +55,6 @@
             }
         }
 
-        private BindingExpression ValueBinding => BindingOperations.GetBindingExpression(this.numericBox, NumericBox<T>.ValueProperty);
-
         private string ProxyText
         {
             get { return (string)this.numericBox.GetValue(TextProxyProperty); }
@@ -73,7 +72,7 @@
         {
             this.IsUpdatingText = true;
             this.bindingExpression.UpdateTarget();
-            this.numericBox.Text = this.stringFormatConverter.FormattedText;
+            this.numericBox.Text = StringFormatConverter<T>.Default.GetFormattedText(this.numericBox);
             this.IsUpdatingText = false;
         }
 
@@ -82,7 +81,7 @@
             if (!this.bindingExpression.HasValidationError)
             {
                 this.IsUpdatingText = true;
-                this.numericBox.Text = this.stringFormatConverter.FormattedText;
+                this.numericBox.Text = StringFormatConverter<T>.Default.GetFormattedText(this.numericBox);
                 this.IsUpdatingText = false;
             }
         }
