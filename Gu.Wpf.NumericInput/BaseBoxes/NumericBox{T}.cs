@@ -86,6 +86,11 @@
 
         protected override bool CanIncrease(object parameter)
         {
+            if (this.IsReadOnly || !this.IsEnabled)
+            {
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
             {
                 return false;
@@ -96,23 +101,25 @@
                 return false;
             }
 
-            return base.CanIncrease(parameter);
+            return true;
         }
 
         protected override void Increase(object parameter)
         {
-            if (this.CanIncrease(parameter))
-            {
-                var value = this.AddIncrement();
-                var text = value.ToString(this.StringFormat, this.Culture);
+            var value = this.AddIncrement();
+            var text = value.ToString(this.StringFormat, this.Culture);
 
-                var textBox = parameter as TextBox;
-                SetTextUndoable(textBox ?? this, text);
-            }
+            var textBox = parameter as TextBox;
+            SetTextUndoable(textBox ?? this, text);
         }
 
         protected override bool CanDecrease(object parameter)
         {
+            if (this.IsReadOnly || !this.IsEnabled)
+            {
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
             {
                 return false;
@@ -123,19 +130,16 @@
                 return false;
             }
 
-            return base.CanDecrease(parameter);
+            return true;
         }
 
         protected override void Decrease(object parameter)
         {
-            if (this.CanDecrease(parameter))
-            {
-                var value = this.SubtractIncrement();
-                var text = value.ToString(this.StringFormat, this.Culture);
+            var value = this.SubtractIncrement();
+            var text = value.ToString(this.StringFormat, this.Culture);
 
-                var textBox = parameter as TextBox;
-                SetTextUndoable(textBox ?? this, text);
-            }
+            var textBox = parameter as TextBox;
+            SetTextUndoable(textBox ?? this, text);
         }
 
         private static void SetTextUndoable(TextBox textBox, string text)
