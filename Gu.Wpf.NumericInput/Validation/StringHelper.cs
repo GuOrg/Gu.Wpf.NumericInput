@@ -7,8 +7,14 @@
     {
         private static readonly char[] RoundDowns = { '0', '1', '2', '3', '4' };
 
-        internal static bool HasMoreDecimalDigitsThan(this string self, string other, INumericBox box)
+        internal static bool HasMoreDecimalDigitsThan<T>(this string self, string other, DecimalDigitsBox<T> box)
+            where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
         {
+            if (box == null)
+            {
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(self))
             {
                 return false;
@@ -23,8 +29,8 @@
             {
                 var selfValue = box.Parse(self);
                 var otherValue = box.Parse(other);
-                var selfRoundtrip = selfValue.ToString(string.Empty, box.Culture);
-                var otherRoundtrip = otherValue.ToString(string.Empty, box.Culture);
+                var selfRoundtrip = selfValue?.ToString(string.Empty, box.Culture);
+                var otherRoundtrip = otherValue?.ToString(string.Empty, box.Culture);
                 if (selfRoundtrip == otherRoundtrip)
                 {
                     return false;
@@ -42,19 +48,10 @@
             return false;
         }
 
-        internal static bool HasMoreDecimalDigitsThan(this string self, IFormattable other, INumericBox box)
+        internal static bool HasMoreDecimalDigitsThan<T>(this string self, IFormattable other, DecimalDigitsBox<T> box)
+            where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
         {
             return self.HasMoreDecimalDigitsThan(other.ToString(), box);
         }
-
-        internal static bool HasMoreDecimalDigitsThan(this IFormattable self, IFormattable other, INumericBox box)
-        {
-            return self.ToString().HasMoreDecimalDigitsThan(other.ToString(), box);
-        }
-
-        internal static bool HasMoreDecimalDigitsThan(this IFormattable self, string other, INumericBox box)
-        {
-            return self.ToString().HasMoreDecimalDigitsThan(other, box);
-        }
-    }
+   }
 }

@@ -86,13 +86,13 @@
         private bool IsTextChanged()
         {
             var viewText = this.numericBox.Text;
-            var proxyText = (string)this.numericBox.GetValue(ExplicitBinding.TextProxyProperty);
+            var proxyText = this.numericBox.GetTextProxy();
             if (viewText == proxyText)
             {
                 return false;
             }
 
-            if (viewText.HasMoreDecimalDigitsThan(proxyText, this.numericBox))
+            if (viewText.HasMoreDecimalDigitsThan(proxyText, this.numericBox as DecimalDigitsBox<T>))
             {
                 return true;
             }

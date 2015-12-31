@@ -9,7 +9,7 @@
     /// This is a ~manual~ binding with explicit two way updates.
     /// </summary>
     /// <typeparam name="T">The type that the <see cref="numericBox"/> holds</typeparam>
-    internal class ExplicitBinding<T> : ExplicitBinding
+    internal class ExplicitBinding<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         private readonly BindingExpressionBase bindingExpression;
@@ -34,7 +34,7 @@
                 binding.ValidationRules.Add(rule);
             }
 
-            this.bindingExpression = BindingOperations.SetBinding(numericBox, TextProxyProperty, binding);
+            this.bindingExpression = BindingOperations.SetBinding(numericBox, ExplicitBinding.TextProxyProperty, binding);
             Validation.AddErrorHandler(numericBox, this.OnValidationError);
             this.UpdateTextProxy();
             numericBox.FormatDirty += this.OnFormatDirty;
@@ -57,8 +57,8 @@
 
         private string ProxyText
         {
-            get { return (string)this.numericBox.GetValue(TextProxyProperty); }
-            set { this.numericBox.SetCurrentValue(TextProxyProperty, value); }
+            get { return (string)this.numericBox.GetTextProxy(); }
+            set { this.numericBox.SetCurrentValue(ExplicitBinding.TextProxyProperty, value); }
         }
 
         internal void UpdateValue()
