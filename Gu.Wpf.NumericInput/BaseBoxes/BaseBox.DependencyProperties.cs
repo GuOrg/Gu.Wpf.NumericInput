@@ -13,9 +13,6 @@ namespace Gu.Wpf.NumericInput
     /// </summary>
     public abstract partial class BaseBox : TextBox
     {
-        /// <summary>
-        /// Identifies the Suffix property
-        /// </summary>
         public static readonly DependencyProperty SuffixProperty = DependencyProperty.Register(
             "Suffix",
             typeof(string),
@@ -34,18 +31,12 @@ namespace Gu.Wpf.NumericInput
 
         public static readonly DependencyProperty HasSuffixProperty = HasSuffixPropertyKey.DependencyProperty;
 
-        /// <summary>
-        /// Identifies the StringFormat property
-        /// </summary>
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register(
             "StringFormat",
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(string.Empty, OnStringFormatChanged));
 
-        /// <summary>
-        /// Identifies the Culture property
-        /// </summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
             "Culture",
             typeof(IFormatProvider),
@@ -55,18 +46,12 @@ namespace Gu.Wpf.NumericInput
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnCultureChanged));
 
-        /// <summary>
-        /// Identifies the RegexPattern property
-        /// </summary>
         public static readonly DependencyProperty RegexPatternProperty = DependencyProperty.Register(
             "RegexPattern",
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(default(string), OnPatternChanged));
 
-        /// <summary>
-        /// Identifies the AllowSpinners property
-        /// </summary>
         public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.Register(
             "AllowSpinners",
             typeof(bool),
@@ -81,9 +66,6 @@ namespace Gu.Wpf.NumericInput
             typeof(BaseBox),
             new PropertyMetadata(null));
 
-        /// <summary>
-        /// Identifies the IncreaseCommand property
-        /// </summary>
         public static readonly DependencyProperty IncreaseCommandProperty = IncreaseCommandPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey DecreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -92,18 +74,30 @@ namespace Gu.Wpf.NumericInput
             typeof(BaseBox),
             new PropertyMetadata(null));
 
-        /// <summary>
-        /// Identifies the DecreaseCommand property
-        /// </summary>
         public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
+
+        private static readonly DependencyProperty TextProxyProperty = DependencyProperty.Register(
+            "TextProxy",
+            typeof(string),
+            typeof(BaseBox),
+            new PropertyMetadata(
+                default(string),
+                OnTextProxyChanged));
+
+        internal static readonly DependencyProperty TextBindableProperty = DependencyProperty.Register(
+            "TextBindable",
+            typeof(string),
+            typeof(BaseBox),
+            new PropertyMetadata(
+                default(string),
+                OnTextBindableChanged));
 
         static BaseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
         }
 
-        [Description("")]
-        [Category("BaseBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public string Suffix
         {
@@ -111,23 +105,28 @@ namespace Gu.Wpf.NumericInput
             set { this.SetValue(SuffixProperty, value); }
         }
 
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public bool HasSuffix
         {
             get { return (bool)this.GetValue(HasSuffixProperty); }
-            protected set { this.SetValue(HasSuffixPropertyKey, value); }
+            private set { this.SetValue(HasSuffixPropertyKey, value); }
         }
 
         /// <summary>
         /// Gets or sets the  culture for the control.
         /// The control has an explicit culture and does not use <see cref="System.Threading.Thread.CurrentUICulture"/>
         /// </summary>
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public IFormatProvider Culture
         {
             get { return (IFormatProvider)this.GetValue(CultureProperty); }
             set { this.SetValue(CultureProperty, value); }
         }
 
-        /// <inheritdoc/>
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public string StringFormat
         {
             get { return (string)this.GetValue(StringFormatProperty); }
@@ -137,13 +136,15 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Gets or sets a regex pattern for validation
         /// </summary>
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public string RegexPattern
         {
             get { return (string)this.GetValue(RegexPatternProperty); }
             set { this.SetValue(RegexPatternProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool AllowSpinners
         {
@@ -151,12 +152,16 @@ namespace Gu.Wpf.NumericInput
             set { this.SetValue(AllowSpinnersProperty, value); }
         }
 
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public ICommand IncreaseCommand
         {
             get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
             private set { this.SetValue(IncreaseCommandPropertyKey, value); }
         }
 
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public ICommand DecreaseCommand
         {
             get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
@@ -197,6 +202,16 @@ namespace Gu.Wpf.NumericInput
             }
 
             return baseValue;
+        }
+
+        private static void OnTextProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.SetCurrentValue(TextBindableProperty, e.NewValue);
+        }
+
+        private static void OnTextBindableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.SetCurrentValue(TextProperty, e.NewValue);
         }
     }
 }

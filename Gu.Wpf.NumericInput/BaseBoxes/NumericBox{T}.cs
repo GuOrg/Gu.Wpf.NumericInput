@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using Gu.Wpf.NumericInput.Validation;
 
     /// <summary>
@@ -17,6 +18,7 @@
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
         private readonly Func<T, T, T> add;
         private readonly Func<T, T, T> subtract;
+
         private readonly Validator<T> validator; // Keep this alive
 
         /// <summary>
@@ -28,6 +30,24 @@
         {
             this.add = add;
             this.subtract = subtract;
+
+            //var binding = new Binding
+            //{
+            //    Path = BindingHelper.GetPath(ValueProperty),
+            //    Source = this,
+            //    Mode = BindingMode.OneWayToSource,
+            //    UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
+            //    NotifyOnValidationError = true,
+            //    Converter = StringFormatConverter<T>.Default,
+            //    ConverterParameter = this,
+            //};
+
+            //binding.ValidationRules.Add(CanParse<T>.Default);
+            //binding.ValidationRules.Add(IsMatch.Default);
+            //binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.Default);
+            //binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.Default);
+
+            //BindingOperations.SetBinding(this, TextBindableProperty, binding);
             this.validator = new Validator<T>(
                 this,
                 CanParse<T>.Default,
