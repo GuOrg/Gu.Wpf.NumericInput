@@ -24,7 +24,7 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <inheritdoc/>
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public int? DecimalDigits
         {

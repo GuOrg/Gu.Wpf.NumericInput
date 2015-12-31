@@ -14,7 +14,7 @@
             typeof(ValueChangedEventHandler<T?>),
             typeof(NumericBox<T>));
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public event ValueChangedEventHandler<T?> ValueChanged
         {

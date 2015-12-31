@@ -11,6 +11,7 @@
         {
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
+            this.Bind(TextProxyProperty).OneWayTo(this, TextProperty);
         }
 
         /// <summary>
