@@ -64,7 +64,6 @@
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
-    <Compile Include="Contracts\INumericBox.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
     <Compile Include="BaseBoxes\BaseBox.DependencyProperties.cs" />
@@ -131,5 +130,7 @@
       <Paket>True</Paket>
     </Analyzer>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
 </Project>

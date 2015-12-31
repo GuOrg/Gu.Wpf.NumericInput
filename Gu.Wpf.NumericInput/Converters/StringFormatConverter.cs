@@ -33,13 +33,13 @@
         private object GetValue(NumericBox<T> box)
         {
             var text = box.Text;
-            var textProxy = ExplicitBinding.GetTextProxy(box);
+            var textProxy = box.GetTextProxy();
             if (!box.CanParse(text))
             {
                 return null;
             }
 
-            if (textProxy.HasMoreDecimalDigitsThan(text, box))
+            if (textProxy.HasMoreDecimalDigitsThan(text, box as DecimalDigitsBox<T>))
             {
                 return box.Parse(textProxy);
             }
