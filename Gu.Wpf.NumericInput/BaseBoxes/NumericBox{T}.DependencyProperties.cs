@@ -70,7 +70,7 @@
                     UpdateSourceTrigger.LostFocus));
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? Value
         {
@@ -78,7 +78,7 @@
             set { this.SetValue(ValueProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool CanValueBeNull
         {
@@ -86,7 +86,7 @@
             set { this.SetValue(CanValueBeNullProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public NumberStyles NumberStyles
         {
@@ -94,7 +94,7 @@
             set { this.SetValue(NumberStylesProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MinValue
         {
@@ -102,7 +102,7 @@
             set { this.SetValue(MinValueProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MaxValue
         {
@@ -110,7 +110,7 @@
             set { this.SetValue(MaxValueProperty, value); }
         }
 
-        [Category("NumericBox")]
+        [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T Increment
         {
