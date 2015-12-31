@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput.Validation
 {
     using System;
-    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -37,7 +36,7 @@
             this.bindingExpression = BindingOperations.SetBinding(numericBox, TextProxyProperty, binding);
             Validation.AddErrorHandler(numericBox, this.OnValidationError);
             this.UpdateTextProxy();
-            numericBox.FormatDirty += OnFormatDirty;
+            numericBox.FormatDirty += this.OnFormatDirty;
         }
 
         internal event EventHandler<ValidationErrorEventArgs> ValidationFailed;
