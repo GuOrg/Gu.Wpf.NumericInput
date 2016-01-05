@@ -2,15 +2,19 @@
 {
     using System;
     using System.Windows;
+    using System.Windows.Media.TextFormatting;
     using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White.Factory;
     using TestStack.White.UIItems;
-    using TestStack.White.UIItems.ListBoxItems;
     using TestStack.White.UIItems.TabItems;
     using TestStack.White.Utility;
     using TestStack.White.WindowsAPI;
     using Application = TestStack.White.Application;
+    using CheckBox = TestStack.White.UIItems.CheckBox;
+    using ComboBox = TestStack.White.UIItems.ListBoxItems.ComboBox;
+    using GroupBox = TestStack.White.UIItems.GroupBox;
+    using TextBox = TestStack.White.UIItems.TextBox;
 
     public class DoubleBoxTests
     {
@@ -28,9 +32,16 @@
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     Assert.AreNotEqual("1.2", inputBox.Text);
+                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                     inputBox.Enter("1.2");
                     vmValueBox.Click();
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -50,6 +61,10 @@
                     vmValueBox.Enter("1.2");
                     inputBox.Click();
                     Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -70,16 +85,48 @@
                     Assert.AreEqual("0", inputBox.Text);
                     inputBox.Enter("");
                     vmValueBox.Click();
+                    Assert.AreEqual("", inputBox.Text);
                     Assert.AreEqual("", vmValueBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-
-                    canBeNullBox.Checked = false;
-                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     inputBox.Enter("1");
                     vmValueBox.Click();
+                    Assert.AreEqual("1", inputBox.Text);
                     Assert.AreEqual("1", vmValueBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("1", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    canBeNullBox.Checked = false;
+                    inputBox.Enter("");
+                    vmValueBox.Click();
+                    Assert.AreEqual("", inputBox.Text);
+                    Assert.AreEqual("1", vmValueBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("1", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    canBeNullBox.Checked = true;
+                    Assert.AreEqual("", inputBox.Text);
+                    Assert.AreEqual("1", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    inputBox.Click();
+                    vmValueBox.Click();
+                    Assert.AreEqual("", inputBox.Text);
+                    Assert.AreEqual("", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -92,30 +139,72 @@
                     var page = window.Get<TabPage>(AutomationIds.DebugTab);
                     page.Select();
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    window.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = false;
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
                     var cultureBox = groupBox.Get<ComboBox>(AutomationIds.CultureBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
-                    Assert.AreNotEqual("1.2", inputBox.Text);
+                    Assert.AreEqual("0", inputBox.Text);
                     inputBox.Enter("1.2");
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     vmValueBox.Click();
                     Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     cultureBox.Select("sv-SE");
                     vmValueBox.Click();
                     Assert.AreEqual("1,2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     inputBox.Enter("2.3");
                     Assert.AreEqual("2.3", inputBox.Text);
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     cultureBox.Select("en-US");
                     vmValueBox.Click();
                     Assert.AreEqual("2.3", inputBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("1.2", vmValueBox.Text); // maybe we want to update source here idk.
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    inputBox.Click();
+                    vmValueBox.Click();
+                    Assert.AreEqual("2.3", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("2.3", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    inputBox.Enter("5.6a");
+                    Assert.AreEqual("5.6a", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("2.3", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    cultureBox.Select("sv-SE");
+                    vmValueBox.Click();
+                    Assert.AreEqual("5.6a", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("2.3", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -134,19 +223,72 @@
                     inputBox.Enter("-1.2");
                     vmValueBox.Click();
                     Assert.AreEqual("-1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("-1.2", vmValueBox.Text);
+                    Assert.AreEqual("-1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     signBox.Checked = false;
                     vmValueBox.Click();
                     Assert.AreEqual("-1.2", inputBox.Text);
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("-1.2", vmValueBox.Text);
+                    Assert.AreEqual("-1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     signBox.Checked = true;
                     vmValueBox.Click();
                     Assert.AreEqual("-1.2", inputBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("-1.2", vmValueBox.Text);
+                    Assert.AreEqual("-1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+                }
+            }
+
+            [Test]
+            public void UpdateDigitsWhenGreaterThanMax()
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
+                    var digitsBox = groupBox.Get<TextBox>(AutomationIds.DigitsBox);
+                    var maxBox = groupBox.Get<TextBox>(AutomationIds.MaxBox);
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    Assert.AreEqual("0", inputBox.Text);
+                    inputBox.Enter("1.2");
+                    Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("0", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    maxBox.Enter("1");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+
+                    digitsBox.Enter("4");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1.2000", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -162,32 +304,60 @@
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
                     var digitsBox = groupBox.Get<TextBox>(AutomationIds.DigitsBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    Assert.AreEqual("0", inputBox.Text);
                     digitsBox.Enter("4");
-                    Assert.AreNotEqual("1.2", inputBox.Text);
-                    inputBox.Enter("1.2");
                     vmValueBox.Click();
+                    Assert.AreEqual("0.0000", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("0", vmValueBox.Text);
+                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    vmValueBox.Enter("1.2");
+                    inputBox.Click();
                     Assert.AreEqual("1.2000", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     digitsBox.Enter("0");
                     vmValueBox.Click();
                     Assert.AreEqual("1", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     digitsBox.Enter("-3");
                     vmValueBox.Click();
                     Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     inputBox.Enter("1.234567");
                     vmValueBox.Click();
                     Assert.AreEqual("1.235", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.234567", vmValueBox.Text);
+                    Assert.AreEqual("1.234567", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     digitsBox.Enter("4");
                     vmValueBox.Click();
                     Assert.AreEqual("1.2346", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.234567", vmValueBox.Text);
+                    Assert.AreEqual("1.234567", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -204,16 +374,42 @@
                     var stringFormatBox = groupBox.Get<TextBox>(AutomationIds.StringFormatBox);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
 
-                    inputBox.Enter("100000");
-                    stringFormatBox.Enter("N2");
-                    inputBox.Click();
-                    Assert.AreEqual("100,000.00", inputBox.Text);
-                    Assert.AreEqual(true, inputBox.HasValidationError());
-                    groupBox.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = true;
-                    Assert.AreEqual(false, inputBox.HasValidationError());
-                    inputBox.Click();
+                    inputBox.Enter("123456.78");
                     vmValueBox.Click();
-                    Assert.AreEqual("100000", vmValueBox.Text);
+                    Assert.AreEqual("123456.78", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("123456.78", vmValueBox.Text);
+                    Assert.AreEqual("123456.78", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    groupBox.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = true;
+                    stringFormatBox.Enter("N3");
+                    vmValueBox.Click();
+                    Assert.AreEqual("123,456.780", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("123456.78", vmValueBox.Text);
+                    Assert.AreEqual("123456.78", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    inputBox.Enter("2222.33333");
+                    vmValueBox.Click();
+                    Assert.AreEqual("2,222.333", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("2222.33333", vmValueBox.Text);
+                    Assert.AreEqual("2222.33333", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    vmValueBox.Enter("4444.5555");
+                    inputBox.Click();
+                    Assert.AreEqual("4,444.556", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("4444.5555", vmValueBox.Text);
+                    Assert.AreEqual("4444.5555", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 
@@ -233,29 +429,64 @@
                     inputBox.Enter("1.2");
                     vmValueBox.Click();
                     Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     maxBox.Enter("-1");
                     vmValueBox.Click();
-                    Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     inputBox.Enter("2.3");
                     Assert.AreEqual("2.3", inputBox.Text);
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("1.2", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
                     maxBox.Enter("6");
                     vmValueBox.Click();
                     Assert.AreEqual("2.3", inputBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("1.2", vmValueBox.Text); // maybe we want to update source here idk.
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
 
-                    inputBox.Enter("5.6");
+                    inputBox.Click();
                     vmValueBox.Click();
-                    Assert.AreEqual("5.6", inputBox.Text);
-                    Assert.AreEqual("5.6", vmValueBox.Text);
+                    Assert.AreEqual("2.3", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("2.3", vmValueBox.Text);
+                    Assert.AreEqual("2.3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    vmValueBox.Enter("7.8");
+                    inputBox.Click();
+                    Assert.AreEqual("7.8", inputBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual("7.8", vmValueBox.Text);
+                    Assert.AreEqual("7.8", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
+
+                    maxBox.Enter("10");
+                    vmValueBox.Click();
+                    Assert.AreEqual("7.8", inputBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("7.8", vmValueBox.Text);
+                    Assert.AreEqual("7.8", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding.ToString(), groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text);
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle.ToString(), groupBox.Get<Label>(AutomationIds.StatusBlock).Text);
                 }
             }
 

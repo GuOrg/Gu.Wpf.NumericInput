@@ -91,6 +91,10 @@
       <Project>{33a6534e-f39c-496d-b84e-9b3130822671}</Project>
       <Name>Gu.Wpf.NumericInput.Demo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj">
+      <Project>{5db0db61-0a77-4e44-9dd9-bec53425ef60}</Project>
+      <Name>Gu.Wpf.NumericInput</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v3.5'">

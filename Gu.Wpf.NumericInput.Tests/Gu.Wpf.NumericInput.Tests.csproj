@@ -56,7 +56,11 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\Observe.cs" />
+    <Compile Include="Helpers\DependencyPropertyListener.cs" />
     <Compile Include="Internals\DecimalDigitsToStringFormatConverterTests.cs" />
+    <Compile Include="Internals\DependencyPropertyListener.cs" />
+    <Compile Include="Internals\Observe.cs" />
     <Compile Include="NamespacesTests.cs" />
     <Compile Include="CodeGen\DumpTemplateBindings.cs" />
     <Compile Include="DecimalBoxTests.cs" />
@@ -73,9 +77,7 @@
     <Compile Include="Helpers\ReflectionExt.cs" />
     <Compile Include="SandBox\ExplicitBinding.cs" />
     <Compile Include="ShortBoxTests.cs" />
-    <Compile Include="StringHelperTests.cs" />
     <Compile Include="Todos.cs" />
-    <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />

@@ -21,6 +21,5 @@
             add { this.AddHandler(ValueChangedEvent, value); }
             remove { this.RemoveHandler(ValueChangedEvent, value); }
         }
-
     }
 }

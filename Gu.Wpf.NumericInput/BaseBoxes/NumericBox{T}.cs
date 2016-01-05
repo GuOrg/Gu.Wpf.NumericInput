@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using Gu.Wpf.NumericInput.Validation;
 
     /// <summary>
     /// Baseclass with common functionality for numeric textboxes
@@ -18,8 +19,10 @@
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
         private readonly Func<T, T, T> add;
         private readonly Func<T, T, T> subtract;
-
-        private readonly Validator<T> validator; // Keep this alive
+        private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
+        private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
+        private static readonly RoutedEventHandler ValidationDirtyHandler = OnValidationDirty;
+        private readonly BindingExpressionBase textValueBindingExpression;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericBox{T}"/> class.
@@ -30,30 +33,27 @@
         {
             this.add = add;
             this.subtract = subtract;
+            var binding = new Binding
+            {
+                Path = BindingHelper.GetPath(ValueProperty),
+                Source = this,
+                Mode = BindingMode.OneWayToSource,
+                NotifyOnValidationError = true,
+                Converter = StringConverter<T>.Default,
+                ConverterParameter = this,
+            };
 
-            //var binding = new Binding
-            //{
-            //    Path = BindingHelper.GetPath(ValueProperty),
-            //    Source = this,
-            //    Mode = BindingMode.OneWayToSource,
-            //    UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
-            //    NotifyOnValidationError = true,
-            //    Converter = StringFormatConverter<T>.Default,
-            //    ConverterParameter = this,
-            //};
-
-            //binding.ValidationRules.Add(CanParse<T>.Default);
-            //binding.ValidationRules.Add(IsMatch.Default);
-            //binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.Default);
-            //binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.Default);
-
-            //BindingOperations.SetBinding(this, TextBindableProperty, binding);
-            this.validator = new Validator<T>(
-                this,
-                CanParse<T>.Default,
-                IsMatch.Default,
-                IsGreaterThanOrEqualToMinRule<T>.Default,
-                IsLessThanOrEqualToMaxRule<T>.Default);
+            binding.ValidationRules.Add(CanParse<T>.Default);
+            binding.ValidationRules.Add(IsMatch.FromText);
+            binding.ValidationRules.Add(IsMatch.FromValue);
+            binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.FromText);
+            binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.FromValue);
+            binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromText);
+            binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromValue);
+            this.textValueBindingExpression = BindingOperations.SetBinding(this, TextBindableProperty, binding);
+            this.AddHandler(System.Windows.Controls.Validation.ErrorEvent, ValidationErrorHandler);
+            this.AddHandler(FormatDirtyEvent, FormatDirtyHandler);
+            this.AddHandler(ValidationDirtyEvent, ValidationDirtyHandler);
         }
 
         /// <summary>
@@ -65,7 +65,12 @@
 
         internal T MinLimit => this.MinValue ?? TypeMin;
 
-        public abstract bool TryParse(string text, out T result);
+        public bool TryParse(string text, out T result)
+        {
+            return TryParse(text, this.NumberStyles, this.Culture, out result);
+        }
+
+        public abstract bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out T result);
 
         public bool CanParse(string text)
         {
@@ -92,6 +97,43 @@
             }
 
             throw new FormatException($"Could not parse {text} to an instance of {typeof(T)}");
+        }
+
+        internal string Format(T? value)
+        {
+            return value?.ToString(this.StringFormat, this.Culture) ?? string.Empty;
+        }
+
+        public void UpdateFormat()
+        {
+            var text = (string)this.GetValue(TextBindableProperty);
+            T result;
+            if (this.TryParse(text, out result))
+            {
+                var status = this.Status;
+                this.Status = NumericInput.Status.Formatting;
+                var newText = this.Format(result);
+                Debug.WriteLine((object)this.Text, newText);
+                this.Text = newText;
+                this.Status = status;
+            }
+            else
+            {
+                Debug.WriteLine("NOP");
+            }
+
+            this.IsFormattingDirty = false;
+        }
+
+        public void UpdateValidation()
+        {
+            Debug.WriteLine(string.Empty);
+            var status = this.Status;
+            this.Status = NumericInput.Status.Validating;
+            var text = this.GetValue(TextBindableProperty);
+            this.SetCurrentValue(TextBindableProperty, text);
+            this.IsValidationDirty = false;
+            this.Status = status;
         }
 
         protected virtual void OnValueChanged(object newValue, object oldValue)
@@ -162,15 +204,6 @@
             SetTextUndoable(textBox ?? this, text);
         }
 
-        private static void SetTextUndoable(TextBox textBox, string text)
-        {
-            // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
-            // Dunno if nice, testing it for now
-            textBox.SelectAll();
-            textBox.SelectedText = text;
-            textBox.Select(0, 0);
-        }
-
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             if (e.Property == IsReadOnlyProperty)
@@ -181,10 +214,66 @@
             base.OnPropertyChanged(e);
         }
 
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            Debug.WriteLine(string.Empty);
+            if (this.IsFormattingDirty || this.TextSource == TextSource.UserInput)
+            {
+                this.UpdateFormat();
+            }
+
+            base.OnLostFocus(e);
+        }
+
         protected override void OnTextChanged(TextChangedEventArgs e)
         {
             this.CheckSpinners();
             base.OnTextChanged(e);
+        }
+
+        private static void SetTextUndoable(TextBox textBox, string text)
+        {
+            // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
+            // Dunno if nice, testing it for now
+            textBox.SelectAll();
+            textBox.SelectedText = text;
+            textBox.Select(0, 0);
+        }
+
+        private static void OnValidationError(object sender, ValidationErrorEventArgs e)
+        {
+            var box = (NumericBox<T>)sender;
+            if (box.textValueBindingExpression.HasValidationError && box.Status != Status.ResettingValue)
+            {
+                var valueBindingExpression = BindingOperations.GetBindingExpression(box, ValueProperty);
+                if (valueBindingExpression != null)
+                {
+                    Debug.WriteLine(string.Empty);
+                    var status = box.Status;
+                    box.Status = NumericInput.Status.ResettingValue;
+                    valueBindingExpression.UpdateTarget(); // Reset Value to value from DataContext binding.
+                    box.Status = status;
+                }
+            }
+        }
+
+        private static void OnFormatDirty(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(string.Empty);
+            var box = (NumericBox<T>)sender;
+            if (box.IsFocused || box.IsKeyboardFocusWithin)
+            {
+                return;
+            }
+
+            box.UpdateFormat();
+        }
+
+        private static void OnValidationDirty(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(string.Empty);
+            var box = (NumericBox<T>)sender;
+            box.UpdateValidation();
         }
 
         private T AddIncrement()

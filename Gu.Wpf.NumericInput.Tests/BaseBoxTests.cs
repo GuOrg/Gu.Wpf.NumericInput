@@ -66,6 +66,9 @@
 
             this.Box.RegexPattern = pattern2;
             Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
+
+            Assert.AreEqual(Status.Idle, this.Box.Status);
+            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
         }
     }
 }

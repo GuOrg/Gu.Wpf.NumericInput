@@ -1,18 +1,36 @@
-﻿#pragma warning disable SA1202 // Elements must be ordered by access. Reason: this does not work with dependency properties
-namespace Gu.Wpf.NumericInput
+﻿namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Input;
 
     /// <summary>
     /// Base class that adds a couple of dependency properties to TextBox
     /// </summary>
-    public abstract partial class BaseBox : TextBox
+    public abstract partial class BaseBox
     {
+        private static readonly DependencyPropertyKey IsValidationDirtyPropertyKey = DependencyProperty.RegisterReadOnly(
+            "IsValidationDirty",
+            typeof(bool),
+            typeof(BaseBox),
+            new PropertyMetadata(
+                BooleanBoxes.False,
+                OnIsValidationDirtyChanged));
+
+        public static readonly DependencyProperty IsValidationDirtyProperty = IsValidationDirtyPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey IsFormattingDirtyPropertyKey = DependencyProperty.RegisterReadOnly(
+            "IsFormattingDirty",
+            typeof(bool),
+            typeof(BaseBox),
+            new PropertyMetadata(
+                BooleanBoxes.False,
+                OnIsFormattingDirtyChanged));
+
+        public static readonly DependencyProperty IsFormattingDirtyProperty = IsFormattingDirtyPropertyKey.DependencyProperty;
+
         public static readonly DependencyProperty SuffixProperty = DependencyProperty.Register(
             "Suffix",
             typeof(string),
@@ -81,7 +99,7 @@ namespace Gu.Wpf.NumericInput
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(
-                default(string),
+                string.Empty,
                 OnTextProxyChanged));
 
         internal static readonly DependencyProperty TextBindableProperty = DependencyProperty.Register(
@@ -89,12 +107,36 @@ namespace Gu.Wpf.NumericInput
             typeof(string),
             typeof(BaseBox),
             new PropertyMetadata(
-                default(string),
+                string.Empty,
                 OnTextBindableChanged));
+
+        internal static readonly DependencyProperty TextSourceProperty = DependencyProperty.Register(
+            "TextSource",
+            typeof(TextSource),
+            typeof(BaseBox),
+            new PropertyMetadata(NumericInput.TextSource.ValueBinding, OnTextSourceChanged));
+
+        internal static readonly DependencyProperty StatusProperty = DependencyProperty.Register(
+            "Status",
+            typeof(Status),
+            typeof(BaseBox),
+            new PropertyMetadata(Status.Idle, OnStatusChanged));
 
         static BaseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
+        }
+
+        public bool IsFormattingDirty
+        {
+            get { return (bool)this.GetValue(IsFormattingDirtyProperty); }
+            protected set { this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
+        }
+
+        public bool IsValidationDirty
+        {
+            get { return (bool)this.GetValue(IsValidationDirtyProperty); }
+            protected set { this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
         }
 
         [Category(nameof(NumericBox))]
@@ -147,6 +189,7 @@ namespace Gu.Wpf.NumericInput
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool AllowSpinners
+#pragma warning restore SA1600 // Elements must be documented
         {
             get { return (bool)this.GetValue(AllowSpinnersProperty); }
             set { this.SetValue(AllowSpinnersProperty, value); }
@@ -168,24 +211,56 @@ namespace Gu.Wpf.NumericInput
             private set { this.SetValue(DecreaseCommandPropertyKey, value); }
         }
 
+        internal TextSource TextSource
+        {
+            get { return (TextSource)GetValue(TextSourceProperty); }
+            set { SetValue(TextSourceProperty, value); }
+        }
+
+        internal Status Status
+        {
+            get { return (Status)GetValue(StatusProperty); }
+            set { SetValue(StatusProperty, value); }
+        }
+
+        private static void OnIsValidationDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine(e);
+            if (Equals(e.NewValue, BooleanBoxes.True))
+            {
+                ((BaseBox)d).RaiseEvent(ValidationDirtyEventArgs);
+            }
+        }
+
+        private static void OnIsFormattingDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine(e);
+            if (Equals(e.NewValue, BooleanBoxes.True))
+            {
+                ((BaseBox)d).RaiseEvent(FormatDirtyEventArgs);
+            }
+        }
+
         private static void OnStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.RaiseEvent(FormatDirtyEventArgs);
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
+            box.IsFormattingDirty = true;
+            box.IsValidationDirty = true;
         }
 
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.RaiseEvent(FormatDirtyEventArgs);
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.OnCultureChanged((IFormatProvider)e.OldValue, (IFormatProvider)e.NewValue);
+            box.IsFormattingDirty = true;
+            box.IsValidationDirty = true;
         }
 
         private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.IsValidationDirty = true;
         }
 
         private static void OnSuffixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -206,12 +281,31 @@ namespace Gu.Wpf.NumericInput
 
         private static void OnTextProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            d.SetCurrentValue(TextBindableProperty, e.NewValue);
+            Debug.WriteLine(e);
+            var baseBox = (BaseBox)d;
+
+            if (baseBox.Status == NumericInput.Status.Idle)
+            {
+                baseBox.Status = NumericInput.Status.UpdatingFromUserInput;
+                baseBox.TextSource = TextSource.UserInput;
+                d.SetCurrentValue(TextBindableProperty, e.NewValue);
+                baseBox.Status = NumericInput.Status.Idle;
+            }
         }
 
         private static void OnTextBindableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            d.SetCurrentValue(TextProperty, e.NewValue);
+            Debug.WriteLine(e);
+        }
+
+        private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine(e);
+        }
+
+        private static void OnTextSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine(e);
         }
     }
 }

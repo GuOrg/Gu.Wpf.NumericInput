@@ -1,7 +1,9 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -22,8 +24,7 @@
 
         protected abstract T Increment { get; }
 
-        private DummyVm<T> vm;
-        private BindingExpressionBase bindingExpression;
+        internal DummyVm<T> Vm { get; private set; }
 
         [SetUp]
         public void SetUp()
@@ -33,15 +34,16 @@
             this.Sut.MinValue = this.Min;
             this.Sut.MaxValue = this.Max;
             this.Sut.Increment = this.Increment;
-            this.vm = new DummyVm<T>();
+            this.Vm = new DummyVm<T>();
             var binding = new Binding("Value")
-                              {
-                                  Source = this.vm,
-                                  UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
-                                  Mode = BindingMode.TwoWay
-                              };
-            this.bindingExpression = BindingOperations.SetBinding(this.Sut, NumericBox<T>.ValueProperty, binding);
+            {
+                Source = this.Vm,
+                UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
+                Mode = BindingMode.TwoWay
+            };
+            var bindingExpression = BindingOperations.SetBinding(this.Sut, NumericBox<T>.ValueProperty, binding);
             this.Sut.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }
 
         [TestCase("1", true)]
@@ -86,9 +88,11 @@
         [TestCase(-11, true)]
         public void SetValueValidates(T value, bool expected)
         {
-            this.vm.Value = value;
+            this.Vm.Value = value;
             Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
             Assert.AreEqual(value.ToString(this.Sut.StringFormat, this.Sut.Culture), this.Sut.Text);
+            Assert.AreEqual(Status.Idle, this.Sut.Status);
+            Assert.AreEqual(TextSource.ValueBinding, this.Sut.TextSource);
         }
 
         [TestCase(9, false, 8, true)]
@@ -96,10 +100,12 @@
         [TestCase(11, true, 15, false)]
         public void SetMaxValidates(T value, bool expected, T newMax, bool expected2)
         {
-            this.vm.Value = value;
+            this.Vm.Value = value;
             Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
             this.Sut.MaxValue = newMax;
             Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
+            Assert.AreEqual(Status.Idle, this.Sut.Status);
+            Assert.AreEqual(TextSource.ValueBinding, this.Sut.TextSource);
         }
 
         [TestCase(-9, false, -8, true)]
@@ -107,10 +113,12 @@
         [TestCase(-11, true, -15, false)]
         public void SetMinValidates(T value, bool expected, T newMax, bool expected2)
         {
-            this.vm.Value = value;
+            this.Vm.Value = value;
             Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
             this.Sut.MinValue = newMax;
             Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
+            Assert.AreEqual(Status.Idle, this.Sut.Status);
+            Assert.AreEqual(TextSource.ValueBinding, this.Sut.TextSource);
         }
 
         [TestCase("9", 9, false)]
@@ -122,22 +130,39 @@
         [TestCase("1e", 0, true)]
         public void SetTextValidates(string text, T expectedValue, bool expected)
         {
-            this.Sut.Text = text;
-            Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+            var changes = new List<DependencyPropertyChangedEventArgs>();
+            using (this.Sut.PropertyChanged(NumericBox<T>.ValueProperty, x => changes.Add(x)))
+            {
+                this.Sut.Text = text;
+                Assert.AreEqual(expected, Validation.GetHasError(this.Sut));
+                if (expected)
+                {
+                    CollectionAssert.IsEmpty(changes);
+                }
+                else
+                {
+                    Assert.AreEqual(1, changes.Count);
+                }
+            }
+
             Assert.AreEqual(text, this.Sut.Text);
             Assert.AreEqual(this.Sut.Value, expectedValue);
+            Assert.AreEqual(Status.Idle, this.Sut.Status);
+            Assert.AreEqual(TextSource.UserInput, this.Sut.TextSource);
         }
 
         [TestCase(1, "11", true, "1", false)]
         public void SetTextTwiceTest(T vmValue, string text1, bool expected1, string text2, bool expected2)
         {
-            this.vm.Value = vmValue;
+            this.Vm.Value = vmValue;
             this.Sut.Text = text1;
             Assert.AreEqual(expected1, Validation.GetHasError(this.Sut));
 
             this.Sut.Text = text2;
             Assert.AreEqual(expected2, Validation.GetHasError(this.Sut));
             //Assert.Fail("11 -> 1");
+            Assert.AreEqual(Status.Idle, this.Sut.Status);
+            Assert.AreEqual(TextSource.UserInput, this.Sut.TextSource);
         }
 
         [TestCase(8)]
@@ -146,7 +171,7 @@
             this.Sut.Value = value;
             var count = 0;
             this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand) this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            ((ManualRelayCommand)this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
             Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
 
@@ -170,10 +195,10 @@
             var count = 0;
             this.Box.AllowSpinners = true;
             this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand) this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            ((ManualRelayCommand)this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
 
-            this.vm.Value = newValue;
+            this.Vm.Value = newValue;
             Assert.AreEqual(expected, count);
         }
 
@@ -213,7 +238,7 @@
             var count = 0;
             this.Box.AllowSpinners = true;
             this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand) this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
+            ((ManualRelayCommand)this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
             this.Sut.Text = text;
             Assert.AreEqual(expected, count);
@@ -287,14 +312,14 @@
         public void ValidationErrorResetsValue()
         {
             this.Sut.Text = "1";
-            Assert.AreEqual("1", this.Sut.Value.Value.ToString(CultureInfo.InvariantCulture));
-            this.Sut.Text = "1e";
+            Assert.AreEqual(false, Validation.GetHasError(this.Box));
+            Assert.AreEqual(1, this.Sut.Value);
+            Assert.AreEqual(0, this.Vm.Value);
 
-            var hasError = Validation.GetHasError(this.Box);
+            this.Sut.Text = "1e";
+            Assert.AreEqual(true, Validation.GetHasError(this.Box));
             Assert.AreEqual("1e", this.Sut.Text);
-            var actual = this.Sut.Value;
-            Assert.AreEqual(this.vm.Value, actual);
-            Assert.IsTrue(hasError);
+            Assert.AreEqual(this.Vm.Value, this.Sut.Value);
         }
     }
 }
