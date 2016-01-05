@@ -80,6 +80,8 @@
     <Compile Include="BoxViews\ShortBoxVm.cs">
       <DependentUpon>ShortBoxView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoxViews\StatusConverter.cs" />
+    <Compile Include="BoxViews\TextSourceConverter.cs" />
     <Compile Include="DemoView.xaml.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>

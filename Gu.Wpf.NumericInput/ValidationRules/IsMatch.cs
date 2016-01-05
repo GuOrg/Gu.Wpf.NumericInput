@@ -8,10 +8,11 @@
 
     internal class IsMatch : ValidationRule
     {
-        internal static readonly IsMatch Default = new IsMatch();
+        internal static readonly IsMatch FromText = new IsMatch(true);
+        internal static readonly IsMatch FromValue = new IsMatch(false);
 
-        private IsMatch()
-            : base(ValidationStep.RawProposedValue, false)
+        private IsMatch(bool validatesOnTargetUpdated)
+            : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)
         {
         }
 

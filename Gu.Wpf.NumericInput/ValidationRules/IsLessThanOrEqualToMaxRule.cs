@@ -8,10 +8,11 @@ namespace Gu.Wpf.NumericInput
     internal class IsLessThanOrEqualToMaxRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly IsLessThanOrEqualToMaxRule<T> Default = new IsLessThanOrEqualToMaxRule<T>();
+        internal static readonly IsLessThanOrEqualToMaxRule<T> FromText = new IsLessThanOrEqualToMaxRule<T>(true);
+        internal static readonly IsLessThanOrEqualToMaxRule<T> FromValue = new IsLessThanOrEqualToMaxRule<T>(false);
 
-        private IsLessThanOrEqualToMaxRule()
-            : base(ValidationStep.ConvertedProposedValue, false)
+        private IsLessThanOrEqualToMaxRule(bool validatesOnTargetUpdated)
+            : base(ValidationStep.ConvertedProposedValue, validatesOnTargetUpdated)
         {
         }
 

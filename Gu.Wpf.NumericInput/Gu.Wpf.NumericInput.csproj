@@ -57,14 +57,17 @@
     <Compile Include="BaseBoxes\DecimalDigitsBox{T}.cs" />
     <Compile Include="BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
     <Compile Include="BaseBoxes\NumericBox{T}.Events.cs" />
+    <Compile Include="BaseBoxes\Status.cs" />
+    <Compile Include="BaseBoxes\TextSource.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
+    <Compile Include="Internals\Debug.cs" />
     <Compile Include="Internals\DependencyPropertyExt.cs" />
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
-    <Compile Include="Converters\StringFormatConverter.cs" />
+    <Compile Include="Converters\StringConverter.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
     <Compile Include="BaseBoxes\BaseBox.DependencyProperties.cs" />
     <Compile Include="DecimalBox.cs" />
@@ -76,22 +79,18 @@
     <Compile Include="BaseBoxes\NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="ValidationResults\CanParseValidationResult.cs" />
-    <Compile Include="Validation\ExplicitBinding.cs" />
-    <Compile Include="Validation\ExplicitBinding{T}.cs" />
+    <Compile Include="ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
+    <Compile Include="ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
+    <Compile Include="ValidationRules\IsMatch.cs" />
     <Compile Include="ValidationResults\IsGreaterThanValidationResult.cs" />
     <Compile Include="ValidationResults\IsLessThanValidationResult.cs" />
-    <Compile Include="ValidationRules\IsMatch.cs" />
     <Compile Include="ValidationResults\IsMatchValidationResult.cs" />
-    <Compile Include="Validation\StringHelper.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
-    <Compile Include="ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
     <Compile Include="ValidationRules\CanParse.cs" />
-    <Compile Include="Validation\Validator.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />
     <None Include="paket.references" />
     <None Include="paket.template" />

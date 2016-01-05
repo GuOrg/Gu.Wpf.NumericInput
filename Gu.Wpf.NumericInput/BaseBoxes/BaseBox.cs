@@ -1,11 +1,13 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
+    using System;
     using System.Windows;
+    using System.Windows.Controls;
 
     /// <summary>
     /// The reason for having this stuff here is enabling a shared style
     /// </summary>
-    public abstract partial class BaseBox
+    public abstract partial class BaseBox : TextBox
     {
         protected BaseBox()
         {
@@ -59,6 +61,14 @@
             }
 
             base.OnIsKeyboardFocusWithinChanged(e);
+        }
+
+        protected virtual void OnStringFormatChanged(string oldFormat, string newFormat)
+        {
+        }
+
+        protected virtual void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
+        {
         }
     }
 }
