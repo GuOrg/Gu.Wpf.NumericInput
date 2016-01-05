@@ -82,7 +82,7 @@
         [Browsable(true)]
         public bool CanValueBeNull
         {
-            get { return (bool) this.GetValue(CanValueBeNullProperty); }
+            get { return (bool)this.GetValue(CanValueBeNullProperty); }
             set { this.SetValue(CanValueBeNullProperty, value); }
         }
 
@@ -120,38 +120,46 @@
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            Debug.WriteLine(e);
             var numericBox = (NumericBox<T>)d;
-            if (!Equals(e.NewValue, e.OldValue))
+            if (numericBox.Status == NumericInput.Status.Idle)
             {
-                numericBox.OnValueChanged(e.NewValue, e.OldValue);
-                numericBox.CheckSpinners();
+                numericBox.Status = NumericInput.Status.UpdatingFromValueBinding;
+                numericBox.TextSource = TextSource.ValueBinding;
+                var newValue = (T?)e.NewValue;
+                numericBox.SetCurrentValue(TextProperty, numericBox.Format(newValue));
+                numericBox.SetCurrentValue(TextBindableProperty, newValue?.ToString(numericBox.Culture) ?? string.Empty);
+                numericBox.Status = Status.Idle;
             }
+
+            numericBox.OnValueChanged(e.NewValue, e.OldValue);
+            numericBox.CheckSpinners();
         }
 
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.IsValidationDirty = true;
         }
 
         private static void OnNumberStylesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.IsValidationDirty = true;
         }
 
         private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
             box.CheckSpinners();
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.IsValidationDirty = true;
         }
 
         private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
             box.CheckSpinners();
-            box.RaiseEvent(ValidationDirtyEventArgs);
+            box.IsValidationDirty = true;
         }
 
         private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

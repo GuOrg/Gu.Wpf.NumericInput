@@ -4,31 +4,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gu.Wpf.NumericInput.Demo"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:numeric="http://gu.se/NumericInput"
              xmlns:propertyGrid="http://gu.se/PropertyGrid"
-             xmlns:validation="http://gu.se/NumericInput"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:DoubleBoxVm />
     </UserControl.DataContext>
     <UniformGrid Columns="2">
         <GroupBox VerticalAlignment="Top" Header="DoubleBox">
-            <validation:DoubleBox x:Name="InputBox"
-                                  AllowSpinners="{Binding AllowSpinners}"
-                                  AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
-                                  CanValueBeNull="{Binding CanValueBeNull}"
-                                  Culture="{Binding Culture}"
-                                  DecimalDigits="{Binding DecimalDigits}"
-                                  StringFormat="{Binding StringFormat, Mode=TwoWay}"
-                                  Increment="{Binding Increment}"
-                                  IsReadOnly="{Binding IsReadOnly}"
-                                  MaxValue="{Binding Max}"
-                                  MinValue="{Binding Min}"
-                                  NumberStyles="{Binding NumberStyles,
-                                                         Mode=OneWay,
-                                                         UpdateSourceTrigger=PropertyChanged}"
-                                  RegexPattern="{Binding RegexPattern}"
-                                  Suffix="{Binding Suffix}"
-                                  Value="{Binding Value}" />
+            <numeric:DoubleBox x:Name="InputBox"
+                               AllowSpinners="{Binding AllowSpinners}"
+                               AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                               CanValueBeNull="{Binding CanValueBeNull}"
+                               Culture="{Binding Culture}"
+                               DecimalDigits="{Binding DecimalDigits}"
+                               Increment="{Binding Increment}"
+                               IsReadOnly="{Binding IsReadOnly}"
+                               MaxValue="{Binding Max}"
+                               MinValue="{Binding Min}"
+                               NumberStyles="{Binding NumberStyles,
+                                                      Mode=OneWay,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                               RegexPattern="{Binding RegexPattern}"
+                               StringFormat="{Binding StringFormat,
+                                                      Mode=TwoWay}"
+                               Suffix="{Binding Suffix}"
+                               Value="{Binding Value}" />
         </GroupBox>
 
         <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
@@ -40,11 +41,19 @@
                 </HeaderedContentControl>
 
                 <HeaderedContentControl Header="Value">
-                    <TextBlock Text="{Binding Value, ElementName=InputBox}" />
+                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.ValueBlock}" Text="{Binding Value, ElementName=InputBox}" />
                 </HeaderedContentControl>
 
                 <HeaderedContentControl Header="IsFocused">
                     <TextBlock Text="{Binding IsFocused, ElementName=InputBox}" />
+                </HeaderedContentControl>
+
+                <HeaderedContentControl Header="TextSource">
+                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.TextSourceBlock}" Text="{Binding Path=TextSource, ElementName=InputBox}" />
+                </HeaderedContentControl>
+
+                <HeaderedContentControl Header="Status">
+                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.StatusBlock}" Text="{Binding Path=Status, ElementName=InputBox}" />
                 </HeaderedContentControl>
             </ItemsControl>
 
@@ -78,11 +87,11 @@
             <HeaderedContentControl Header="Decimals">
                 <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.DigitsBox}" Text="{Binding DecimalDigits, TargetNullValue=''}" />
             </HeaderedContentControl>
-            
+
             <HeaderedContentControl Header="StringFormat">
                 <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.StringFormatBox}" Text="{Binding StringFormat, Mode=TwoWay}" />
             </HeaderedContentControl>
-            
+
             <HeaderedContentControl Header="AllowLeadingWhite">
                 <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowLeadingWhiteBox}" IsChecked="{Binding AllowLeadingWhite}" />
             </HeaderedContentControl>

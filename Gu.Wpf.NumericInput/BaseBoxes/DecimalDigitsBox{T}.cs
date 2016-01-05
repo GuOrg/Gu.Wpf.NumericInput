@@ -32,6 +32,27 @@ namespace Gu.Wpf.NumericInput
             set { this.SetValue(DecimalDigitsProperty, value); }
         }
 
+        protected override void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
+        {
+            var text = (string)this.GetValue(TextBindableProperty);
+            if (string.IsNullOrEmpty(text) || oldCulture == null)
+            {
+                return;
+            }
+
+            T result;
+            if (this.TryParse(text, this.NumberStyles, oldCulture, out result))
+            {
+                var status = this.Status;
+                this.Status = NumericInput.Status.Formatting;
+                var newText = result.ToString(newCulture);
+                this.SetCurrentValue(TextBindableProperty, newText);
+                this.Status = status;
+            }
+
+            base.OnCultureChanged(oldCulture, newCulture);
+        }
+
         private static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (DecimalDigitsBox<T>)d;

@@ -1,17 +1,19 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
+    using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
     using JetBrains.Annotations;
 
     public class DummyVm<T> : INotifyPropertyChanged
+        where T : struct, IEquatable<T>
     {
-        private T value = default(T);
+        private T? value = default(T);
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public T Value
+        public T? Value
         {
             get
             {

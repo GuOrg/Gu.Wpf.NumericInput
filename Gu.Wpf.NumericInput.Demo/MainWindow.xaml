@@ -43,5 +43,4 @@
             <demo:FocusView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
     </TabControl>
-
 </Window>

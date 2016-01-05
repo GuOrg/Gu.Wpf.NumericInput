@@ -16,8 +16,8 @@
             typeof(RoutedEventHandler),
             typeof(BaseBox));
 
-        protected static readonly RoutedEventArgs ValidationDirtyEventArgs = new RoutedEventArgs(ValidationDirtyEvent);
-        protected static readonly RoutedEventArgs FormatDirtyEventArgs = new RoutedEventArgs(FormatDirtyEvent);
+        private static readonly RoutedEventArgs ValidationDirtyEventArgs = new RoutedEventArgs(ValidationDirtyEvent);
+        private static readonly RoutedEventArgs FormatDirtyEventArgs = new RoutedEventArgs(FormatDirtyEvent);
 
         internal event RoutedEventHandler FormatDirty
         {
