@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Input;
 
@@ -60,7 +61,7 @@
             typeof(IFormatProvider),
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
-                CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
+                Thread.CurrentThread.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnCultureChanged));
 
