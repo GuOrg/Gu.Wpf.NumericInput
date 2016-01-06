@@ -51,7 +51,7 @@
             binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromText);
             binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromValue);
             this.textValueBindingExpression = BindingOperations.SetBinding(this, TextBindableProperty, binding);
-            this.AddHandler(System.Windows.Controls.Validation.ErrorEvent, ValidationErrorHandler);
+            this.AddHandler(Validation.ErrorEvent, ValidationErrorHandler);
             this.AddHandler(FormatDirtyEvent, FormatDirtyHandler);
             this.AddHandler(ValidationDirtyEvent, ValidationDirtyHandler);
         }
@@ -80,7 +80,7 @@
 
         public bool TryParse(string text, out T result)
         {
-            return TryParse(text, this.NumberStyles, this.Culture, out result);
+            return this.TryParse(text, this.NumberStyles, this.Culture, out result);
         }
 
         public abstract bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out T result);
@@ -124,7 +124,7 @@
             if (this.TryParse(text, out result))
             {
                 var status = this.Status;
-                this.Status = NumericInput.Status.Formatting;
+                this.Status = Status.Formatting;
                 var newText = this.Format(result);
                 Debug.WriteLine((object)this.Text, newText);
                 this.Text = newText;
@@ -142,7 +142,7 @@
         {
             Debug.WriteLine(string.Empty);
             var status = this.Status;
-            this.Status = NumericInput.Status.Validating;
+            this.Status = Status.Validating;
             var text = this.GetValue(TextBindableProperty);
             this.SetCurrentValue(TextBindableProperty, text);
             this.IsValidationDirty = false;
@@ -182,9 +182,8 @@
                 return;
             }
 
-            var value = this.AddIncrement(currentValue.Value);
-            var text = value.ToString(this.StringFormat, this.Culture);
-            this.SetTextUndoable(text);
+            var value = this.AddIncrement(currentValue.Value, this.Increment);
+            this.SetIncremented(value);
         }
 
         protected override bool CanDecrease(object parameter)
@@ -211,13 +210,24 @@
                 return;
             }
 
-            var value = this.SubtractIncrement(currentValue.Value);
+            var value = this.SubtractIncrement(currentValue.Value, this.Increment);
+            this.SetIncremented(value);
+        }
+
+        protected virtual void SetIncremented(T value)
+        {
+            this.TextSource = TextSource.UserInput;
+            var status = this.Status;
+            this.Status = Status.Incrementing;
             var text = value.ToString(this.StringFormat, this.Culture);
+            this.SetCurrentValue(TextBindableProperty, value.ToString(this.Culture));
             this.SetTextUndoable(text);
+            this.Status = status;
         }
 
         protected virtual void SetTextUndoable(string text)
         {
+            this.TextSource = TextSource.UserInput;
             this.ValueBox.SetTextUndoable(text);
         }
 
@@ -257,7 +267,7 @@
                 {
                     Debug.WriteLine(string.Empty);
                     var status = box.Status;
-                    box.Status = NumericInput.Status.ResettingValue;
+                    box.Status = Status.ResettingValue;
                     valueBindingExpression.UpdateTarget(); // Reset Value to value from DataContext binding.
                     box.Status = status;
                 }
@@ -283,19 +293,19 @@
             box.UpdateValidation();
         }
 
-        private T AddIncrement(T currentValue)
+        private T AddIncrement(T currentValue, T increment)
         {
-            var incremented = this.subtract(this.MaxLimit, this.Increment);
+            var incremented = this.subtract(this.MaxLimit, increment);
             return currentValue.CompareTo(incremented) < 0
-                            ? this.add(currentValue, this.Increment)
+                            ? this.add(currentValue, increment)
                             : this.MaxLimit;
         }
 
-        private T SubtractIncrement(T currentValue)
+        private T SubtractIncrement(T currentValue, T increment)
         {
-            var incremented = this.add(this.MinLimit, this.Increment);
+            var incremented = this.add(this.MinLimit, increment);
             return currentValue.CompareTo(incremented) > 0
-                            ? this.subtract(currentValue, this.Increment)
+                            ? this.subtract(currentValue, increment)
                             : this.MinLimit;
         }
     }
