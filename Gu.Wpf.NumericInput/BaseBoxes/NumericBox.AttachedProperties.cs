@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -31,7 +32,7 @@
             typeof(IFormatProvider),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(
-                CultureInfo.GetCultureInfo("en-US"), // Think this is the default in WPF
+                Thread.CurrentThread.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnCultureChanged));
 
