@@ -52,6 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DoubleBoxTests.Plain.cs" />
+    <Compile Include="DoubleBoxTests.Spinners.cs" />
     <Compile Include="Helpers\Info.cs" />
     <Compile Include="Helpers\UiItemExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

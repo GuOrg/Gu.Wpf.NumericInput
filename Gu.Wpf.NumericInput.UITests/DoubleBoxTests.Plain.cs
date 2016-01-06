@@ -16,7 +16,7 @@
     using GroupBox = TestStack.White.UIItems.GroupBox;
     using TextBox = TestStack.White.UIItems.TextBox;
 
-    public class DoubleBoxTests
+    public partial class DoubleBoxTests
     {
         public class Plain
         {

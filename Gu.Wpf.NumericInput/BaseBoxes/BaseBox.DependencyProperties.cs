@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Globalization;
     using System.Threading;
     using System.Windows;
     using System.Windows.Input;
@@ -190,7 +189,6 @@
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool AllowSpinners
-#pragma warning restore SA1600 // Elements must be documented
         {
             get { return (bool)this.GetValue(AllowSpinnersProperty); }
             set { this.SetValue(AllowSpinnersProperty, value); }
@@ -297,6 +295,8 @@
         private static void OnTextBindableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Debug.WriteLine(e);
+            var box = (BaseBox)d;
+            box.CheckSpinners();
         }
 
         private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -59,7 +59,20 @@
         /// <summary>
         /// Gets the current value. Will throw if bad format
         /// </summary>
-        internal T? CurrentValue => this.Parse(this.Text);
+        internal T? CurrentTextValue
+        {
+            get
+            {
+                var text = (string)this.GetValue(TextBindableProperty);
+                T result;
+                if (this.TryParse(text, out result))
+                {
+                    return result;
+                }
+
+                return null;
+            }
+        }
 
         internal T MaxLimit => this.MaxValue ?? TypeMax;
 
@@ -142,7 +155,6 @@
             {
                 var args = new ValueChangedEventArgs<T?>((T?)oldValue, (T?)newValue, ValueChangedEvent, this);
                 this.RaiseEvent(args);
-                this.CheckSpinners();
             }
         }
 
@@ -153,26 +165,26 @@
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
+            var currentValue = this.CurrentTextValue;
+            if (currentValue == null)
             {
                 return false;
             }
 
-            if (Comparer<T>.Default.Compare(this.CurrentValue.Value, this.MaxLimit) >= 0)
-            {
-                return false;
-            }
-
-            return true;
+            return Comparer<T>.Default.Compare(currentValue.Value, this.MaxLimit) < 0;
         }
 
         protected override void Increase(object parameter)
         {
-            var value = this.AddIncrement();
-            var text = value.ToString(this.StringFormat, this.Culture);
+            var currentValue = this.CurrentTextValue;
+            if (currentValue == null)
+            {
+                return;
+            }
 
-            var textBox = parameter as TextBox;
-            SetTextUndoable(textBox ?? this, text);
+            var value = this.AddIncrement(currentValue.Value);
+            var text = value.ToString(this.StringFormat, this.Culture);
+            this.SetTextUndoable(text);
         }
 
         protected override bool CanDecrease(object parameter)
@@ -182,31 +194,41 @@
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(this.Text) || !this.CanParse(this.Text))
+            var currentValue = this.CurrentTextValue;
+            if (currentValue == null)
             {
                 return false;
             }
 
-            if (Comparer<T>.Default.Compare(this.CurrentValue.Value, this.MinLimit) <= 0)
-            {
-                return false;
-            }
-
-            return true;
+            return Comparer<T>.Default.Compare(currentValue.Value, this.MinLimit) > 0;
         }
 
         protected override void Decrease(object parameter)
         {
-            var value = this.SubtractIncrement();
-            var text = value.ToString(this.StringFormat, this.Culture);
+            var currentValue = this.CurrentTextValue;
+            if (currentValue == null)
+            {
+                return;
+            }
 
-            var textBox = parameter as TextBox;
-            SetTextUndoable(textBox ?? this, text);
+            var value = this.SubtractIncrement(currentValue.Value);
+            var text = value.ToString(this.StringFormat, this.Culture);
+            this.SetTextUndoable(text);
+        }
+
+        protected virtual void SetTextUndoable(string text)
+        {
+            this.ValueBox.SetTextUndoable(text);
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             if (e.Property == IsReadOnlyProperty)
+            {
+                this.CheckSpinners();
+            }
+
+            if (e.Property == IsEnabledProperty)
             {
                 this.CheckSpinners();
             }
@@ -223,21 +245,6 @@
             }
 
             base.OnLostFocus(e);
-        }
-
-        protected override void OnTextChanged(TextChangedEventArgs e)
-        {
-            this.CheckSpinners();
-            base.OnTextChanged(e);
-        }
-
-        private static void SetTextUndoable(TextBox textBox, string text)
-        {
-            // http://stackoverflow.com/questions/27083236/change-the-text-in-a-textbox-with-text-binding-sometext-so-it-is-undoable/27083548?noredirect=1#comment42677255_27083548
-            // Dunno if nice, testing it for now
-            textBox.SelectAll();
-            textBox.SelectedText = text;
-            textBox.Select(0, 0);
         }
 
         private static void OnValidationError(object sender, ValidationErrorEventArgs e)
@@ -276,28 +283,20 @@
             box.UpdateValidation();
         }
 
-        private T AddIncrement()
+        private T AddIncrement(T currentValue)
         {
-            var min = this.MaxLimit.CompareTo(TypeMax) < 0
-                ? this.MaxLimit
-                : TypeMax;
-            var incremented = this.subtract(min, this.Increment);
-            var currentValue = this.CurrentValue.Value;
+            var incremented = this.subtract(this.MaxLimit, this.Increment);
             return currentValue.CompareTo(incremented) < 0
                             ? this.add(currentValue, this.Increment)
-                            : min;
+                            : this.MaxLimit;
         }
 
-        private T SubtractIncrement()
+        private T SubtractIncrement(T currentValue)
         {
-            var max = this.MinLimit.CompareTo(TypeMin) > 0
-                                ? this.MinLimit
-                                : TypeMin;
-            var incremented = this.add(max, this.Increment);
-            var currentValue = this.CurrentValue.Value;
+            var incremented = this.add(this.MinLimit, this.Increment);
             return currentValue.CompareTo(incremented) > 0
                             ? this.subtract(currentValue, this.Increment)
-                            : max;
+                            : this.MinLimit;
         }
     }
 }
