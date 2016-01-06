@@ -7,6 +7,7 @@
         UpdatingFromValueBinding,
         Formatting,
         ResettingValue,
-        Validating
+        Validating,
+        Incrementing
     }
 }
