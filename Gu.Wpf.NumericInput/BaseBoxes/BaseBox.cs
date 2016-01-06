@@ -3,17 +3,36 @@
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
 
     /// <summary>
     /// The reason for having this stuff here is enabling a shared style
     /// </summary>
+    [TemplatePart(Name = IncreaseButtonName, Type = typeof(RepeatButton))]
+    [TemplatePart(Name = DecreaseButtonName, Type = typeof(RepeatButton))]
+    [TemplatePart(Name = ValueBoxName, Type = typeof(TextBox))]
+    [TemplatePart(Name = SuffixBoxName, Type = typeof(TextBox))]
     public abstract partial class BaseBox : TextBox
     {
+        public const string DecreaseButtonName = "DecreaseButton";
+        public const string IncreaseButtonName = "IncreaseButton";
+        public const string ValueBoxName = "ValueBox";
+        public const string SuffixBoxName = "SuffixBox";
+
         protected BaseBox()
         {
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
             this.Bind(TextProxyProperty).OneWayTo(this, TextProperty);
+            this.ValueBox = this;
+        }
+
+        protected TextBox ValueBox { get; private set; }
+
+        public override void OnApplyTemplate()
+        {
+            this.ValueBox = (TextBox)this.GetTemplateChild(ValueBoxName) ?? this;
+            base.OnApplyTemplate();
         }
 
         /// <summary>

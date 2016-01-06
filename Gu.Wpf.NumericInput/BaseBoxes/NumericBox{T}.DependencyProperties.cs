@@ -133,7 +133,6 @@
             }
 
             numericBox.OnValueChanged(e.NewValue, e.OldValue);
-            numericBox.CheckSpinners();
         }
 
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
