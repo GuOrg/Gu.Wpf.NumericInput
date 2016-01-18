@@ -13,55 +13,59 @@
         <local:DemoVm />
     </UserControl.DataContext>
     <UniformGrid Columns="3">
-        <StackPanel>
+        <StackPanel KeyboardNavigation.TabNavigation="Cycle">
             <GroupBox VerticalAlignment="Top" Header="DoubleBox">
-                <numeric:DoubleBox AllowSpinners="{Binding Settings.AllowSpinners}"
-                                   Culture="{Binding Settings.Culture}"
-                                   DecimalDigits="{Binding Settings.DecimalDigits}"
-                                   Increment="{Binding Settings.Increment}"
-                                   IsReadOnly="{Binding Settings.IsReadOnly}"
-                                   MaxValue="{Binding Settings.Max}"
-                                   MinValue="{Binding Settings.Min}"
-                                   RegexPattern="{Binding Settings.RegexPattern}"
-                                   Suffix="{Binding Settings.Suffix}"
-                                   Value="{Binding DoubleValue}" />
+                <numeric:SpinnerDecorator>
+                    <numeric:DoubleBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                       Culture="{Binding Settings.Culture}"
+                                       DecimalDigits="{Binding Settings.DecimalDigits}"
+                                       Increment="{Binding Settings.Increment}"
+                                       IsReadOnly="{Binding Settings.IsReadOnly}"
+                                       MaxValue="{Binding Settings.Max}"
+                                       MinValue="{Binding Settings.Min}"
+                                       RegexPattern="{Binding Settings.RegexPattern}"
+                                       Value="{Binding DoubleValue}" />
+                </numeric:SpinnerDecorator>
             </GroupBox>
 
             <GroupBox VerticalAlignment="Top" Header="IntBox">
-                <numeric:IntBox AllowSpinners="{Binding Settings.AllowSpinners}"
-                                Culture="{Binding Settings.Culture}"
-                                Increment="{Binding Settings.Increment}"
-                                IsReadOnly="{Binding Settings.IsReadOnly}"
-                                MaxValue="{Binding Settings.Max}"
-                                MinValue="{Binding Settings.Min}"
-                                RegexPattern="{Binding Settings.RegexPattern}"
-                                Suffix="{Binding Settings.Suffix}"
-                                Value="{Binding IntValue}" />
-            </GroupBox>
-
-            <GroupBox VerticalAlignment="Top" Header="DecimalBox">
-                <numeric:DecimalBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                <numeric:SpinnerDecorator>
+                    <numeric:IntBox AllowSpinners="{Binding Settings.AllowSpinners}"
                                     Culture="{Binding Settings.Culture}"
-                                    DecimalDigits="{Binding Settings.DecimalDigits}"
                                     Increment="{Binding Settings.Increment}"
                                     IsReadOnly="{Binding Settings.IsReadOnly}"
                                     MaxValue="{Binding Settings.Max}"
                                     MinValue="{Binding Settings.Min}"
                                     RegexPattern="{Binding Settings.RegexPattern}"
-                                    Suffix="{Binding Settings.Suffix}"
-                                    Value="{Binding DecimalValue}" />
+                                    Value="{Binding IntValue}" />
+                </numeric:SpinnerDecorator>
+            </GroupBox>
+
+            <GroupBox VerticalAlignment="Top" Header="DecimalBox">
+                <numeric:SpinnerDecorator>
+                    <numeric:DecimalBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                        Culture="{Binding Settings.Culture}"
+                                        DecimalDigits="{Binding Settings.DecimalDigits}"
+                                        Increment="{Binding Settings.Increment}"
+                                        IsReadOnly="{Binding Settings.IsReadOnly}"
+                                        MaxValue="{Binding Settings.Max}"
+                                        MinValue="{Binding Settings.Min}"
+                                        RegexPattern="{Binding Settings.RegexPattern}"
+                                        Value="{Binding DecimalValue}" />
+                </numeric:SpinnerDecorator>
             </GroupBox>
 
             <GroupBox VerticalAlignment="Top" Header="ShortBox">
-                <numeric:ShortBox AllowSpinners="{Binding Settings.AllowSpinners}"
-                                  Culture="{Binding Settings.Culture}"
-                                  Increment="{Binding Settings.Increment}"
-                                  IsReadOnly="{Binding Settings.IsReadOnly}"
-                                  MaxValue="{Binding Settings.Max}"
-                                  MinValue="{Binding Settings.Min}"
-                                  RegexPattern="{Binding Settings.RegexPattern}"
-                                  Suffix="{Binding Settings.Suffix}"
-                                  Value="{Binding ShortValue}" />
+                <numeric:SpinnerDecorator>
+                    <numeric:ShortBox AllowSpinners="{Binding Settings.AllowSpinners}"
+                                      Culture="{Binding Settings.Culture}"
+                                      Increment="{Binding Settings.Increment}"
+                                      IsReadOnly="{Binding Settings.IsReadOnly}"
+                                      MaxValue="{Binding Settings.Max}"
+                                      MinValue="{Binding Settings.Min}"
+                                      RegexPattern="{Binding Settings.RegexPattern}"
+                                      Value="{Binding ShortValue}" />
+                </numeric:SpinnerDecorator>
             </GroupBox>
         </StackPanel>
 

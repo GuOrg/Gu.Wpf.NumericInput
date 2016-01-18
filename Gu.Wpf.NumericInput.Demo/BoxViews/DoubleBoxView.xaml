@@ -10,8 +10,12 @@
     <UserControl.DataContext>
         <local:DoubleBoxVm />
     </UserControl.DataContext>
-    <UniformGrid Columns="2">
-        <GroupBox VerticalAlignment="Top" Header="DoubleBox">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
             <numeric:DoubleBox x:Name="InputBox"
                                AllowSpinners="{Binding AllowSpinners}"
                                AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
@@ -28,11 +32,11 @@
                                RegexPattern="{Binding RegexPattern}"
                                StringFormat="{Binding StringFormat,
                                                       Mode=TwoWay}"
-                               Suffix="{Binding Suffix}"
-                               Value="{Binding Value}" />
-        </GroupBox>
+                               Value="{Binding Value,
+                                               ValidatesOnNotifyDataErrors=True}" />
+        </numeric:SpinnerDecorator>
 
-        <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
+        <ItemsControl Grid.Row="1" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
             <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.NestedPropertyGridStyleKey}}">
                 <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Status:" />
 
@@ -60,17 +64,21 @@
             <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="ViewModel:" />
 
             <HeaderedContentControl Header="CurrentValue">
-                <TextBlock Text="{Binding Value}" />
+                <TextBlock Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Edit Value">
-                <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VmValueBox}" Text="{Binding Value}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VmValueBox}" Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
             </HeaderedContentControl>
 
             <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Settings:" />
 
             <HeaderedContentControl Header="IsReadOnly">
                 <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.IsReadonlyBox}" IsChecked="{Binding IsReadOnly}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="HasErrors">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.HasErrorsBox}" IsChecked="{Binding HasErrors}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="CanValueBeNull">
@@ -116,10 +124,6 @@
                 <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowExponentBox}" IsChecked="{Binding AllowExponent}" />
             </HeaderedContentControl>
 
-            <HeaderedContentControl Header="Suffix">
-                <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.SuffixBox}" Text="{Binding Suffix}" />
-            </HeaderedContentControl>
-
             <HeaderedContentControl Header="Max">
                 <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.MaxBox}" Text="{Binding Max, TargetNullValue=''}" />
             </HeaderedContentControl>
@@ -140,5 +144,5 @@
                 <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.RegexPatternBox}" Text="{Binding RegexPattern}" />
             </HeaderedContentControl>
         </ItemsControl>
-    </UniformGrid>
+    </Grid>
 </UserControl>

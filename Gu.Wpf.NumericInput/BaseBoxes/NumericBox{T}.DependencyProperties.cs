@@ -127,8 +127,10 @@
                 numericBox.Status = NumericInput.Status.UpdatingFromValueBinding;
                 numericBox.TextSource = TextSource.ValueBinding;
                 var newValue = (T?)e.NewValue;
-                numericBox.SetCurrentValue(TextProperty, numericBox.Format(newValue));
-                numericBox.SetCurrentValue(TextBindableProperty, newValue?.ToString(numericBox.Culture) ?? string.Empty);
+                var newRaw = newValue?.ToString(numericBox.Culture) ?? string.Empty;
+                numericBox.SetTextClearUndo(newRaw);
+                numericBox.SetCurrentValue(TextBindableProperty, newRaw);
+                numericBox.FormattedText = numericBox.Format(newValue);
                 numericBox.Status = Status.Idle;
             }
 
@@ -138,27 +140,39 @@
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.IsValidationDirty = true;
+            if (box.Text == string.Empty)
+            {
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnNumberStylesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.IsValidationDirty = true;
+            if (box.Text != string.Empty)
+            {
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.CheckSpinners();
-            box.IsValidationDirty = true;
+            if (box.Text != string.Empty)
+            {
+                box.CheckSpinners();
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            box.CheckSpinners();
-            box.IsValidationDirty = true;
+            if (box.Text != string.Empty)
+            {
+                box.CheckSpinners();
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

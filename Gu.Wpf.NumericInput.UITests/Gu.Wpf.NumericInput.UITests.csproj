@@ -51,6 +51,7 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Compile Include="DoubleBoxTests.Focus.cs" />
     <Compile Include="DoubleBoxTests.Plain.cs" />
     <Compile Include="DoubleBoxTests.Spinners.cs" />
     <Compile Include="Helpers\Info.cs" />

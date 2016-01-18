@@ -1,30 +1,32 @@
 ﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.ShortBoxView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:numeric="http://gu.se/NumericInput"
              xmlns:propertyGrid="http://gu.se/PropertyGrid"
-             mc:Ignorable="d" >
+             mc:Ignorable="d">
     <UserControl.DataContext>
         <demo:ShortBoxVm />
     </UserControl.DataContext>
-    <UniformGrid Columns="2">
-        <GroupBox VerticalAlignment="Top" Header="ShortBox">
-            <numeric:ShortBox x:Name="InputBox"
-                                  AllowSpinners="{Binding AllowSpinners}"
-                                  Culture="{Binding Culture}"
-                                  Increment="{Binding Increment}"
-                                  IsReadOnly="{Binding IsReadOnly}"
-                                  MaxValue="{Binding Max}"
-                                  MinValue="{Binding Min}"
-                                  RegexPattern="{Binding RegexPattern}"
-                                  Suffix="{Binding Suffix}"
-                                  Value="{Binding Value}" />
-        </GroupBox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
+        <numeric:ShortBox x:Name="InputBox"
+                          AllowSpinners="{Binding AllowSpinners}"
+                          Culture="{Binding Culture}"
+                          Increment="{Binding Increment}"
+                          IsReadOnly="{Binding IsReadOnly}"
+                          MaxValue="{Binding Max}"
+                          MinValue="{Binding Min}"
+                          RegexPattern="{Binding RegexPattern}"
+                          Value="{Binding Value}" />
+
+        <ItemsControl Grid.Row="1" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
             <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.NestedPropertyGridStyleKey}}">
                 <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Status:" />
 
@@ -67,14 +69,6 @@
                           SelectedItem="{Binding Culture}" />
             </HeaderedContentControl>
 
-            <HeaderedContentControl Header="Suffix">
-                <TextBox Text="{Binding Suffix}" />
-            </HeaderedContentControl>
-
-            <!--<HeaderedContentControl Header="Decimals">
-                <TextBox Text="{Binding DecimalDigits, TargetNullValue=''}" />
-            </HeaderedContentControl>-->
-
             <HeaderedContentControl Header="Max">
                 <TextBox Text="{Binding Max, TargetNullValue=''}" />
             </HeaderedContentControl>
@@ -95,5 +89,5 @@
                 <TextBox Text="{Binding RegexPattern}" />
             </HeaderedContentControl>
         </ItemsControl>
-    </UniformGrid>
+    </Grid>
 </UserControl>

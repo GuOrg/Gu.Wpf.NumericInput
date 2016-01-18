@@ -1,12 +1,14 @@
 ﻿namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
+    using System.Collections;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using JetBrains.Annotations;
 
-    public abstract class BoxVm<TBox, TValue> : IDataErrorInfo, INotifyPropertyChanged
+    public abstract class BoxVm<TBox, TValue> : INotifyDataErrorInfo, INotifyPropertyChanged
         where TBox : NumericBox<TValue>
         where TValue : struct, IComparable<TValue>, IFormattable, IConvertible, IEquatable<TValue>
     {
@@ -18,11 +20,11 @@
         private int? decimalDigits;
         private bool allowSpinners;
         private bool isReadOnly;
-        private string suffix;
         private string regexPattern;
         private TValue increment;
         private bool canValueBeNull;
         private string stringFormat;
+        private bool hasErrors;
 
         protected BoxVm()
         {
@@ -34,11 +36,12 @@
             this.allowSpinners = DefaultValue(x => x.AllowSpinners);
             this.isReadOnly = DefaultValue(x => x.IsReadOnly);
             this.increment = DefaultValue(x => x.Increment);
-            this.suffix = DefaultValue(x => x.Suffix);
             this.regexPattern = DefaultValue(x => x.RegexPattern);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         public Type Type => typeof(TBox);
 
@@ -207,6 +210,7 @@
                 {
                     return;
                 }
+
                 this.max = value;
                 this.OnPropertyChanged();
             }
@@ -313,23 +317,6 @@
             }
         }
 
-        public string Suffix
-        {
-            get
-            {
-                return this.suffix;
-            }
-            set
-            {
-                if (value == this.suffix)
-                {
-                    return;
-                }
-                this.suffix = value;
-                this.OnPropertyChanged();
-            }
-        }
-
         public string RegexPattern
         {
             get
@@ -347,24 +334,34 @@
             }
         }
 
-        public string this[string columnName]
+        public bool HasErrors
         {
-            get
+            get { return this.hasErrors; }
+            set
             {
-                if (columnName == "Value" && Equals(this.Value, 3))
-                {
-                    return "IDataErrorInfo says anything but 3 please!";
-                }
-                return null;
+                if (value == this.hasErrors) return;
+                this.hasErrors = value;
+                this.OnPropertyChanged();
+                this.OnErrorsChanged(nameof(this.Value));
             }
         }
 
-        public string Error => string.Empty;
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return this.HasErrors && propertyName == nameof(this.Value)
+                ? new[] {"Has error"}
+                : Enumerable.Empty<string>();
+        }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnErrorsChanged([CallerMemberName] string propertyName = null)
+        {
+            this.ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
         private static T DefaultValue<T>(Func<TBox, T> property)

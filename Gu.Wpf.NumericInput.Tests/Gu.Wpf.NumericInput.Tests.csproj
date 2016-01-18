@@ -61,6 +61,7 @@
     <Compile Include="Internals\DecimalDigitsToStringFormatConverterTests.cs" />
     <Compile Include="Internals\DependencyPropertyListener.cs" />
     <Compile Include="Internals\Observe.cs" />
+    <Compile Include="Internals\TextBoxExt.cs" />
     <Compile Include="NamespacesTests.cs" />
     <Compile Include="CodeGen\DumpTemplateBindings.cs" />
     <Compile Include="DecimalBoxTests.cs" />
@@ -75,7 +76,6 @@
     <Compile Include="NumericBoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionExt.cs" />
-    <Compile Include="SandBox\ExplicitBinding.cs" />
     <Compile Include="ShortBoxTests.cs" />
     <Compile Include="Todos.cs" />
   </ItemGroup>
@@ -151,5 +151,8 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SandBox\" />
   </ItemGroup>
 </Project>
