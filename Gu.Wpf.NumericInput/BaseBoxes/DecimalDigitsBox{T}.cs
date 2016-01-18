@@ -46,6 +46,15 @@ namespace Gu.Wpf.NumericInput
                 var status = this.Status;
                 this.Status = NumericInput.Status.Formatting;
                 var newText = result.ToString(newCulture);
+                if (this.TextSource == TextSource.UserInput)
+                {
+                    this.SetTextAndCreateUndoAction(newText);
+                }
+                else
+                {
+                    this.SetTextClearUndo(newText);
+                }
+
                 this.SetCurrentValue(TextBindableProperty, newText);
                 this.Status = status;
             }

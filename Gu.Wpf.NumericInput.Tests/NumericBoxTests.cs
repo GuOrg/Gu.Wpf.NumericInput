@@ -7,8 +7,9 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-
+    using Gu.Wpf.NumericInput.Tests.Internals;
     using NUnit.Framework;
+
     public abstract class NumericBoxTests<TBox, T>
         : BaseBoxTests
         where TBox : NumericBox<T>
@@ -46,15 +47,6 @@
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }
 
-        [TestCase("1", true)]
-        [TestCase("1e", false)]
-        public void Increase_DecreaseCommand_CanExecute_WithText(string text, bool expected)
-        {
-            this.Box.Text = text;
-            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
-        }
-
         [Test]
         public void Defaults()
         {
@@ -68,16 +60,6 @@
             var typeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
             Assert.AreEqual(typeMax, box.MaxLimit);
             Assert.IsNull(box.MaxValue);
-        }
-
-        [TestCase("9", true)]
-        [TestCase("10", false)]
-        [TestCase("11", false)]
-        [TestCase("1e", false)]
-        public void IncreaseCommand_CanExecute_Text(string text, bool expected)
-        {
-            this.Sut.Text = text;
-            Assert.AreEqual(expected, this.Sut.IncreaseCommand.CanExecute(null));
         }
 
         [TestCase(9, false)]
@@ -121,14 +103,14 @@
             Assert.AreEqual(TextSource.ValueBinding, this.Sut.TextSource);
         }
 
-        [TestCase("9", 9, false)]
-        [TestCase("10", 10, false)]
-        [TestCase("11", 0, true)]
-        [TestCase("-9", -9, false)]
-        [TestCase("-10", -10, false)]
-        [TestCase("-11", 0, true)]
-        [TestCase("1e", 0, true)]
-        public void SetTextValidates(string text, T expectedValue, bool expected)
+        [TestCase("9", "9", false)]
+        [TestCase("10", "10", false)]
+        [TestCase("11", "", true)]
+        [TestCase("-9", "-9", false)]
+        [TestCase("-10", "-10", false)]
+        [TestCase("-11", "", true)]
+        [TestCase("1e", "", true)]
+        public void SetTextValidates(string text, string expectedValue, bool expected)
         {
             var changes = new List<DependencyPropertyChangedEventArgs>();
             using (this.Sut.PropertyChanged(NumericBox<T>.ValueProperty, x => changes.Add(x)))
@@ -146,7 +128,7 @@
             }
 
             Assert.AreEqual(text, this.Sut.Text);
-            Assert.AreEqual(this.Sut.Value, expectedValue);
+            Assert.AreEqual(expectedValue, this.Sut.Value.ToString());
             Assert.AreEqual(Status.Idle, this.Sut.Status);
             Assert.AreEqual(TextSource.UserInput, this.Sut.TextSource);
         }
@@ -163,135 +145,6 @@
             //Assert.Fail("11 -> 1");
             Assert.AreEqual(Status.Idle, this.Sut.Status);
             Assert.AreEqual(TextSource.UserInput, this.Sut.TextSource);
-        }
-
-        [TestCase(8)]
-        public void IncreaseCommand_CanExecuteChanged_OnIncrease(T value)
-        {
-            this.Sut.Value = value;
-            var count = 0;
-            this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
-            Assert.AreEqual(1, count);
-            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
-
-            this.Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual("9", this.Sut.Text);
-            Assert.AreEqual(1, count);
-            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
-
-            this.Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual("10", this.Sut.Text);
-            Assert.AreEqual(2, count);
-            Assert.IsFalse(this.Sut.IncreaseCommand.CanExecute(null));
-        }
-
-        [TestCase(-9, 1)]
-        [TestCase(9, 1)]
-        [TestCase(11, 2)]
-        [TestCase(-11, 1)]
-        public void IncreaseCommand_CanExecuteChanged_OnValueChanged(T newValue, int expected)
-        {
-            var count = 0;
-            this.Box.AllowSpinners = true;
-            this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
-            Assert.AreEqual(1, count);
-
-            this.Vm.Value = newValue;
-            Assert.AreEqual(expected, count);
-        }
-
-        [TestCase("-9", true)]
-        [TestCase("-10", false)]
-        [TestCase("-11", false)]
-        [TestCase("-1e", false)]
-        public void DecreaseCommand_CanExecute_Text(string text, bool expected)
-        {
-            this.Sut.Text = text;
-            Assert.AreEqual(expected, this.Sut.DecreaseCommand.CanExecute(null));
-        }
-
-        [TestCase(-8)]
-        public void DecreaseCommand_CanExecute_OnDecrease(T value)
-        {
-            this.Sut.Value = value;
-            var count = 0;
-            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
-
-            this.Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-9", this.Sut.Text);
-            Assert.AreEqual(1, count);
-            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
-
-            this.Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-10", this.Sut.Text);
-            Assert.AreEqual(2, count);
-            Assert.IsFalse(this.Sut.DecreaseCommand.CanExecute(null));
-        }
-
-        [TestCase("-11", 2)]
-        [TestCase("-9", 1)]
-        public void DecreaseCommand_CanExecuteChanged_OnTextChanged(string text, int expected)
-        {
-            var count = 0;
-            this.Box.AllowSpinners = true;
-            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
-            ((ManualRelayCommand)this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
-            Assert.AreEqual(1, count);
-            this.Sut.Text = text;
-            Assert.AreEqual(expected, count);
-        }
-
-        [TestCase("100", "99", 0)]
-        [TestCase("0", "-1", -1)]
-        [TestCase("-9", "-10", -10)]
-        [TestCase("-10", "-10", -10)]
-        public void DecreaseCommand_Execute(string text, string expectedText, T expected)
-        {
-            this.Sut.Text = text;
-            this.Sut.DecreaseCommand.Execute(null);
-            Assert.AreEqual(expectedText, this.Sut.Text);
-            Assert.AreEqual(expected, this.Sut.Value);
-        }
-
-        [TestCase("-100", "-99", 0)]
-        [TestCase("0", "1", 1)]
-        [TestCase("9", "10", 10)]
-        [TestCase("10", "10", 10)]
-        public void IncreaseCommand_Execute(string text, string expectedText, T expected)
-        {
-            this.Sut.Text = text;
-            this.Sut.IncreaseCommand.Execute(null);
-            Assert.AreEqual(expectedText, this.Sut.Text);
-            Assert.AreEqual(expected, this.Sut.Value);
-        }
-
-        [Test, Explicit("Can't test this yet")]
-        public void IncreaseCommand_Execute_Undo()
-        {
-            Assert.IsTrue(this.Sut.IsUndoEnabled);
-            Assert.AreEqual(100, this.Sut.UndoLimit);
-            this.Sut.Text = "0";
-            this.Sut.IncreaseCommand.Execute(null);
-            Assert.IsTrue(this.Sut.CanUndo);
-            this.Sut.Undo();
-            Assert.AreEqual("0", this.Sut.Text);
-        }
-
-        [Test, Explicit("Can't test this yet")]
-        public void DecreaseCommand_Execute_Undo()
-        {
-            // Not sure this can be tested
-            var window = this.Sut.ShowInWindow();
-            this.Sut.IsUndoEnabled = true;
-            this.Sut.Text = "0";
-            this.Sut.DecreaseCommand.Execute(null);
-            Assert.IsTrue(this.Sut.CanUndo);
-            this.Sut.Undo();
-            Assert.AreEqual("0", this.Sut.Text);
-            window.Close();
         }
 
         [Test]
@@ -314,12 +167,170 @@
             this.Sut.Text = "1";
             Assert.AreEqual(false, Validation.GetHasError(this.Box));
             Assert.AreEqual(1, this.Sut.Value);
-            Assert.AreEqual(0, this.Vm.Value);
+            Assert.AreEqual(null, this.Vm.Value);
 
             this.Sut.Text = "1e";
             Assert.AreEqual(true, Validation.GetHasError(this.Box));
             Assert.AreEqual("1e", this.Sut.Text);
             Assert.AreEqual(this.Vm.Value, this.Sut.Value);
+        }
+
+        [TestCase("-100", "-99", 0)]
+        [TestCase("0", "1", 1)]
+        [TestCase("9", "10", 10)]
+        [TestCase("10", "10", 10)]
+        public void IncreaseCommand_Execute(string text, string expectedText, T expected)
+        {
+            this.Vm.Value = this.Sut.Parse("0");
+            this.Sut.Text = text;
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Sut.Text);
+            Assert.AreEqual(expected, this.Sut.Value);
+        }
+
+        [TestCase("9", true)]
+        [TestCase("10", false)]
+        [TestCase("11", false)]
+        [TestCase("1e", false)]
+        public void IncreaseCommand_CanExecute_OnUserInput(string text, bool expected)
+        {
+            this.Sut.AllowSpinners = true;
+            var count = 0;
+            this.Sut.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Sut.Text = text;
+            Assert.AreEqual(expected, this.Sut.IncreaseCommand.CanExecute(null));
+            Assert.AreEqual(1, count);
+
+            this.Sut.AllowSpinners = false;
+            Assert.AreEqual(2, count);
+
+            this.Sut.Text = string.Empty;
+            Assert.AreEqual(false, this.Sut.IncreaseCommand.CanExecute(null));
+            Assert.AreEqual(2, count);
+        }
+
+        [Test]
+        public void IncreaseCommand_CanExecute_RaiseExplicit()
+        {
+            var count = 0;
+            this.Sut.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            ((ManualRelayCommand)this.Sut.IncreaseCommand).RaiseCanExecuteChanged();
+            Assert.AreEqual(1, count);
+        }
+
+        [TestCase(8)]
+        public void IncreaseCommand_CanExecuteChanged_OnIncrease(T value)
+        {
+            this.Sut.AllowSpinners = true;
+            this.Sut.Value = value;
+            var count = 0;
+            this.Sut.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
+
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("9", this.Sut.Text);
+            Assert.AreEqual(1, count);
+            Assert.IsTrue(this.Sut.IncreaseCommand.CanExecute(null));
+
+            this.Sut.IncreaseCommand.Execute(null);
+            Assert.AreEqual("10", this.Sut.Text);
+            Assert.AreEqual(2, count);
+            Assert.IsFalse(this.Sut.IncreaseCommand.CanExecute(null));
+        }
+
+        [Test]
+        public void IncreaseCommand_CanExecuteChanged_OnValueChanged()
+        {
+            this.Box.AllowSpinners = true;
+            var count = 0;
+            this.Sut.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            this.Vm.Value = this.Sut.Parse("1");
+            Assert.AreEqual(1, count);
+
+            this.Box.AllowSpinners = false;
+            Assert.AreEqual(2, count);
+
+            this.Vm.Value = this.Sut.Parse("2");
+            Assert.AreEqual(2, count);
+        }
+
+        [TestCase("100", "99", 0)]
+        [TestCase("0", "-1", -1)]
+        [TestCase("-9", "-10", -10)]
+        [TestCase("-10", "-10", -10)]
+        public void DecreaseCommand_Execute(string text, string expectedText, T expected)
+        {
+            this.Vm.Value = this.Sut.Parse("0");
+            this.Sut.Text = text;
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Sut.Text);
+            Assert.AreEqual(expected, this.Sut.Value);
+        }
+
+        [Test]
+        public void DecreaseCommand_CanExecute_RaiseExplicit()
+        {
+            var count = 0;
+            this.Sut.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
+            ((ManualRelayCommand)this.Sut.DecreaseCommand).RaiseCanExecuteChanged();
+            Assert.AreEqual(1, count);
+        }
+
+        [TestCase("-9", true)]
+        [TestCase("-10", false)]
+        [TestCase("-11", false)]
+        [TestCase("-1e", false)]
+        public void DecreaseCommand_CanExecute_OnUserInput(string text, bool expected)
+        {
+            this.Sut.AllowSpinners = true;
+            var count = 0;
+            this.Sut.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Sut.Text = text;
+            Assert.AreEqual(expected, this.Sut.DecreaseCommand.CanExecute(null));
+            Assert.AreEqual(1, count);
+
+            this.Sut.AllowSpinners = false;
+            Assert.AreEqual(2, count);
+
+            this.Sut.Text = string.Empty;
+            Assert.AreEqual(false, this.Sut.DecreaseCommand.CanExecute(null));
+            Assert.AreEqual(2, count);
+        }
+
+        [TestCase(-8)]
+        public void DecreaseCommand_CanExecute_OnDecrease(T value)
+        {
+            this.Sut.AllowSpinners = true;
+            this.Sut.Value = value;
+            var count = 0;
+            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
+
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-9", this.Sut.Text);
+            Assert.AreEqual(1, count);
+            Assert.IsTrue(this.Sut.DecreaseCommand.CanExecute(null));
+
+            this.Sut.DecreaseCommand.Execute(null);
+            Assert.AreEqual("-10", this.Sut.Text);
+            Assert.AreEqual(2, count);
+            Assert.IsFalse(this.Sut.DecreaseCommand.CanExecute(null));
+        }
+
+        [Test]
+        public void DecreaseCommand_CanExecuteChanged_OnValueChanged()
+        {
+            this.Box.AllowSpinners = true;
+            var count = 0;
+            this.Sut.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            this.Vm.Value = this.Sut.Parse("1");
+            Assert.AreEqual(1, count);
+
+            this.Box.AllowSpinners = false;
+            Assert.AreEqual(2, count);
+
+            this.Vm.Value = this.Sut.Parse("2");
+            Assert.AreEqual(2, count);
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
 
     /// <summary>
@@ -11,6 +12,14 @@
     /// </summary>
     public abstract partial class BaseBox
     {
+        private static readonly DependencyPropertyKey FormattedTextPropertyKey = DependencyProperty.RegisterReadOnly(
+            "FormattedText",
+            typeof(string),
+            typeof(BaseBox),
+            new PropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty FormattedTextProperty = FormattedTextPropertyKey.DependencyProperty;
+
         private static readonly DependencyPropertyKey IsValidationDirtyPropertyKey = DependencyProperty.RegisterReadOnly(
             "IsValidationDirty",
             typeof(bool),
@@ -30,24 +39,6 @@
                 OnIsFormattingDirtyChanged));
 
         public static readonly DependencyProperty IsFormattingDirtyProperty = IsFormattingDirtyPropertyKey.DependencyProperty;
-
-        public static readonly DependencyProperty SuffixProperty = DependencyProperty.Register(
-            "Suffix",
-            typeof(string),
-            typeof(BaseBox),
-            new FrameworkPropertyMetadata(
-                null,
-                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
-                OnSuffixChanged,
-                OnSuffixCoerce));
-
-        private static readonly DependencyPropertyKey HasSuffixPropertyKey = DependencyProperty.RegisterReadOnly(
-            "HasSuffix",
-            typeof(bool),
-            typeof(BaseBox),
-            new PropertyMetadata(false));
-
-        public static readonly DependencyProperty HasSuffixProperty = HasSuffixPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register(
             "StringFormat",
@@ -76,7 +67,8 @@
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 false,
-                FrameworkPropertyMetadataOptions.AffectsArrange));
+                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
+                OnAllowSpinnersChanged));
 
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
             "IncreaseCommand",
@@ -114,7 +106,7 @@
             "TextSource",
             typeof(TextSource),
             typeof(BaseBox),
-            new PropertyMetadata(NumericInput.TextSource.ValueBinding, OnTextSourceChanged));
+            new PropertyMetadata(TextSource.ValueBinding, OnTextSourceChanged));
 
         internal static readonly DependencyProperty StatusProperty = DependencyProperty.Register(
             "Status",
@@ -127,6 +119,14 @@
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
         }
 
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public string FormattedText
+        {
+            get { return (string)this.GetValue(FormattedTextProperty); }
+            protected set { this.SetValue(FormattedTextPropertyKey, value); }
+        }
+
         public bool IsFormattingDirty
         {
             get { return (bool)this.GetValue(IsFormattingDirtyProperty); }
@@ -137,22 +137,6 @@
         {
             get { return (bool)this.GetValue(IsValidationDirtyProperty); }
             protected set { this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
-        }
-
-        [Category(nameof(NumericBox))]
-        [Browsable(true)]
-        public string Suffix
-        {
-            get { return (string)this.GetValue(SuffixProperty); }
-            set { this.SetValue(SuffixProperty, value); }
-        }
-
-        [Category(nameof(NumericBox))]
-        [Browsable(true)]
-        public bool HasSuffix
-        {
-            get { return (bool)this.GetValue(HasSuffixProperty); }
-            private set { this.SetValue(HasSuffixPropertyKey, value); }
         }
 
         /// <summary>
@@ -212,14 +196,14 @@
 
         internal TextSource TextSource
         {
-            get { return (TextSource)GetValue(TextSourceProperty); }
-            set { SetValue(TextSourceProperty, value); }
+            get { return (TextSource)this.GetValue(TextSourceProperty); }
+            set { this.SetValue(TextSourceProperty, value); }
         }
 
         internal Status Status
         {
-            get { return (Status)GetValue(StatusProperty); }
-            set { SetValue(StatusProperty, value); }
+            get { return (Status)this.GetValue(StatusProperty); }
+            set { this.SetValue(StatusProperty, value); }
         }
 
         private static void OnIsValidationDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -243,17 +227,23 @@
         private static void OnStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
-            box.IsFormattingDirty = true;
-            box.IsValidationDirty = true;
+            if (box.Text != string.Empty)
+            {
+                box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
+                box.IsFormattingDirty = true;
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.OnCultureChanged((IFormatProvider)e.OldValue, (IFormatProvider)e.NewValue);
-            box.IsFormattingDirty = true;
-            box.IsValidationDirty = true;
+            if (box.Text != string.Empty)
+            {
+                box.OnCultureChanged((IFormatProvider)e.OldValue, (IFormatProvider)e.NewValue);
+                box.IsFormattingDirty = true;
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -262,20 +252,11 @@
             box.IsValidationDirty = true;
         }
 
-        private static void OnSuffixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAllowSpinnersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((BaseBox)d).HasSuffix = !string.IsNullOrEmpty(e.NewValue as string);
-        }
-
-        private static object OnSuffixCoerce(DependencyObject dependencyObject, object baseValue)
-        {
-            var value = (string)baseValue;
-            if (string.IsNullOrEmpty(value))
-            {
-                return null;
-            }
-
-            return baseValue;
+            var box = (BaseBox)d;
+            (box.IncreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
+            (box.DecreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
         }
 
         private static void OnTextProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -283,12 +264,12 @@
             Debug.WriteLine(e);
             var baseBox = (BaseBox)d;
 
-            if (baseBox.Status == NumericInput.Status.Idle)
+            if (baseBox.Status == Status.Idle)
             {
-                baseBox.Status = NumericInput.Status.UpdatingFromUserInput;
+                baseBox.Status = Status.UpdatingFromUserInput;
                 baseBox.TextSource = TextSource.UserInput;
                 d.SetCurrentValue(TextBindableProperty, e.NewValue);
-                baseBox.Status = NumericInput.Status.Idle;
+                baseBox.Status = Status.Idle;
             }
         }
 

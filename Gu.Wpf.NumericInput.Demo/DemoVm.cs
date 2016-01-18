@@ -6,16 +6,16 @@
 
     public class DemoVm : INotifyPropertyChanged
     {
-        private short shortValue;
-        private double doubleValue;
-        private decimal decimalValue;
-        private int intValue;
+        private short? shortValue = 0;
+        private double? doubleValue = 0;
+        private decimal? decimalValue = 0;
+        private int? intValue = 0;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public BoxVm<DoubleBox, double> Settings { get; } = new DoubleBoxVm { Min = -10, Max = 10 };
 
-        public double DoubleValue
+        public double? DoubleValue
         {
             get { return this.doubleValue; }
             set
@@ -26,7 +26,7 @@
             }
         }
 
-        public decimal DecimalValue
+        public decimal? DecimalValue
         {
             get { return this.decimalValue; }
             set
@@ -37,7 +37,7 @@
             }
         }
 
-        public int IntValue
+        public int? IntValue
         {
             get { return this.intValue; }
             set
@@ -48,7 +48,7 @@
             }
         }
 
-        public short ShortValue
+        public short? ShortValue
         {
             get { return this.shortValue; }
             set
