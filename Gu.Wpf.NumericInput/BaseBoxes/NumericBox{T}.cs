@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Input;
 
     /// <summary>
     /// Baseclass with common functionality for numeric textboxes
@@ -123,16 +123,12 @@
             T result;
             if (this.TryParse(text, out result))
             {
-                var status = this.Status;
-                this.Status = Status.Formatting;
                 var newText = this.Format(result);
-                Debug.WriteLine((object)this.Text, newText);
-                this.Text = newText;
-                this.Status = status;
+                this.FormattedText = newText;
             }
             else
             {
-                Debug.WriteLine("NOP");
+                this.FormattedText = text;
             }
 
             this.IsFormattingDirty = false;
@@ -160,7 +156,7 @@
 
         protected override bool CanIncrease(object parameter)
         {
-            if (this.IsReadOnly || !this.IsEnabled)
+            if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
             {
                 return false;
             }
@@ -188,7 +184,7 @@
 
         protected override bool CanDecrease(object parameter)
         {
-            if (this.IsReadOnly || !this.IsEnabled)
+            if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
             {
                 return false;
             }
@@ -216,19 +212,9 @@
 
         protected virtual void SetIncremented(T value)
         {
-            this.TextSource = TextSource.UserInput;
-            var status = this.Status;
-            this.Status = Status.Incrementing;
-            var text = value.ToString(this.StringFormat, this.Culture);
-            this.SetCurrentValue(TextBindableProperty, value.ToString(this.Culture));
-            this.SetTextUndoable(text);
-            this.Status = status;
-        }
-
-        protected virtual void SetTextUndoable(string text)
-        {
-            this.TextSource = TextSource.UserInput;
-            this.ValueBox.SetTextUndoable(text);
+            Keyboard.Focus(this);
+            this.SetTextAndCreateUndoAction(value.ToString(this.Culture));
+            this.FormattedText = this.Format(value);
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -249,11 +235,7 @@
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
-            if (this.IsFormattingDirty || this.TextSource == TextSource.UserInput)
-            {
-                this.UpdateFormat();
-            }
-
+            this.UpdateFormat();
             base.OnLostFocus(e);
         }
 

@@ -8,7 +8,6 @@
     {
         private readonly Action<object> action;
         private readonly Func<object, bool> condition;
-        private bool? previousCanExecute = null;
 
         internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
         {
@@ -31,7 +30,6 @@
             add
             {
                 InternalCanExecuteChangedEventManager.AddHandler(this, value);
-                this.previousCanExecute = null;
             }
 
             remove
@@ -44,14 +42,6 @@
 
         public void RaiseCanExecuteChanged()
         {
-            var canExecute = this.CanExecute(null);
-            if (canExecute == this.previousCanExecute)
-            {
-                return;
-            }
-
-            this.previousCanExecute = canExecute;
-
             var handler = this.InternalCanExecuteChanged;
             if (handler != null)
             {
@@ -62,7 +52,7 @@
                 }
                 else
                 {
-                    handler(this, new EventArgs());
+                    handler(this, EventArgs.Empty);
                 }
             }
         }
@@ -75,7 +65,6 @@
         public void Execute(object parameter)
         {
             this.action(parameter);
-            this.RaiseCanExecuteChanged();
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager

@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:numericInput="clr-namespace:Gu.Wpf.NumericInput">
 
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <Geometry x:Key="{x:Static numericInput:NumericBox.IncreaseGeometryKey}">F1 M 24,21.25L 34,31.25L 34,24.5L 24,14L 14,24.5L 14,31.25L 24,21.25 Z</Geometry>
     <Geometry x:Key="{x:Static numericInput:NumericBox.DecreaseGeometryKey}">F1 M 24,26.75L 14,16.75L 14,23.5L 24,34L 34,23.5L 34,16.75L 24,26.75 Z</Geometry>
@@ -20,15 +21,47 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Width" Value="12" />
-        <!--<RepeatButton Grid.Column="0"
-                                                  Margin="0"
-                                                  VerticalAlignment="Stretch"
-                                                  VerticalContentAlignment="Center"
-                                                  Command="{TemplateBinding DecreaseCommand}"
-                                                  CommandParameter="{Binding ElementName=TextBox}"
-                                                  Content="-"
-                                                  FocusManager.FocusedElement="{Binding ElementName=TextBox}"
-                                                  FontSize="{TemplateBinding FontSize}"
-                                                  Padding="0" />-->
+        <Setter Property="Focusable" Value="False" />
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static numericInput:NumericBox.SpinnersTemplateKey}" TargetType="{x:Type numericInput:SpinnerDecorator}">
+        <Border Margin="{TemplateBinding Padding}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <RepeatButton x:Name="PART_DecreaseButton"
+                              Grid.Column="0"
+                              Command="{Binding Child.DecreaseCommand,
+                                                RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="-"
+                              Style="{DynamicResource {x:Static numericInput:NumericBox.SpinnerButtonStyleKey}}"
+                              Visibility="{Binding Path=Child.AllowSpinners,
+                                                   RelativeSource={RelativeSource TemplatedParent},
+                                                   Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <ContentPresenter Grid.Column="1" Content="{Binding Child, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                <RepeatButton x:Name="PART_IncreaseButton"
+                              Grid.Column="2"
+                              Command="{Binding Child.IncreaseCommand,
+                                                RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="+"
+                              Style="{DynamicResource {x:Static numericInput:NumericBox.SpinnerButtonStyleKey}}"
+                              Visibility="{Binding Path=Child.AllowSpinners,
+                                                   RelativeSource={RelativeSource TemplatedParent},
+                                                   Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type numericInput:SpinnerDecorator}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{DynamicResource {x:Static numericInput:NumericBox.SpinnersTemplateKey}}" />
     </Style>
 </ResourceDictionary>

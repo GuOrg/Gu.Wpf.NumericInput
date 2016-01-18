@@ -10,20 +10,55 @@
         <demo:FocusVm />
     </UserControl.DataContext>
     <UniformGrid Rows="1">
-        <GroupBox Header="TextBoxes">
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}" Header="TextBoxes">
             <UniformGrid Columns="1" KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Text1}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}" Text="{Binding Text2}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}" Text="{Binding Text2}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}" Text="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}" Text="{Binding Value3}" />
             </UniformGrid>
         </GroupBox>
 
-        <GroupBox Header="DoubleBoxes">
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}" Header="DoubleBoxes">
             <UniformGrid Columns="1" KeyboardNavigation.TabNavigation="Cycle">
-                <numeric:DoubleBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}" Value="{Binding Value1}" />
-                <numeric:DoubleBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}" Value="{Binding Value2}" />
-                <numeric:DoubleBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox3}" Value="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+
+                <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
+                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
+                                                               ElementName=AllowSpinners}"
+                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                       Value="{Binding Value2}" />
+                </numeric:SpinnerDecorator>
+
+                <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners2}">
+                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
+                                                               ElementName=AllowSpinners}"
+                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                       Value="{Binding Value3}" />
+                </numeric:SpinnerDecorator>
             </UniformGrid>
+        </GroupBox>
+
+        <GroupBox Header="Settings">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="AllowSpinners" />
+                <CheckBox x:Name="AllowSpinners"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowSpinnersBox}"
+                          IsChecked="True" />
+            </Grid>
         </GroupBox>
     </UniformGrid>
 </UserControl>
