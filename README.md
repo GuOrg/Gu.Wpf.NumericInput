@@ -8,6 +8,8 @@
 - Easy to add more
 
 ### Simple sample
+The `Text`property is used internally and will throw if you bind to it.
+
 Bind the `Value`property of the boxes like this:
 ```
 <numericInput:DoubleBox Value="{Binding DoubleValue}" />
