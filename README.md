@@ -1,5 +1,4 @@
 # Gu.Wpf.NumericInput
-===================
 ### Textboxes for numeric input in WPF.
 - DoubleBox
 - IntBox
