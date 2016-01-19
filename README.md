@@ -41,8 +41,9 @@ Bind the `Value`property of the boxes like this:
 - SpinnerDecorator for up/down buttons.
 
 ##### Validation
-Validates as you type even if the binding has UpdateSourceTrigger=LostFocus.
-The boxes has their own culture that defaults to `
+Validates as you type even if the binding has `UpdateSourceTrigger=LostFocus.`
+
+The boxes has their own culture that defaults to `Thread.CurrentThread.CurrentUICulture`
 - CanParse with culture and numberformat.
 - Min & Max
 - Regex
