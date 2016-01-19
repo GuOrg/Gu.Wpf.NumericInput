@@ -39,42 +39,52 @@
                 {
                     flags |= FrameworkPropertyMetadataOptions.AffectsMeasure;
                 }
+
                 if (fpm.AffectsArrange)
                 {
                     flags |= FrameworkPropertyMetadataOptions.AffectsArrange;
                 }
+
                 if (fpm.AffectsParentMeasure)
                 {
                     flags |= FrameworkPropertyMetadataOptions.AffectsParentMeasure;
                 }
+
                 if (fpm.AffectsParentArrange)
                 {
                     flags |= FrameworkPropertyMetadataOptions.AffectsParentArrange;
                 }
+
                 if (fpm.AffectsRender)
                 {
                     flags |= FrameworkPropertyMetadataOptions.AffectsRender;
                 }
+
                 if (fpm.Inherits)
                 {
                     flags |= FrameworkPropertyMetadataOptions.Inherits;
                 }
+
                 if (fpm.OverridesInheritanceBehavior)
                 {
                     flags |= FrameworkPropertyMetadataOptions.OverridesInheritanceBehavior;
                 }
+
                 if (fpm.IsNotDataBindable)
                 {
                     flags |= FrameworkPropertyMetadataOptions.NotDataBindable;
                 }
+
                 if (fpm.BindsTwoWayByDefault)
                 {
                     flags |= FrameworkPropertyMetadataOptions.BindsTwoWayByDefault;
                 }
+
                 if (fpm.Journal)
                 {
                     flags |= FrameworkPropertyMetadataOptions.Journal;
                 }
+
                 if (fpm.SubPropertiesDoNotAffectRender)
                 {
                     flags |= FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender;
