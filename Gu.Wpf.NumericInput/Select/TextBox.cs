@@ -9,15 +9,13 @@
 
     public static class TextBox
     {
-        public static readonly DependencyProperty SelectAllOnGotKeyboardFocusProperty = DependencyProperty
-            .RegisterAttached(
+        public static readonly DependencyProperty SelectAllOnGotKeyboardFocusProperty = DependencyProperty.RegisterAttached(
                 "SelectAllOnGotKeyboardFocus",
                 typeof(bool),
                 typeof(TextBox),
                 new FrameworkPropertyMetadata(
                     BooleanBoxes.False,
-                    FrameworkPropertyMetadataOptions.Inherits,
-                    OnSelectAllOnGotKeyboardFocusChanged));
+                    FrameworkPropertyMetadataOptions.Inherits));
 
         public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnClick",
@@ -25,8 +23,7 @@
             typeof(TextBox),
             new FrameworkPropertyMetadata(
                 BooleanBoxes.False,
-                FrameworkPropertyMetadataOptions.Inherits,
-                OnSelectAllOnClickChanged));
+                FrameworkPropertyMetadataOptions.Inherits));
 
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
@@ -34,8 +31,7 @@
             typeof(TextBox),
             new FrameworkPropertyMetadata(
                 BooleanBoxes.False,
-                FrameworkPropertyMetadataOptions.Inherits,
-                OnSelectAllOnDoubleClickChanged));
+                FrameworkPropertyMetadataOptions.Inherits));
 
         public static readonly DependencyProperty MoveFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "MoveFocusOnEnter",
@@ -53,10 +49,11 @@
 
         static TextBox()
         {
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent,
-                new KeyEventHandler(OnMoveFocusOnEnter));
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent,
-                new RoutedEventHandler(OnMouseUpSelectAllText), true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent, new KeyEventHandler(OnKeyDownMoveFocusOnEnter));
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent, new RoutedEventHandler(OnMouseUpSelectAllText), true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.GotKeyboardFocusEvent, new RoutedEventHandler(OnGotKeyboardFocusSelectAllText));
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseLeftButtonDownEvent, new RoutedEventHandler(OnMouseClickSelectAllText), true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), Control.MouseDoubleClickEvent, new RoutedEventHandler(OnMouseDoubleClickSelectAllText));
         }
 
         public static void SetSelectAllOnGotKeyboardFocus(this UIElement element, bool value)
@@ -68,7 +65,7 @@
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnGotKeyboardFocus(this UIElement element)
         {
-            return (bool)element.GetValue(SelectAllOnGotKeyboardFocusProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnGotKeyboardFocusProperty));
         }
 
         public static void SetSelectAllOnClick(this UIElement o, bool value)
@@ -80,7 +77,7 @@
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnClick(this UIElement o)
         {
-            return (bool)o.GetValue(SelectAllOnClickProperty);
+            return Equals(BooleanBoxes.True, o.GetValue(SelectAllOnClickProperty));
         }
 
         public static void SetSelectAllOnDoubleClick(this UIElement element, bool value)
@@ -92,7 +89,7 @@
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnDoubleClick(this UIElement element)
         {
-            return (bool)element.GetValue(SelectAllOnDoubleClickProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnDoubleClickProperty));
         }
 
         public static void SetMoveFocusOnEnter(this UIElement element, bool value)
@@ -104,7 +101,7 @@
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetMoveFocusOnEnter(this UIElement element)
         {
-            return (bool)element.GetValue(MoveFocusOnEnterProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
         }
 
         private static void SetIsSelecting(this DependencyObject element, bool value)
@@ -114,59 +111,10 @@
 
         private static bool GetIsSelecting(this DependencyObject element)
         {
-            return (bool)element.GetValue(IsSelectingProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(IsSelectingProperty));
         }
 
-        private static void OnSelectAllOnGotKeyboardFocusChanged(DependencyObject d,
-            DependencyPropertyChangedEventArgs e)
-        {
-            var box = d as TextBoxBase;
-            if (box != null)
-            {
-                if (Equals(e.NewValue, BooleanBoxes.True))
-                {
-                    box.AddWeakHandler(UIElement.GotKeyboardFocusEvent, OnKeyboardFocusSelectAllText);
-                }
-                else
-                {
-                    box.RemoveWeakHandler(UIElement.GotKeyboardFocusEvent, OnKeyboardFocusSelectAllText);
-                }
-            }
-        }
-
-        private static void OnSelectAllOnClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var box = d as TextBoxBase;
-            if (box != null)
-            {
-                if (Equals(e.NewValue, BooleanBoxes.True))
-                {
-                    box.AddWeakHandler(UIElement.PreviewMouseLeftButtonDownEvent, OnMouseClickSelectAllText);
-                }
-                else
-                {
-                    box.RemoveWeakHandler(UIElement.PreviewMouseLeftButtonDownEvent, OnMouseClickSelectAllText);
-                }
-            }
-        }
-
-        private static void OnSelectAllOnDoubleClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var box = d as TextBoxBase;
-            if (box != null)
-            {
-                if (Equals(e.NewValue, BooleanBoxes.True))
-                {
-                    box.AddWeakHandler(Control.MouseDoubleClickEvent, OnMouseClickSelectAllText);
-                }
-                else
-                {
-                    box.RemoveWeakHandler(Control.MouseDoubleClickEvent, OnMouseClickSelectAllText);
-                }
-            }
-        }
-
-        private static void OnMoveFocusOnEnter(object sender, KeyEventArgs e)
+        private static void OnKeyDownMoveFocusOnEnter(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return || e.Key == Key.Enter)
             {
@@ -195,25 +143,44 @@
         private static void OnMouseClickSelectAllText(object sender, RoutedEventArgs e)
         {
             var textBoxBase = (TextBoxBase)sender;
-            textBoxBase.SelectAllText();
+            if (!textBoxBase.GetSelectAllOnClick())
+            {
+                return;
+            }
+
             textBoxBase.SetIsSelecting(true);
+            textBoxBase.SelectAllText();
         }
 
-        private static void OnKeyboardFocusSelectAllText(object sender, RoutedEventArgs e)
+        private static void OnMouseDoubleClickSelectAllText(object sender, RoutedEventArgs e)
         {
-            if (ReferenceEquals(Keyboard.FocusedElement, sender))
+            var textBoxBase = (TextBoxBase)sender;
+            if (!textBoxBase.GetSelectAllOnDoubleClick())
             {
-                var textBoxBase = (TextBoxBase)sender;
-                if (Mouse.LeftButton == MouseButtonState.Pressed ||
-                    Mouse.RightButton == MouseButtonState.Pressed)
-                {
-                    textBoxBase.SelectAllText();
-                    textBoxBase.SetIsSelecting(true);
-                }
-                else
-                {
-                    textBoxBase.SelectAllText();
-                }
+                return;
+            }
+
+            textBoxBase.SetIsSelecting(true);
+            textBoxBase.SelectAllText();
+        }
+
+        private static void OnGotKeyboardFocusSelectAllText(object sender, RoutedEventArgs e)
+        {
+            var textBoxBase = (TextBoxBase)sender;
+            if (!textBoxBase.GetSelectAllOnGotKeyboardFocus())
+            {
+                return;
+            }
+
+            if (Mouse.LeftButton == MouseButtonState.Pressed ||
+                Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                textBoxBase.SelectAllText();
+                textBoxBase.SetIsSelecting(true);
+            }
+            else
+            {
+                textBoxBase.SelectAllText();
             }
         }
 
