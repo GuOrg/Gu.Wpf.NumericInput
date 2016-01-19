@@ -38,22 +38,18 @@
 
         protected virtual void SetTextAndCreateUndoAction(string text)
         {
-            var canUndo = this.CanUndo;
             this.TextSource = TextSource.UserInput;
             this.BeginChange();
             this.SetCurrentValue(TextProperty, text);
             this.EndChange();
-            Debug.WriteLine(canUndo, this.CanUndo);
         }
 
         protected virtual void SetTextClearUndo(string text)
         {
-            var canUndo = this.CanUndo;
             var isUndoEnabled = this.IsUndoEnabled;
             this.IsUndoEnabled = false;
             this.SetCurrentValue(TextProperty, text);
             this.IsUndoEnabled = isUndoEnabled;
-            Debug.WriteLine(canUndo, this.CanUndo);
         }
 
         /// <summary>
