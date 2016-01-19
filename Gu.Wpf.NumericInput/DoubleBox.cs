@@ -14,7 +14,7 @@
         static DoubleBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DoubleBox), new FrameworkPropertyMetadata(typeof(DoubleBox)));
-            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(DoubleBox), NumberStyles.Float);
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<double>), typeof(DoubleBox), NumberStyles.Float);
             IncrementProperty.OverrideMetadataWithDefaultValue<double>(typeof(DoubleBox), 1);
         }
 

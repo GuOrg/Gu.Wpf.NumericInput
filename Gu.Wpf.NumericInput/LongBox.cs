@@ -14,9 +14,7 @@
         static LongBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(LongBox), new FrameworkPropertyMetadata(typeof(LongBox)));
-            NumberStylesProperty.OverrideMetadata(
-                typeof(LongBox),
-                new PropertyMetadata(NumberStyles.Integer));
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<long>), typeof(LongBox), NumberStyles.Integer);
             IncrementProperty.OverrideMetadataWithDefaultValue<long>(typeof(LongBox), 1);
         }
 

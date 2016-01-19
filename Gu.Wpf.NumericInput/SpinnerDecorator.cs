@@ -1,10 +1,13 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
+    using System.Collections;
+    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
 
+    [DefaultProperty(nameof(Child))]
     [ContentProperty(nameof(Child))]
     public class SpinnerDecorator : Control
     {
@@ -16,8 +19,7 @@
 
         static SpinnerDecorator()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerDecorator),
-                new FrameworkPropertyMetadata(typeof(SpinnerDecorator)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerDecorator), new FrameworkPropertyMetadata(typeof(SpinnerDecorator)));
         }
 
         public BaseBox Child
@@ -27,14 +29,41 @@
         }
 
         /// <summary>
-        ///     This method is invoked when the Child property changes.
+        /// Gets enumerator to logical children.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                if (this.Child == null)
+                {
+                    return EmptyEnumerator.Instance;
+                }
+
+                return new SingleChildEnumerator(this.Child);
+            }
+        }
+
+        /// <summary>
+        /// This method is used by TypeDescriptor to determine if this property should
+        /// be serialized.
+        /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,164
+        /// </summary>
+        // Lets derived classes control the serialization behavior for Content DP
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual bool ShouldSerializeContent()
+        {
+            return this.ReadLocalValue(ChildProperty) != DependencyProperty.UnsetValue;
+        }
+
+        /// <summary>
+        /// This method is invoked when the Child property changes.
         /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,262
         /// </summary>
         /// <param name="oldChild">The old value of the Child property.</param>
         /// <param name="newChild">The new value of the Child property.</param>
         protected virtual void OnChildChanged(BaseBox oldChild, BaseBox newChild)
         {
-            // Remove the old content child
             this.RemoveLogicalChild(oldChild);
 
             if (newChild != null)

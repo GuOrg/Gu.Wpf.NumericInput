@@ -1,0 +1,195 @@
+﻿﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" #>
+<#@ assembly name="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xaml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" #>
+<#@ assembly name="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" #>
+<#@ import namespace="System.Windows" #>
+<#@ import namespace="System.Windows.Controls" #>
+<#@ output extension=".generated.cs" #>
+namespace Gu.Wpf.NumericInput
+{
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+<#
+    var events = new[]
+    {
+        new Data(typeof(UIElement), UIElement.GotKeyboardFocusEvent), 
+		new Data(typeof(UIElement), UIElement.MouseUpEvent),
+		new Data(UIElement.PreviewMouseLeftButtonDownEvent),
+		new Data(UIElement.MouseLeftButtonDownEvent),
+		new Data(Control.MouseDoubleClickEvent),
+    }; #>
+
+    internal static class WeakRoutedEventManager
+    {
+        internal static void AddWeakHandler(
+            this UIElement source,
+            RoutedEvent routedEvent,
+            EventHandler<RoutedEventArgs> handler,
+            bool handledEventsToo = false)
+        {
+            switch (routedEvent.Name)
+            {
+<#  foreach (var data in events)
+    { #>
+                case nameof(<#= data.OwnerType.Name #>.<#= data.Event.Name #>):
+                    <#= data.Event.Name #>EventManager.AddHandler(source, handler, handledEventsToo);
+                    break;
+<# } #>
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        internal static void RemoveWeakHandler(
+            this UIElement source,
+            RoutedEvent routedEvent,
+            EventHandler<RoutedEventArgs> handler)
+        {
+            switch (routedEvent.Name)
+            {
+<#  foreach (var data in events)
+    { #>
+                case nameof(<#= data.OwnerType.Name #>.<#= data.Event.Name #>):
+                    <#= data.Event.Name #>EventManager.RemoveHandler(source, handler);
+                    break;
+<# } #>
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+<#  foreach (var data in events)
+    { #>
+
+    internal class <#= data.Event.Name #>EventManager : WeakEventManager
+    {
+        private readonly RoutedEventHandler handler;
+        private bool handledEventsToo;
+
+        private <#= data.Event.Name #>EventManager()
+        {
+            this.handler = new RoutedEventHandler(this.On<#= data.Event.Name #>);
+        }
+
+        // get the event manager for the current thread
+        private static <#= data.Event.Name #>EventManager CurrentManager
+        {
+            get
+            {
+                var managerType = typeof(<#= data.Event.Name #>EventManager);
+                var manager = (<#= data.Event.Name #>EventManager)GetCurrentManager(managerType);
+
+                // at first use, create and register a new manager
+                if (manager == null)
+                {
+                    manager = new <#= data.Event.Name #>EventManager();
+                    SetCurrentManager(managerType, manager);
+                }
+
+                return manager;
+            }
+        }
+
+        internal static void AddListener(UIElement source, IWeakEventListener listener, bool handledEventsToo)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (listener == null)
+            {
+                throw new ArgumentNullException(nameof(listener));
+            }
+
+            var manager = CurrentManager;
+            manager.handledEventsToo = handledEventsToo;
+            manager.ProtectedAddListener(source, listener);
+        }
+
+        internal static void RemoveListener(UIElement source, IWeakEventListener listener)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (listener == null)
+            {
+                throw new ArgumentNullException(nameof(listener));
+            }
+
+            CurrentManager.ProtectedRemoveListener(source, listener);
+        }
+
+        internal static void AddHandler(UIElement source, EventHandler<RoutedEventArgs> handler, bool handledEventsToo)
+        {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            var manager = CurrentManager;
+            manager.handledEventsToo = handledEventsToo;
+            manager.ProtectedAddHandler(source, handler);
+        }
+
+        internal static void RemoveHandler(UIElement source, EventHandler<RoutedEventArgs> handler)
+        {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            CurrentManager.ProtectedRemoveHandler(source, handler);
+        }
+
+        protected override ListenerList NewListenerList()
+        {
+            return new ListenerList<RoutedEventArgs>();
+        }
+
+        protected override void StartListening(object source)
+        {
+            var uiElement = (UIElement)source;
+            uiElement.AddHandler(<#= data.OwnerType.Name #>.<#= data.Event.Name #>Event, this.handler, this.handledEventsToo);
+        }
+
+        protected override void StopListening(object source)
+        {
+            var uiElement = (UIElement)source;
+            uiElement.RemoveHandler(<#= data.OwnerType.Name #>.<#= data.Event.Name #>Event, this.handler);
+        }
+
+        // event handler for <#= data.Event.Name #> event
+        private void On<#= data.Event.Name #>(object sender, RoutedEventArgs args)
+        {
+            this.DeliverEvent(sender, args);
+        }
+    }
+<#    } #>
+}
+<#+
+
+    public class Data
+    {
+	    public Data(RoutedEvent @event)
+		    : this(@event.OwnerType, @event)
+        {
+        }
+
+        public Data(Type ownerType, RoutedEvent @event)
+        {
+            this.OwnerType = ownerType;
+            this.Event = @event;
+        }
+
+        public Type OwnerType { get; private set; }
+
+        public RoutedEvent Event { get; private set; }
+    }
+#>

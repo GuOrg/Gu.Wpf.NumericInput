@@ -14,7 +14,7 @@
         static DecimalBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalBox), new FrameworkPropertyMetadata(typeof(DecimalBox)));
-            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(DecimalBox), NumberStyles.Currency);
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<decimal>), typeof(DecimalBox), NumberStyles.Currency);
             IncrementProperty.OverrideMetadataWithDefaultValue<decimal>(typeof(DecimalBox), 1);
         }
 

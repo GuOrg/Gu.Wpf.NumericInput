@@ -10,13 +10,12 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Identifies the Decimals property
         /// </summary>
-        public static readonly DependencyProperty DecimalDigitsProperty = DependencyProperty.Register(
-            "DecimalDigits",
-            typeof(int?),
+        public static readonly DependencyProperty DecimalDigitsProperty = NumericBox.DecimalDigitsProperty.AddOwner(
             typeof(DecimalDigitsBox<T>),
-            new PropertyMetadata(
+            new FrameworkPropertyMetadata(
                 null,
-                OnDecimalsValueChanged));
+                FrameworkPropertyMetadataOptions.Inherits,
+                OnDecimalsDigitsChanged));
 
         protected DecimalDigitsBox(Func<T, T, T> add, Func<T, T, T> subtract)
             : base(add, subtract)
@@ -62,7 +61,7 @@ namespace Gu.Wpf.NumericInput
             base.OnCultureChanged(oldCulture, newCulture);
         }
 
-        private static void OnDecimalsValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDecimalsDigitsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (DecimalDigitsBox<T>)d;
 

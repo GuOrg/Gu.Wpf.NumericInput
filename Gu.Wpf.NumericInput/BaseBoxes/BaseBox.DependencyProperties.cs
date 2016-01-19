@@ -40,15 +40,11 @@
 
         public static readonly DependencyProperty IsFormattingDirtyProperty = IsFormattingDirtyPropertyKey.DependencyProperty;
 
-        public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register(
-            "StringFormat",
-            typeof(string),
+        public static readonly DependencyProperty StringFormatProperty = NumericBox.StringFormatProperty.AddOwner(
             typeof(BaseBox),
-            new PropertyMetadata(string.Empty, OnStringFormatChanged));
+            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits, OnStringFormatChanged));
 
-        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
-            "Culture",
-            typeof(IFormatProvider),
+        public static readonly DependencyProperty CultureProperty = NumericBox.CultureProperty.AddOwner(
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
                 Thread.CurrentThread.CurrentUICulture,
@@ -61,13 +57,11 @@
             typeof(BaseBox),
             new PropertyMetadata(default(string), OnPatternChanged));
 
-        public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.Register(
-            "AllowSpinners",
-            typeof(bool),
+        public static readonly DependencyProperty AllowSpinnersProperty = NumericBox.AllowSpinnersProperty.AddOwner(
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
-                false,
-                FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
+                BooleanBoxes.False,
+                FrameworkPropertyMetadataOptions.Inherits,
                 OnAllowSpinnersChanged));
 
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(

@@ -4,152 +4,105 @@
     using System.Globalization;
     using System.Threading;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Input;
-    using System.Windows.Media;
 
     public static partial class NumericBox
     {
-        public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
-            "SelectAllOnClick",
-            typeof(bool),
-            typeof(NumericBox),
-            new PropertyMetadata(
-                BooleanBoxes.False,
-                OnSelectAllOnClickChanged));
-
-        public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
-            "SelectAllOnDoubleClick",
-            typeof(bool),
-            typeof(NumericBox),
-            new PropertyMetadata(
-                BooleanBoxes.False,
-                OnSelectAllOnDoubleClickChanged));
-
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
             "Culture",
             typeof(IFormatProvider),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(
                 Thread.CurrentThread.CurrentUICulture,
-                FrameworkPropertyMetadataOptions.Inherits,
-                OnCultureChanged));
+                FrameworkPropertyMetadataOptions.Inherits));
 
-        [AttachedPropertyBrowsableForChildrenAttribute(IncludeDescendants = false)]
-        [AttachedPropertyBrowsableForType(typeof(TextBoxBase))]
-        public static bool GetSelectAllOnClick(this TextBoxBase o)
-        {
-            return (bool)o.GetValue(SelectAllOnClickProperty);
-        }
+        public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(
+            "CanValueBeNull",
+            typeof(bool),
+            typeof(NumericBox),
+            new PropertyMetadata(BooleanBoxes.False));
 
-        public static void SetSelectAllOnClick(this TextBoxBase o, bool value)
-        {
-            o.SetValue(SelectAllOnClickProperty, value);
-        }
+        public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.RegisterAttached(
+            "NumberStyles",
+            typeof(NumberStyles),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetSelectAllOnDoubleClick(this TextBoxBase element, bool value)
-        {
-            element.SetValue(SelectAllOnDoubleClickProperty, value);
-        }
+        public static readonly DependencyProperty StringFormatProperty = DependencyProperty.RegisterAttached(
+            "StringFormat",
+            typeof(string),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.Inherits));
 
-        public static bool GetSelectAllOnDoubleClick(this TextBoxBase element)
-        {
-            return (bool)element.GetValue(SelectAllOnDoubleClickProperty);
-        }
+        public static readonly DependencyProperty DecimalDigitsProperty = DependencyProperty.RegisterAttached(
+            "DecimalDigits",
+            typeof(int?),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(default(int?), FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetCulture(this FrameworkElement element, CultureInfo value)
+        public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.RegisterAttached(
+            "AllowSpinners",
+            typeof(bool),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetCulture(this UIElement element, CultureInfo value)
         {
             element.SetValue(CultureProperty, value);
         }
 
-        public static CultureInfo GetCulture(this FrameworkElement element)
+        public static CultureInfo GetCulture(this UIElement element)
         {
             return (CultureInfo)element.GetValue(CultureProperty);
         }
 
-        private static void OnSelectAllOnClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void SetCanValueBeNull(this UIElement element, bool value)
         {
-            var box = d as TextBoxBase;
-            if (box != null)
-            {
-                var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
-                if (isSelecting)
-                {
-                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.AddHandler(box, nameof(box.GotKeyboardFocus), OnKeyboardFocusSelectText);
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, nameof(box.PreviewMouseLeftButtonDown), OnMouseLeftButtonDown);
-                }
-                else
-                {
-                    WeakEventManager<TextBoxBase, KeyboardFocusChangedEventArgs>.RemoveHandler(box, nameof(box.GotKeyboardFocus), OnKeyboardFocusSelectText);
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, nameof(box.PreviewMouseLeftButtonDown), OnMouseLeftButtonDown);
-                }
-            }
+            element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
         }
 
-        private static void OnSelectAllOnDoubleClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static bool GetCanValueBeNull(this UIElement element)
         {
-            var box = d as TextBoxBase;
-            if (box != null)
-            {
-                var isSelecting = Equals(e.NewValue, BooleanBoxes.True);
-                if (isSelecting)
-                {
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.AddHandler(box, nameof(box.MouseDoubleClick), OnMouseDoubleClick);
-                }
-                else
-                {
-                    WeakEventManager<TextBoxBase, MouseButtonEventArgs>.RemoveHandler(box, nameof(box.MouseDoubleClick), OnMouseDoubleClick);
-                }
-            }
+            return (bool)element.GetValue(CanValueBeNullProperty);
         }
 
-        private static void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        public static void SetNumberStyles(this UIElement element, NumberStyles value)
         {
-            var textBoxBase = GetParentFromVisualTree(e.OriginalSource);
-            textBoxBase?.SelectAll();
+            element.SetValue(NumberStylesProperty, value);
         }
 
-        private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public static NumberStyles GetNumberStyles(this UIElement element)
         {
-            var textBoxBase = GetParentFromVisualTree(e.OriginalSource);
-            if (textBoxBase == null)
-            {
-                return;
-            }
-
-            var box = textBoxBase;
-            if (!box.IsKeyboardFocusWithin)
-            {
-                box.Focus();
-                e.Handled = true;
-            }
+            return (NumberStyles)element.GetValue(NumberStylesProperty);
         }
 
-        private static TextBoxBase GetParentFromVisualTree(object source)
+        public static void SetStringFormat(this UIElement element, string value)
         {
-            DependencyObject parent = source as UIElement;
-            while (parent != null && !(parent is TextBoxBase))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            return parent as TextBoxBase;
+            element.SetValue(StringFormatProperty, value);
         }
 
-        private static void OnKeyboardFocusSelectText(object sender, KeyboardFocusChangedEventArgs e)
+        public static string GetStringFormat(this UIElement element)
         {
-            var box = e.OriginalSource as TextBox;
-            box?.SelectAll();
+            return (string)element.GetValue(StringFormatProperty);
         }
 
-        private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void SetDecimalDigits(this UIElement element, int? value)
         {
-            var baseBox = d as BaseBox;
-            if (baseBox != null)
-            {
-                baseBox.Culture = (IFormatProvider)e.NewValue;
-            }
+            element.SetValue(DecimalDigitsProperty, value);
+        }
+
+        public static int? GetDecimalDigits(this UIElement element)
+        {
+            return (int?)element.GetValue(DecimalDigitsProperty);
+        }
+
+        public static void SetAllowSpinners(this UIElement element, bool value)
+        {
+            element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
+        }
+
+        public static bool GetAllowSpinners(this UIElement element)
+        {
+            return (bool)element.GetValue(AllowSpinnersProperty);
         }
     }
 }
