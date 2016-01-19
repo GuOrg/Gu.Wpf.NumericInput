@@ -44,7 +44,7 @@
                                                    RelativeSource={RelativeSource TemplatedParent},
                                                    Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <ContentPresenter Grid.Column="1" Content="{Binding Child, RelativeSource={RelativeSource TemplatedParent}}" />
+                <ContentPresenter Grid.Column="1" ContentSource="Child" />
 
                 <RepeatButton x:Name="PART_IncreaseButton"
                               Grid.Column="2"

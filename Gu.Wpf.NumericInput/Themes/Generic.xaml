@@ -24,7 +24,7 @@
         <Setter Property="MinLines" Value="1" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="TextWrapping" Value="NoWrap" />
-        <Setter Property="AutoWordSelection" Value="True" />
+        <Setter Property="AutoWordSelection" Value="False" />
     </Style>
 
     <!--  DoubleBox  -->

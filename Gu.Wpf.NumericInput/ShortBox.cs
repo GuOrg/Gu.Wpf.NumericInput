@@ -11,9 +11,7 @@
         static ShortBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ShortBox), new FrameworkPropertyMetadata(typeof(ShortBox)));
-            NumberStylesProperty.OverrideMetadata(
-                typeof(ShortBox),
-                new PropertyMetadata(NumberStyles.Integer));
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<short>), typeof(ShortBox), NumberStyles.Integer);
             IncrementProperty.OverrideMetadataWithDefaultValue<short>(typeof(ShortBox), 1);
         }
 
