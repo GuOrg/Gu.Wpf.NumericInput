@@ -51,24 +51,31 @@ The boxes has their own culture that defaults to `
 ### Properties
 ##### Culture
 The default value for culture is `Thread.CurrentThread.CurrentUICulture`
+
 Available as inheriting attached property: `NumericBox.Culture`
 
 ##### CanValueBeNull
 If false empty textbox means validation error. If true empty textbox gets parsed as null.
+
 Available as inheriting attached property: `NumericBox.CanValueBeNull`
 
 ##### StringFormat
 The string format used in the formatted view.
+
 Available as inheriting attached property: `NumericBox.StringFormat`
 
 ##### DecimalDigits
 `DecimalDigits="3"` sets stringformat to `F3` which means the value will always have three digits.
+
 `DecimalDigits="-3"` sets stringformat to `0.###` which means the value will be rendered with up to three digits.
+
 If the user eneters more digits they are used in the Value binding. The formatted view will round the value.
+
 Available as inheriting attached property: `NumericBox.DecimalDigits`
 
 ##### NumberStyles
 Use the NumberStyles to control validation. Ex if you want to allow leading sign or thousands.
+
 Available as inheriting attached property: `NumericBox.NumberStyles`
 
 ##### RegexPattern
