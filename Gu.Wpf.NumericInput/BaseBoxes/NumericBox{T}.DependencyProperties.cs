@@ -20,17 +20,13 @@
                 false,
                 UpdateSourceTrigger.LostFocus));
 
-        public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.Register(
-            "CanValueBeNull",
-            typeof(bool),
+        public static readonly DependencyProperty CanValueBeNullProperty = NumericBox.CanValueBeNullProperty.AddOwner(
             typeof(NumericBox<T>),
-            new PropertyMetadata(default(bool), OnCanBeNullChanged));
+            new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits, OnCanBeNullChanged));
 
-        public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.Register(
-            "NumberStyles",
-            typeof(NumberStyles),
+        public static readonly DependencyProperty NumberStylesProperty = NumericBox.NumberStylesProperty.AddOwner(
             typeof(NumericBox<T>),
-            new PropertyMetadata(NumberStyles.None, OnNumberStylesChanged));
+            new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits, OnNumberStylesChanged));
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue",

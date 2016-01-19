@@ -14,9 +14,7 @@
         static IntBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IntBox), new FrameworkPropertyMetadata(typeof(IntBox)));
-            NumberStylesProperty.OverrideMetadata(
-                typeof(IntBox),
-                new PropertyMetadata(NumberStyles.Integer));
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<int>), typeof(IntBox), NumberStyles.Integer);
             IncrementProperty.OverrideMetadataWithDefaultValue<int>(typeof(IntBox), 1);
         }
 

@@ -72,6 +72,7 @@
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
     <Compile Include="Converters\StringConverter.cs" />
+    <Compile Include="Internals\EmptyEnumerator.cs" />
     <Compile Include="Internals\FrameworkObject.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
     <Compile Include="BaseBoxes\BaseBox.DependencyProperties.cs" />
@@ -79,6 +80,13 @@
     <Compile Include="DoubleBox.cs" />
     <Compile Include="FloatBox.cs" />
     <Compile Include="IntBox.cs" />
+    <Compile Include="Internals\SingleChildEnumerator.cs" />
+    <Compile Include="Internals\WeakRoutedEventManager.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeakRoutedEventManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Select\TextBox.cs" />
     <Compile Include="SpinnerDecorator.cs" />
     <Compile Include="Internals\TextBoxExt.cs" />
     <Compile Include="Internals\VisualTreeHelperExt.cs" />
@@ -139,5 +147,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Internals\WeakRoutedEventManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WeakRoutedEventManager.generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
 </Project>

@@ -5,11 +5,20 @@
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:numeric="http://gu.se/NumericInput"
+             xmlns:select="http://gu.se/Select"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <demo:FocusVm />
     </UserControl.DataContext>
-    <UniformGrid Rows="1">
+    <UniformGrid Rows="1"
+                 select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
+                                                           ElementName=MoveFocusOnEnter}"
+                 select:TextBox.SelectAllOnClick="{Binding IsChecked,
+                                                           ElementName=SelectAllOnClick}"
+                 select:TextBox.SelectAllOnDoubleClick="{Binding IsChecked,
+                                                                 ElementName=SelectAllOnDoubleClick}"
+                 select:TextBox.SelectAllOnGotKeyboardFocus="{Binding IsChecked,
+                                                                      ElementName=SelectAllOnFocus}">
         <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}" Header="TextBoxes">
             <UniformGrid Columns="1" KeyboardNavigation.TabNavigation="Cycle">
                 <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
@@ -43,6 +52,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -58,6 +70,47 @@
                           VerticalAlignment="Center"
                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowSpinnersBox}"
                           IsChecked="True" />
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="SelectAllOnFocus" />
+                <CheckBox x:Name="SelectAllOnFocus"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnFocusBox}"
+                          IsChecked="False" />
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="SelectAllOnClick" />
+
+                <CheckBox x:Name="SelectAllOnClick"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnClickBox}"
+                          IsChecked="False" />
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="SelectAllOnDoubleClick" />
+                <CheckBox x:Name="SelectAllOnDoubleClick"
+                          Grid.Row="3"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnDoubleClickBox}"
+                          IsChecked="False" />
+
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="MoveFocusOnEnter" />
+                <CheckBox x:Name="MoveFocusOnEnter"
+                          Grid.Row="4"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.MoveFocusOnEnterBox}"
+                          IsChecked="False" />
             </Grid>
         </GroupBox>
     </UniformGrid>

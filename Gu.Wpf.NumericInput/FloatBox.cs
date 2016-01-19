@@ -14,9 +14,7 @@
         static FloatBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FloatBox), new FrameworkPropertyMetadata(typeof(FloatBox)));
-            NumberStylesProperty.OverrideMetadata(
-                typeof(FloatBox),
-                new PropertyMetadata(NumberStyles.Float));
+            NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<float>), typeof(FloatBox), NumberStyles.Float);
             IncrementProperty.OverrideMetadataWithDefaultValue<float>(typeof(FloatBox), 1);
         }
 
