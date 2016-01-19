@@ -1,4 +1,5 @@
-﻿namespace Gu.Wpf.NumericInput
+﻿#pragma warning disable SA1402 // File may only contain a single class
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Windows;

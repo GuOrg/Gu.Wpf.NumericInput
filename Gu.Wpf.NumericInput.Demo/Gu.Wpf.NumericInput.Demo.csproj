@@ -55,7 +55,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutomationIds.cs" />
-    <Compile Include="BoxViews\BoxTemplateSelector.cs" />
     <Compile Include="BoxViews\DecimalBoxView.xaml.cs">
       <DependentUpon>DecimalBoxView.xaml</DependentUpon>
     </Compile>
@@ -80,8 +79,6 @@
     <Compile Include="BoxViews\ShortBoxVm.cs">
       <DependentUpon>ShortBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoxViews\StatusConverter.cs" />
-    <Compile Include="BoxViews\TextSourceConverter.cs" />
     <Compile Include="DemoView.xaml.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>
@@ -97,7 +94,6 @@
     <Compile Include="FocusVm.cs">
       <DependentUpon>FocusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoxViews\IBoxVm.cs" />
     <Compile Include="MainVm.cs" />
     <Compile Include="BoxViews\BoxVm.cs" />
     <Compile Include="StyledDoubleBoxVm.cs">

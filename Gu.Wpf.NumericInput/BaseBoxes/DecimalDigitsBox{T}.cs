@@ -22,7 +22,12 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Example:
+        /// DecimalDigits="3" sets StringFormat to F3
+        /// DecimalDigits="-3" sets StringFormat to 0.###
+        /// Defauklt is null.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public int? DecimalDigits
