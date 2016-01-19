@@ -76,7 +76,6 @@
     <Compile Include="NumericBoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionExt.cs" />
-    <Compile Include="SandBox\EventBox.cs" />
     <Compile Include="ShortBoxTests.cs" />
     <Compile Include="Todos.cs" />
   </ItemGroup>
@@ -153,5 +152,7 @@
       <Paket>True</Paket>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SandBox\" />
+  </ItemGroup>
 </Project>
