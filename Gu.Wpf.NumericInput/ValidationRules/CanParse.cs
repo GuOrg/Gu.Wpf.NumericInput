@@ -18,6 +18,11 @@
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            if (box.TextSource == TextSource.None)
+            {
+                return ValidationResult.ValidResult;
+            }
+
             var text = (string)value;
             if (box.CanParse(text))
             {

@@ -19,6 +19,11 @@
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (BaseBox)((BindingExpression)owner).ResolvedSource;
+            if (box.TextSource == TextSource.None)
+            {
+                return ValidationResult.ValidResult;
+            }
+
             var text = (string)value;
             var pattern = box.RegexPattern;
             if (string.IsNullOrEmpty(pattern))

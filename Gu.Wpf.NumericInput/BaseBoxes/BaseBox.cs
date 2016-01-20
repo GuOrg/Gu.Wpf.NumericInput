@@ -17,6 +17,7 @@
     [TemplatePart(Name = SuffixBoxName, Type = typeof(TextBox))]
     public abstract partial class BaseBox : TextBox
     {
+        private static readonly RoutedEventHandler LoadedHandler = new RoutedEventHandler(OnLoaded);
         public const string DecreaseButtonName = "PART_DecreaseButton";
         public const string IncreaseButtonName = "PART_IncreaseButton";
         public const string EditBoxName = "PART_EditText";
@@ -28,6 +29,7 @@
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
             this.Bind(TextProxyProperty).OneWayTo(this, TextProperty);
+            this.AddHandler(LoadedEvent, LoadedHandler);
         }
 
         public override void OnApplyTemplate()
@@ -97,32 +99,26 @@
 
         protected void UpdateView()
         {
-            var scrollViewer = this.GetTemplateChild("PART_ContentHost") as ScrollViewer;
+            var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
+            if (scrollViewer != null && !scrollViewer.IsLoaded)
+            {
+                // let visual tree build
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));
+                return;
+            }
+
             var whenFocused = scrollViewer?.NestedChildren().OfType<ScrollContentPresenter>().SingleOrDefault();
             var grid = whenFocused?.Parent as Grid;
             if (scrollViewer == null || whenFocused == null || grid == null)
             {
-                if (!this.IsLoaded)
-                {
-                    this.Loaded += OnLoaded;
-                    return;
-                }
-
-                if (this.IsArrangeValid == false)
-                {
-                    // retry after arrange
-                    // using the Loaded event does not work if template is changed in runtime.
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));
-                    return;
-                }
-
                 if (DesignerProperties.GetIsInDesignMode(this))
                 {
-                    var message = $"The template does not match the expected template. Cannot use formatting\r\n" +
+                    var message = $"The template does not match the expected template.\r\n" +
+                                  $"Cannot create formatted view\r\n" +
                                   $"The expected template is (pseudo)\r\n" +
-                                  $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : string.Empty)}\r\n" +
-                                  $"  {nameof(Grid)}: {(grid == null ? "null" : string.Empty)}\r\n" +
-                                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : string.Empty)}";
+                                  $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : "correct")}\r\n" +
+                                  $"  {nameof(Grid)}: {(grid == null ? "null" : "correct")}\r\n" +
+                                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}";
                     throw new InvalidOperationException(message);
                 }
                 else
@@ -157,11 +153,14 @@
             }
         }
 
+        protected virtual void OnLoaded()
+        {
+        }
+
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var baseBox = (BaseBox)sender;
-            baseBox.Loaded -= OnLoaded;
-            baseBox.UpdateView();
+            var box = (BaseBox)sender;
+            box.OnLoaded();
         }
     }
 }

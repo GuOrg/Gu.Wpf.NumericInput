@@ -19,9 +19,6 @@
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
         private readonly Func<T, T, T> add;
         private readonly Func<T, T, T> subtract;
-        private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
-        private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
-        private static readonly RoutedEventHandler ValidationDirtyHandler = OnValidationDirty;
         private readonly BindingExpressionBase textValueBindingExpression;
 
         /// <summary>
@@ -51,9 +48,6 @@
             binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromText);
             binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromValue);
             this.textValueBindingExpression = BindingOperations.SetBinding(this, TextBindableProperty, binding);
-            this.AddHandler(Validation.ErrorEvent, ValidationErrorHandler);
-            this.AddHandler(FormatDirtyEvent, FormatDirtyHandler);
-            this.AddHandler(ValidationDirtyEvent, ValidationDirtyHandler);
         }
 
         /// <summary>
@@ -237,6 +231,12 @@
             Debug.WriteLine(string.Empty);
             this.UpdateFormat();
             base.OnLostFocus(e);
+        }
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            this.UpdateValidation();
         }
 
         private static void OnValidationError(object sender, ValidationErrorEventArgs e)

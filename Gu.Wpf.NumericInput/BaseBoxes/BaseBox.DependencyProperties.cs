@@ -27,7 +27,7 @@
                 BooleanBoxes.False,
                 OnIsValidationDirtyChanged));
 
-        public static readonly DependencyProperty IsValidationDirtyProperty = IsValidationDirtyPropertyKey.DependencyProperty;
+        internal static readonly DependencyProperty IsValidationDirtyProperty = IsValidationDirtyPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey IsFormattingDirtyPropertyKey = DependencyProperty.RegisterReadOnly(
             "IsFormattingDirty",
@@ -37,7 +37,7 @@
                 BooleanBoxes.False,
                 OnIsFormattingDirtyChanged));
 
-        public static readonly DependencyProperty IsFormattingDirtyProperty = IsFormattingDirtyPropertyKey.DependencyProperty;
+        internal static readonly DependencyProperty IsFormattingDirtyProperty = IsFormattingDirtyPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty StringFormatProperty = NumericBox.StringFormatProperty.AddOwner(
             typeof(BaseBox),
@@ -99,7 +99,7 @@
             "TextSource",
             typeof(TextSource),
             typeof(BaseBox),
-            new PropertyMetadata(TextSource.ValueBinding, OnTextSourceChanged));
+            new PropertyMetadata(TextSource.None, OnTextSourceChanged));
 
         internal static readonly DependencyProperty StatusProperty = DependencyProperty.Register(
             "Status",
@@ -120,16 +120,16 @@
             protected set { this.SetValue(FormattedTextPropertyKey, value); }
         }
 
-        public bool IsFormattingDirty
+        internal bool IsFormattingDirty
         {
             get { return (bool)this.GetValue(IsFormattingDirtyProperty); }
-            protected set { this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
+            set { this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
         }
 
-        public bool IsValidationDirty
+        internal bool IsValidationDirty
         {
             get { return (bool)this.GetValue(IsValidationDirtyProperty); }
-            protected set { this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
+            set { this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
         }
 
         /// <summary>
@@ -202,9 +202,10 @@
         private static void OnIsValidationDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Debug.WriteLine(e);
-            if (Equals(e.NewValue, BooleanBoxes.True))
+            var box = (BaseBox)d;
+            if (box.TextSource != TextSource.None && Equals(e.NewValue, BooleanBoxes.True))
             {
-                ((BaseBox)d).RaiseEvent(ValidationDirtyEventArgs);
+                box.RaiseEvent(ValidationDirtyEventArgs);
             }
         }
 
@@ -231,7 +232,7 @@
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            if (box.Text != string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.OnCultureChanged((IFormatProvider)e.OldValue, (IFormatProvider)e.NewValue);
                 box.IsFormattingDirty = true;
@@ -242,7 +243,10 @@
         private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            box.IsValidationDirty = true;
+            if (box.TextSource != TextSource.None)
+            {
+                box.IsValidationDirty = true;
+            }
         }
 
         private static void OnAllowSpinnersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

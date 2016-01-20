@@ -74,7 +74,7 @@
                 Assert.AreEqual(value, this.Sut.Value);
                 expectedStatuses.AddRange(new[] { Status.UpdatingFromValueBinding, Status.Idle });
                 CollectionAssert.AreEqual(expectedStatuses, statuses);
-                CollectionAssert.IsEmpty(sources);
+                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
 
                 this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
                 Assert.AreEqual(Status.Idle, this.Sut.Status);
@@ -82,17 +82,15 @@
                 Assert.AreEqual(text, this.Sut.Text);
                 Assert.AreEqual(expectedText2, this.Sut.FormattedText);
                 Assert.AreEqual(value, this.Sut.Value);
-                expectedStatuses.AddRange(new[] { Status.Validating, Status.Idle });
+                expectedStatuses.AddRange(new[] { Status.Validating, Status.Idle,  });
                 CollectionAssert.AreEqual(expectedStatuses, statuses);
-                CollectionAssert.IsEmpty(sources);
+                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
 
                 this.Sut.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
                 Assert.AreEqual(text, this.Sut.Text);
                 Assert.AreEqual(expectedText1, this.Sut.FormattedText);
                 Assert.AreEqual(value, this.Sut.Value);
-                //expectedStatuses.AddRange(new[] { Status.Validating, Status.Idle, Status.Validating, Status.Idle });
-                //CollectionAssert.AreEqual(expectedStatuses, statuses);
-                CollectionAssert.IsEmpty(sources);
+                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
             }
         }
 

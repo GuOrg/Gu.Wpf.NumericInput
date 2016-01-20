@@ -86,10 +86,6 @@
                           SelectedItem="{Binding Settings.Culture}" />
             </HeaderedContentControl>
 
-            <HeaderedContentControl Header="Suffix">
-                <TextBox Text="{Binding Settings.Suffix}" />
-            </HeaderedContentControl>
-
             <HeaderedContentControl Header="Decimals">
                 <TextBox Text="{Binding Settings.DecimalDigits, TargetNullValue=''}" />
             </HeaderedContentControl>
