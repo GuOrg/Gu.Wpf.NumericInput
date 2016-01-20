@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
+    using System;
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
@@ -52,6 +53,10 @@
                 default(T),
                 OnIncrementChanged));
 
+        private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
+        private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
+        private static readonly RoutedEventHandler ValidationDirtyHandler = OnValidationDirty;
+
         static NumericBox()
         {
             var metadata = TextProperty.GetMetadata(typeof(TextBox));
@@ -64,6 +69,9 @@
                     metadata.CoerceValueCallback,
                     true,
                     UpdateSourceTrigger.LostFocus));
+            EventManager.RegisterClassHandler(typeof(NumericBox<T>), Validation.ErrorEvent, ValidationErrorHandler);
+            EventManager.RegisterClassHandler(typeof(NumericBox<T>), ValidationDirtyEvent, ValidationDirtyHandler);
+            EventManager.RegisterClassHandler(typeof(NumericBox<T>), FormatDirtyEvent, FormatDirtyHandler);
         }
 
         [Category(nameof(NumericBox))]
@@ -136,7 +144,7 @@
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            if (box.Text == string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.IsValidationDirty = true;
             }
@@ -145,7 +153,7 @@
         private static void OnNumberStylesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            if (box.Text != string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.IsValidationDirty = true;
             }
@@ -154,7 +162,7 @@
         private static void OnMinValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            if (box.Text != string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.CheckSpinners();
                 box.IsValidationDirty = true;
@@ -164,7 +172,7 @@
         private static void OnMaxValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
-            if (box.Text != string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.CheckSpinners();
                 box.IsValidationDirty = true;
