@@ -5,6 +5,6 @@ NUGET
     Gu.PropertyGrid (1.0.0)
     JetBrains.Annotations (10.0.0)
     NUnit (2.6.4)
-    StyleCop.Analyzers (1.0.0-rc2)
+    StyleCop.Analyzers (1.0.0-rc3)
     TestStack.White (0.13.3)
       Castle.Core (>= 3.3.0)
