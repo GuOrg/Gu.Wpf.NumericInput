@@ -95,11 +95,13 @@
                 string.Empty,
                 OnTextBindableChanged));
 
-        internal static readonly DependencyProperty TextSourceProperty = DependencyProperty.Register(
+        protected static readonly DependencyPropertyKey TextSourcePropertyKey = DependencyProperty.RegisterReadOnly(
             "TextSource",
             typeof(TextSource),
             typeof(BaseBox),
             new PropertyMetadata(TextSource.None, OnTextSourceChanged));
+
+        public static readonly DependencyProperty TextSourceProperty = TextSourcePropertyKey.DependencyProperty;
 
         internal static readonly DependencyProperty StatusProperty = DependencyProperty.Register(
             "Status",
@@ -187,10 +189,10 @@
             private set { this.SetValue(DecreaseCommandPropertyKey, value); }
         }
 
-        internal TextSource TextSource
+        public TextSource TextSource
         {
             get { return (TextSource)this.GetValue(TextSourceProperty); }
-            set { this.SetValue(TextSourceProperty, value); }
+            protected set { this.SetValue(TextSourcePropertyKey, value); }
         }
 
         internal Status Status
