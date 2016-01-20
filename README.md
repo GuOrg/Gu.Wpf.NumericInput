@@ -1,6 +1,8 @@
 # Gu.Wpf.NumericInput
 ### Textboxes for numeric input in WPF.
 
+[nuget package](https://www.nuget.org/packages/Gu.Wpf.NumericInput/)
+
 [![Join the chat at https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput](https://badges.gitter.im/JohanLarsson/Gu.Wpf.NumericInput.svg)](https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 - DoubleBox
 - IntBox
