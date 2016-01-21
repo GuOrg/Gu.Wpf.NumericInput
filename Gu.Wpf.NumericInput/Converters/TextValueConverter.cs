@@ -4,12 +4,12 @@
     using System.Globalization;
     using System.Windows.Data;
 
-    internal class StringConverter<T> : IValueConverter
+    internal class TextValueConverter<T> : IValueConverter
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly StringConverter<T> Default = new StringConverter<T>();
+        internal static readonly TextValueConverter<T> Default = new TextValueConverter<T>();
 
-        private StringConverter()
+        private TextValueConverter()
         {
         }
 
