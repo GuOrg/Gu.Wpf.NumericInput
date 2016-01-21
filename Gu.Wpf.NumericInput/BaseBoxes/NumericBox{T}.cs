@@ -36,7 +36,7 @@
                 Source = this,
                 Mode = BindingMode.OneWayToSource,
                 NotifyOnValidationError = true,
-                Converter = StringConverter<T>.Default,
+                Converter = TextValueConverter<T>.Default,
                 ConverterParameter = this,
             };
 

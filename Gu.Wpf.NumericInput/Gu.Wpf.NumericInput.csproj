@@ -71,7 +71,7 @@
     <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
-    <Compile Include="Converters\StringConverter.cs" />
+    <Compile Include="Converters\TextValueConverter.cs" />
     <Compile Include="Internals\EmptyEnumerator.cs" />
     <Compile Include="Internals\FrameworkObject.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
