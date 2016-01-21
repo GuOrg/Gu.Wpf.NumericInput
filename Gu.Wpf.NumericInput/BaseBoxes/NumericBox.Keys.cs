@@ -13,8 +13,6 @@
 
         public static ResourceKey SpinnerPathStyleKey { get; } = CreateKey();
 
-        public static ResourceKey BaseBoxStyleKey { get; } = CreateKey();
-
         public static ResourceKey ValidationErrorListTemplateKey { get; } = CreateKey();
 
         public static ResourceKey SimpleValidationErrorTemplateKey { get; } = CreateKey();

@@ -4,7 +4,6 @@
     using System.ComponentModel;
     using System.Threading;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Input;
 
     /// <summary>
@@ -194,6 +193,12 @@
         {
             get { return (TextSource)this.GetValue(TextSourceProperty); }
             protected set { this.SetValue(TextSourcePropertyKey, value); }
+        }
+
+        protected internal string TextBindable
+        {
+            get { return (string)this.GetValue(TextBindableProperty); }
+            protected set { this.SetValue(TextBindableProperty, value); }
         }
 
         internal Status Status
