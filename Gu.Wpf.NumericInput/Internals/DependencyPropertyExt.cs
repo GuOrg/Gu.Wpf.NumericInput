@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows;
+    using System.Windows.Data;
 
     internal static class DependencyPropertyExt
     {
@@ -74,6 +75,43 @@
                         flags,
                         metadata.PropertyChangedCallback,
                         coerceValueCallback));
+                return;
+            }
+
+            var message = $"Can only be called for properties with metadata of type {typeof(PropertyMetadata)}";
+            throw new NotSupportedException(message);
+        }
+
+
+        internal static void OverrideMetadataWithOptions(this DependencyProperty property, Type forType, FrameworkPropertyMetadataOptions options)
+        {
+            var metadata = property.GetMetadata(property.OwnerType);
+            if (metadata.GetType() == typeof(PropertyMetadata))
+            {
+                property.OverrideMetadata(
+                    forType,
+                    new FrameworkPropertyMetadata(
+                        metadata.DefaultValue,
+                        options,
+                        metadata.PropertyChangedCallback,
+                        metadata.CoerceValueCallback,
+                        false,
+                        UpdateSourceTrigger.PropertyChanged));
+                return;
+            }
+
+            if (metadata.GetType() == typeof(FrameworkPropertyMetadata))
+            {
+                var fpm = (FrameworkPropertyMetadata)metadata;
+                property.OverrideMetadata(
+                    forType,
+                    new FrameworkPropertyMetadata(
+                        metadata.DefaultValue,
+                        options,
+                        metadata.PropertyChangedCallback,
+                        metadata.CoerceValueCallback,
+                        fpm.IsAnimationProhibited,
+                        fpm.DefaultUpdateSourceTrigger));
                 return;
             }
 
