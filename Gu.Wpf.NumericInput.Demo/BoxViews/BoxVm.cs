@@ -235,7 +235,11 @@
             get { return this.canValueBeNull; }
             set
             {
-                if (value == this.canValueBeNull) return;
+                if (value == this.canValueBeNull)
+                {
+                    return;
+                }
+
                 this.canValueBeNull = value;
                 this.OnPropertyChanged();
             }

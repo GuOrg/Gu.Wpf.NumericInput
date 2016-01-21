@@ -20,8 +20,7 @@
         </Grid.RowDefinitions>
         <GroupBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VanillaGroupBox}" Header="Vanilla">
             <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
-                <numeric:DoubleBox x:Name="InputBox"
-                                   AllowSpinners="{Binding AllowSpinners}"
+                <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
                                    AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
                                    CanValueBeNull="{Binding CanValueBeNull}"
                                    Culture="{Binding Culture}"
@@ -111,7 +110,7 @@
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Edit Value">
-                <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VmValueBox}" Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VmValueBox}" Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
             </HeaderedContentControl>
 
             <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Settings:" />
@@ -125,7 +124,7 @@
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="CanValueBeNull">
-                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull, ElementName=InputBox}" />
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Culture">

@@ -8,8 +8,8 @@
     internal class CanParse<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly CanParse<T> OnTextChanged = new CanParse<T>(true);
-        internal static readonly CanParse<T> OnValueChanged = new CanParse<T>(false);
+        internal static readonly CanParse<T> FromText = new CanParse<T>(true);
+        internal static readonly CanParse<T> FromValue = new CanParse<T>(false);
 
         private CanParse(bool validatesOnTargetUpdated)
             : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)
@@ -25,6 +25,11 @@
             }
 
             var text = (string)value;
+            if (string.IsNullOrWhiteSpace(text) && box.CanValueBeNull)
+            {
+                return ValidationResult.ValidResult;
+            }
+
             if (box.CanParse(text))
             {
                 return ValidationResult.ValidResult;

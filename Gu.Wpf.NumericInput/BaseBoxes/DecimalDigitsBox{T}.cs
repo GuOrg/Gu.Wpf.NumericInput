@@ -38,7 +38,7 @@ namespace Gu.Wpf.NumericInput
 
         protected override void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
         {
-            var text = (string)this.GetValue(TextBindableProperty);
+            var text = this.Text;
             if (string.IsNullOrEmpty(text) || oldCulture == null)
             {
                 return;
@@ -59,7 +59,6 @@ namespace Gu.Wpf.NumericInput
                     this.SetTextClearUndo(newText);
                 }
 
-                this.SetCurrentValue(TextBindableProperty, newText);
                 this.Status = status;
             }
 

@@ -38,7 +38,7 @@
         {
             get
             {
-                var text = (string)this.GetValue(TextBindableProperty);
+                var text = this.Text;
                 T result;
                 if (this.TryParse(text, out result))
                 {
@@ -92,9 +92,14 @@
             return value?.ToString(this.StringFormat, this.Culture) ?? string.Empty;
         }
 
+        internal string ToRawText(T? value)
+        {
+            return value?.ToString(this.Culture) ?? string.Empty;
+        }
+
         public void UpdateFormat()
         {
-            var text = (string)this.GetValue(TextBindableProperty);
+            var text = this.Text;
             T result;
             if (this.TryParse(text, out result))
             {
@@ -114,18 +119,60 @@
             Debug.WriteLine(string.Empty);
             var status = this.Status;
             this.Status = Status.Validating;
-            var text = this.GetValue(TextBindableProperty);
-            this.SetCurrentValue(TextBindableProperty, text);
+            Validator.UpdateValidation(this);
             this.IsValidationDirty = false;
             this.Status = status;
         }
 
-        protected virtual void OnValueChanged(object newValue, object oldValue)
+        protected virtual void OnValidationError()
         {
-            if (newValue != oldValue)
+            Debug.WriteLine(string.Empty);
+            var valueBindingExpression = BindingOperations.GetBindingExpression(this, ValueProperty);
+            if (valueBindingExpression != null)
             {
-                var args = new ValueChangedEventArgs<T?>((T?)oldValue, (T?)newValue, ValueChangedEvent, this);
-                this.RaiseEvent(args);
+                Debug.WriteLine(string.Empty);
+                var status = this.Status;
+                this.Status = Status.ResettingValue;
+                valueBindingExpression.UpdateTarget(); // Reset Value to value from DataContext binding.
+                this.Status = status;
+            }
+        }
+
+        protected virtual void OnValueChanged(T? oldValue, T? newValue)
+        {
+            if (this.Status == Status.Idle)
+            {
+                this.Status = Status.UpdatingFromValueBinding;
+                this.TextSource = TextSource.ValueBinding;
+                var newRaw = (string)this?.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
+                this.SetTextClearUndo(newRaw);
+                this.FormattedText = this.Format(newValue);
+                this.IsValidationDirty = true;
+                this.CheckSpinners();
+                this.Status = Status.Idle;
+            }
+
+            var args = new ValueChangedEventArgs<T?>(oldValue, newValue, ValueChangedEvent, this);
+            this.RaiseEvent(args);
+        }
+
+        protected virtual void OnTextChanged(string oldText, string newText)
+        {
+            Debug.WriteLine(newText);
+            if (this.Status == Status.Idle)
+            {
+                this.Status = Status.UpdatingFromUserInput;
+                this.TextSource = TextSource.UserInput;
+                var result = Validator.ValidateAndGetValue(this);
+                this.IsValidationDirty = false;
+                if (result != Binding.DoNothing)
+                {
+                    this.SetCurrentValue(ValueProperty, result);
+                }
+
+                this.Status = Status.Idle;
+                this.IsFormattingDirty = true;
+                this.CheckSpinners();
             }
         }
 
@@ -204,6 +251,11 @@
                 this.CheckSpinners();
             }
 
+            if (e.Property == TextProperty && !Equals(e.OldValue, e.NewValue))
+            {
+                this.OnTextChanged((string)e.OldValue, (string)e.NewValue);
+            }
+
             base.OnPropertyChanged(e);
         }
 
@@ -225,15 +277,7 @@
             var box = (NumericBox<T>)sender;
             if (box.TextBindingExpression.HasValidationError && box.Status != Status.ResettingValue)
             {
-                var valueBindingExpression = BindingOperations.GetBindingExpression(box, ValueProperty);
-                if (valueBindingExpression != null)
-                {
-                    Debug.WriteLine(string.Empty);
-                    var status = box.Status;
-                    box.Status = Status.ResettingValue;
-                    valueBindingExpression.UpdateTarget(); // Reset Value to value from DataContext binding.
-                    box.Status = status;
-                }
+                box.OnValidationError();
             }
         }
 

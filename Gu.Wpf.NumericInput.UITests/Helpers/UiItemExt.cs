@@ -74,6 +74,13 @@
             return textBox.Text;
         }
 
+        internal static string FormattedText(this TextBox textBox)
+        {
+            var itemStatus = textBox.ItemStatus();
+            var text = itemStatus.Get(BaseBox.FormattedTextProperty);
+            return text;
+        }
+
         internal static Button IncreaseButton(this TextBox textBox)
         {
             var parent = textBox.GetParent<CustomUIItem>();
@@ -84,12 +91,6 @@
         {
             var parent = textBox.GetParent<CustomUIItem>();
             return parent.Get<Button>(BaseBox.DecreaseButtonName);
-        }
-
-        internal static string FormattedText(this TextBox textBox)
-        {
-            var label = FormattedTextCache.GetValue(textBox, x => x.Get<Label>(BaseBox.FormattedName));
-            return label.Text;
         }
 
         private static string Get(this string text, DependencyProperty property)

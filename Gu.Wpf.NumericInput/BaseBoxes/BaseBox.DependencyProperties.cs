@@ -15,15 +15,15 @@
     public abstract partial class BaseBox
     {
         public static readonly DependencyProperty TextValueConverterProperty = DependencyProperty.Register(
-            "TextValueConverter", 
-            typeof (IValueConverter), 
-            typeof (BaseBox), 
+            "TextValueConverter",
+            typeof(IValueConverter),
+            typeof(BaseBox),
             new PropertyMetadata(default(IValueConverter), OnTextValueConverterChanged));
 
         public static readonly DependencyProperty ValidationRulesProperty = DependencyProperty.Register(
-            "ValidationRules", 
-            typeof (IReadOnlyList<ValidationRule>),
-            typeof (BaseBox),
+            "ValidationRules",
+            typeof(IReadOnlyList<ValidationRule>),
+            typeof(BaseBox),
             new PropertyMetadata(default(IReadOnlyList<ValidationRule>), OnValidationRulesChanged));
 
         private static readonly DependencyPropertyKey FormattedTextPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -94,22 +94,6 @@
 
         public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
 
-        private static readonly DependencyProperty TextProxyProperty = DependencyProperty.Register(
-            "TextProxy",
-            typeof(string),
-            typeof(BaseBox),
-            new PropertyMetadata(
-                string.Empty,
-                OnTextProxyChanged));
-
-        internal static readonly DependencyProperty TextBindableProperty = DependencyProperty.Register(
-            "TextBindable",
-            typeof(string),
-            typeof(BaseBox),
-            new PropertyMetadata(
-                string.Empty,
-                OnTextBindableChanged));
-
         protected static readonly DependencyPropertyKey TextSourcePropertyKey = DependencyProperty.RegisterReadOnly(
             "TextSource",
             typeof(TextSource),
@@ -126,19 +110,20 @@
 
         static BaseBox()
         {
+            TextProperty.OverrideMetadataWithOptions(typeof(BaseBox), FrameworkPropertyMetadataOptions.NotDataBindable);
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
             Validator.Start();
         }
 
         public IValueConverter TextValueConverter
         {
-            get { return (IValueConverter) this.GetValue(TextValueConverterProperty); }
+            get { return (IValueConverter)this.GetValue(TextValueConverterProperty); }
             set { this.SetValue(TextValueConverterProperty, value); }
         }
 
         public IReadOnlyList<ValidationRule> ValidationRules
         {
-            get { return (IReadOnlyList<ValidationRule>) this.GetValue(ValidationRulesProperty); }
+            get { return (IReadOnlyList<ValidationRule>)this.GetValue(ValidationRulesProperty); }
             set { this.SetValue(ValidationRulesProperty, value); }
         }
 
@@ -223,12 +208,6 @@
             protected set { this.SetValue(TextSourcePropertyKey, value); }
         }
 
-        protected internal string TextBindable
-        {
-            get { return (string)this.GetValue(TextBindableProperty); }
-            protected set { this.SetValue(TextBindableProperty, value); }
-        }
-
         internal Status Status
         {
             get { return (Status)this.GetValue(StatusProperty); }
@@ -309,27 +288,6 @@
             var box = (BaseBox)d;
             (box.IncreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
             (box.DecreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
-        }
-
-        private static void OnTextProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Debug.WriteLine(e);
-            var baseBox = (BaseBox)d;
-
-            if (baseBox.Status == Status.Idle)
-            {
-                baseBox.Status = Status.UpdatingFromUserInput;
-                baseBox.TextSource = TextSource.UserInput;
-                d.SetCurrentValue(TextBindableProperty, e.NewValue);
-                baseBox.Status = Status.Idle;
-            }
-        }
-
-        private static void OnTextBindableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Debug.WriteLine(e);
-            var box = (BaseBox)d;
-            box.CheckSpinners();
         }
 
         private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
