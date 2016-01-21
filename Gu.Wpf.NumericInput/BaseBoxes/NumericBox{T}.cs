@@ -119,7 +119,12 @@
             Debug.WriteLine(string.Empty);
             var status = this.Status;
             this.Status = Status.Validating;
-            Validator.UpdateValidation(this);
+            var result = Validator.ValidateAndGetValue(this);
+            this.IsValidationDirty = false;
+            if (result != Binding.DoNothing)
+            {
+                this.SetCurrentValue(ValueProperty, result);
+            }
             this.IsValidationDirty = false;
             this.Status = status;
         }
@@ -275,7 +280,12 @@
         private static void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
             var box = (NumericBox<T>)sender;
-            if (box.TextBindingExpression.HasValidationError && box.Status != Status.ResettingValue)
+            if (box.Status == Status.ResettingValue)
+            {
+                return;
+            }
+
+            if (box.TextBindingExpression.HasValidationError)
             {
                 box.OnValidationError();
             }
