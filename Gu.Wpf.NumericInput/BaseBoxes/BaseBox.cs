@@ -32,12 +32,6 @@
             this.AddHandler(LoadedEvent, LoadedHandler);
         }
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            this.UpdateView();
-        }
-
         protected virtual void SetTextAndCreateUndoAction(string text)
         {
             this.TextSource = TextSource.UserInput;
@@ -100,7 +94,7 @@
         protected void UpdateView()
         {
             var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
-            if (scrollViewer != null && !scrollViewer.IsLoaded)
+            if (scrollViewer != null && this.IsLoaded && !scrollViewer.IsLoaded)
             {
                 // let visual tree build
                 this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));

@@ -72,6 +72,7 @@
 
         <HeaderedContentControl Grid.Row="2"
                                 Content="{Binding}"
+                                Focusable="False"
                                 Header="ControlTemplate">
             <HeaderedContentControl.Template>
                 <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
