@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
@@ -22,17 +21,22 @@
             // nop to trigger static ctor
         }
 
-        private static void OnValidationDirty(object sender, RoutedEventArgs e)
+        internal static void UpdateValidation(BaseBox box)
         {
-            var box = (BaseBox)sender;
+            ValidateAndGetValue(box);
+        }
+
+        internal static object ValidateAndGetValue(BaseBox box)
+        {
             var converter = box.TextValueConverter;
             var expression = box.TextBindingExpression;
 
             if (converter == null)
             {
                 Validation.MarkInvalid(expression, new ValidationError(IsMatch.FromText, expression.ParentBinding, $"{BaseBox.TextValueConverterProperty.Name} == null", null));
-                return;
+                return Binding.DoNothing;
             }
+
             bool validated = false;
             var value = Default;
             foreach (var rule in box.ValidationRules)
@@ -41,6 +45,7 @@
                 {
                     continue;
                 }
+
                 switch (rule.ValidationStep)
                 {
                     case ValidationStep.RawProposedValue:
@@ -49,13 +54,15 @@
                             if (!result.IsValid)
                             {
                                 Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
-                                return;
+                                return Binding.DoNothing;
                             }
 
                             validated = true;
                             break;
                         }
 
+                    case ValidationStep.UpdatedValue:
+                    case ValidationStep.CommittedValue:
                     case ValidationStep.ConvertedProposedValue:
                         {
                             if (value == Default)
@@ -72,16 +79,13 @@
                             if (!result.IsValid)
                             {
                                 Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
-                                return;
+                                return Binding.DoNothing;
                             }
 
                             validated = true;
                             break;
                         }
 
-                    case ValidationStep.UpdatedValue:
-                    case ValidationStep.CommittedValue:
-                        throw new NotSupportedException("Only rules with ValidationStep RawProposedValue or ConvertedProposedValue are allowed");
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -91,6 +95,18 @@
             {
                 Validation.ClearInvalid(expression);
             }
+
+            if (value == Default)
+            {
+                value = converter.Convert(box.Text, null, box, GetCulture(expression));
+            }
+
+            return value;
+        }
+
+        private static void OnValidationDirty(object sender, RoutedEventArgs e)
+        {
+            UpdateValidation((BaseBox)sender);
         }
 
         private static bool ShouldValidate(ValidationRule rule, TextSource source)
@@ -100,8 +116,8 @@
                 return false;
             }
 
-            return rule.ValidatesOnTargetUpdated && source == TextSource.ValueBinding ||
-                   !rule.ValidatesOnTargetUpdated && source == TextSource.UserInput;
+            return (rule.ValidatesOnTargetUpdated && source == TextSource.ValueBinding) ||
+                   !rule.ValidatesOnTargetUpdated;
         }
 
         private static CultureInfo GetCulture(BindingExpression expression)

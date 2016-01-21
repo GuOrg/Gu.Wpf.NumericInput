@@ -59,9 +59,19 @@
 
         static NumericBox()
         {
-            TextProperty.OverrideMetadataWithOptions(typeof(NumericBox<T>), FrameworkPropertyMetadataOptions.NotDataBindable | FrameworkPropertyMetadataOptions.Journal);
             TextValueConverterProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<T>), TextValueConverter<T>.Default);
-            var validationRules = new[] { CanParse<T>.OnTextChanged, CanParse<T>.OnValueChanged };
+            var validationRules = new ValidationRule[]
+            {
+                CanParse<T>.FromText,
+                CanParse<T>.FromValue,
+                IsMatch.FromText,
+                IsMatch.FromValue,
+                IsGreaterThanOrEqualToMinRule<T>.FromText,
+                IsGreaterThanOrEqualToMinRule<T>.FromValue,
+                IsLessThanOrEqualToMaxRule<T>.FromText,
+                IsLessThanOrEqualToMaxRule<T>.FromValue,
+            };
+
             ValidationRulesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<T>), validationRules);
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), Validation.ErrorEvent, ValidationErrorHandler);
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), ValidationDirtyEvent, ValidationDirtyHandler);
@@ -120,19 +130,7 @@
         {
             Debug.WriteLine(e);
             var numericBox = (NumericBox<T>)d;
-            if (numericBox.Status == NumericInput.Status.Idle)
-            {
-                numericBox.Status = NumericInput.Status.UpdatingFromValueBinding;
-                numericBox.TextSource = TextSource.ValueBinding;
-                var newValue = (T?)e.NewValue;
-                var newRaw = newValue?.ToString(numericBox.Culture) ?? string.Empty;
-                numericBox.SetTextClearUndo(newRaw);
-                numericBox.SetCurrentValue(TextBindableProperty, newRaw);
-                numericBox.FormattedText = numericBox.Format(newValue);
-                numericBox.Status = Status.Idle;
-            }
-
-            numericBox.OnValueChanged(e.NewValue, e.OldValue);
+            numericBox.OnValueChanged((T?) e.OldValue, (T?) e.NewValue);
         }
 
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

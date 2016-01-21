@@ -45,6 +45,23 @@
             typeof(NumericBox),
             new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits));
 
+        internal static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
+            "Text",
+            typeof (string),
+            typeof (NumericBox),
+            new PropertyMetadata(default(string)));
+
+        //public static void SetText(this BaseBox element, string value)
+        //{
+        //    element.SetValue(TextProperty, value);
+        //}
+
+        //[AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        //[AttachedPropertyBrowsableForType(typeof (BaseBox))]
+        //public static string GetText(this BaseBox element)
+        //{
+        //    return (string) element.GetValue(TextProperty);
+        //}
         public static void SetCulture(this UIElement element, CultureInfo value)
         {
             element.SetValue(CultureProperty, value);

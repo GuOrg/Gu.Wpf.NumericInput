@@ -19,8 +19,9 @@
     public abstract partial class BaseBox : TextBox
     {
         private static readonly RoutedEventHandler LoadedHandler = new RoutedEventHandler(OnLoaded);
+
         // this is only used to create the binding expression needed for Validator
-        private static readonly Binding DummyTextBinding = new Binding();
+        private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
         public const string DecreaseButtonName = "PART_DecreaseButton";
         public const string IncreaseButtonName = "PART_IncreaseButton";
         public const string EditBoxName = "PART_EditText";
@@ -31,9 +32,8 @@
         {
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
-            this.Bind(TextProxyProperty).OneWayTo(this, TextProperty);
             this.AddHandler(LoadedEvent, LoadedHandler);
-            this.TextBindingExpression = (BindingExpression)BindingOperations.SetBinding(this, TextProxyProperty, DummyTextBinding);
+            this.TextBindingExpression = (BindingExpression)BindingOperations.SetBinding(this, NumericBox.TextProperty, ValidationBinding);
         }
 
         internal BindingExpression TextBindingExpression { get; }
