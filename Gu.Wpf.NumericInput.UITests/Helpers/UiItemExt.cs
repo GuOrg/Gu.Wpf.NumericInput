@@ -1,7 +1,9 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
+    using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Windows;
     using Gu.Wpf.NumericInput.Demo;
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.Custom;
@@ -19,12 +21,12 @@
         public static bool HasValidationError(this UIItem item)
         {
             var itemStatus = item.ItemStatus();
-            if (itemStatus == "HasValidationError: True")
+            if (itemStatus.Contains("HasError: True"))
             {
                 return true;
             }
 
-            if (itemStatus == "HasValidationError: False")
+            if (itemStatus.Contains("HasError: False"))
             {
                 return false;
             }
@@ -32,10 +34,11 @@
             throw new InvalidOperationException();
         }
 
-        internal static TextSource TextSource(this GroupBox groupBox)
+        internal static TextSource TextSource(this TextBox textBox)
         {
+            var itemStatus = textBox.ItemStatus();
+            var text = itemStatus.Get(BaseBox.TextSourceProperty);
             TextSource result;
-            var text = groupBox.Get<Label>(AutomationIds.TextSourceBlock).Text;
             if (!Enum.TryParse(text, out result))
             {
                 throw new ArgumentException();
@@ -44,20 +47,30 @@
             return result;
         }
 
-        internal static Status Status(this GroupBox groupBox)
+        internal static Status Status(this TextBox textBox)
         {
+            var itemStatus = textBox.ItemStatus();
+            var text = itemStatus.Get(BaseBox.StatusProperty);
             Status result;
-            var text = groupBox.Get<Label>(AutomationIds.StatusBlock).Text;
+
             if (!Enum.TryParse(text, out result))
             {
                 throw new ArgumentException();
             }
 
             return result;
+        }
+
+        internal static string Value(this TextBox textBox)
+        {
+            var itemStatus = textBox.ItemStatus();
+            var text = itemStatus.Get(DoubleBox.ValueProperty);
+            return text;
         }
 
         internal static string EditText(this TextBox textBox)
         {
+            var itemStatus = textBox.ItemStatus();
             return textBox.Text;
         }
 
@@ -77,6 +90,15 @@
         {
             var label = FormattedTextCache.GetValue(textBox, x => x.Get<Label>(BaseBox.FormattedName));
             return label.Text;
+        }
+
+        private static string Get(this string text, DependencyProperty property)
+        {
+            return text.Split(new string[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                .Single(x => x.StartsWith(property.Name))
+                .Split(':')[1]
+                .Trim();
+
         }
     }
 }
