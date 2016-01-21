@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
     using System.Windows.Threading;
 
     /// <summary>
@@ -18,6 +19,8 @@
     public abstract partial class BaseBox : TextBox
     {
         private static readonly RoutedEventHandler LoadedHandler = new RoutedEventHandler(OnLoaded);
+        // this is only used to create the binding expression needed for Validator
+        private static readonly Binding DummyTextBinding = new Binding();
         public const string DecreaseButtonName = "PART_DecreaseButton";
         public const string IncreaseButtonName = "PART_IncreaseButton";
         public const string EditBoxName = "PART_EditText";
@@ -30,7 +33,10 @@
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
             this.Bind(TextProxyProperty).OneWayTo(this, TextProperty);
             this.AddHandler(LoadedEvent, LoadedHandler);
+            this.TextBindingExpression = (BindingExpression)BindingOperations.SetBinding(this, TextProxyProperty, DummyTextBinding);
         }
+
+        internal BindingExpression TextBindingExpression { get; }
 
         protected virtual void SetTextAndCreateUndoAction(string text)
         {

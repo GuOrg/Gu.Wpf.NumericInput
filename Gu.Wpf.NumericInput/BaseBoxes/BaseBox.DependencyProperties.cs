@@ -1,9 +1,12 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Input;
 
     /// <summary>
@@ -11,6 +14,18 @@
     /// </summary>
     public abstract partial class BaseBox
     {
+        public static readonly DependencyProperty TextValueConverterProperty = DependencyProperty.Register(
+            "TextValueConverter", 
+            typeof (IValueConverter), 
+            typeof (BaseBox), 
+            new PropertyMetadata(default(IValueConverter), OnTextValueConverterChanged));
+
+        public static readonly DependencyProperty ValidationRulesProperty = DependencyProperty.Register(
+            "ValidationRules", 
+            typeof (IReadOnlyList<ValidationRule>),
+            typeof (BaseBox),
+            new PropertyMetadata(default(IReadOnlyList<ValidationRule>), OnValidationRulesChanged));
+
         private static readonly DependencyPropertyKey FormattedTextPropertyKey = DependencyProperty.RegisterReadOnly(
             "FormattedText",
             typeof(string),
@@ -112,6 +127,19 @@
         static BaseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
+            Validator.Start();
+        }
+
+        public IValueConverter TextValueConverter
+        {
+            get { return (IValueConverter) this.GetValue(TextValueConverterProperty); }
+            set { this.SetValue(TextValueConverterProperty, value); }
+        }
+
+        public IReadOnlyList<ValidationRule> ValidationRules
+        {
+            get { return (IReadOnlyList<ValidationRule>) this.GetValue(ValidationRulesProperty); }
+            set { this.SetValue(ValidationRulesProperty, value); }
         }
 
         [Category(nameof(NumericBox))]
@@ -226,10 +254,29 @@
             }
         }
 
+        private static void OnTextValueConverterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (BaseBox)d;
+            if (box.TextSource != TextSource.None)
+            {
+                box.IsFormattingDirty = true;
+                box.IsValidationDirty = true;
+            }
+        }
+
+        private static void OnValidationRulesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (BaseBox)d;
+            if (box.TextSource != TextSource.None)
+            {
+                box.IsValidationDirty = true;
+            }
+        }
+
         private static void OnStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
-            if (box.Text != string.Empty)
+            if (box.TextSource != TextSource.None)
             {
                 box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
                 box.IsFormattingDirty = true;

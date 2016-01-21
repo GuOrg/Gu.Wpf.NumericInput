@@ -18,7 +18,7 @@
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var box = (BaseBox)((BindingExpression)owner).ResolvedSource;
+            var box = (BaseBox)((BindingExpression)owner).Target;
             if (box.TextSource == TextSource.None)
             {
                 return ValidationResult.ValidResult;

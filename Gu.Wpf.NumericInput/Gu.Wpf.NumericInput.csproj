@@ -94,19 +94,20 @@
     <Compile Include="BaseBoxes\NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="SpinnerDecoratorAutomationPeer.cs" />
-    <Compile Include="ValidationResults\CanParseValidationResult.cs" />
-    <Compile Include="ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
-    <Compile Include="ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
-    <Compile Include="ValidationRules\IsMatch.cs" />
-    <Compile Include="ValidationResults\IsGreaterThanValidationResult.cs" />
-    <Compile Include="ValidationResults\IsLessThanValidationResult.cs" />
-    <Compile Include="ValidationResults\IsMatchValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\CanParseValidationResult.cs" />
+    <Compile Include="Validation\ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
+    <Compile Include="Validation\ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
+    <Compile Include="Validation\ValidationRules\IsMatch.cs" />
+    <Compile Include="Validation\ValidationResults\IsGreaterThanValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\IsLessThanValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\IsMatchValidationResult.cs" />
+    <Compile Include="Validation\Validator.cs" />
     <Compile Include="ValueChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="ValidationRules\CanParse.cs" />
+    <Compile Include="Validation\ValidationRules\CanParse.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />
     <None Include="paket.references" />
     <None Include="paket.template" />

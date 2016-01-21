@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            var box = (NumericBox<T>)((BindingExpression)owner).Target;
             if (box.TextSource == TextSource.None)
             {
                 return ValidationResult.ValidResult;

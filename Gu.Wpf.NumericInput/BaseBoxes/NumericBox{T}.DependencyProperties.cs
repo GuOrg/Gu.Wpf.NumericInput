@@ -59,16 +59,10 @@
 
         static NumericBox()
         {
-            var metadata = TextProperty.GetMetadata(typeof(TextBox));
-            TextProperty.OverrideMetadata(
-                typeof(NumericBox<T>),
-                new FrameworkPropertyMetadata(
-                    metadata.DefaultValue,
-                    FrameworkPropertyMetadataOptions.NotDataBindable | FrameworkPropertyMetadataOptions.Journal,
-                    metadata.PropertyChangedCallback,
-                    metadata.CoerceValueCallback,
-                    true,
-                    UpdateSourceTrigger.LostFocus));
+            TextProperty.OverrideMetadataWithOptions(typeof(NumericBox<T>), FrameworkPropertyMetadataOptions.NotDataBindable | FrameworkPropertyMetadataOptions.Journal);
+            TextValueConverterProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<T>), TextValueConverter<T>.Default);
+            var validationRules = new[] { CanParse<T>.OnTextChanged, CanParse<T>.OnValueChanged };
+            ValidationRulesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<T>), validationRules);
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), Validation.ErrorEvent, ValidationErrorHandler);
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), ValidationDirtyEvent, ValidationDirtyHandler);
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), FormatDirtyEvent, FormatDirtyHandler);

@@ -8,16 +8,17 @@
     internal class CanParse<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly CanParse<T> Default = new CanParse<T>();
+        internal static readonly CanParse<T> OnTextChanged = new CanParse<T>(true);
+        internal static readonly CanParse<T> OnValueChanged = new CanParse<T>(false);
 
-        private CanParse()
-            : base(ValidationStep.RawProposedValue, false)
+        private CanParse(bool validatesOnTargetUpdated)
+            : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)
         {
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
-            var box = (NumericBox<T>)((BindingExpression)owner).ResolvedSource;
+            var box = (NumericBox<T>)((BindingExpression)owner).Target;
             if (box.TextSource == TextSource.None)
             {
                 return ValidationResult.ValidResult;

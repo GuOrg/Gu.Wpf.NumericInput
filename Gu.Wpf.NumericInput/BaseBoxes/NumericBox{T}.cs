@@ -19,7 +19,6 @@
         private static readonly T TypeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
         private readonly Func<T, T, T> add;
         private readonly Func<T, T, T> subtract;
-        private readonly BindingExpressionBase textValueBindingExpression;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericBox{T}"/> class.
@@ -30,24 +29,6 @@
         {
             this.add = add;
             this.subtract = subtract;
-            var binding = new Binding
-            {
-                Path = BindingHelper.GetPath(ValueProperty),
-                Source = this,
-                Mode = BindingMode.OneWayToSource,
-                NotifyOnValidationError = true,
-                Converter = TextValueConverter<T>.Default,
-                ConverterParameter = this,
-            };
-
-            binding.ValidationRules.Add(CanParse<T>.Default);
-            binding.ValidationRules.Add(IsMatch.FromText);
-            binding.ValidationRules.Add(IsMatch.FromValue);
-            binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.FromText);
-            binding.ValidationRules.Add(IsGreaterThanOrEqualToMinRule<T>.FromValue);
-            binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromText);
-            binding.ValidationRules.Add(IsLessThanOrEqualToMaxRule<T>.FromValue);
-            this.textValueBindingExpression = BindingOperations.SetBinding(this, TextBindableProperty, binding);
         }
 
         /// <summary>
@@ -242,7 +223,7 @@
         private static void OnValidationError(object sender, ValidationErrorEventArgs e)
         {
             var box = (NumericBox<T>)sender;
-            if (box.textValueBindingExpression.HasValidationError && box.Status != Status.ResettingValue)
+            if (box.TextBindingExpression.HasValidationError && box.Status != Status.ResettingValue)
             {
                 var valueBindingExpression = BindingOperations.GetBindingExpression(box, ValueProperty);
                 if (valueBindingExpression != null)
