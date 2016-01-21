@@ -32,9 +32,9 @@
                     Assert.AreEqual("1.23", inputBox.EditText());
                     Assert.AreEqual("1.2", inputBox.FormattedText());
                     Assert.AreEqual("1.23", vmValueBox.Text);
-                    Assert.AreEqual("1.23", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("1.23", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -48,9 +48,9 @@
                     Assert.AreEqual("2.23", inputBox.EditText());
                     Assert.AreEqual("2.2", inputBox.FormattedText());
                     Assert.AreEqual("2.23", vmValueBox.Text);
-                    Assert.AreEqual("2.23", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("2.23", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     groupBox.Get<TextBox>(AutomationIds.IncrementBox).Enter("5");
                     vmValueBox.Click();
@@ -60,9 +60,9 @@
                     Assert.AreEqual("7.2", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("7.23", vmValueBox.Text);
-                    Assert.AreEqual("7.23", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("7.23", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     decreaseButton.Click();
                     vmValueBox.Click();
@@ -70,9 +70,9 @@
                     Assert.AreEqual("2.2", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("2.23", vmValueBox.Text);
-                    Assert.AreEqual("2.23", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("2.23", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                 }
             }
 
@@ -96,9 +96,9 @@
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -108,9 +108,9 @@
                     Assert.AreEqual("3", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("3", vmValueBox.Text);
-                    Assert.AreEqual("3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("3", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(false, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -137,9 +137,9 @@
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -149,9 +149,9 @@
                     Assert.AreEqual("-3", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("-3", vmValueBox.Text);
-                    Assert.AreEqual("-3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("-3", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(false, decreaseButton.Enabled);
@@ -180,9 +180,9 @@
                     Assert.AreEqual("5", inputBox.FormattedText());
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(false, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -191,9 +191,9 @@
                     Assert.AreEqual("4", inputBox.FormattedText());
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(false, increaseButton.Enabled);
                     Assert.AreEqual(true, decreaseButton.Enabled);
@@ -203,9 +203,9 @@
                     Assert.AreEqual("3", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("3", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                 }
             }
 
@@ -231,9 +231,9 @@
                     Assert.AreEqual("-5", inputBox.FormattedText());
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(false, decreaseButton.Enabled);
 
@@ -242,9 +242,9 @@
                     Assert.AreEqual("-4", inputBox.FormattedText());
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                     Assert.AreEqual(true, increaseButton.Enabled);
                     Assert.AreEqual(false, decreaseButton.Enabled);
 
@@ -253,9 +253,9 @@
                     Assert.AreEqual("-3", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("-3", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("-3", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                 }
             }
 
@@ -280,9 +280,9 @@
                     Assert.AreEqual("1", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("1", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("1", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     inputBox.Click();
                     var keyboard = window.Keyboard;
@@ -294,9 +294,9 @@
                     Assert.AreEqual("0", inputBox.FormattedText());
                     Assert.AreEqual(false, inputBox.HasValidationError());
                     Assert.AreEqual("0", vmValueBox.Text);
-                    Assert.AreEqual("0", groupBox.Get<Label>(AutomationIds.ValueBlock).Text);
-                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, groupBox.TextSource());
-                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, groupBox.Status());
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                 }
             }
         }

@@ -5,9 +5,7 @@
     using TestStack.White;
     using TestStack.White.Factory;
     using TestStack.White.UIItems;
-    using TestStack.White.UIItems.Custom;
     using TestStack.White.UIItems.TabItems;
-    using TestStack.White.UIItems.WPFUIItems;
     using TestStack.White.WindowsAPI;
 
     public partial class DoubleBoxTests

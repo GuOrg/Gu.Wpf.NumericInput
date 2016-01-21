@@ -13,54 +13,96 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
-            <numeric:DoubleBox x:Name="InputBox"
-                               AllowSpinners="{Binding AllowSpinners}"
-                               AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
-                               CanValueBeNull="{Binding CanValueBeNull}"
-                               Culture="{Binding Culture}"
-                               DecimalDigits="{Binding DecimalDigits}"
-                               Increment="{Binding Increment}"
-                               IsReadOnly="{Binding IsReadOnly}"
-                               MaxValue="{Binding Max}"
-                               MinValue="{Binding Min}"
-                               NumberStyles="{Binding NumberStyles,
-                                                      Mode=OneWay,
-                                                      UpdateSourceTrigger=PropertyChanged}"
-                               RegexPattern="{Binding RegexPattern}"
-                               StringFormat="{Binding StringFormat,
-                                                      Mode=TwoWay}"
-                               Value="{Binding Value,
-                                               ValidatesOnNotifyDataErrors=True}" />
-        </numeric:SpinnerDecorator>
+        <GroupBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.VanillaGroupBox}" Header="Vanilla">
+            <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
+                <numeric:DoubleBox x:Name="InputBox"
+                                   AllowSpinners="{Binding AllowSpinners}"
+                                   AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                                   CanValueBeNull="{Binding CanValueBeNull}"
+                                   Culture="{Binding Culture}"
+                                   DecimalDigits="{Binding DecimalDigits}"
+                                   Increment="{Binding Increment}"
+                                   IsReadOnly="{Binding IsReadOnly}"
+                                   MaxValue="{Binding Max}"
+                                   MinValue="{Binding Min}"
+                                   NumberStyles="{Binding NumberStyles,
+                                                          Mode=OneWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                   RegexPattern="{Binding RegexPattern}"
+                                   StringFormat="{Binding StringFormat,
+                                                          Mode=TwoWay}"
+                                   Value="{Binding Value,
+                                                   ValidatesOnNotifyDataErrors=True}" />
+            </numeric:SpinnerDecorator>
+        </GroupBox>
 
-        <ItemsControl Grid.Row="1" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
-            <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.NestedPropertyGridStyleKey}}">
-                <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Status:" />
+        <GroupBox Grid.Row="1"
+                  AutomationProperties.AutomationId="{x:Static local:AutomationIds.DataTemplateGroupBox}"
+                  Header="DataTemplate">
+            <GroupBox.Resources>
+                <DataTemplate x:Key="DataTemplate" DataType="{x:Type local:DoubleBoxVm}">
+                    <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
+                        <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
+                                           AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                                           CanValueBeNull="{Binding CanValueBeNull}"
+                                           Culture="{Binding Culture}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Increment="{Binding Increment}"
+                                           IsReadOnly="{Binding IsReadOnly}"
+                                           MaxValue="{Binding Max}"
+                                           MinValue="{Binding Min}"
+                                           NumberStyles="{Binding NumberStyles,
+                                                                  Mode=OneWay,
+                                                                  UpdateSourceTrigger=PropertyChanged}"
+                                           RegexPattern="{Binding RegexPattern}"
+                                           StringFormat="{Binding StringFormat,
+                                                                  Mode=TwoWay}"
+                                           Value="{Binding Value,
+                                                           ValidatesOnNotifyDataErrors=True}" />
+                    </numeric:SpinnerDecorator>
+                </DataTemplate>
+            </GroupBox.Resources>
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource DataTemplate}" />
+        </GroupBox>
 
-                <HeaderedContentControl Header="Text">
-                    <TextBlock Text="{Binding Text, ElementName=InputBox}" />
-                </HeaderedContentControl>
+        <HeaderedContentControl Grid.Row="2"
+                                Content="{Binding}"
+                                Header="ControlTemplate">
+            <HeaderedContentControl.Template>
+                <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                    <GroupBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.ControlTemplate}"
+                              DataContext="{TemplateBinding Content}"
+                              Header="{TemplateBinding Header}">
+                        <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
+                            <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
+                                               AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                                               CanValueBeNull="{Binding CanValueBeNull}"
+                                               Culture="{Binding Culture}"
+                                               DecimalDigits="{Binding DecimalDigits}"
+                                               Increment="{Binding Increment}"
+                                               IsReadOnly="{Binding IsReadOnly}"
+                                               MaxValue="{Binding Max}"
+                                               MinValue="{Binding Min}"
+                                               NumberStyles="{Binding NumberStyles,
+                                                                      Mode=OneWay,
+                                                                      UpdateSourceTrigger=PropertyChanged}"
+                                               RegexPattern="{Binding RegexPattern}"
+                                               StringFormat="{Binding StringFormat,
+                                                                      Mode=TwoWay}"
+                                               Value="{Binding Value,
+                                                               ValidatesOnNotifyDataErrors=True}" />
+                        </numeric:SpinnerDecorator>
+                    </GroupBox>
+                </ControlTemplate>
+            </HeaderedContentControl.Template>
+        </HeaderedContentControl>
 
-                <HeaderedContentControl Header="Value">
-                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.ValueBlock}" Text="{Binding Value, ElementName=InputBox}" />
-                </HeaderedContentControl>
-
-                <HeaderedContentControl Header="IsFocused">
-                    <TextBlock Text="{Binding IsFocused, ElementName=InputBox}" />
-                </HeaderedContentControl>
-
-                <HeaderedContentControl Header="TextSource">
-                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.TextSourceBlock}" Text="{Binding Path=TextSource, ElementName=InputBox}" />
-                </HeaderedContentControl>
-
-                <HeaderedContentControl Header="Status">
-                    <TextBlock AutomationProperties.AutomationId="{x:Static local:AutomationIds.StatusBlock}" Text="{Binding Path=Status, ElementName=InputBox}" />
-                </HeaderedContentControl>
-            </ItemsControl>
-
+        <ItemsControl Grid.Row="3" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
             <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="ViewModel:" />
 
             <HeaderedContentControl Header="CurrentValue">
