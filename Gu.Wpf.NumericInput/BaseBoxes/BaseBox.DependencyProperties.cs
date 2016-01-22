@@ -7,7 +7,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Input;
 
     /// <summary>
     /// Base class that adds a couple of dependency properties to TextBox

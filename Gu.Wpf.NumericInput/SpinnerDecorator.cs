@@ -5,12 +5,18 @@
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Markup;
 
+    [TemplatePart(Name = IncreaseButtonName, Type = typeof(RepeatButton))]
+    [TemplatePart(Name = DecreaseButtonName, Type = typeof(RepeatButton))]
     [DefaultProperty(nameof(Child))]
     [ContentProperty(nameof(Child))]
     public class SpinnerDecorator : Control
     {
+        public const string DecreaseButtonName = "PART_DecreaseButton";
+        public const string IncreaseButtonName = "PART_IncreaseButton";
+
         public static readonly DependencyProperty ChildProperty = DependencyProperty.Register(
             "Child",
             typeof(IIncrementBox),
