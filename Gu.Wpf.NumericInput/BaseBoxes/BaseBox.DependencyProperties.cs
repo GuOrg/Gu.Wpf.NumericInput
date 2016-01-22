@@ -19,11 +19,9 @@
             typeof(BaseBox),
             new PropertyMetadata(default(IValueConverter), OnTextValueConverterChanged));
 
-        public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.Register(
-            "ValidationTrigger",
-            typeof(ValidationTrigger),
+        public static readonly DependencyProperty ValidationTriggerProperty = NumericBox.ValidationTriggerProperty.AddOwner(
             typeof(BaseBox),
-            new PropertyMetadata(ValidationTrigger.LostFocus, OnValidationTriggerChanged));
+            new FrameworkPropertyMetadata(ValidationTrigger.LostFocus, FrameworkPropertyMetadataOptions.Inherits, OnValidationTriggerChanged));
 
         public static readonly DependencyProperty ValidationRulesProperty = DependencyProperty.Register(
             "ValidationRules",
@@ -211,7 +209,7 @@
             var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
-                switch ((NumericInput.ValidationTrigger) e.NewValue)
+                switch ((NumericInput.ValidationTrigger)e.NewValue)
                 {
                     case ValidationTrigger.PropertyChanged:
                         box.UpdateValidation();
@@ -237,7 +235,7 @@
 
         private static void OnValidationRulesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (BaseBox) d;
+            var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
                 box.IsValidationDirty = true;
@@ -246,10 +244,10 @@
 
         private static void OnStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (BaseBox) d;
+            var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
-                box.OnStringFormatChanged((string) e.OldValue, (string) e.NewValue);
+                box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
                 box.IsFormattingDirty = true;
                 box.IsValidationDirty = true;
             }
@@ -257,10 +255,10 @@
 
         private static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (BaseBox) d;
+            var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
-                box.OnCultureChanged((IFormatProvider) e.OldValue, (IFormatProvider) e.NewValue);
+                box.OnCultureChanged((IFormatProvider)e.OldValue, (IFormatProvider)e.NewValue);
                 box.IsFormattingDirty = true;
                 box.IsValidationDirty = true;
             }
@@ -268,7 +266,7 @@
 
         private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (BaseBox) d;
+            var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
                 box.IsValidationDirty = true;

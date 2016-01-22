@@ -15,6 +15,14 @@
                 Thread.CurrentThread.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.RegisterAttached(
+            "ValidationTrigger",
+            typeof(ValidationTrigger),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(
+                ValidationTrigger.LostFocus, 
+                FrameworkPropertyMetadataOptions.Inherits));
+
         public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(
             "CanValueBeNull",
             typeof(bool),
@@ -47,21 +55,10 @@
 
         internal static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
             "Text",
-            typeof (string),
-            typeof (NumericBox),
+            typeof(string),
+            typeof(NumericBox),
             new PropertyMetadata(default(string)));
 
-        //public static void SetText(this BaseBox element, string value)
-        //{
-        //    element.SetValue(TextProperty, value);
-        //}
-
-        //[AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
-        //[AttachedPropertyBrowsableForType(typeof (BaseBox))]
-        //public static string GetText(this BaseBox element)
-        //{
-        //    return (string) element.GetValue(TextProperty);
-        //}
         public static void SetCulture(this UIElement element, CultureInfo value)
         {
             element.SetValue(CultureProperty, value);
@@ -70,6 +67,18 @@
         public static CultureInfo GetCulture(this UIElement element)
         {
             return (CultureInfo)element.GetValue(CultureProperty);
+        }
+
+        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value)
+        {
+            element.SetValue(ValidationTriggerProperty, value);
+        }
+
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        public static ValidationTrigger GetValidationTrigger(this UIElement element)
+        {
+            return (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
         }
 
         public static void SetCanValueBeNull(this UIElement element, bool value)
