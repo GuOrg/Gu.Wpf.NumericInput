@@ -41,11 +41,6 @@
             var value = Default;
             foreach (var rule in box.ValidationRules)
             {
-                if (!ShouldValidate(rule, box.TextSource))
-                {
-                    continue;
-                }
-
                 switch (rule.ValidationStep)
                 {
                     case ValidationStep.RawProposedValue:
@@ -107,17 +102,6 @@
         private static void OnValidationDirty(object sender, RoutedEventArgs e)
         {
             UpdateValidation((BaseBox)sender);
-        }
-
-        private static bool ShouldValidate(ValidationRule rule, TextSource source)
-        {
-            if (source == TextSource.None)
-            {
-                return false;
-            }
-
-            return (rule.ValidatesOnTargetUpdated && source == TextSource.ValueBinding) ||
-                   !rule.ValidatesOnTargetUpdated;
         }
 
         private static CultureInfo GetCulture(BindingExpression expression)

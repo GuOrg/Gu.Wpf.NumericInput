@@ -63,13 +63,9 @@
             var validationRules = new ValidationRule[]
             {
                 CanParse<T>.FromText,
-                CanParse<T>.FromValue,
                 IsMatch.FromText,
-                IsMatch.FromValue,
                 IsGreaterThanOrEqualToMinRule<T>.FromText,
-                IsGreaterThanOrEqualToMinRule<T>.FromValue,
                 IsLessThanOrEqualToMaxRule<T>.FromText,
-                IsLessThanOrEqualToMaxRule<T>.FromValue,
             };
 
             ValidationRulesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<T>), validationRules);
