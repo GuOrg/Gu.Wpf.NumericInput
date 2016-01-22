@@ -24,8 +24,8 @@
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.DigitsBox).Enter("1");
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     inputBox.Enter("1.23");
                     vmValueBox.Click();
@@ -89,8 +89,8 @@
                     groupBox.Get<TextBox>(AutomationIds.IncrementBox).Enter("5");
                     groupBox.Get<TextBox>(AutomationIds.MaxBox).Enter("3");
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     Assert.AreEqual("0", inputBox.EditText());
@@ -130,8 +130,8 @@
                     groupBox.Get<TextBox>(AutomationIds.IncrementBox).Enter("5");
                     groupBox.Get<TextBox>(AutomationIds.MinBox).Enter("-3");
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     Assert.AreEqual("0", inputBox.EditText());
@@ -170,8 +170,8 @@
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.MaxBox).Enter("3");
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     inputBox.Enter("5");
@@ -221,8 +221,8 @@
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.MinBox).Enter("-3");
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     inputBox.Enter("-5");
@@ -270,8 +270,8 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(BaseBox.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(BaseBox.DecreaseButtonName);
+                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());

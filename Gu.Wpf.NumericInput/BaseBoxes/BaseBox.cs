@@ -12,21 +12,15 @@
     /// <summary>
     /// The reason for having this stuff here is enabling a shared style
     /// </summary>
-    [TemplatePart(Name = IncreaseButtonName, Type = typeof(RepeatButton))]
-    [TemplatePart(Name = DecreaseButtonName, Type = typeof(RepeatButton))]
     [TemplatePart(Name = FormattedName, Type = typeof(TextBox))]
-    [TemplatePart(Name = SuffixBoxName, Type = typeof(TextBox))]
     public abstract partial class BaseBox : TextBox
     {
         private static readonly RoutedEventHandler LoadedHandler = new RoutedEventHandler(OnLoaded);
 
         // this is only used to create the binding expression needed for Validator
         private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
-        public const string DecreaseButtonName = "PART_DecreaseButton";
-        public const string IncreaseButtonName = "PART_IncreaseButton";
-        public const string EditBoxName = "PART_EditText";
+
         public const string FormattedName = "PART_FormattedText";
-        public const string SuffixBoxName = "PART_SuffixText";
 
         protected BaseBox()
         {
@@ -35,6 +29,8 @@
         }
 
         internal BindingExpression TextBindingExpression { get; }
+
+        public abstract void UpdateValidation();
 
         protected virtual void SetTextAndCreateUndoAction(string text)
         {

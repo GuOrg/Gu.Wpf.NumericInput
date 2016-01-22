@@ -57,7 +57,7 @@
 
         public bool CanParse(string text)
         {
-            if (this.CanValueBeNull && String.IsNullOrEmpty(text))
+            if (this.CanValueBeNull && string.IsNullOrEmpty(text))
             {
                 return true;
             }
@@ -68,7 +68,7 @@
 
         public T? Parse(string text)
         {
-            if (this.CanValueBeNull && String.IsNullOrEmpty(text))
+            if (this.CanValueBeNull && string.IsNullOrEmpty(text))
             {
                 return null;
             }
@@ -84,12 +84,12 @@
 
         internal string Format(T? value)
         {
-            return value?.ToString(this.StringFormat, this.Culture) ?? String.Empty;
+            return value?.ToString(this.StringFormat, this.Culture) ?? string.Empty;
         }
 
         internal string ToRawText(T? value)
         {
-            return value?.ToString(this.Culture) ?? String.Empty;
+            return value?.ToString(this.Culture) ?? string.Empty;
         }
 
         public void UpdateFormat()
@@ -109,9 +109,9 @@
             this.IsFormattingDirty = false;
         }
 
-        public void UpdateValidation()
+        public override void UpdateValidation()
         {
-            Debug.WriteLine(String.Empty);
+            Debug.WriteLine(string.Empty);
             var status = this.Status;
             this.Status = Status.Validating;
             var result = Validator.ValidateAndGetValue(this);
@@ -120,17 +120,18 @@
             {
                 this.SetCurrentValue(ValueProperty, result);
             }
+
             this.IsValidationDirty = false;
             this.Status = status;
         }
 
         protected virtual void OnValidationError()
         {
-            Debug.WriteLine(String.Empty);
+            Debug.WriteLine(string.Empty);
             var valueBindingExpression = BindingOperations.GetBindingExpression(this, ValueProperty);
             if (valueBindingExpression != null)
             {
-                Debug.WriteLine(String.Empty);
+                Debug.WriteLine(string.Empty);
                 var status = this.Status;
                 this.Status = Status.ResettingValue;
                 valueBindingExpression.UpdateTarget(); // Reset Value to value from DataContext binding.
@@ -144,7 +145,7 @@
             {
                 this.Status = Status.UpdatingFromValueBinding;
                 this.TextSource = TextSource.ValueBinding;
-                var newRaw = (string)this?.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? String.Empty;
+                var newRaw = (string)this?.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
                 this.SetTextClearUndo(newRaw);
                 this.FormattedText = this.Format(newValue);
                 this.IsValidationDirty = true;
@@ -296,7 +297,7 @@
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            Debug.WriteLine(String.Empty);
+            Debug.WriteLine(string.Empty);
             this.UpdateFormat();
             base.OnLostFocus(e);
         }
@@ -323,7 +324,7 @@
 
         private static void OnFormatDirty(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(String.Empty);
+            Debug.WriteLine(string.Empty);
             var box = (NumericBox<T>)sender;
             if (box.IsFocused || box.IsKeyboardFocusWithin)
             {
@@ -335,7 +336,7 @@
 
         private static void OnValidationDirty(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(String.Empty);
+            Debug.WriteLine(string.Empty);
             var box = (NumericBox<T>)sender;
             box.UpdateValidation();
         }

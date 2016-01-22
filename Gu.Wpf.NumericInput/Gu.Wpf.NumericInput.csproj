@@ -60,6 +60,7 @@
     <Compile Include="BaseBoxes\NumericBox{T}.Events.cs" />
     <Compile Include="BaseBoxes\Status.cs" />
     <Compile Include="BaseBoxes\TextSource.cs" />
+    <Compile Include="BaseBoxes\ValidationTrigger.cs" />
     <Compile Include="Converters\HiddenWhenTrueConverter.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
     <Compile Include="Converters\VisibleWhenTrueConverter.cs" />

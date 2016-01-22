@@ -84,13 +84,13 @@
         internal static Button IncreaseButton(this TextBox textBox)
         {
             var parent = textBox.GetParent<CustomUIItem>();
-            return parent.Get<Button>(BaseBox.IncreaseButtonName);
+            return parent.Get<Button>(SpinnerDecorator.IncreaseButtonName);
         }
 
         internal static Button DecreaseButton(this TextBox textBox)
         {
             var parent = textBox.GetParent<CustomUIItem>();
-            return parent.Get<Button>(BaseBox.DecreaseButtonName);
+            return parent.Get<Button>(SpinnerDecorator.DecreaseButtonName);
         }
 
         private static string Get(this string text, DependencyProperty property)
