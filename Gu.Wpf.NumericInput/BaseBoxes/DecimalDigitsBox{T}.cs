@@ -17,11 +17,6 @@ namespace Gu.Wpf.NumericInput
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnDecimalsDigitsChanged));
 
-        protected DecimalDigitsBox(Func<T, T, T> add, Func<T, T, T> subtract)
-            : base(add, subtract)
-        {
-        }
-
         /// <summary>
         /// Example:
         /// DecimalDigits="3" sets StringFormat to F3

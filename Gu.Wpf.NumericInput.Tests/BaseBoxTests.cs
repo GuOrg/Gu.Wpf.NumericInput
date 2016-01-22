@@ -9,32 +9,6 @@
     {
         protected BaseBox Box;
 
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void IncreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
-        {
-            this.Box.AllowSpinners = true;
-            this.Box.Text = "0";
-            var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
-            this.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
-            Assert.AreEqual(@readonly ? 1 : 0, count);
-        }
-
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void DecreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
-        {
-            this.Box.AllowSpinners = true;
-            this.Box.Text = "0";
-            var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
-            this.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(@readonly ? 1 : 0, count);
-        }
-
         [TestCase("1", null, false)]
         [TestCase("1", "", false)]
         [TestCase("1", "1", false)]

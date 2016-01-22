@@ -18,16 +18,29 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<double>(typeof(DoubleBox), 1);
         }
 
-        public DoubleBox()
-            : base(
-            (x, y) => x + y,
-            (x, y) => x - y)
-        {
-        }
-
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out double result)
         {
             return double.TryParse(text, numberStyles, culture, out result);
+        }
+
+        protected override double Add(double x, double y)
+        {
+            return x + y;
+        }
+
+        protected override double Subtract(double x, double y)
+        {
+            return x - y;
+        }
+
+        protected override double TypeMin()
+        {
+            return double.MinValue;
+        }
+
+        protected override double TypeMax()
+        {
+            return double.MaxValue;
         }
     }
 }

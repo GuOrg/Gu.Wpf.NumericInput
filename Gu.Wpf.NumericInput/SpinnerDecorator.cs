@@ -13,18 +13,18 @@
     {
         public static readonly DependencyProperty ChildProperty = DependencyProperty.Register(
             "Child",
-            typeof(BaseBox),
+            typeof(IIncrementBox),
             typeof(SpinnerDecorator),
-            new PropertyMetadata(default(BaseBox), OnChildChanged));
+            new PropertyMetadata(default(IIncrementBox), OnChildChanged));
 
         static SpinnerDecorator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerDecorator), new FrameworkPropertyMetadata(typeof(SpinnerDecorator)));
         }
 
-        public BaseBox Child
+        public IIncrementBox Child
         {
-            get { return (BaseBox)this.GetValue(ChildProperty); }
+            get { return (IIncrementBox)this.GetValue(ChildProperty); }
             set { this.SetValue(ChildProperty, value); }
         }
 

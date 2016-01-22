@@ -18,16 +18,29 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<long>(typeof(LongBox), 1);
         }
 
-        public LongBox()
-            : base(
-            (x, y) => x + y,
-            (x, y) => x - y)
-        {
-        }
-
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out long result)
         {
             return long.TryParse(text, numberStyles, culture, out result);
+        }
+
+        protected override long Add(long x, long y)
+        {
+            return x + y;
+        }
+
+        protected override long Subtract(long x, long y)
+        {
+            return x - y;
+        }
+
+        protected override long TypeMin()
+        {
+            return long.MinValue;
+        }
+
+        protected override long TypeMax()
+        {
+            return long.MaxValue;
         }
     }
 }

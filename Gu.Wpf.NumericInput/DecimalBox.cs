@@ -18,16 +18,29 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<decimal>(typeof(DecimalBox), 1);
         }
 
-        public DecimalBox()
-            : base(
-            (x, y) => x + y,
-            (x, y) => x - y)
-        {
-        }
-
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out decimal result)
         {
             return decimal.TryParse(text, numberStyles, culture, out result);
+        }
+
+        protected override decimal Add(decimal x, decimal y)
+        {
+            return x + y;
+        }
+
+        protected override decimal Subtract(decimal x, decimal y)
+        {
+            return x - y;
+        }
+
+        protected override decimal TypeMin()
+        {
+            return decimal.MinValue;
+        }
+
+        protected override decimal TypeMax()
+        {
+            return decimal.MaxValue;
         }
     }
 }
