@@ -22,7 +22,7 @@
         private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
 
         public const string FormattedName = "PART_FormattedText";
-
+        private bool hasFormattedView;
         protected BaseBox()
         {
             this.AddHandler(LoadedEvent, LoadedHandler);
@@ -72,6 +72,11 @@
 
         protected void UpdateView()
         {
+            if (this.hasFormattedView)
+            {
+                return;
+            }
+
             var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
             if (scrollViewer != null && this.IsLoaded && !scrollViewer.IsLoaded)
             {
@@ -124,6 +129,19 @@
                 whenFocused.Bind(VisibilityProperty)
                     .OneWayTo(this, IsKeyboardFocusWithinProperty, VisibleWhenTrueConverter.Default);
             }
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.Property == VisibilityProperty || e.Property == StringFormatProperty)
+            {
+                if (this.IsVisible && !string.IsNullOrEmpty(this.StringFormat))
+                {
+                    this.UpdateView();
+                }
+            }
+
+            base.OnPropertyChanged(e);
         }
 
         protected virtual void OnLoaded()
