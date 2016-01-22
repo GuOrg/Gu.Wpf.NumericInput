@@ -25,6 +25,7 @@
         private bool canValueBeNull;
         private string stringFormat;
         private bool hasErrors;
+        private ValidationTrigger validationTrigger = ValidationTrigger.PropertyChanged;
 
         protected BoxVm()
         {
@@ -46,6 +47,21 @@
         public Type Type => typeof(TBox);
 
         public CultureInfo[] Cultures => new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE") };
+
+        public ValidationTrigger ValidationTrigger
+        {
+            get { return this.validationTrigger; }
+            set
+            {
+                if (value == this.validationTrigger)
+                {
+                    return;
+                }
+
+                this.validationTrigger = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public IFormatProvider Culture
         {

@@ -125,7 +125,7 @@
             this.Status = status;
         }
 
-        protected virtual void OnValidationError()
+        protected virtual void ResetValueFromSource()
         {
             Debug.WriteLine(string.Empty);
             var valueBindingExpression = BindingOperations.GetBindingExpression(this, ValueProperty);
@@ -164,11 +164,31 @@
             {
                 this.Status = Status.UpdatingFromUserInput;
                 this.TextSource = TextSource.UserInput;
-                var result = Validator.ValidateAndGetValue(this);
-                this.IsValidationDirty = false;
-                if (result != Binding.DoNothing)
+                if (this.IsLoaded && this.ValidationTrigger == ValidationTrigger.PropertyChanged)
                 {
-                    this.SetCurrentValue(ValueProperty, result);
+                    var result = Validator.ValidateAndGetValue(this);
+                    this.IsValidationDirty = false;
+                    if (result != Binding.DoNothing)
+                    {
+                        this.SetCurrentValue(ValueProperty, result);
+                    }
+                    else
+                    {
+                        this.ResetValueFromSource();
+                    }
+                }
+                else
+                {
+                    var result = this.TextValueConverter.Convert(newText, typeof(T), this, null);
+                    if (result != Binding.DoNothing)
+                    {
+                        this.SetCurrentValue(ValueProperty, result);
+                    }
+                    else
+                    {
+                        this.ResetValueFromSource();
+                    }
+                    this.IsValidationDirty = true;
                 }
 
                 this.Status = Status.Idle;
@@ -318,7 +338,7 @@
 
             if (box.TextBindingExpression.HasValidationError)
             {
-                box.OnValidationError();
+                box.ResetValueFromSource();
             }
         }
 
@@ -338,7 +358,10 @@
         {
             Debug.WriteLine(string.Empty);
             var box = (NumericBox<T>)sender;
-            box.UpdateValidation();
+            if (!box.IsKeyboardFocused || box.ValidationTrigger == ValidationTrigger.PropertyChanged)
+            {
+                box.UpdateValidation();
+            }
         }
 
         private T AddIncrement(T currentValue, T increment)

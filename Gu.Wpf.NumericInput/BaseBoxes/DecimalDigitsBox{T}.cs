@@ -43,7 +43,7 @@ namespace Gu.Wpf.NumericInput
             if (this.TryParse(text, this.NumberStyles, oldCulture, out result))
             {
                 var status = this.Status;
-                this.Status = NumericInput.Status.Formatting;
+                this.Status = Status.Formatting;
                 var newText = result.ToString(newCulture);
                 if (this.TextSource == TextSource.UserInput)
                 {

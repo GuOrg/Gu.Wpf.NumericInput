@@ -230,6 +230,51 @@
             }
 
             [TestCaseSource(nameof(BoxContainerIds))]
+            public void ValidationTriggerLostFocus(string containerId)
+            {
+                using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
+                {
+                    var window = app.GetWindow(AutomationIds.MainWindow, InitializeOption.NoCache);
+                    var page = window.Get<TabPage>(AutomationIds.DebugTab);
+                    page.Select();
+                    var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    groupBox.Get<ComboBox>(AutomationIds.ValidationTriggerBox).Select(ValidationTrigger.LostFocus.ToString());
+                    var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
+                    Assert.AreEqual("0", inputBox.Text);
+                    Assert.AreEqual("0", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
+                    inputBox.Enter("1.2");
+                    vmValueBox.Click();
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual("1.2", inputBox.Value());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
+
+                    inputBox.Enter("ggg");
+                    Assert.AreEqual("ggg", inputBox.EditText());
+                    Assert.AreEqual("1.2", inputBox.FormattedText());
+                    Assert.AreEqual("1.2", inputBox.Value());
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual(false, inputBox.HasValidationError());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
+
+                    vmValueBox.Click();
+                    Assert.AreEqual("ggg", inputBox.EditText());
+                    Assert.AreEqual("ggg", inputBox.FormattedText());
+                    Assert.AreEqual("1.2", inputBox.Value());
+                    Assert.AreEqual("1.2", vmValueBox.Text);
+                    Assert.AreEqual(true, inputBox.HasValidationError());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.UserInput, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
+                }
+            }
+
+            [TestCaseSource(nameof(BoxContainerIds))]
             public void NumberStylesAllowLeadingSign(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))

@@ -11,16 +11,6 @@
     {
         private static readonly object Default = new object();
 
-        static Validator()
-        {
-            EventManager.RegisterClassHandler(typeof(BaseBox), BaseBox.ValidationDirtyEvent, new RoutedEventHandler(OnValidationDirty));
-        }
-
-        internal static void Start()
-        {
-            // nop to trigger static ctor
-        }
-
         internal static void UpdateValidation(BaseBox box)
         {
             ValidateAndGetValue(box);
@@ -97,11 +87,6 @@
             }
 
             return value;
-        }
-
-        private static void OnValidationDirty(object sender, RoutedEventArgs e)
-        {
-            UpdateValidation((BaseBox)sender);
         }
 
         private static CultureInfo GetCulture(BindingExpression expression)
