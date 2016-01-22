@@ -64,7 +64,6 @@
     <Compile Include="Converters\HiddenWhenTrueConverter.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
     <Compile Include="Converters\VisibleWhenTrueConverter.cs" />
-    <Compile Include="FormattedTextAdorner.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
