@@ -36,7 +36,7 @@ Bind the `Value`property of the boxes like this:
 
 ### Features:
 - Validation
-  - Validates as you type even with UpdateSourceTrigger=LostFocus
+  - Validates as you type even with UpdateSourceTrigger=LostFocus for the binding. Configurable via `ValidationTrigger`
   - Uses vanilla WPF validation
   - If there is a validation error no value is sent to the viewmodel.
 - Works with WPF focus.
@@ -58,6 +58,13 @@ The boxes has their own culture that defaults to `Thread.CurrentThread.CurrentUI
 The default value for culture is `Thread.CurrentThread.CurrentUICulture`
 
 Available as inheriting attached property: `NumericBox.Culture`
+
+##### ValidationTrigger
+The default value for culture is `ValidationTrigger.LostFocus`
+
+Controls when validation is performed.
+
+Available as inheriting attached property: `NumericBox.ValidationTrigger`
 
 ##### CanValueBeNull
 If false empty textbox means validation error. If true empty textbox gets parsed as null.
