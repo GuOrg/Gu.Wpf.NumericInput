@@ -71,29 +71,6 @@
             typeof(BaseBox),
             new PropertyMetadata(default(string), OnPatternChanged));
 
-        public static readonly DependencyProperty AllowSpinnersProperty = NumericBox.AllowSpinnersProperty.AddOwner(
-            typeof(BaseBox),
-            new FrameworkPropertyMetadata(
-                BooleanBoxes.False,
-                FrameworkPropertyMetadataOptions.Inherits,
-                OnAllowSpinnersChanged));
-
-        private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
-            "IncreaseCommand",
-            typeof(ICommand),
-            typeof(BaseBox),
-            new PropertyMetadata(null));
-
-        public static readonly DependencyProperty IncreaseCommandProperty = IncreaseCommandPropertyKey.DependencyProperty;
-
-        private static readonly DependencyPropertyKey DecreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
-            "DecreaseCommand",
-            typeof(ICommand),
-            typeof(BaseBox),
-            new PropertyMetadata(null));
-
-        public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
-
         protected static readonly DependencyPropertyKey TextSourcePropertyKey = DependencyProperty.RegisterReadOnly(
             "TextSource",
             typeof(TextSource),
@@ -178,30 +155,6 @@
             set { this.SetValue(RegexPatternProperty, value); }
         }
 
-        [Category(nameof(NumericBox))]
-        [Browsable(true)]
-        public bool AllowSpinners
-        {
-            get { return (bool)this.GetValue(AllowSpinnersProperty); }
-            set { this.SetValue(AllowSpinnersProperty, value); }
-        }
-
-        [Category(nameof(NumericBox))]
-        [Browsable(true)]
-        public ICommand IncreaseCommand
-        {
-            get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
-            private set { this.SetValue(IncreaseCommandPropertyKey, value); }
-        }
-
-        [Category(nameof(NumericBox))]
-        [Browsable(true)]
-        public ICommand DecreaseCommand
-        {
-            get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
-            private set { this.SetValue(DecreaseCommandPropertyKey, value); }
-        }
-
         public TextSource TextSource
         {
             get { return (TextSource)this.GetValue(TextSourceProperty); }
@@ -281,13 +234,6 @@
             {
                 box.IsValidationDirty = true;
             }
-        }
-
-        private static void OnAllowSpinnersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var box = (BaseBox)d;
-            (box.IncreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
-            (box.DecreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
         }
 
         private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

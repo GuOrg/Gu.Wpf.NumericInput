@@ -18,16 +18,29 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<int>(typeof(IntBox), 1);
         }
 
-        public IntBox()
-            : base(
-            (x, y) => x + y,
-            (x, y) => x - y)
-        {
-        }
-
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out int result)
         {
             return int.TryParse(text, numberStyles, culture, out result);
+        }
+
+        protected override int Add(int x, int y)
+        {
+            return x + y;
+        }
+
+        protected override int Subtract(int x, int y)
+        {
+            return x - y;
+        }
+
+        protected override int TypeMin()
+        {
+            return int.MinValue;
+        }
+
+        protected override int TypeMax()
+        {
+            return int.MaxValue;
         }
     }
 }

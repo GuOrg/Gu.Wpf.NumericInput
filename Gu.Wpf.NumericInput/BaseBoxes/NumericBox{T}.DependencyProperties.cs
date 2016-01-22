@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Input;
 
     public abstract partial class NumericBox<T>
     {
@@ -44,6 +45,29 @@
             new PropertyMetadata(
                 null,
                 OnMaxValueChanged));
+
+        public static readonly DependencyProperty AllowSpinnersProperty = NumericBox.AllowSpinnersProperty.AddOwner(
+            typeof(NumericBox<T>),
+            new FrameworkPropertyMetadata(
+                BooleanBoxes.False,
+                FrameworkPropertyMetadataOptions.Inherits,
+                OnAllowSpinnersChanged));
+
+        private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
+            "IncreaseCommand",
+            typeof(ICommand),
+            typeof(NumericBox<T>),
+            new PropertyMetadata(null));
+
+        public static readonly DependencyProperty IncreaseCommandProperty = IncreaseCommandPropertyKey.DependencyProperty;
+
+        private static readonly DependencyPropertyKey DecreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
+            "DecreaseCommand",
+            typeof(ICommand),
+            typeof(NumericBox<T>),
+            new PropertyMetadata(null));
+
+        public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
             "Increment",
@@ -116,6 +140,30 @@
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
+        public bool AllowSpinners
+        {
+            get { return (bool)this.GetValue(AllowSpinnersProperty); }
+            set { this.SetValue(AllowSpinnersProperty, value); }
+        }
+
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public ICommand IncreaseCommand
+        {
+            get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
+            private set { this.SetValue(IncreaseCommandPropertyKey, value); }
+        }
+
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public ICommand DecreaseCommand
+        {
+            get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
+            private set { this.SetValue(DecreaseCommandPropertyKey, value); }
+        }
+
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
         public T Increment
         {
             get { return (T)this.GetValue(IncrementProperty); }
@@ -165,6 +213,13 @@
                 box.CheckSpinners();
                 box.IsValidationDirty = true;
             }
+        }
+
+        private static void OnAllowSpinnersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (NumericBox<T>)d;
+            (box.IncreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
+            (box.DecreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
         }
 
         private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

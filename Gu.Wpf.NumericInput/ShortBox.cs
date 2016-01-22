@@ -15,16 +15,29 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<short>(typeof(ShortBox), 1);
         }
 
-        public ShortBox()
-            : base(
-            (x, y) => (short)(x + y),
-            (x, y) => (short)(x - y))
-        {
-        }
-
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out short result)
         {
             return short.TryParse(text, numberStyles, culture, out result);
+        }
+
+        protected override short Add(short x, short y)
+        {
+            return (short)(x + y);
+        }
+
+        protected override short Subtract(short x, short y)
+        {
+            return (short)(x - y);
+        }
+
+        protected override short TypeMin()
+        {
+            return short.MinValue;
+        }
+
+        protected override short TypeMax()
+        {
+            return short.MaxValue;
         }
     }
 }
