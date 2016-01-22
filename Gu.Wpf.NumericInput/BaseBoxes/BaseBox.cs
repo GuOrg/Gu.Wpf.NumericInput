@@ -7,6 +7,7 @@
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
+    using System.Windows.Input;
     using System.Windows.Threading;
 
     /// <summary>
@@ -31,6 +32,19 @@
         internal BindingExpression TextBindingExpression { get; }
 
         public abstract void UpdateValidation();
+
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            base.OnPreviewLostKeyboardFocus(e);
+            if (this.IsValidationDirty && this.ValidationTrigger == ValidationTrigger.LostFocus)
+            {
+                var status = this.Status;
+                this.Status = Status.Validating;
+                this.UpdateValidation();
+                this.IsValidationDirty = false;
+                this.Status = status;
+            }
+        }
 
         protected virtual void SetTextAndCreateUndoAction(string text)
         {

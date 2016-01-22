@@ -1,5 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
+    using System.Collections.Generic;
     using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White;
@@ -12,8 +13,8 @@
     {
         public class Spinners
         {
-            [Test]
-            public void UpdatesViewModel()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void UpdatesViewModel(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -23,9 +24,10 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.DigitsBox).Enter("1");
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     inputBox.Enter("1.23");
                     vmValueBox.Click();
@@ -76,8 +78,8 @@
                 }
             }
 
-            [Test]
-            public void TruncatesToMax()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void TruncatesToMax(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -88,16 +90,17 @@
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.IncrementBox).Enter("5");
                     groupBox.Get<TextBox>(AutomationIds.MaxBox).Enter("3");
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());
                     Assert.AreEqual("0", vmValueBox.Text);
                     Assert.AreEqual("0", inputBox.Value());
-                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
                     Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
@@ -117,8 +120,8 @@
                 }
             }
 
-            [Test]
-            public void TruncatesToMin()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void TruncatesToMin(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -129,16 +132,17 @@
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.IncrementBox).Enter("5");
                     groupBox.Get<TextBox>(AutomationIds.MinBox).Enter("-3");
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());
                     Assert.AreEqual("0", vmValueBox.Text);
                     Assert.AreEqual("0", inputBox.Value());
-                     Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
+                    Assert.AreEqual(Gu.Wpf.NumericInput.TextSource.ValueBinding, inputBox.TextSource());
                     Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
 
                     Assert.AreEqual(true, increaseButton.Enabled);
@@ -158,8 +162,8 @@
                 }
             }
 
-            [Test]
-            public void DecreasesWhenGreaterThanMax()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void DecreasesWhenGreaterThanMax(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -169,9 +173,10 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.MaxBox).Enter("3");
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     inputBox.Enter("5");
@@ -209,8 +214,8 @@
                 }
             }
 
-            [Test]
-            public void IncreasesWhenLessThanMin()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void IncreasesWhenLessThanMin(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -220,9 +225,10 @@
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
                     groupBox.Get<TextBox>(AutomationIds.MinBox).Enter("-3");
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     vmValueBox.Click();
                     inputBox.Enter("-5");
@@ -259,8 +265,8 @@
                 }
             }
 
-            [Test]
-            public void Undo()
+            [TestCaseSource(nameof(BoxContainerIds))]
+            public void Undo(string containerId)
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
                 {
@@ -269,9 +275,10 @@
                     page.Select();
                     var groupBox = window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
                     groupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox).Checked = true;
-                    var inputBox = groupBox.Get<TextBox>(AutomationIds.InputBox);
-                    var increaseButton = groupBox.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-                    var decreaseButton = groupBox.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+                    var container = groupBox.Get<UIItemContainer>(containerId);
+                    var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+                    var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+                    var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
                     var vmValueBox = groupBox.Get<TextBox>(AutomationIds.VmValueBox);
                     Assert.AreEqual("0", inputBox.EditText());
                     Assert.AreEqual("0", inputBox.FormattedText());
@@ -299,6 +306,13 @@
                     Assert.AreEqual(Gu.Wpf.NumericInput.Status.Idle, inputBox.Status());
                 }
             }
+
+            private static readonly IReadOnlyList<string> BoxContainerIds = new[]
+            {
+                AutomationIds.VanillaGroupBox,
+                AutomationIds.DataTemplateGroupBox,
+                AutomationIds.ControlTemplate
+            };
         }
     }
 }
