@@ -20,7 +20,7 @@
             typeof(ValidationTrigger),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(
-                ValidationTrigger.LostFocus, 
+                ValidationTrigger.LostFocus,
                 FrameworkPropertyMetadataOptions.Inherits));
 
         public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(

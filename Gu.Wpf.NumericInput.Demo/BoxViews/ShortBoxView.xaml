@@ -24,7 +24,9 @@
                           MaxValue="{Binding Max}"
                           MinValue="{Binding Min}"
                           RegexPattern="{Binding RegexPattern}"
-                          Value="{Binding Value}" />
+                          ValidationTrigger="{Binding ValidationTrigger}"
+                          Value="{Binding Value,
+                                          ValidatesOnDataErrors=True}" />
 
         <ItemsControl Grid.Row="1" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
             <ItemsControl Style="{StaticResource {x:Static propertyGrid:Keys.NestedPropertyGridStyleKey}}">
@@ -63,10 +65,51 @@
                 <CheckBox IsChecked="{Binding IsReadOnly}" />
             </HeaderedContentControl>
 
+            <HeaderedContentControl Header="HasErrors">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.HasErrorsBox}" IsChecked="{Binding HasErrors}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="ValidationTrigger">
+                <ComboBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.ValidationTriggerBox}" SelectedItem="{Binding ValidationTrigger}">
+                    <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
+                    <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
+                    <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
+                </ComboBox>
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="CanValueBeNull">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull}" />
+            </HeaderedContentControl>
+
             <HeaderedContentControl Header="Culture">
                 <ComboBox IsSynchronizedWithCurrentItem="True"
                           ItemsSource="{Binding Cultures}"
                           SelectedItem="{Binding Culture}" />
+            </HeaderedContentControl>
+
+
+            <HeaderedContentControl Header="AllowLeadingWhite">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowLeadingWhiteBox}" IsChecked="{Binding AllowLeadingWhite}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowTrailingWhite">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowTrailingWhiteBox}" IsChecked="{Binding AllowTrailingWhite}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowLeadingSign">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowLeadingSignBox}" IsChecked="{Binding AllowLeadingSign}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowDecimalPoint">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowDecimalPointBox}" IsChecked="{Binding AllowDecimalPoint}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowThousands">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowThousandsBox}" IsChecked="{Binding AllowThousands}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowExponent">
+                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowExponentBox}" IsChecked="{Binding AllowExponent}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Max">
