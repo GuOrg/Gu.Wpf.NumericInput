@@ -6,8 +6,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:numeric="http://gu.se/NumericInput"
              xmlns:propertyGrid="http://gu.se/PropertyGrid"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:DecimalBoxVm />
@@ -26,7 +24,9 @@
                             MaxValue="{Binding Max}"
                             MinValue="{Binding Min}"
                             RegexPattern="{Binding RegexPattern}"
-                            Value="{Binding Value}" />
+                            ValidationTrigger="{Binding ValidationTrigger}"
+                            Value="{Binding Value,
+                                            ValidatesOnDataErrors=True}" />
 
         <ItemsControl Grid.Row="1" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
             <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Status:" />
@@ -63,6 +63,22 @@
                 <CheckBox IsChecked="{Binding IsReadOnly}" />
             </HeaderedContentControl>
 
+            <HeaderedContentControl Header="HasErrors">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.HasErrorsBox}" IsChecked="{Binding HasErrors}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="ValidationTrigger">
+                <ComboBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.ValidationTriggerBox}" SelectedItem="{Binding ValidationTrigger}">
+                    <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
+                    <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
+                    <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
+                </ComboBox>
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="CanValueBeNull">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull}" />
+            </HeaderedContentControl>
+
             <HeaderedContentControl Header="Culture">
                 <ComboBox IsSynchronizedWithCurrentItem="True"
                           ItemsSource="{Binding Cultures}"
@@ -71,6 +87,31 @@
 
             <HeaderedContentControl Header="Decimals">
                 <TextBox Text="{Binding DecimalDigits, TargetNullValue=''}" />
+            </HeaderedContentControl>
+
+
+            <HeaderedContentControl Header="AllowLeadingWhite">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowLeadingWhiteBox}" IsChecked="{Binding AllowLeadingWhite}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowTrailingWhite">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowTrailingWhiteBox}" IsChecked="{Binding AllowTrailingWhite}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowLeadingSign">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowLeadingSignBox}" IsChecked="{Binding AllowLeadingSign}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowDecimalPoint">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowDecimalPointBox}" IsChecked="{Binding AllowDecimalPoint}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowThousands">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowThousandsBox}" IsChecked="{Binding AllowThousands}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="AllowExponent">
+                <CheckBox AutomationProperties.AutomationId="{x:Static local:AutomationIds.AllowExponentBox}" IsChecked="{Binding AllowExponent}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Max">
