@@ -2,6 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Gu.Wpf.NumericInput">
 
+    <ControlTemplate x:Key="{x:Static local:NumericBox.ValidationErrorRedBorderTemplateKey}">
+        <Border Margin="-1"
+                BorderBrush="Red"
+                BorderThickness="1">
+            <AdornedElementPlaceholder />
+        </Border>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="{x:Static local:NumericBox.ValidationErrorListTemplateKey}">
         <DockPanel SnapsToDevicePixels="True">
             <ListBox Background="{x:Null}"
@@ -46,7 +54,8 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Border BorderBrush="Red" BorderThickness="1">
+            <Border BorderBrush="Red"
+                    BorderThickness="1">
                 <AdornedElementPlaceholder x:Name="ErrorAdorner" />
             </Border>
         </DockPanel>
@@ -67,14 +76,11 @@
                              VerticalAlignment="Center"
                              Fill="Red"
                              SnapsToDevicePixels="True" />
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="8"
-                               FontWeight="Heavy"
-                               Foreground="White"
-                               SnapsToDevicePixels="True"
-                               Text="X"
-                               TextAlignment="Center" />
+                    <Path Data="M0,0L10,10 M10,0L0,10"
+                          Margin="2"
+                          Stretch="Fill"
+                          Stroke="White"
+                          StrokeThickness="2" />
                 </Grid>
             </Border>
             <AdornedElementPlaceholder x:Name="ErrorAdorner" />
