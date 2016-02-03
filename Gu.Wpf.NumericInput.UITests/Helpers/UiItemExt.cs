@@ -71,7 +71,8 @@
         internal static string EditText(this TextBox textBox)
         {
             var itemStatus = textBox.ItemStatus();
-            return textBox.Text;
+            var text = itemStatus.Get(System.Windows.Controls.TextBox.TextProperty);
+            return text;
         }
 
         internal static string FormattedText(this TextBox textBox)
@@ -95,8 +96,8 @@
 
         private static string Get(this string text, DependencyProperty property)
         {
-            return text.Split(new string[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-                .Single(x => x.StartsWith(property.Name))
+            return text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                .Single(x => x.StartsWith(property.Name + ":"))
                 .Split(':')[1]
                 .Trim();
 

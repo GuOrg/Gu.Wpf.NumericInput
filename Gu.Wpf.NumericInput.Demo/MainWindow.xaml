@@ -44,5 +44,9 @@
         <TabItem AutomationProperties.AutomationId="{x:Static demo:AutomationIds.FocusTab}" Header="Focus">
             <demo:FocusView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
+
+        <TabItem Header="Sandbox">
+            <demo:SandboxView HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </TabItem>
     </TabControl>
 </Window>
