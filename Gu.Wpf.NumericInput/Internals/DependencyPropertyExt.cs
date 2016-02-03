@@ -6,6 +6,55 @@
 
     internal static class DependencyPropertyExt
     {
+        internal static void OverrideMetadataWithUpdateSourceTrigger(
+    this DependencyProperty property,
+    Type forType,
+    UpdateSourceTrigger updateSourceTrigger)
+        {
+            OverrideMetadataWithUpdateSourceTrigger(property, property.OwnerType, forType, updateSourceTrigger);
+        }
+
+        internal static void OverrideMetadataWithUpdateSourceTrigger(
+            this DependencyProperty property,
+            Type ownerType,
+            Type forType,
+            UpdateSourceTrigger updateSourceTrigger)
+        {
+            var metadata = property.GetMetadata(ownerType);
+            if (metadata.GetType() == typeof(PropertyMetadata))
+            {
+                property.OverrideMetadata(
+                    forType,
+                    new FrameworkPropertyMetadata(
+                        metadata.DefaultValue,
+                        FrameworkPropertyMetadataOptions.None,
+                        metadata.PropertyChangedCallback,
+                        metadata.CoerceValueCallback,
+                        true,
+                        updateSourceTrigger));
+                return;
+            }
+
+            if (metadata.GetType() == typeof(FrameworkPropertyMetadata))
+            {
+                var fpm = (FrameworkPropertyMetadata)metadata;
+                var flags = GetFlags(fpm);
+                property.OverrideMetadata(
+                    forType,
+                    new FrameworkPropertyMetadata(
+                        fpm.DefaultValue,
+                        flags,
+                        metadata.PropertyChangedCallback,
+                        metadata.CoerceValueCallback,
+                        fpm.IsAnimationProhibited,
+                        updateSourceTrigger));
+                return;
+            }
+
+            var message = $"Can only be called for properties with metadata of type {typeof(PropertyMetadata)}";
+            throw new NotSupportedException(message);
+        }
+
         internal static void OverrideMetadataWithDefaultValue<T>(
             this DependencyProperty property,
             Type forType,
@@ -42,7 +91,9 @@
                         defaultValue,
                         flags,
                         metadata.PropertyChangedCallback,
-                        metadata.CoerceValueCallback));
+                        metadata.CoerceValueCallback,
+                        fpm.IsAnimationProhibited,
+                        fpm.DefaultUpdateSourceTrigger));
                 return;
             }
 
@@ -74,14 +125,15 @@
                         metadata.DefaultValue,
                         flags,
                         metadata.PropertyChangedCallback,
-                        coerceValueCallback));
+                        coerceValueCallback,
+                        fpm.IsAnimationProhibited,
+                        fpm.DefaultUpdateSourceTrigger));
                 return;
             }
 
             var message = $"Can only be called for properties with metadata of type {typeof(PropertyMetadata)}";
             throw new NotSupportedException(message);
         }
-
 
         internal static void OverrideMetadataWithOptions(this DependencyProperty property, Type forType, FrameworkPropertyMetadataOptions options)
         {
