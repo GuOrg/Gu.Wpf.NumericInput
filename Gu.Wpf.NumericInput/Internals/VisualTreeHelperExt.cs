@@ -1,6 +1,8 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
+    using System.CodeDom.Compiler;
     using System.Collections.Generic;
+    using System.IO;
     using System.Windows;
     using System.Windows.Media;
 
@@ -29,6 +31,34 @@
                         yield return nestedChild;
                     }
                 }
+            }
+        }
+
+        internal static string DumpVisualTree(this DependencyObject parent)
+        {
+            using (var stringWriter = new StringWriter())
+            {
+                using (var writer = new IndentedTextWriter(stringWriter))
+                {
+                    DumpVisualTree(parent, writer);
+                    return writer.ToString();
+                }
+            }
+        }
+
+        private static void DumpVisualTree(this DependencyObject parent, IndentedTextWriter writer)
+        {
+            writer.WriteLine(parent.GetType().Name);
+            if (VisualTreeHelper.GetChildrenCount(parent) != 0)
+            {
+                writer.Indent++;
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(parent, i);
+                    DumpVisualTree(child, writer);
+                }
+
+                writer.Indent--;
             }
         }
     }

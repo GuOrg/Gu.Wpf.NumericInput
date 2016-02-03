@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Threading;
@@ -23,6 +22,7 @@
 
         public const string FormattedName = "PART_FormattedText";
         private bool hasFormattedView;
+
         protected BaseBox()
         {
             this.AddHandler(LoadedEvent, LoadedHandler);
@@ -96,7 +96,10 @@
                                   $"The expected template is (pseudo)\r\n" +
                                   $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : "correct")}\r\n" +
                                   $"  {nameof(Grid)}: {(grid == null ? "null" : "correct")}\r\n" +
-                                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}";
+                                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}\r\n" +
+                                  $"But was:\r\n" +
+                                  $"{this.DumpVisualTree()}";
+
                     throw new InvalidOperationException(message);
                 }
                 else
@@ -109,6 +112,7 @@
             var formattedBox = (TextBlock)grid.FindName(FormattedName);
             if (formattedBox == null)
             {
+                this.hasFormattedView = true;
                 var whenNotFocused = new TextBlock
                 {
                     Name = FormattedName,
