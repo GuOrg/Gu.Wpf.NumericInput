@@ -7,7 +7,6 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
-    using System.Windows.Threading;
 
     /// <summary>
     /// The reason for having this stuff here is enabling a shared style
@@ -137,7 +136,7 @@
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e.Property == VisibilityProperty || e.Property == StringFormatProperty)
+            if (e.Property == IsVisibleProperty || e.Property == StringFormatProperty)
             {
                 if (this.IsVisible && !string.IsNullOrEmpty(this.StringFormat))
                 {

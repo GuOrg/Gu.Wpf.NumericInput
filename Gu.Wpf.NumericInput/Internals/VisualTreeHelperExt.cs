@@ -41,7 +41,7 @@
                 using (var writer = new IndentedTextWriter(stringWriter))
                 {
                     DumpVisualTree(parent, writer);
-                    return writer.ToString();
+                    return stringWriter.ToString();
                 }
             }
         }
