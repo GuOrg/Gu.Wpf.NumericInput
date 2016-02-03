@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
+    using System.ComponentModel;
     using System.Globalization;
     using System.Threading;
     using System.Windows;
@@ -64,6 +65,9 @@
             element.SetValue(CultureProperty, value);
         }
 
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        [TypeConverter(typeof(CultureInfoConverter))]
         public static CultureInfo GetCulture(this UIElement element)
         {
             return (CultureInfo)element.GetValue(CultureProperty);

@@ -138,6 +138,7 @@
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
+        [TypeConverter(typeof(CultureInfoConverter))]
         public IFormatProvider Culture
         {
             get { return (IFormatProvider)this.GetValue(CultureProperty); }
