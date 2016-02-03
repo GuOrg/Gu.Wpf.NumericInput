@@ -40,7 +40,8 @@
                                RegexPattern=""
                                StringFormat=""
                                ValidationTrigger="PropertyChanged"
-                               Value="" />
+                               Validation.ErrorTemplate="{StaticResource {x:Static numeric:NumericBox.SimpleValidationErrorTemplateKey}}"
+                               Value="{x:Null}" />
         </numeric:SpinnerDecorator>
     </StackPanel>
 </UserControl>
