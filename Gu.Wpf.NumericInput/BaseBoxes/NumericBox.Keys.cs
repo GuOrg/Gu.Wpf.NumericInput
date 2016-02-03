@@ -15,6 +15,8 @@
 
         public static ResourceKey ValidationErrorRedBorderTemplateKey { get; } = CreateKey();
 
+        public static ResourceKey ValidationErrorTextUnderTemplateKey { get; } = CreateKey();
+
         public static ResourceKey ValidationErrorListTemplateKey { get; } = CreateKey();
 
         public static ResourceKey SimpleValidationErrorTemplateKey { get; } = CreateKey();

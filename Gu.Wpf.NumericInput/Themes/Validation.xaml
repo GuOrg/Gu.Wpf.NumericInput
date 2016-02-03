@@ -10,55 +10,101 @@
         </Border>
     </ControlTemplate>
 
+    <Style x:Key="ValidationTextStyle"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <DataTemplate DataType="{x:Type local:CanParseValidationResult}">
+        <TextBlock Style="{DynamicResource ValidationTextStyle}"
+                   Text="{Binding ErrorContent}" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:IsGreaterThanValidationResult}">
+        <TextBlock Style="{DynamicResource ValidationTextStyle}"
+                   Text="{Binding ErrorContent}" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:IsLessThanValidationResult}">
+        <TextBlock Style="{DynamicResource ValidationTextStyle}"
+                   Text="{Binding ErrorContent}" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:IsMatchValidationResult}">
+        <TextBlock Style="{DynamicResource ValidationTextStyle}"
+                   Text="{Binding ErrorContent}" />
+    </DataTemplate>
+
     <ControlTemplate x:Key="{x:Static local:NumericBox.ValidationErrorListTemplateKey}">
-        <DockPanel SnapsToDevicePixels="True">
-            <ListBox Background="{x:Null}"
-                     BorderThickness="0"
-                     DockPanel.Dock="Right"
-                     ItemsSource="{Binding ElementName=ErrorAdorner,
-                                           Path=AdornedElement.(Validation.Errors)}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type ValidationError}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid Width="12"
-                                  Height="12"
-                                  VerticalAlignment="Center">
-                                <Ellipse Width="12"
-                                         Height="12"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center"
-                                         Fill="Red"
-                                         SnapsToDevicePixels="True" />
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="8"
-                                           FontWeight="Heavy"
-                                           Foreground="White"
-                                           SnapsToDevicePixels="True"
-                                           Text="X"
-                                           TextAlignment="Center"
-                                           ToolTip="{Binding ErrorContent}" />
-                            </Grid>
-                            <TextBlock Grid.Column="1"
-                                       Margin="2,0,0,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Foreground="Red"
-                                       SnapsToDevicePixels="True"
-                                       Text="{Binding ErrorContent}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Border BorderBrush="Red"
+        <Grid Focusable="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Margin="-1"
+                    BorderBrush="Red"
                     BorderThickness="1">
                 <AdornedElementPlaceholder x:Name="ErrorAdorner" />
             </Border>
-        </DockPanel>
+            <ItemsControl Grid.Column="2"
+                          VerticalAlignment="Center"
+                          Background="{x:Null}"
+                          BorderThickness="0"
+                          ItemsSource="{Binding ElementName=ErrorAdorner,
+                                                Path=AdornedElement.(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type ValidationError}">
+                        <TextBlock Style="{StaticResource ValidationTextStyle}"
+                                   Text="{Binding ErrorContent.ErrorContent}" />
+                        <!--  yes it is supposed to be ErrorContent.ErrorContent  -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="{x:Static local:NumericBox.ValidationErrorTextUnderTemplateKey}">
+        <Grid Focusable="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    BorderBrush="Red"
+                    BorderThickness="0,0,0,1">
+                <AdornedElementPlaceholder x:Name="ErrorAdorner" />
+            </Border>
+            <ItemsControl Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          Margin="0"
+                          VerticalAlignment="Top"
+                          Background="{x:Null}"
+                          BorderThickness="0"
+                          ItemsSource="{Binding ElementName=ErrorAdorner,
+                                                Path=AdornedElement.(Validation.Errors)}"
+                          Padding="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type ValidationError}">
+                        <TextBlock Margin="0"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top"
+                                   Padding="0"
+                                   Style="{StaticResource ValidationTextStyle}"
+                                   Text="{Binding ErrorContent.ErrorContent}" />
+                        <!--  yes it is supposed to be ErrorContent.ErrorContent  -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </ControlTemplate>
 
     <ControlTemplate x:Key="{x:Static local:NumericBox.SimpleValidationErrorTemplateKey}">
@@ -76,8 +122,8 @@
                              VerticalAlignment="Center"
                              Fill="Red"
                              SnapsToDevicePixels="True" />
-                    <Path Data="M0,0L10,10 M10,0L0,10"
-                          Margin="2"
+                    <Path Margin="2"
+                          Data="M0,0L10,10 M10,0L0,10"
                           Stretch="Fill"
                           Stroke="White"
                           StrokeThickness="2" />

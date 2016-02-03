@@ -10,8 +10,9 @@
         <local:DoubleBoxVm />
     </UserControl.DataContext>
     <StackPanel>
-        <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
-            <numeric:DoubleBox AllowSpinners="False"
+        <numeric:SpinnerDecorator Width="100">
+            <numeric:DoubleBox Margin="5"
+                               AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
                                DecimalDigits="4"
@@ -26,8 +27,7 @@
                                Value="1.23" />
         </numeric:SpinnerDecorator>
         <numeric:SpinnerDecorator Width="100"
-                                  Margin="5"
-                                  HorizontalAlignment="Left">
+                                  Margin="5">
             <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
@@ -39,9 +39,9 @@
                                NumberStyles="AllowDecimalPoint, AllowLeadingSign"
                                RegexPattern=""
                                StringFormat=""
+                               Validation.ErrorTemplate="{StaticResource {x:Static numeric:NumericBox.ValidationErrorTextUnderTemplateKey}}"
                                ValidationTrigger="PropertyChanged"
-                               Validation.ErrorTemplate="{StaticResource {x:Static numeric:NumericBox.SimpleValidationErrorTemplateKey}}"
-                               Value="{x:Null}" />
+                               Value="20" />
         </numeric:SpinnerDecorator>
     </StackPanel>
 </UserControl>
