@@ -85,6 +85,9 @@
     <Compile Include="DemoVm.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SandboxView.xaml.cs">
+      <DependentUpon>SandboxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyledDoubleBoxView.xaml.cs">
       <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DemoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SandboxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

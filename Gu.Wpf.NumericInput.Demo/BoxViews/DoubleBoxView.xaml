@@ -34,7 +34,7 @@
             </numeric:SpinnerDecorator>
         </DataTemplate>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -71,8 +71,7 @@
         <GroupBox Grid.Row="1"
                   AutomationProperties.AutomationId="{x:Static local:AutomationIds.DataTemplateGroupBox}"
                   Header="DataTemplate">
-            <ContentPresenter Content="{Binding}" 
-                              ContentTemplate="{StaticResource DataTemplate}" />
+            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource DataTemplate}" />
         </GroupBox>
 
         <HeaderedContentControl Grid.Row="2"
