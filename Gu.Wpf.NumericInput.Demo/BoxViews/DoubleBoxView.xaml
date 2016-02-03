@@ -10,8 +10,35 @@
     <UserControl.DataContext>
         <local:DoubleBoxVm />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <DataTemplate x:Key="DataTemplate" DataType="{x:Type local:DoubleBoxVm}">
+            <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
+                <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
+                                   AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
+                                   CanValueBeNull="{Binding CanValueBeNull}"
+                                   Culture="{Binding Culture}"
+                                   DecimalDigits="{Binding DecimalDigits}"
+                                   Increment="{Binding Increment}"
+                                   IsReadOnly="{Binding IsReadOnly}"
+                                   MaxValue="{Binding Max}"
+                                   MinValue="{Binding Min}"
+                                   NumberStyles="{Binding NumberStyles,
+                                                          Mode=OneWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                   RegexPattern="{Binding RegexPattern}"
+                                   StringFormat="{Binding StringFormat,
+                                                          Mode=TwoWay}"
+                                   ValidationTrigger="{Binding ValidationTrigger}"
+                                   Value="{Binding Value,
+                                                   ValidatesOnNotifyDataErrors=True}" />
+            </numeric:SpinnerDecorator>
+        </DataTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -44,31 +71,8 @@
         <GroupBox Grid.Row="1"
                   AutomationProperties.AutomationId="{x:Static local:AutomationIds.DataTemplateGroupBox}"
                   Header="DataTemplate">
-            <GroupBox.Resources>
-                <DataTemplate x:Key="DataTemplate" DataType="{x:Type local:DoubleBoxVm}">
-                    <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
-                        <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
-                                           AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
-                                           CanValueBeNull="{Binding CanValueBeNull}"
-                                           Culture="{Binding Culture}"
-                                           DecimalDigits="{Binding DecimalDigits}"
-                                           Increment="{Binding Increment}"
-                                           IsReadOnly="{Binding IsReadOnly}"
-                                           MaxValue="{Binding Max}"
-                                           MinValue="{Binding Min}"
-                                           NumberStyles="{Binding NumberStyles,
-                                                                  Mode=OneWay,
-                                                                  UpdateSourceTrigger=PropertyChanged}"
-                                           RegexPattern="{Binding RegexPattern}"
-                                           StringFormat="{Binding StringFormat,
-                                                                  Mode=TwoWay}"
-                                           ValidationTrigger="{Binding ValidationTrigger}"
-                                           Value="{Binding Value,
-                                                           ValidatesOnNotifyDataErrors=True}" />
-                    </numeric:SpinnerDecorator>
-                </DataTemplate>
-            </GroupBox.Resources>
-            <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource DataTemplate}" />
+            <ContentPresenter Content="{Binding}" 
+                              ContentTemplate="{StaticResource DataTemplate}" />
         </GroupBox>
 
         <HeaderedContentControl Grid.Row="2"

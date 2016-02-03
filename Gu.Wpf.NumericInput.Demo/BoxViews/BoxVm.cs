@@ -369,7 +369,7 @@
         public IEnumerable GetErrors(string propertyName)
         {
             return this.HasErrors && propertyName == nameof(this.Value)
-                ? new[] {"Has error"}
+                ? new[] { "Has error" }
                 : Enumerable.Empty<string>();
         }
 
