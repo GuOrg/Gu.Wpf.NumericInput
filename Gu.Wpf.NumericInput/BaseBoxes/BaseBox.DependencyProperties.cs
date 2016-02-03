@@ -13,6 +13,14 @@
     /// </summary>
     public abstract partial class BaseBox
     {
+        private static readonly DependencyPropertyKey HasFormattedViewPropertyKey = DependencyProperty.RegisterReadOnly(
+            "HasFormattedView",
+            typeof(bool),
+            typeof(BaseBox),
+            new PropertyMetadata(default(bool)));
+
+        public static readonly DependencyProperty HasFormattedViewProperty = HasFormattedViewPropertyKey.DependencyProperty;
+
         public static readonly DependencyProperty TextValueConverterProperty = DependencyProperty.Register(
             "TextValueConverter",
             typeof(IValueConverter),
@@ -92,6 +100,14 @@
         {
             TextProperty.OverrideMetadataWithOptions(typeof(BaseBox), FrameworkPropertyMetadataOptions.NotDataBindable);
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
+        }
+
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public bool HasFormattedView
+        {
+            get { return (bool)this.GetValue(HasFormattedViewProperty); }
+            protected set { this.SetValue(HasFormattedViewPropertyKey, value); }
         }
 
         public IValueConverter TextValueConverter

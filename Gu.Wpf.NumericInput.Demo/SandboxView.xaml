@@ -10,16 +10,14 @@
         <local:DoubleBoxVm />
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style x:Key="NumericBoxPresenter"
-               TargetType="{x:Type ContentPresenter}">
+        <Style x:Key="NumericBoxPresenter" TargetType="{x:Type ContentPresenter}">
             <Setter Property="Content">
                 <Setter.Value>
-                    <numeric:SpinnerDecorator Width="100"
-                                              Margin="0,0,0,20">
+                    <numeric:SpinnerDecorator Width="100" Margin="0,0,0,20">
                         <numeric:DoubleBox AllowSpinners="False"
                                            CanValueBeNull="False"
                                            Culture="sv-se"
-                                           DecimalDigits="2"
+                                           DecimalDigits="1"
                                            Increment="1"
                                            IsReadOnly="False"
                                            MaxValue="10"
@@ -35,12 +33,11 @@
         </Style>
     </UserControl.Resources>
     <StackPanel>
-        <numeric:SpinnerDecorator Width="100"
-                                  Margin="0,0,0,20">
+        <numeric:SpinnerDecorator Width="100" Margin="0,0,0,20">
             <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
-                               DecimalDigits="4"
+                               DecimalDigits="3"
                                Increment="1"
                                IsReadOnly="False"
                                MaxValue="10"
@@ -52,8 +49,7 @@
                                Value="1.23" />
         </numeric:SpinnerDecorator>
 
-        <numeric:SpinnerDecorator Width="100"
-                                  Margin="0,0,0,20">
+        <numeric:SpinnerDecorator Width="100" Margin="0,0,0,20">
             <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"

@@ -20,7 +20,6 @@
         private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
 
         public const string FormattedName = "PART_FormattedText";
-        private bool hasFormattedView;
 
         protected BaseBox()
         {
@@ -71,37 +70,30 @@
 
         protected void UpdateView()
         {
-            if (this.hasFormattedView)
+            if (!this.IsLoaded || this.HasFormattedView)
             {
                 return;
             }
 
             var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
-            ////if (scrollViewer != null && this.IsLoaded && !scrollViewer.IsLoaded)
-            ////{
-            ////    // let visual tree build
-            ////    this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));
-            ////    return;
-            ////}
-
             var whenFocused = scrollViewer?.NestedChildren().OfType<ScrollContentPresenter>().SingleOrDefault();
             var grid = whenFocused?.Parent as Grid;
             if (scrollViewer == null || whenFocused == null || grid == null)
             {
-                if (DesignerProperties.GetIsInDesignMode(this))
-                {
-                    var message = $"The template does not match the expected template.\r\n" +
-                                  $"Cannot create formatted view\r\n" +
-                                  $"The expected template is (pseudo)\r\n" +
-                                  $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : "correct")}\r\n" +
-                                  $"  {nameof(Grid)}: {(grid == null ? "null" : "correct")}\r\n" +
-                                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}\r\n" +
-                                  $"But was:\r\n" +
-                                  $"{this.DumpVisualTree()}";
+                //if (DesignerProperties.GetIsInDesignMode(this))
+                //{
+                //    var message = $"The template does not match the expected template.\r\n" +
+                //                  $"Cannot create formatted view\r\n" +
+                //                  $"The expected template is (pseudo)\r\n" +
+                //                  $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : "correct")}\r\n" +
+                //                  $"  {nameof(Grid)}: {(grid == null ? "null" : "correct")}\r\n" +
+                //                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}\r\n" +
+                //                  $"But was:\r\n" +
+                //                  $"{this.DumpVisualTree()}";
 
-                    throw new InvalidOperationException(message);
-                }
-                else
+                //    throw new InvalidOperationException(message);
+                //}
+                //else
                 {
                     // Falling back to vanilla textbox in runtime
                     return;
@@ -111,7 +103,7 @@
             var formattedBox = (TextBlock)grid.FindName(FormattedName);
             if (formattedBox == null)
             {
-                this.hasFormattedView = true;
+                this.HasFormattedView = true;
                 var whenNotFocused = new TextBlock
                 {
                     Name = FormattedName,
@@ -149,6 +141,14 @@
 
         protected virtual void OnLoaded()
         {
+            this.UpdateView();
+        }
+
+        public override void OnApplyTemplate()
+        {
+            this.HasFormattedView = false;
+            base.OnApplyTemplate();
+            this.UpdateView();
         }
 
         private static void OnLoaded(object sender, RoutedEventArgs e)
