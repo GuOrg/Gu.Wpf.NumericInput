@@ -9,10 +9,35 @@
     <UserControl.DataContext>
         <local:DoubleBoxVm />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style x:Key="NumericBoxPresenter"
+               TargetType="{x:Type ContentPresenter}">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <numeric:SpinnerDecorator Width="100"
+                                              Margin="0,0,0,20">
+                        <numeric:DoubleBox AllowSpinners="False"
+                                           CanValueBeNull="False"
+                                           Culture="sv-se"
+                                           DecimalDigits="2"
+                                           Increment="1"
+                                           IsReadOnly="False"
+                                           MaxValue="10"
+                                           MinValue="-10"
+                                           NumberStyles="AllowDecimalPoint, AllowLeadingSign"
+                                           RegexPattern=""
+                                           StringFormat="N1"
+                                           ValidationTrigger="PropertyChanged"
+                                           Value="1.23" />
+                    </numeric:SpinnerDecorator>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
-        <numeric:SpinnerDecorator Width="100">
-            <numeric:DoubleBox Margin="5"
-                               AllowSpinners="False"
+        <numeric:SpinnerDecorator Width="100"
+                                  Margin="0,0,0,20">
+            <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
                                DecimalDigits="4"
@@ -26,8 +51,9 @@
                                ValidationTrigger="PropertyChanged"
                                Value="1.23" />
         </numeric:SpinnerDecorator>
+
         <numeric:SpinnerDecorator Width="100"
-                                  Margin="5">
+                                  Margin="0,0,0,20">
             <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
@@ -43,5 +69,7 @@
                                ValidationTrigger="PropertyChanged"
                                Value="20" />
         </numeric:SpinnerDecorator>
+
+        <ContentPresenter Style="{StaticResource NumericBoxPresenter}" />
     </StackPanel>
 </UserControl>
