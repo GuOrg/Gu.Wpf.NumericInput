@@ -78,12 +78,12 @@
             }
 
             var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
-            if (scrollViewer != null && this.IsLoaded && !scrollViewer.IsLoaded)
-            {
-                // let visual tree build
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));
-                return;
-            }
+            ////if (scrollViewer != null && this.IsLoaded && !scrollViewer.IsLoaded)
+            ////{
+            ////    // let visual tree build
+            ////    this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.UpdateView));
+            ////    return;
+            ////}
 
             var whenFocused = scrollViewer?.NestedChildren().OfType<ScrollContentPresenter>().SingleOrDefault();
             var grid = whenFocused?.Parent as Grid;

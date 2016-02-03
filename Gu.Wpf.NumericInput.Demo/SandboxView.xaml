@@ -9,13 +9,30 @@
     <UserControl.DataContext>
         <local:DoubleBoxVm />
     </UserControl.DataContext>
-    <Grid>
+    <StackPanel>
         <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
             <numeric:DoubleBox AllowSpinners="False"
                                CanValueBeNull="False"
                                Culture="sv-se"
+                               DecimalDigits="4"
+                               Increment="1"
+                               IsReadOnly="False"
+                               MaxValue="10"
+                               MinValue="-10"
+                               NumberStyles="AllowDecimalPoint, AllowLeadingSign"
+                               RegexPattern=""
+                               StringFormat="N1"
+                               ValidationTrigger="PropertyChanged"
+                               Value="1.23" />
+        </numeric:SpinnerDecorator>
+        <numeric:SpinnerDecorator Width="100"
+                                  Margin="5"
+                                  HorizontalAlignment="Left">
+            <numeric:DoubleBox AllowSpinners="False"
+                               CanValueBeNull="False"
+                               Culture="sv-se"
                                DecimalDigits="{x:Null}"
-                               Increment="2"
+                               Increment="1"
                                IsReadOnly="False"
                                MaxValue="10"
                                MinValue="-10"
@@ -23,7 +40,7 @@
                                RegexPattern=""
                                StringFormat=""
                                ValidationTrigger="PropertyChanged"
-                               Value="1.23" />
+                               Value="" />
         </numeric:SpinnerDecorator>
-    </Grid>
+    </StackPanel>
 </UserControl>
