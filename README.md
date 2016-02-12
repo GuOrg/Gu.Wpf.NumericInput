@@ -44,6 +44,8 @@ Bind the `Value`property of the boxes like this:
 - Compatible with WPF undo/redo.
 - SpinnerDecorator for up/down buttons.
 
+![render](http://i.imgur.com/ru5TESv.gif)
+
 ##### Validation
 Validates as you type even if the binding has `UpdateSourceTrigger=LostFocus.`
 
