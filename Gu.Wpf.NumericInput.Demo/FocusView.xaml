@@ -19,22 +19,31 @@
                                                                  ElementName=SelectAllOnDoubleClick}"
                  select:TextBox.SelectAllOnGotKeyboardFocus="{Binding IsChecked,
                                                                       ElementName=SelectAllOnFocus}">
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}" Header="TextBoxes">
-            <UniformGrid Columns="1" KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}" Text="{Binding Value2}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}" Text="{Binding Value3}" />
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}"
+                  Header="TextBoxes">
+            <UniformGrid Columns="1"
+                         KeyboardNavigation.TabNavigation="Cycle">
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
+                         Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}"
+                         Text="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}"
+                         Text="{Binding Value3}" />
             </UniformGrid>
         </GroupBox>
 
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}" Header="DoubleBoxes">
-            <UniformGrid Columns="1" KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}"
+                  Header="DoubleBoxes">
+            <UniformGrid Columns="1"
+                         KeyboardNavigation.TabNavigation="Cycle">
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
+                         Text="{Binding Value1}" />
 
                 <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                ElementName=AllowSpinners}"
                                        AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                       DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value2}" />
                 </numeric:SpinnerDecorator>
 
@@ -42,6 +51,7 @@
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                ElementName=AllowSpinners}"
                                        AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                       DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value3}" />
                 </numeric:SpinnerDecorator>
             </UniformGrid>
@@ -50,6 +60,7 @@
         <GroupBox Header="Settings">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -111,6 +122,16 @@
                           VerticalAlignment="Center"
                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.MoveFocusOnEnterBox}"
                           IsChecked="False" />
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Text="DecimalDigits" />
+                <TextBox Grid.Row="5"
+                         Grid.Column="1"
+                         VerticalAlignment="Center"
+                         AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DigitsBox}"
+                         Text="{Binding DecimalDigits,
+                                        TargetNullValue=''}" />
             </Grid>
         </GroupBox>
     </UniformGrid>
