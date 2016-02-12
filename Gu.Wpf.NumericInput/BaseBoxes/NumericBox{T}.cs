@@ -92,21 +92,9 @@
             return value?.ToString(this.Culture) ?? string.Empty;
         }
 
-        public void UpdateFormat()
+        public void UpdateFormattedText()
         {
-            var text = this.Text;
-            T result;
-            if (this.TryParse(text, out result))
-            {
-                var newText = this.Format(result);
-                this.FormattedText = newText;
-            }
-            else
-            {
-                this.FormattedText = text;
-            }
-
-            this.IsFormattingDirty = false;
+            this.UpdateFormattedText(false);
         }
 
         public override void UpdateValidation()
@@ -123,6 +111,34 @@
 
             this.IsValidationDirty = false;
             this.Status = status;
+        }
+
+        public void UpdateFormattedText(bool skipIfNotDirty)
+        {
+            if (skipIfNotDirty && !this.IsFormattingDirty)
+            {
+                return;
+            }
+
+            var text = this.Text;
+            T result;
+            if (this.TryParse(text, out result))
+            {
+                this.UpdateFormattedText(result);
+            }
+            else
+            {
+                this.FormattedText = text;
+            }
+
+            this.IsFormattingDirty = false;
+        }
+
+        protected virtual void UpdateFormattedText(T? value)
+        {
+            var formattedText = this.Format(value);
+            this.FormattedText = formattedText;
+            this.IsFormattingDirty = false;
         }
 
         protected virtual void ResetValueFromSource()
@@ -147,7 +163,7 @@
                 this.TextSource = TextSource.ValueBinding;
                 var newRaw = (string)this?.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
                 this.SetTextClearUndo(newRaw);
-                this.FormattedText = this.Format(newValue);
+                this.UpdateFormattedText(newValue);
                 this.IsValidationDirty = true;
                 this.CheckSpinners();
                 this.Status = Status.Idle;
@@ -292,7 +308,7 @@
         {
             Keyboard.Focus(this);
             this.SetTextAndCreateUndoAction(value.ToString(this.Culture));
-            this.FormattedText = this.Format(value);
+            this.UpdateFormattedText(value);
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -315,10 +331,17 @@
             base.OnPropertyChanged(e);
         }
 
+        protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            Debug.WriteLine(string.Empty);
+            this.UpdateFormattedText(true);
+            base.OnLostKeyboardFocus(e);
+        }
+
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
-            this.UpdateFormat();
+            this.UpdateFormattedText(true);
             base.OnLostFocus(e);
         }
 
@@ -346,12 +369,12 @@
         {
             Debug.WriteLine(string.Empty);
             var box = (NumericBox<T>)sender;
-            if (box.IsFocused || box.IsKeyboardFocusWithin)
+            if (box.IsKeyboardFocused || box.IsKeyboardFocusWithin)
             {
                 return;
             }
 
-            box.UpdateFormat();
+            box.UpdateFormattedText(true);
         }
 
         private static void OnValidationDirty(object sender, RoutedEventArgs e)

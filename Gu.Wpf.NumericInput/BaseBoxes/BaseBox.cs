@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
-    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;

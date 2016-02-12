@@ -10,6 +10,8 @@
         private double value2 = 2.345;
         private double value3 = 3.456;
 
+        private int? decimalDigits;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public double Value1
@@ -41,6 +43,23 @@
             {
                 if (value.Equals(this.value3)) return;
                 this.value3 = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public int? DecimalDigits
+        {
+            get
+            {
+                return this.decimalDigits;
+            }
+            set
+            {
+                if (value == this.decimalDigits)
+                {
+                    return;
+                }
+                this.decimalDigits = value;
                 this.OnPropertyChanged();
             }
         }
