@@ -107,7 +107,7 @@
         public bool HasFormattedView
         {
             get { return (bool)this.GetValue(HasFormattedViewProperty); }
-            protected set { this.SetValue(HasFormattedViewPropertyKey, value); }
+            protected internal set { this.SetValue(HasFormattedViewPropertyKey, value); }
         }
 
         public IValueConverter TextValueConverter
