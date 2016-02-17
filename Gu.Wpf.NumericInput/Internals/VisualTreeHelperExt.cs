@@ -1,8 +1,10 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
+    using System;
     using System.CodeDom.Compiler;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Media;
 
@@ -31,6 +33,52 @@
                         yield return nestedChild;
                     }
                 }
+            }
+        }
+
+        internal static T SingleOrNull<T>(this IEnumerable<object> items)
+            where T : class 
+        {
+            T match = null;
+            foreach (var item in items)
+            {
+                var temp = item as T;
+                if (temp != null)
+                {
+                    if (match != null)
+                    {
+                        return null;
+                    }
+
+                    match = temp;
+                }
+            }
+
+            return match;
+        }
+
+        internal static T VisualChild<T>(this Visual parent)
+            where T : Visual
+        {
+            var count = VisualTreeHelper.GetChildrenCount(parent);
+            if (count > 1)
+            {
+                throw new InvalidOperationException("Expected single child");
+            }
+
+            if (count == 0)
+            {
+                return default(T);
+            }
+
+            return (T)VisualTreeHelper.GetChild(parent, 0);
+        }
+
+        internal static IEnumerable<Visual> VisualChildren(this Visual parent)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                yield return (Visual)VisualTreeHelper.GetChild(parent, i);
             }
         }
 

@@ -4,8 +4,10 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     /// <summary>
     /// The reason for having this stuff here is enabling a shared style
@@ -69,30 +71,18 @@
 
         protected void UpdateView()
         {
-            if (!this.IsLoaded || this.HasFormattedView)
+            if (!this.IsLoaded || this.HasFormattedView || string.IsNullOrEmpty(this.StringFormat))
             {
                 return;
             }
 
+            var chrome = this.VisualChildren().SingleOrNull<Decorator>();
             var scrollViewer = this.Template?.FindName("PART_ContentHost", this) as ScrollViewer;
-            var whenFocused = scrollViewer?.NestedChildren().OfType<ScrollContentPresenter>().SingleOrDefault();
-            var grid = whenFocused?.Parent as Grid;
-            if (scrollViewer == null || whenFocused == null || grid == null)
+            var scrollContentPresenter = scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>();
+            var grid = scrollContentPresenter?.Parent as Grid;
+            var textView = scrollContentPresenter?.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
+            if (scrollViewer == null || scrollContentPresenter == null || grid == null || textView == null || chrome == null)
             {
-                //if (DesignerProperties.GetIsInDesignMode(this))
-                //{
-                //    var message = $"The template does not match the expected template.\r\n" +
-                //                  $"Cannot create formatted view\r\n" +
-                //                  $"The expected template is (pseudo)\r\n" +
-                //                  $"{nameof(ScrollViewer)}: {(scrollViewer == null ? "null" : "correct")}\r\n" +
-                //                  $"  {nameof(Grid)}: {(grid == null ? "null" : "correct")}\r\n" +
-                //                  $"    {nameof(ScrollContentPresenter)}: {(whenFocused == null ? "null" : "correct")}\r\n" +
-                //                  $"But was:\r\n" +
-                //                  $"{this.DumpVisualTree()}";
-
-                //    throw new InvalidOperationException(message);
-                //}
-                //else
                 {
                     // Falling back to vanilla textbox in runtime
                     return;
@@ -103,25 +93,26 @@
             if (formattedBox == null)
             {
                 this.HasFormattedView = true;
-                var whenNotFocused = new TextBlock
+                formattedBox = new TextBlock
                 {
                     Name = FormattedName,
-                    VerticalAlignment = VerticalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    IsHitTestVisible = false
                 };
 
-                whenNotFocused.Bind(TextBlock.TextProperty)
+                formattedBox.Bind(TextBlock.TextProperty)
                     .OneWayTo(this, FormattedTextProperty);
 
-                whenNotFocused.Bind(MarginProperty)
-                    .OneWayTo(whenFocused, MarginProperty, FormattedTextBlockMarginConverter.Default, whenFocused);
+                formattedBox.Bind(MarginProperty)
+                    .OneWayTo(scrollContentPresenter, MarginProperty, FormattedTextBlockMarginConverter.Default, scrollContentPresenter);
 
-                whenNotFocused.Bind(VisibilityProperty)
+                formattedBox.Bind(VisibilityProperty)
                     .OneWayTo(this, IsKeyboardFocusWithinProperty, HiddenWhenTrueConverter.Default);
 
-                grid.Children.Add(whenNotFocused);
+                formattedBox.Bind(TextBlock.BackgroundProperty)
+                            .OneWayTo(chrome, BackgroundProperty);
 
-                whenFocused.Bind(VisibilityProperty)
-                    .OneWayTo(this, IsKeyboardFocusWithinProperty, VisibleWhenTrueConverter.Default);
+                grid.Children.Add(formattedBox);
             }
         }
 
