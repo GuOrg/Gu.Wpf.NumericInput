@@ -60,55 +60,64 @@
         <GroupBox>
             <!--<TextBlock Text="This is an attemp at reproing a strange focus issue"/>-->
             <ScrollViewer>
-                <ItemsControl >
+                <ItemsControl>
                     <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                         Text="{Binding Value1}" />
+                             Text="{Binding Value1}" />
 
                     <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                         <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
-                                       DecimalDigits="{Binding DecimalDigits}"
-                                       Value="{Binding Value2}" />
+                                                                   ElementName=AllowSpinners}"
+                                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Value="{Binding Value2}" />
                     </numeric:SpinnerDecorator>
 
                     <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners2}">
                         <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
-                                       DecimalDigits="{Binding DecimalDigits}"
-                                       Value="{Binding Value3}" />
+                                                                   ElementName=AllowSpinners}"
+                                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Value="{Binding Value3}" />
                     </numeric:SpinnerDecorator>
 
                     <TextBlock>
-                        This<LineBreak />
-                        is<LineBreak />
-                        an<LineBreak />
-                        attempt<LineBreak />
-                        at reproducing<LineBreak />
-                        a<LineBreak />
-                        strange<LineBreak />
-                        focus<LineBreak />
-                        bug<LineBreak />
+                        This
+                        <LineBreak />
+                        is
+                        <LineBreak />
+                        an
+                        <LineBreak />
+                        attempt
+                        <LineBreak />
+                        at reproducing
+                        <LineBreak />
+                        a
+                        <LineBreak />
+                        strange
+                        <LineBreak />
+                        focus
+                        <LineBreak />
+                        bug
+                        <LineBreak />
                     </TextBlock>
 
                     <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                         Text="{Binding Value1}" />
+                             Text="{Binding Value1}" />
 
                     <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                         <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
-                                       DecimalDigits="{Binding DecimalDigits}"
-                                       Value="{Binding Value2}" />
+                                                                   ElementName=AllowSpinners}"
+                                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Value="{Binding Value2}" />
                     </numeric:SpinnerDecorator>
 
                     <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners2}">
                         <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
-                                       DecimalDigits="{Binding DecimalDigits}"
-                                       Value="{Binding Value3}" />
+                                                                   ElementName=AllowSpinners}"
+                                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                           DecimalDigits="{Binding DecimalDigits}"
+                                           Value="{Binding Value3}" />
                     </numeric:SpinnerDecorator>
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                ElementName=AllowSpinners}"
