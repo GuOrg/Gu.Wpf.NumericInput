@@ -77,20 +77,20 @@
                     Assert.AreEqual(false, textBox1.IsFocussed);
                     Assert.AreEqual(false, doubleBox1.IsFocussed);
                     Assert.AreEqual(true, doubleBox2.IsFocussed);
-                    doubleBox2.IncreaseButton().Click();
-                    Assert.AreEqual("4.456", doubleBox2.EditText());
-                    Assert.AreEqual("3.456", textBoxes.Get<TextBox>(AutomationIds.TextBox3).Text);
+                    doubleBox1.IncreaseButton().Click();
+                    Assert.AreEqual("3", doubleBox1.EditText());
+                    Assert.AreEqual("2", textBoxes.Get<TextBox>(AutomationIds.TextBox2).Text);
 
                     window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
-                    Assert.AreEqual("4.456", doubleBox2.EditText());
-                    Assert.AreEqual("4.456", textBoxes.Get<TextBox>(AutomationIds.TextBox3).Text);
+                    Assert.AreEqual("3", doubleBox1.EditText());
+                    Assert.AreEqual("3", textBoxes.Get<TextBox>(AutomationIds.TextBox2).Text);
+                    Assert.AreEqual(false, textBox1.IsFocussed);
+                    Assert.AreEqual(false, doubleBox1.IsFocussed);
+                    Assert.AreEqual(true, doubleBox2.IsFocussed);
+
+                    window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
                     Assert.AreEqual(true, textBox1.IsFocussed);
                     Assert.AreEqual(false, doubleBox1.IsFocussed);
-                    Assert.AreEqual(false, doubleBox2.IsFocussed);
-
-                    window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
-                    Assert.AreEqual(false, textBox1.IsFocussed);
-                    Assert.AreEqual(true, doubleBox1.IsFocussed);
                     Assert.AreEqual(false, doubleBox2.IsFocussed);
                 }
             }
