@@ -127,6 +127,7 @@
             </Grid>
 
         </GroupBox>
+
         <GroupBox Header="Settings">
             <Grid>
                 <Grid.RowDefinitions>
