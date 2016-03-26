@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Windows;
-    using Gu.Wpf.NumericInput.Demo;
+
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.Custom;
     using TestStack.White.UIItems.WPFUIItems;

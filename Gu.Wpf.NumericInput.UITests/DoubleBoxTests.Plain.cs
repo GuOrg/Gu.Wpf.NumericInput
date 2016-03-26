@@ -3,13 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Windows;
-    using System.Windows.Media.TextFormatting;
+
     using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White.Factory;
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.TabItems;
-    using TestStack.White.UIItems.WPFUIItems;
     using TestStack.White.Utility;
     using TestStack.White.WindowsAPI;
     using Application = TestStack.White.Application;
@@ -661,8 +660,7 @@
                 }
             }
 
-            [RequiresSTA]
-            [TestCaseSource(nameof(BoxContainerIds))]
+            [Test, RequiresSTA]
             public void CopyTest()
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
