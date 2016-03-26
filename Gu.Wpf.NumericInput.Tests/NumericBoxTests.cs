@@ -42,7 +42,7 @@
                 UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
                 Mode = BindingMode.TwoWay
             };
-            var bindingExpression = BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
+            BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
             this.Box.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }

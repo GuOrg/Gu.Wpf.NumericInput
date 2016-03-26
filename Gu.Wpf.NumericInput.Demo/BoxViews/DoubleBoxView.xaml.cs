@@ -9,7 +9,7 @@
     {
         public DoubleBoxView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

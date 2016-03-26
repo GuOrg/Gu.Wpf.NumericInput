@@ -12,30 +12,30 @@
 
         public string Text
         {
-            get { return text; }
+            get { return this.text; }
             set
             {
-                if (Equals(value, text)) return;
-                text = value;
-                OnPropertyChanged();
+                if (Equals(value, this.text)) return;
+                this.text = value;
+                this.OnPropertyChanged();
             }
         }
 
         public double Value
         {
-            get { return value; }
+            get { return this.value; }
             set
             {
                 if (value.Equals(this.value)) return;
                 this.value = value;
-                OnPropertyChanged();
+                this.OnPropertyChanged();
             }
         }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -9,7 +9,7 @@
     {
         public DemoView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

@@ -3,6 +3,9 @@
     using System.ComponentModel;
     using System.Windows;
 
+    /// <summary>
+    /// Routed events for <see cref="NumericBox{T}"/>
+    /// </summary>
     public abstract partial class NumericBox<T>
     {
         /// <summary>

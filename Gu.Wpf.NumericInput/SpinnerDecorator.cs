@@ -8,6 +8,9 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Markup;
 
+    /// <summary>
+    /// Add increase / decrease buttons to a <see cref="NumericBox{T}"/>
+    /// </summary>
     [TemplatePart(Name = IncreaseButtonName, Type = typeof(RepeatButton))]
     [TemplatePart(Name = DecreaseButtonName, Type = typeof(RepeatButton))]
     [DefaultProperty(nameof(Child))]

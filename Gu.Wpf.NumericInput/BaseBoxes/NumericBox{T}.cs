@@ -11,7 +11,6 @@
     /// <summary>
     /// Baseclass with common functionality for numeric textboxes
     /// </summary>
-    /// <typeparam name="T">The type of the <see cref="Value"/> property</typeparam>
     public abstract partial class NumericBox<T> : BaseBox, IIncrementBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
@@ -159,7 +158,7 @@
             {
                 this.Status = Status.UpdatingFromValueBinding;
                 this.TextSource = TextSource.ValueBinding;
-                var newRaw = (string)this?.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
+                var newRaw = (string)this.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
                 this.SetTextClearUndo(newRaw);
                 this.UpdateFormattedText(newValue);
                 this.IsValidationDirty = true;

@@ -2,6 +2,9 @@
 {
     using System.Windows;
 
+    /// <summary>
+    /// Routed events for <see cref="BaseBox"/>
+    /// </summary>
     public abstract partial class BaseBox
     {
         internal static readonly RoutedEvent FormatDirtyEvent = EventManager.RegisterRoutedEvent(

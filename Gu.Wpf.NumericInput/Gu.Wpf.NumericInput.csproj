@@ -62,16 +62,12 @@
     <Compile Include="BaseBoxes\Status.cs" />
     <Compile Include="BaseBoxes\TextSource.cs" />
     <Compile Include="BaseBoxes\ValidationTrigger.cs" />
-    <Compile Include="Converters\HiddenWhenTrueConverter.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
-    <Compile Include="Converters\VisibleWhenTrueConverter.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
     <Compile Include="Internals\Debug.cs" />
-    <Compile Include="Internals\DecoratingCommand.cs" />
     <Compile Include="Internals\DependencyPropertyExt.cs" />
-    <Compile Include="Converters\IsNullOrEmptyConverter.cs" />
     <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
     <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
     <Compile Include="Converters\TextValueConverter.cs" />
@@ -91,7 +87,6 @@
     </Compile>
     <Compile Include="Select\TextBox.cs" />
     <Compile Include="SpinnerDecorator.cs" />
-    <Compile Include="Internals\TextBoxExt.cs" />
     <Compile Include="Internals\VisualTreeHelperExt.cs" />
     <Compile Include="LongBox.cs" />
     <Compile Include="BaseBoxes\NumericBox{T}.cs" />

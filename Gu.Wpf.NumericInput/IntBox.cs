@@ -15,7 +15,7 @@
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IntBox), new FrameworkPropertyMetadata(typeof(IntBox)));
             NumberStylesProperty.OverrideMetadataWithDefaultValue(typeof(NumericBox<int>), typeof(IntBox), NumberStyles.Integer);
-            IncrementProperty.OverrideMetadataWithDefaultValue<int>(typeof(IntBox), 1);
+            IncrementProperty.OverrideMetadataWithDefaultValue(typeof(IntBox), 1);
         }
 
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out int result)

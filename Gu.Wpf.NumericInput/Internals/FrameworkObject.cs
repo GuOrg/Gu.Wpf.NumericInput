@@ -1,3 +1,4 @@
+// ReSharper disable All
 namespace Gu.Wpf.NumericInput
 {
     using System;

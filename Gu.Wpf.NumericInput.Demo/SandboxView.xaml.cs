@@ -9,7 +9,7 @@
     {
         public SandboxView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

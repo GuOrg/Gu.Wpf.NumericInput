@@ -3,6 +3,9 @@
     using System.Runtime.CompilerServices;
     using System.Windows;
 
+    /// <summary>
+    /// Resource keys for <see cref="NumericBox"/>
+    /// </summary>
     public static partial class NumericBox
     {
         public static ResourceKey IncreaseGeometryKey { get; } = CreateKey();

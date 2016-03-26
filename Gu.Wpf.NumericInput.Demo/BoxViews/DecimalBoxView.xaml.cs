@@ -9,7 +9,7 @@
     {
         public DecimalBoxView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
