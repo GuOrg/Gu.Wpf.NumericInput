@@ -9,7 +9,7 @@
     {
         public FocusView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

@@ -9,7 +9,7 @@
     {
         public ShortBoxView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

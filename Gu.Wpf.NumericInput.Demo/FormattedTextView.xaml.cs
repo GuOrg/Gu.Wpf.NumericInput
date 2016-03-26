@@ -6,7 +6,7 @@
     {
         public FormattedTextView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

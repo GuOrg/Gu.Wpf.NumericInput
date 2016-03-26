@@ -6,6 +6,9 @@
     using System.Threading;
     using System.Windows;
 
+    /// <summary>
+    /// Attached properties for <see cref="NumericBox"/>
+    /// </summary>
     public static partial class NumericBox
     {
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
@@ -60,79 +63,37 @@
             typeof(NumericBox),
             new PropertyMetadata(default(string)));
 
-        public static void SetCulture(this UIElement element, CultureInfo value)
-        {
-            element.SetValue(CultureProperty, value);
-        }
+        public static void SetCulture(this UIElement element, CultureInfo value) => element.SetValue(CultureProperty, value);
 
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         [TypeConverter(typeof(CultureInfoConverter))]
-        public static CultureInfo GetCulture(this UIElement element)
-        {
-            return (CultureInfo)element.GetValue(CultureProperty);
-        }
+        public static CultureInfo GetCulture(this UIElement element) => (CultureInfo)element.GetValue(CultureProperty);
 
-        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value)
-        {
-            element.SetValue(ValidationTriggerProperty, value);
-        }
+        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
 
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static ValidationTrigger GetValidationTrigger(this UIElement element)
-        {
-            return (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
-        }
+        public static ValidationTrigger GetValidationTrigger(this UIElement element) => (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
 
-        public static void SetCanValueBeNull(this UIElement element, bool value)
-        {
-            element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
-        }
+        public static void SetCanValueBeNull(this UIElement element, bool value) => element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
 
-        public static bool GetCanValueBeNull(this UIElement element)
-        {
-            return (bool)element.GetValue(CanValueBeNullProperty);
-        }
+        public static bool GetCanValueBeNull(this UIElement element) => (bool)element.GetValue(CanValueBeNullProperty);
 
-        public static void SetNumberStyles(this UIElement element, NumberStyles value)
-        {
-            element.SetValue(NumberStylesProperty, value);
-        }
+        public static void SetNumberStyles(this UIElement element, NumberStyles value) => element.SetValue(NumberStylesProperty, value);
 
-        public static NumberStyles GetNumberStyles(this UIElement element)
-        {
-            return (NumberStyles)element.GetValue(NumberStylesProperty);
-        }
+        public static NumberStyles GetNumberStyles(this UIElement element) => (NumberStyles)element.GetValue(NumberStylesProperty);
 
-        public static void SetStringFormat(this UIElement element, string value)
-        {
-            element.SetValue(StringFormatProperty, value);
-        }
+        public static void SetStringFormat(this UIElement element, string value) => element.SetValue(StringFormatProperty, value);
 
-        public static string GetStringFormat(this UIElement element)
-        {
-            return (string)element.GetValue(StringFormatProperty);
-        }
+        public static string GetStringFormat(this UIElement element) => (string)element.GetValue(StringFormatProperty);
 
-        public static void SetDecimalDigits(this UIElement element, int? value)
-        {
-            element.SetValue(DecimalDigitsProperty, value);
-        }
+        public static void SetDecimalDigits(this UIElement element, int? value) => element.SetValue(DecimalDigitsProperty, value);
 
-        public static int? GetDecimalDigits(this UIElement element)
-        {
-            return (int?)element.GetValue(DecimalDigitsProperty);
-        }
+        public static int? GetDecimalDigits(this UIElement element) => (int?)element.GetValue(DecimalDigitsProperty);
 
-        public static void SetAllowSpinners(this UIElement element, bool value)
-        {
-            element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
-        }
+        public static void SetAllowSpinners(this UIElement element, bool value) => element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
 
-        public static bool GetAllowSpinners(this UIElement element)
-        {
-            return (bool)element.GetValue(AllowSpinnersProperty);
-        }
+        public static bool GetAllowSpinners(this UIElement element) => (bool)element.GetValue(AllowSpinnersProperty);
     }
 }

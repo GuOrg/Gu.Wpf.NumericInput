@@ -9,7 +9,7 @@
     {
         public IntBoxView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

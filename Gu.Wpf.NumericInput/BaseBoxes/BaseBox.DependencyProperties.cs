@@ -9,7 +9,7 @@
     using System.Windows.Data;
 
     /// <summary>
-    /// Base class that adds a couple of dependency properties to TextBox
+    /// DependencyProperties for <see cref="BaseBox"/>
     /// </summary>
     public abstract partial class BaseBox
     {
@@ -226,7 +226,7 @@
             var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
-                switch ((NumericInput.ValidationTrigger)e.NewValue)
+                switch ((ValidationTrigger)e.NewValue)
                 {
                     case ValidationTrigger.PropertyChanged:
                         box.UpdateValidation();
