@@ -23,7 +23,7 @@
         {
             this.AddHandler(LoadedEvent, LoadedHandler);
             this.TextBindingExpression = (BindingExpression)BindingOperations.SetBinding(this, NumericBox.TextProperty, ValidationBinding);
-            this.FormattedView =new FormattedView(this);
+            this.FormattedView = new FormattedView(this);
         }
 
         internal BindingExpression TextBindingExpression { get; }

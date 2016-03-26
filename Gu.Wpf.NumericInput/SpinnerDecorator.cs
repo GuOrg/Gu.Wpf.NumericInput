@@ -28,6 +28,9 @@
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerDecorator), new FrameworkPropertyMetadata(typeof(SpinnerDecorator)));
         }
 
+        /// <summary>
+        /// Gets or sets the single child of a <see cref="SpinnerDecorator" />
+        /// </summary>
         public IIncrementBox Child
         {
             get { return (IIncrementBox)this.GetValue(ChildProperty); }
@@ -55,6 +58,7 @@
         /// be serialized.
         /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,164
         /// </summary>
+        /// <returns>True if the value should be serialized</returns>
         // Lets derived classes control the serialization behavior for Content DP
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual bool ShouldSerializeContent()
@@ -92,7 +96,7 @@
                                       "Fixing this requires more source diving than I feel like right now.\r\n" +
                                       "Waiting to see if it becomes a problem";
                         throw new NotSupportedException(message);
-                        //LogicalTreeHelper.RemoveLogicalChild(logicalParent, newChild);
+                        //// LogicalTreeHelper.RemoveLogicalChild(logicalParent, newChild);
                     }
                 }
             }
@@ -104,6 +108,7 @@
         /// <summary>
         /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>)
         /// </summary>
+        /// <returns>An <see cref="UIElement.OnCreateAutomationPeer"/> for the <see cref="SpinnerDecorator"/></returns>
         protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer()
         {
             return new SpinnerDecoratorAutomationPeer(this);

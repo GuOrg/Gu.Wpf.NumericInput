@@ -37,7 +37,7 @@
         }
 
         internal static T SingleOrNull<T>(this IEnumerable<object> items)
-            where T : class 
+            where T : class
         {
             T match = null;
             foreach (var item in items)
@@ -84,13 +84,10 @@
 
         internal static string DumpVisualTree(this DependencyObject parent)
         {
-            using (var stringWriter = new StringWriter())
+            using (var writer = new IndentedTextWriter(new StringWriter()))
             {
-                using (var writer = new IndentedTextWriter(stringWriter))
-                {
-                    DumpVisualTree(parent, writer);
-                    return stringWriter.ToString();
-                }
+                DumpVisualTree(parent, writer);
+                return writer.InnerWriter.ToString();
             }
         }
 

@@ -174,7 +174,7 @@
         {
             Debug.WriteLine(e);
             var numericBox = (NumericBox<T>)d;
-            numericBox.OnValueChanged((T?) e.OldValue, (T?) e.NewValue);
+            numericBox.OnValueChanged((T?)e.OldValue, (T?)e.NewValue);
         }
 
         private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

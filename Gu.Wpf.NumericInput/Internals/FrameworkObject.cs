@@ -39,15 +39,15 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
-        // internal FrameworkObject(DependencyObject d, bool throwIfNeither)
-        //    : this(d)
-        // {
-        //    if (throwIfNeither && this._fe == null && this._fce == null)
-        //    {
-        //        object arg = (d != null) ? (object)d.GetType() : (object)"NULL";
-        //        throw new InvalidOperationException(System.Windows.SR.Get(SRID.MustBeFrameworkDerived, arg));
-        //    }
-        // }
+        //// internal FrameworkObject(DependencyObject d, bool throwIfNeither)
+        ////    : this(d)
+        //// {
+        ////    if (throwIfNeither && this._fe == null && this._fce == null)
+        ////    {
+        ////        object arg = (d != null) ? (object)d.GetType() : (object)"NULL";
+        ////        throw new InvalidOperationException(System.Windows.SR.Get(SRID.MustBeFrameworkDerived, arg));
+        ////    }
+        //// }
 
         internal FrameworkObject(FrameworkElement frameworkElement, FrameworkContentElement frameworkContentElement)
         {
@@ -283,6 +283,7 @@ namespace Gu.Wpf.NumericInput
                     return null;
                 }
             }
+
             set
             {
                 if (this.IsFE)
@@ -370,6 +371,7 @@ namespace Gu.Wpf.NumericInput
                 if (parent == null && this.dependencyObject != null)
                 {
                     throw new NotImplementedException();
+
                     // parent = this._do.InheritanceContext;
                 }
 

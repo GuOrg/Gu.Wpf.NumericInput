@@ -49,7 +49,7 @@
         public static readonly string SelectAllOnClickBox = Create();
         public static readonly string SelectAllOnDoubleClickBox = Create();
         public static readonly string MoveFocusOnEnterBox = Create();
-        
+
 
         private static string Create([CallerMemberName] string name = null)
         {

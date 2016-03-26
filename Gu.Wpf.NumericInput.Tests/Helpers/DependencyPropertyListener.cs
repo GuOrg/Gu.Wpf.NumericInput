@@ -19,15 +19,15 @@ namespace Gu.Wpf.NumericInput.Tests
         private bool disposed;
 
         public DependencyPropertyListener(
-            DependencyObject source, 
-            DependencyProperty property, 
+            DependencyObject source,
+            DependencyProperty property,
             Action<DependencyPropertyChangedEventArgs> onChanged = null)
             : this(source, Cache.GetOrAdd(property, x => new PropertyPath(x)), onChanged)
         {
         }
 
         public DependencyPropertyListener(
-            DependencyObject source, 
+            DependencyObject source,
             PropertyPath property,
             Action<DependencyPropertyChangedEventArgs> onChanged)
         {
