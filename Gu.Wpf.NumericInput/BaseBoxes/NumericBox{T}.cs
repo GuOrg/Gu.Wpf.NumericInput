@@ -18,8 +18,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericBox{T}"/> class.
         /// </summary>
-        /// <param name="add">How to add two values (x, y) => x + y</param>
-        /// <param name="subtract">How to subtract two values (x, y) => x - y</param>
         protected NumericBox()
         {
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
@@ -204,6 +202,7 @@
                     {
                         this.ResetValueFromSource();
                     }
+
                     this.IsValidationDirty = true;
                 }
 

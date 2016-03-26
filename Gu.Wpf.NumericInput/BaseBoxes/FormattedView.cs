@@ -50,7 +50,7 @@
 
                     this.formattedBox = null;
                     this.textView = null;
-                    
+
                     // Failing to no formatting
                     return;
                 }

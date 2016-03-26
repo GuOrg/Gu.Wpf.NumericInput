@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Throws <see cref="InvalidOperationException"/>
+        /// Gets throws <see cref="InvalidOperationException"/>
         /// </summary>
         object IEnumerator.Current
         {

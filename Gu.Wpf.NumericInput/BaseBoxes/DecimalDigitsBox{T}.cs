@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput
                 OnDecimalsDigitsChanged));
 
         /// <summary>
-        /// Example:
+        /// Gets or sets the number of decimal digits:
         /// DecimalDigits="3" sets StringFormat to F3
         /// DecimalDigits="-3" sets StringFormat to 0.###
         /// Defauklt is null.
