@@ -1,9 +1,9 @@
 # Gu.Wpf.NumericInput
-### Textboxes for numeric input in WPF.
-
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Gu.Wpf.NumericInput.svg)](https://www.nuget.org/packages/Gu.Wpf.NumericInput/)
 [![Build status](https://ci.appveyor.com/api/projects/status/a92oxrywc9nv7f21?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-numericinput)
 [![Join the chat at https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput](https://badges.gitter.im/JohanLarsson/Gu.Wpf.NumericInput.svg)](https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+Textboxes for numeric input in WPF.
 - DoubleBox
 - IntBox
 - DecimalBox
@@ -11,6 +11,29 @@
 - ShortBox
 - Easy to add more
 
+- [Simple sample](#simple-sample)
+- [Sample showing some of the properties](#sample-showing-some-of-the-properties)
+- [Features:](#features)
+    - [Validation](#validation)
+- [Properties](#properties)
+    - [Culture](#culture)
+    - [ValidationTrigger](#validationtrigger)
+    - [CanValueBeNull](#canvaluebenull)
+    - [StringFormat](#stringformat)
+    - [DecimalDigits](#decimaldigits)
+    - [NumberStyles](#numberstyles)
+    - [RegexPattern](#regexpattern)
+    - [MaxValue](#maxvalue)
+    - [MinValue](#minvalue)
+- [Spinners](#spinners)
+    - [IncrementCommand and DecrementCommand](#incrementcommand-and-decrementcommand)
+    - [Increment](#increment)
+    - [AllowSpinners](#allowspinners)
+- [Attached properties](#attached-properties)
+    - [NumericBox](#numericbox)
+    - [Gu.Wpf.NumericInput.Select.TextBox](#guwpfnumericinputselecttextbox)
+- [Style and Template keys](#style-and-template-keys)
+    
 ### Simple sample
 The `Text`property is used internally and will throw if you bind to it.
 
