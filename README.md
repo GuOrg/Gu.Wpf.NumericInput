@@ -11,6 +11,8 @@ Textboxes for numeric input in WPF.
 - ShortBox
 - Easy to add more
 
+## Contents
+
 - [Simple sample](#simple-sample)
 - [Sample showing some of the properties](#sample-showing-some-of-the-properties)
 - [Features:](#features)
