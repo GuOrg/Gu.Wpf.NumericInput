@@ -85,13 +85,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WeakRoutedEventManager.tt</DependentUpon>
     </Compile>
-    <Compile Include="Select\TextBox.cs" />
+    <Compile Include="Select\TextBox.Select.cs" />
     <Compile Include="SpinnerDecorator.cs" />
     <Compile Include="Internals\VisualTreeHelperExt.cs" />
     <Compile Include="LongBox.cs" />
     <Compile Include="BaseBoxes\NumericBox{T}.cs" />
     <Compile Include="ShortBox.cs" />
     <Compile Include="SpinnerDecoratorAutomationPeer.cs" />
+    <Compile Include="Touch\TextBox.cs" />
+    <Compile Include="Touch\TouchKeyboard.cs" />
+    <Compile Include="Touch\TouchProcessInfo.cs" />
     <Compile Include="Validation\ValidationResults\CanParseValidationResult.cs" />
     <Compile Include="Validation\ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
     <Compile Include="Validation\ValidationRules\IsLessThanOrEqualToMaxRule.cs" />

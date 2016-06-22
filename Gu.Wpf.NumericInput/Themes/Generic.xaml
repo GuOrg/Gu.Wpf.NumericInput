@@ -9,8 +9,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!--  BaseUpDown  -->
-    <Style BasedOn="{StaticResource {x:Type TextBox}}"
-           TargetType="{x:Type local:BaseBox}">
+    <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type local:BaseBox}">
         <Setter Property="AcceptsReturn" Value="False" />
         <Setter Property="AcceptsTab" Value="False" />
         <Setter Property="TextAlignment" Value="Right" />
@@ -21,30 +20,25 @@
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="AutoWordSelection" Value="False" />
         <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource {x:Static local:NumericBox.ValidationErrorRedBorderTemplateKey}}" />
+        <Setter Property="InputScope" Value="Number" />
     </Style>
 
     <!--  DoubleBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:DoubleBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:DoubleBox}" />
 
     <!--  DecimalBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:DecimalBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:DecimalBox}" />
 
     <!--  FloatBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:FloatBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:FloatBox}" />
 
     <!--  LongBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:LongBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:LongBox}" />
 
     <!--  IntBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:IntBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:IntBox}" />
 
     <!--  ShortBox  -->
-    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}"
-           TargetType="{x:Type local:ShortBox}" />
+    <Style BasedOn="{StaticResource {x:Type local:BaseBox}}" TargetType="{x:Type local:ShortBox}" />
 
 </ResourceDictionary>

@@ -10,32 +10,26 @@
     <UserControl.DataContext>
         <demo:FocusVm />
     </UserControl.DataContext>
-    <UniformGrid Rows="1"
-                 select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
+    <UniformGrid select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
                                                            ElementName=MoveFocusOnEnter}"
                  select:TextBox.SelectAllOnClick="{Binding IsChecked,
                                                            ElementName=SelectAllOnClick}"
                  select:TextBox.SelectAllOnDoubleClick="{Binding IsChecked,
                                                                  ElementName=SelectAllOnDoubleClick}"
                  select:TextBox.SelectAllOnGotKeyboardFocus="{Binding IsChecked,
-                                                                      ElementName=SelectAllOnFocus}">
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}"
-                  Header="TextBoxes">
+                                                                      ElementName=SelectAllOnFocus}"
+                 Rows="1">
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}" Header="TextBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                         Text="{Binding Value1}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}"
-                         Text="{Binding Value2}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}"
-                         Text="{Binding Value3}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}" Text="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}" Text="{Binding Value3}" />
             </StackPanel>
         </GroupBox>
 
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}"
-                  Header="DoubleBoxes">
+        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}" Header="DoubleBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                         Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
 
                 <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
@@ -59,8 +53,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="0"
-                         Text="lose focus" />
+                <TextBox Grid.Row="0" Text="lose focus" />
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl>
                         <ItemsControl.ItemsPanel>
@@ -68,8 +61,7 @@
                                 <VirtualizingStackPanel IsVirtualizing="True" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                                 Text="{Binding Value1}" />
+                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
 
                         <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
@@ -99,8 +91,7 @@
                             bug
                         </TextBlock>
 
-                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}"
-                                 Text="{Binding Value1}" />
+                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
 
                         <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
