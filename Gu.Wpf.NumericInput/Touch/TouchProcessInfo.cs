@@ -42,10 +42,12 @@
 
             return
                 Create(@"C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe") ??
-                Create(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
-                    microsoftSharedInkTabtipExe)) ??
-                Create(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                    microsoftSharedInkTabtipExe));
+                Create(Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
+                        microsoftSharedInkTabtipExe)) ??
+                Create(Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                        microsoftSharedInkTabtipExe));
         }
     }
 }

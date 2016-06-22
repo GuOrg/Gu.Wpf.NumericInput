@@ -35,7 +35,7 @@
             }
 
             // http://mheironimus.blogspot.se/2015/05/adding-touch-keyboard-support-to-wpf.html
-            var keyboardWnd = FindWindow("IPTip_Main_Window", null);
+            var keyboardWnd = NativeMethods.FindWindow("IPTip_Main_Window", null);
             var nullIntPtr = new IntPtr(0);
             const uint WmSyscommand = 0x0112;
             var scClose = new IntPtr(0xF060);
@@ -43,19 +43,22 @@
             if (keyboardWnd != nullIntPtr)
             {
                 NumericInput.Debug.WriteLine("hide");
-                SendMessage(keyboardWnd, WmSyscommand, scClose, nullIntPtr);
+                NativeMethods.SendMessage(keyboardWnd, WmSyscommand, scClose, nullIntPtr);
             }
         }
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr FindWindow(string sClassName, string sAppName);
-
-        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
 
         private static bool HasTouchInput()
         {
             return Tablet.TabletDevices.Cast<TabletDevice>().Any(tabletDevice => tabletDevice.Type == TabletDeviceType.Touch);
+        }
+
+        private static class NativeMethods
+        {
+            [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+            internal static extern IntPtr FindWindow(string sClassName, string sAppName);
+
+            [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
+            internal static extern IntPtr SendMessage(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
         }
     }
 }

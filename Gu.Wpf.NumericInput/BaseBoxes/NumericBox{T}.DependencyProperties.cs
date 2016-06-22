@@ -8,10 +8,8 @@
     using System.Windows.Data;
     using System.Windows.Input;
 
-    /// <summary>
-    /// DependencyProperties for <see cref="NumericBox{T}"/>
-    /// </summary>
-    /// <typeparam name="T">The type of the <see cref="Value"/> property</typeparam>
+    /// <summary>DependencyProperties for <see cref="NumericBox{T}"/>.</summary>
+    /// <typeparam name="T">The type of the numeric value.</typeparam>
     public abstract partial class NumericBox<T>
     {
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(

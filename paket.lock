@@ -1,10 +1,13 @@
 NUGET
   remote: http://www.nuget.org/api/v2
-  specs:
     Castle.Core (3.3.3)
-    Gu.PropertyGrid (1.0.0)
-    JetBrains.Annotations (10.0.0)
+    Gu.PropertyGrid (1.0)
+    JetBrains.Annotations (10.1.4)
+      System.Runtime (>= 4.0) - framework: dnxcore50
     NUnit (2.6.4)
-    StyleCop.Analyzers (1.0.0)
+    StyleCop.Analyzers (1.0)
+    System.Private.Uri (4.0) - framework: dnxcore50
+    System.Runtime (4.0.20) - framework: dnxcore50
+      System.Private.Uri (>= 4.0) - framework: dnxcore50
     TestStack.White (0.13.3)
-      Castle.Core (>= 3.3.0)
+      Castle.Core (>= 3.3)
