@@ -85,7 +85,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj">
       <Project>{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}</Project>
-      <Name>Gu.Wpf.NumericControls</Name>
+      <Name>Gu.Wpf.NumericInput</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

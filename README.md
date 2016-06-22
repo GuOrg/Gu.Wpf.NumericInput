@@ -32,8 +32,21 @@ Textboxes for numeric input in WPF.
     - [Increment](#increment)
     - [AllowSpinners](#allowspinners)
 - [Attached properties](#attached-properties)
-    - [NumericBox](#numericbox)
+    - [Gu.Wpf.NumericInput.NumericBox](#numericbox)
+        - [NumericBox.Culture](#numericboxculture)
+        - [NumericBox.ValidationTrigger](#numericboxvalidationtrigger)
+        - [NumericBox.CanValueBeNull](#numericboxcanvaluebenull)
+        - [NumericBox.NumberStyles](#numericboxnumberstyles)
+        - [NumericBox.StringFormat](#numericboxstringformat)
+        - [NumericBox.DecimalDigits](#numericboxdecimaldigits)
+        - [NumericBox.AllowSpinners](#numericboxallowspinners)
     - [Gu.Wpf.NumericInput.Select.TextBox](#guwpfnumericinputselecttextbox)
+        - [TextBox.SelectAllOnGotKeyboardFocus](#textboxselectallongotkeyboardfocus)
+        - [TextBox.SelectAllOnClick](#textboxselectallonclick)
+        - [TextBox.SelectAllOnDoubleClick](#textboxselectallondoubleclick)
+        - [TextBox.MoveFocusOnEnter](#textboxmovefocusonenter)
+    - [Gu.Wpf.NumericInput.Touch.TextBox](#guwpfnumericinputtouchtextbox)
+        - [TextBox.ShowTouchKeyboardOnTouchEnter](#textboxshowtouchkeyboardontouchenter)
 - [Style and Template keys](#style-and-template-keys)
     
 ### Simple sample
@@ -46,16 +59,17 @@ Bind the `Value`property of the boxes like this:
 ### Sample showing some of the properties
 ```
 <numeric:SpinnerDecorator>
-    <numeric:DoubleBox AllowSpinners="True"
-                        CanValueBeNull="{Binding CanValueBeNull}"
-                        Increment="{Binding Increment}"
-                        MaxValue="10"
-                        MinValue="-10"
-                        NumberStyles="AllowDecimalPoint,AllowLeadingSign"
-                        RegexPattern="\1\d+(\.2\d+)"
-                        StringFormat="N2"
-                        Value="{Binding Value,
-                                        ValidatesOnNotifyDataErrors=True}" />
+    <numeric:DoubleBox Value="{Binding Value,
+                                       ValidatesOnNotifyDataErrors=True}" 
+                       CanValueBeNull="{Binding CanValueBeNull}"
+					   ValidationTrigger="PropertyChanged"
+                       MaxValue="10"
+                       MinValue="-10"
+                       NumberStyles="AllowDecimalPoint,AllowLeadingSign"
+                       RegexPattern="\1\d+(\.2\d+)"
+                       StringFormat="N2"
+					   AllowSpinners="True"
+					   Increment="{Binding Increment}"/>
 </numeric:SpinnerDecorator>
 ```
 
@@ -151,18 +165,226 @@ If spinners are visible/enabled.
 
 ### Attached properties
 ##### NumericBox
-- `NumericBox.Culture`
-- `NumericBox.CanValueBeNull`
-- `NumericBox.NumberStyles`
-- `NumericBox.StringFormat`
-- `NumericBox.DecimalDigits`
-- `NumericBox.AllowSpinners`
+###### NumericBox.Culture
+Controls what Culture to use.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.Culture="sv-se">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.ValidationTrigger
+Controls when validation is performed.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.ValidationTrigger="PropertyChanged">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.CanValueBeNull
+Controls if empty means null and is a legal value.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.CanValueBeNull="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.NumberStyles
+Controls if empty means null and is a legal value.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.NumberStyles="AllowDecimalPoint, AllowLeadingSign">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.StringFormat
+Controls how many decimal digits are shown.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.StringFormat="F2">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.DecimalDigits
+Controls how many decimal digits are shown.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `DecimalDigitsBox<T>`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.DecimalDigits="-2">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
+
+###### NumericBox.AllowSpinners
+Allows spinners on all child NumericBoxes.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:numeric="http://gu.se/NumericInput">
+    <Grid numeric:NumericBox.AllowSpinners="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <numeric:DoubleBox .../>
+	    ...
+	</Grid>
+```
 
 ##### Gu.Wpf.NumericInput.Select.TextBox
-- `TextBox.SelectAllOnGotKeyboardFocus`
-- `TextBox.SelectAllOnClick`
-- `TextBox.SelectAllOnDoubleClick`
-- `TextBox.MoveFocusOnEnter`
+###### TextBox.SelectAllOnGotKeyboardFocus
+Selects all text in a textbox whgen it gets keyboard focus.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:select="http://gu.se/Select">
+    <Grid select:TextBox.SelectAllOnGotKeyboardFocus="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <TextBox .../>
+	    ...
+	</Grid>
+```
+
+###### TextBox.SelectAllOnClick
+Selects all text in a textbox on click.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:select="http://gu.se/Select">
+    <Grid select:TextBox.SelectAllOnClick="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <TextBox .../>
+	    ...
+	</Grid>
+```
+
+###### TextBox.SelectAllOnDoubleClick
+
+Selects all text in a textbox on doubleclick.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:select="http://gu.se/Select">
+    <Grid select:TextBox.SelectAllOnDoubleClick="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <TextBox .../>
+	    ...
+	</Grid>
+```
+
+###### TextBox.MoveFocusOnEnter
+
+Captures enter key and cycles focus to next control.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:select="http://gu.se/Select">
+    <Grid select:TextBox.MoveFocusOnEnter="True"
+	      KeyboardNavigation.TabNavigation="Cycle">
+		...
+	    <numeric:DoubleBox .../>
+	    <TextBox .../>
+	    ...
+	</Grid>
+```
+
+##### Gu.Wpf.NumericInput.Touch.TextBox
+###### TextBox.ShowTouchKeyboardOnTouchEnter
+Shows onscreen keyboard on touch enter for all controls inheriting from `TextBox`.
+Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
+
+Sample:
+
+```xaml
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DemoView"
+             ...
+             xmlns:touch="http://gu.se/Touch">
+    <Grid touch:TextBox.ShowTouchKeyboardOnTouchEnter="True">
+		...
+	    <numeric:DoubleBox .../>
+	    <TextBox .../>
+	    ...
+	</Grid>
+```
 
 ### Style and Template keys
 - `NumericBox.BaseBoxStyleKey`
