@@ -6,12 +6,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:numeric="http://gu.se/NumericInput"
              xmlns:propertyGrid="http://gu.se/PropertyGrid"
+             xmlns:touch="http://gu.se/Touch"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:DemoVm />
     </UserControl.DataContext>
     <UniformGrid Columns="3">
-        <StackPanel KeyboardNavigation.TabNavigation="Cycle">
+        <StackPanel touch:TextBox.ShowTouchKeyboardOnTouchEnter="{Binding ShowTouchKeyboardOnTouchEnter}" KeyboardNavigation.TabNavigation="Cycle">
             <GroupBox VerticalAlignment="Top" Header="DoubleBox">
                 <numeric:SpinnerDecorator>
                     <numeric:DoubleBox AllowSpinners="{Binding Settings.AllowSpinners}"
@@ -106,6 +107,10 @@
 
             <HeaderedContentControl Header="RegexPattern">
                 <TextBox Text="{Binding Settings.RegexPattern}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="ShowTouchKeyboard">
+                <CheckBox IsChecked="{Binding ShowTouchKeyboardOnTouchEnter}" />
             </HeaderedContentControl>
         </ItemsControl>
     </UniformGrid>

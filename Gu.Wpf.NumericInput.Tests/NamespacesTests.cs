@@ -11,6 +11,7 @@
         private Assembly assembly;
         private const string NumericUri = @"http://gu.se/NumericInput";
         private const string SelectUri = @"http://gu.se/Select";
+        private const string TouchUri = @"http://gu.se/Touch";
 
         [SetUp]
         public void SetUp()
@@ -43,7 +44,7 @@
             foreach (var attribute in attributes)
             {
                 var actual = attribute.ConstructorArguments[0].Value;
-                CollectionAssert.Contains(new[] { NumericUri, SelectUri }, actual);
+                CollectionAssert.Contains(new[] { NumericUri, SelectUri, TouchUri }, actual);
             }
         }
 
@@ -51,9 +52,8 @@
         public void XmlnsPrefix()
         {
             var prefixAttributes = this.assembly.CustomAttributes.Where(x => x.AttributeType == typeof(XmlnsPrefixAttribute)).ToArray();
-            Assert.AreEqual(2, prefixAttributes.Length);
             var prefixes = prefixAttributes.Select(x => (string)x.ConstructorArguments[0].Value).ToArray();
-            CollectionAssert.AreEquivalent(new[] { NumericUri, SelectUri }, prefixes);
+            CollectionAssert.AreEquivalent(new[] { NumericUri, SelectUri, TouchUri }, prefixes);
         }
     }
 }

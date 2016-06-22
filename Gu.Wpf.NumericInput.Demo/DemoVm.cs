@@ -10,6 +10,7 @@
         private double? doubleValue = 0;
         private decimal? decimalValue = 0;
         private int? intValue = 0;
+        private bool showTouchKeyboardOnTouchEnter = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,6 +56,19 @@
             {
                 if (value == this.shortValue) return;
                 this.shortValue = value;
+                this.OnPropertyChanged();
+            }
+        }
+        public bool ShowTouchKeyboardOnTouchEnter
+        {
+            get
+            {
+                return this.showTouchKeyboardOnTouchEnter;
+            }
+            set
+            {
+                if (value == this.showTouchKeyboardOnTouchEnter) return;
+                this.showTouchKeyboardOnTouchEnter = value;
                 this.OnPropertyChanged();
             }
         }

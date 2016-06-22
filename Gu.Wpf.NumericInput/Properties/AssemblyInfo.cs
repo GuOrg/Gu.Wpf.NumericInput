@@ -54,3 +54,6 @@ using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://gu.se/Select", "Gu.Wpf.NumericInput.Select")]
 [assembly: XmlnsPrefix("http://gu.se/Select", "select")]
+
+[assembly: XmlnsDefinition("http://gu.se/Touch", "Gu.Wpf.NumericInput.Touch")]
+[assembly: XmlnsPrefix("http://gu.se/Touch", "touch")]
