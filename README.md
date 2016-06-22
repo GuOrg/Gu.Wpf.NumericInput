@@ -58,12 +58,12 @@ Textboxes for numeric input in WPF.
 The `Text`property is used internally and will throw if you bind to it.
 
 Bind the `Value`property of the boxes like this:
-```
+```xaml
 <numericInput:DoubleBox Value="{Binding DoubleValue}" />
 ```
 
 ## 1.2. Sample showing some of the properties
-```
+```xaml
 <numeric:SpinnerDecorator>
     <numeric:DoubleBox Value="{Binding Value,
                                        ValidatesOnNotifyDataErrors=True}" 
@@ -151,7 +151,7 @@ Available as inheriting attached property: `NumericBox.DecimalDigits`
 # 5. Spinners
 If you want to add up/down buttons you wrap the box in a spinnerdecorator liken this:
 
-```
+```xaml
 <numeric:SpinnerDecorator>
     <numeric:DoubleBox AllowSpinners="True"
                        Increment="10"
