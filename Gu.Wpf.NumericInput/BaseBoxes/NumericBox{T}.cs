@@ -8,9 +8,8 @@
     using System.Windows.Data;
     using System.Windows.Input;
 
-    /// <summary>
-    /// Baseclass with common functionality for numeric textboxes
-    /// </summary>
+    /// <summary>Baseclass with common functionality for numeric textboxes.</summary>
+    /// <typeparam name="T">The type of the numeric value.</typeparam>
     public abstract partial class NumericBox<T> : BaseBox, IIncrementBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
