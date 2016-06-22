@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{29B0BA6F-9967-477B-9DC3-A605E9BAAB65}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.UITests", "Gu.Wpf.NumericInput.UITests\Gu.Wpf.NumericInput.UITests.csproj", "{03820C66-202B-4B6D-B9D5-E4F3267362C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{FE49CF0F-CA04-46D8-B608-A2C6B665D7BC}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+		.paket\Readme.paket.md = .paket\Readme.paket.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
