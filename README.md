@@ -11,52 +11,58 @@ Textboxes for numeric input in WPF.
 - ShortBox
 - Easy to add more
 
-## Contents
+# Contents
 
-- [Simple sample](#simple-sample)
-- [Sample showing some of the properties](#sample-showing-some-of-the-properties)
-- [Features:](#features)
-    - [Validation](#validation)
-- [Properties](#properties)
-    - [Culture](#culture)
-    - [ValidationTrigger](#validationtrigger)
-    - [CanValueBeNull](#canvaluebenull)
-    - [StringFormat](#stringformat)
-    - [DecimalDigits](#decimaldigits)
-    - [NumberStyles](#numberstyles)
-    - [RegexPattern](#regexpattern)
-    - [MaxValue](#maxvalue)
-    - [MinValue](#minvalue)
-- [Spinners](#spinners)
-    - [IncrementCommand and DecrementCommand](#incrementcommand-and-decrementcommand)
-    - [Increment](#increment)
-    - [AllowSpinners](#allowspinners)
-- [Attached properties](#attached-properties)
-    - [Gu.Wpf.NumericInput.NumericBox](#numericbox)
-        - [NumericBox.Culture](#numericboxculture)
-        - [NumericBox.ValidationTrigger](#numericboxvalidationtrigger)
-        - [NumericBox.CanValueBeNull](#numericboxcanvaluebenull)
-        - [NumericBox.NumberStyles](#numericboxnumberstyles)
-        - [NumericBox.StringFormat](#numericboxstringformat)
-        - [NumericBox.DecimalDigits](#numericboxdecimaldigits)
-        - [NumericBox.AllowSpinners](#numericboxallowspinners)
-    - [Gu.Wpf.NumericInput.Select.TextBox](#guwpfnumericinputselecttextbox)
-        - [TextBox.SelectAllOnGotKeyboardFocus](#textboxselectallongotkeyboardfocus)
-        - [TextBox.SelectAllOnClick](#textboxselectallonclick)
-        - [TextBox.SelectAllOnDoubleClick](#textboxselectallondoubleclick)
-        - [TextBox.MoveFocusOnEnter](#textboxmovefocusonenter)
-    - [Gu.Wpf.NumericInput.Touch.TextBox](#guwpfnumericinputtouchtextbox)
-        - [TextBox.ShowTouchKeyboardOnTouchEnter](#textboxshowtouchkeyboardontouchenter)
-- [Style and Template keys](#style-and-template-keys)
+- [1. Samples](#1-samples)
+  - [1.1. Simple sample](#11-simple-sample)
+  - [1.2. Sample showing some of the properties](#12-sample-showing-some-of-the-properties)
+- [2. Features:](#2-features)
+- [3. Validation](#3-validation)
+  - [3.1. ValidationTrigger](#31-validationtrigger)
+  - [3.2. CanValueBeNull](#32-canvaluebenull)
+  - [3.3. MinValue](#33-minvalue)
+  - [3.4. MaxValue](#34-maxvalue)
+  - [3.5. NumberStyles](#35-numberstyles)
+  - [3.6. Culture](#36-culture)
+  - [3.7. RegexPattern](#37-regexpattern)
+- [4. Formatting](#4-formatting)
+  - [4.1. Culture](#41-culture)
+  - [4.1. NumberStyles](#41-numberstyles)
+  - [4.2 StringFormat](#42-stringformat)
+  - [4.3 DecimalDigits](#43-decimaldigits)
+- [5. Spinners](#5-spinners)
+  - [5.1. Increment](#51-increment)
+  - [5.2. AllowSpinners](#52-allowspinners)
+  - [5.3. IncrementCommand and DecrementCommand](#53-incrementcommand-and-decrementcommand)
+- [5. Attached properties](#5-attached-properties)
+  - [5.1. NumericBox](#51-numericbox)
+    - [5.1.1. NumericBox.Culture](#511-numericboxculture)
+    - [5.1.2. NumericBox.ValidationTrigger](#512-numericboxvalidationtrigger)
+    - [5.1.3. NumericBox.CanValueBeNull](#513-numericboxcanvaluebenull)
+    - [5.1.4. NumericBox.NumberStyles](#514-numericboxnumberstyles)
+    - [5.1.5. NumericBox.StringFormat](#515-numericboxstringformat)
+    - [5.1.6. NumericBox.DecimalDigits](#516-numericboxdecimaldigits)
+    - [5.1.7. NumericBox.AllowSpinners](#517-numericboxallowspinners)
+  - [5.2. Gu.Wpf.NumericInput.Select.TextBox](#52-guwpfnumericinputselecttextbox)
+    - [5.2.1. TextBox.SelectAllOnGotKeyboardFocus](#521-textboxselectallongotkeyboardfocus)
+    - [5.2.2. TextBox.SelectAllOnClick](#522-textboxselectallonclick)
+    - [5.2.3. TextBox.SelectAllOnDoubleClick](#523-textboxselectallondoubleclick)
+    - [5.2.4. TextBox.MoveFocusOnEnter](#524-textboxmovefocusonenter)
+  - [5.3 Gu.Wpf.NumericInput.Touch.TextBox](#53-guwpfnumericinputtouchtextbox)
+    - [5.3.1. TextBox.ShowTouchKeyboardOnTouchEnter](#531-textboxshowtouchkeyboardontouchenter)
+- [6. Style and Template keys](#6-style-and-template-keys)
+
+# 1. Samples
     
-### Simple sample
+## 1.1. Simple sample
 The `Text`property is used internally and will throw if you bind to it.
 
 Bind the `Value`property of the boxes like this:
 ```
 <numericInput:DoubleBox Value="{Binding DoubleValue}" />
 ```
-### Sample showing some of the properties
+
+## 1.2. Sample showing some of the properties
 ```
 <numeric:SpinnerDecorator>
     <numeric:DoubleBox Value="{Binding Value,
@@ -73,7 +79,7 @@ Bind the `Value`property of the boxes like this:
 </numeric:SpinnerDecorator>
 ```
 
-### Features:
+# 2. Features:
 - Validation
   - Validates as you type even with UpdateSourceTrigger=LostFocus for the binding. Configurable via `ValidationTrigger`
   - Uses vanilla WPF validation
@@ -85,39 +91,55 @@ Bind the `Value`property of the boxes like this:
 
 ![render](http://i.imgur.com/ru5TESv.gif)
 
-##### Validation
-Validates as you type even if the binding has `UpdateSourceTrigger=LostFocus.`
+# 3. Validation
 
-The boxes has their own culture that defaults to `Thread.CurrentThread.CurrentUICulture`
-- CanParse with culture and numberformat.
-- Min & Max
-- Regex
-- DataError
-
-### Properties
-##### Culture
-The default value for culture is `Thread.CurrentThread.CurrentUICulture`
-
-Available as inheriting attached property: `NumericBox.Culture`
-
-##### ValidationTrigger
-The default value for culture is `ValidationTrigger.LostFocus`
-
-Controls when validation is performed.
-
+## 3.1. ValidationTrigger
+Control when validation is performed, the default is `LostFocus` to be consistent with vanilla WPF `TextBox`
+Setting `ValidationTrigger="PropertyChanged"` validates as you type even if the binding has `UpdateSourceTrigger=LostFocus.`
 Available as inheriting attached property: `NumericBox.ValidationTrigger`
 
-##### CanValueBeNull
-If false empty textbox means validation error. If true empty textbox gets parsed as null.
-
+## 3.2. CanValueBeNull
+Sets if empty textbox sends null to the binding source and is a legal value. Useful when binding to a `double?` for example.
 Available as inheriting attached property: `NumericBox.CanValueBeNull`
 
-##### StringFormat
+## 3.3. MinValue
+The minimum value. The default is null meaning that no validation on min is performed.
+When using spinners clicking decrease truncates to min if it would decrement below min.
+
+## 3.4. MaxValue
+The maximum value. The default is null meaning that no validation on max is performed.
+When using spinners clicking increase truncates to max if it would increment above max.
+
+## 3.5. NumberStyles
+The `NumberStyles` used when parsing and formatting the value.
+Ex if you want to allow leading sign or thousands.
+
+## 3.6. Culture
+The `IFormatProvider` used when parsing and formatting the value.
+The default value for culture is `Thread.CurrentThread.CurrentUICulture`
+Available as inheriting attached property: `NumericBox.Culture`
+
+## 3.7. RegexPattern
+A regex pattern used when validating the input.
+
+# 4. Formatting
+
+If `StringFormat`or `DecimalDigits` are specified a TextBlock with the formatted text is overlaid when not focused.
+
+## 4.1. Culture
+The `IFormatProvider` used when parsing and formatting the value.
+The default value for culture is `Thread.CurrentThread.CurrentUICulture`
+Available as inheriting attached property: `NumericBox.Culture`
+
+## 4.1. NumberStyles
+The `NumberStyles` used when parsing and formatting the value.
+
+## 4.2 StringFormat
 The string format used in the formatted view.
 
 Available as inheriting attached property: `NumericBox.StringFormat`
 
-##### DecimalDigits
+## 4.3 DecimalDigits
 `DecimalDigits="3"` sets stringformat to `F3` which means the value will always have three digits.
 
 `DecimalDigits="-3"` sets stringformat to `0.###` which means the value will be rendered with up to three digits.
@@ -126,21 +148,7 @@ If the user eneters more digits they are used in the Value binding. The formatte
 
 Available as inheriting attached property: `NumericBox.DecimalDigits`
 
-##### NumberStyles
-Use the NumberStyles to control validation. Ex if you want to allow leading sign or thousands.
-
-Available as inheriting attached property: `NumericBox.NumberStyles`
-
-##### RegexPattern
-Use the RegexPattern to add a Regex pattern that is used in validation.
-
-##### MaxValue
-Use max to specify the maximum value when validating. If null max is not checked.
-
-##### MinValue
-Use max to specify the minimum value when validating. If null min is not checked.
-
-### Spinners
+# 5. Spinners
 If you want to add up/down buttons you wrap the box in a spinnerdecorator liken this:
 
 ```
@@ -153,19 +161,21 @@ If you want to add up/down buttons you wrap the box in a spinnerdecorator liken 
 
 The spinner decorator derives from `Control` so it can be templated for easy styling.
 
-##### IncrementCommand and DecrementCommand
-The boxes exposes two command for incrementing and decrementing the current value with `Increment` clicking changes the text so it is undoable.
-
-##### Increment
+## 5.1. Increment
 How big change each increment/decrement is. Checked for overflow.
 If the value is 9.5 and `Increment="1"`and `Max="10"` one click on increment will set the value to 10. 
 
-##### AllowSpinners
-If spinners are visible/enabled.
+## 5.2. AllowSpinners
+Controls if spinners are visible assuming the control is wrapped in a `SpinnerDecorator`
 
-### Attached properties
-##### NumericBox
-###### NumericBox.Culture
+## 5.3. IncrementCommand and DecrementCommand
+The boxes exposes two command for incrementing and decrementing the current value with `Increment` clicking changes the text so it is undoable.
+
+
+
+# 5. Attached properties
+## 5.1. NumericBox
+### 5.1.1. NumericBox.Culture
 Controls what Culture to use.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -183,7 +193,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.ValidationTrigger
+### 5.1.2. NumericBox.ValidationTrigger
 Controls when validation is performed.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -201,7 +211,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.CanValueBeNull
+### 5.1.3. NumericBox.CanValueBeNull
 Controls if empty means null and is a legal value.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -219,7 +229,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.NumberStyles
+### 5.1.4. NumericBox.NumberStyles
 Controls if empty means null and is a legal value.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -237,7 +247,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.StringFormat
+### 5.1.5. NumericBox.StringFormat
 Controls how many decimal digits are shown.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -255,7 +265,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.DecimalDigits
+### 5.1.6. NumericBox.DecimalDigits
 Controls how many decimal digits are shown.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `DecimalDigitsBox<T>`.
 
@@ -273,7 +283,7 @@ Sample:
 	</Grid>
 ```
 
-###### NumericBox.AllowSpinners
+### 5.1.7. NumericBox.AllowSpinners
 Allows spinners on all child NumericBoxes.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `BaseBox`.
 
@@ -291,8 +301,8 @@ Sample:
 	</Grid>
 ```
 
-##### Gu.Wpf.NumericInput.Select.TextBox
-###### TextBox.SelectAllOnGotKeyboardFocus
+## 5.2. Gu.Wpf.NumericInput.Select.TextBox
+### 5.2.1. TextBox.SelectAllOnGotKeyboardFocus
 Selects all text in a textbox whgen it gets keyboard focus.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
 
@@ -310,7 +320,7 @@ Sample:
 	</Grid>
 ```
 
-###### TextBox.SelectAllOnClick
+### 5.2.2. TextBox.SelectAllOnClick
 Selects all text in a textbox on click.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
 
@@ -328,7 +338,7 @@ Sample:
 	</Grid>
 ```
 
-###### TextBox.SelectAllOnDoubleClick
+### 5.2.3. TextBox.SelectAllOnDoubleClick
 
 Selects all text in a textbox on doubleclick.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
@@ -347,7 +357,7 @@ Sample:
 	</Grid>
 ```
 
-###### TextBox.MoveFocusOnEnter
+### 5.2.4. TextBox.MoveFocusOnEnter
 
 Captures enter key and cycles focus to next control.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
@@ -367,8 +377,8 @@ Sample:
 	</Grid>
 ```
 
-##### Gu.Wpf.NumericInput.Touch.TextBox
-###### TextBox.ShowTouchKeyboardOnTouchEnter
+## 5.3 Gu.Wpf.NumericInput.Touch.TextBox
+### 5.3.1. TextBox.ShowTouchKeyboardOnTouchEnter
 Shows onscreen keyboard on touch enter for all controls inheriting from `TextBox`.
 Inherits so setting it on a panel or window sets it for all child controls inheriting from `TextBox`.
 
@@ -386,7 +396,7 @@ Sample:
 	</Grid>
 ```
 
-### Style and Template keys
+# 6. Style and Template keys
 - `NumericBox.BaseBoxStyleKey`
 - `NumericBox.SpinnersTemplateKey`
 - `NumericBox.SpinnerPathStyleKey`
