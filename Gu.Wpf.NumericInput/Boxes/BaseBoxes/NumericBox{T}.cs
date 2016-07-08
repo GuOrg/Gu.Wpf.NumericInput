@@ -20,9 +20,7 @@
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
         }
 
-        /// <summary>
-        /// Gets the current value. Will throw if bad format
-        /// </summary>
+        /// <summary>Gets the current value. Will throw if bad format</summary>
         internal T? CurrentTextValue
         {
             get

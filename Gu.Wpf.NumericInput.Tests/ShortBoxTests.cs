@@ -1,27 +1,20 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
+    using System.Threading;
+
     using NUnit.Framework;
 
-    [TestFixture, RequiresSTA]
+    [TestFixture, Apartment(ApartmentState.STA)]
     public class ShortBoxTests : NumericBoxTests<ShortBox, short>
     {
         protected override Func<ShortBox> Creator
         {
             get { return () => new ShortBox(); }
         }
-        protected override short Max
-        {
-            get { return 10; }
-        }
-        protected override short Min
-        {
-            get { return -10; }
-        }
-        protected override short Increment
-        {
-            get { return 1; }
-        }
+        protected override short Max => 10;
+        protected override short Min => -10;
+        protected override short Increment => 1;
 
         [Test]
         public void IncreaseOverflow()
