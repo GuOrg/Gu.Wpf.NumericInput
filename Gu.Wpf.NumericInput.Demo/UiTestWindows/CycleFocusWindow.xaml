@@ -1,0 +1,70 @@
+﻿<Window x:Class="Gu.Wpf.NumericInput.Demo.UiTestWindows.CycleFocusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:numeric="http://gu.se/NumericInput"
+        xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
+        Title="CycleFocusWindow"
+        SizeToContent="WidthAndHeight"
+        mc:Ignorable="d">
+    <Window.DataContext>
+        <demo:FocusVm />
+    </Window.DataContext>
+    <StackPanel>
+        <GroupBox Header="TextBoxes">
+            <StackPanel KeyboardNavigation.TabNavigation="Cycle">
+                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="TextBox2" Text="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="TextBox3" Text="{Binding Value3}" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="DoubleBoxes">
+            <StackPanel KeyboardNavigation.TabNavigation="Cycle">
+                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
+
+                <numeric:SpinnerDecorator>
+                    <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox1"
+                                       AllowSpinners="{Binding IsChecked,
+                                                               ElementName=AllowSpinners}"
+                                       DecimalDigits="{Binding DecimalDigits}"
+                                       Value="{Binding Value1}" />
+                </numeric:SpinnerDecorator>
+
+                <numeric:SpinnerDecorator>
+                    <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox2"
+                                       AllowSpinners="{Binding IsChecked,
+                                                               ElementName=AllowSpinners}"
+                                       DecimalDigits="{Binding DecimalDigits}"
+                                       Value="{Binding Value2}" />
+                </numeric:SpinnerDecorator>
+
+                <numeric:SpinnerDecorator>
+                    <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox3"
+                                       AllowSpinners="{Binding IsChecked,
+                                                               ElementName=AllowSpinners}"
+                                       DecimalDigits="{Binding DecimalDigits}"
+                                       Value="{Binding Value3}" />
+                </numeric:SpinnerDecorator>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="AllowSpinners" />
+                <CheckBox x:Name="AllowSpinners"
+                              Grid.Row="0"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              IsChecked="True" />
+            </Grid>
+        </GroupBox>
+    </StackPanel>
+</Window>
