@@ -4,4 +4,5 @@ nuget NUnit
 nuget JetBrains.Annotations
 nuget StyleCop.Analyzers
 nuget Gu.PropertyGrid
+nuget Gu.Wpf.AutoRowGrid
 nuget TestStack.White

@@ -2,3 +2,4 @@ NUnit
 TestStack.White
 JetBrains.Annotations
 Gu.PropertyGrid
+Gu.Wpf.AutoRowGrid
