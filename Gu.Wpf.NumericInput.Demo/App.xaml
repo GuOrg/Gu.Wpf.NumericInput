@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:numeric="http://gu.se/NumericInput"
-             xmlns:system="clr-namespace:System;assembly=mscorlib">
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo">
     <Application.StartupUri>MainWindow.xaml</Application.StartupUri>
     <Application.Resources>
         <Style TargetType="{x:Type TextBox}">
@@ -12,13 +13,14 @@
         <Style TargetType="{x:Type numeric:DoubleBox}">
             <Setter Property="AutomationProperties.ItemStatus">
                 <Setter.Value>
-                    <MultiBinding StringFormat="Text: {1}{0}FormattedText: {2}{0}Value: {3}{0}IsFocused: {4}{0}HasError: {5}{0}Status: {6}{0}TextSource: {7}">
+                    <MultiBinding StringFormat="Text: {1}{0}FormattedText: {2}{0}Value: {3}{0}IsFocused: {4}{0}HasError: {5}{0}FirstError: {5}{0}Status: {7}{0}TextSource: {8}">
                         <Binding Source="{x:Static system:Environment.NewLine}" />
                         <Binding Path="Text" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="FormattedText" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="Value" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="IsFocused" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="(Validation.HasError)" RelativeSource="{RelativeSource Self}" />
+                        <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" Converter="{x:Static demo:FirstOrDefaultConverter.Default}"/>
                         <Binding Path="Status" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="TextSource" RelativeSource="{RelativeSource Self}" />
                     </MultiBinding>

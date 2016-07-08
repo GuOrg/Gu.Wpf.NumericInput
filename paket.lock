@@ -2,6 +2,7 @@ NUGET
   remote: http://www.nuget.org/api/v2
     Castle.Core (3.3.3)
     Gu.PropertyGrid (1.0)
+    Gu.Wpf.AutoRowGrid (0.6)
     JetBrains.Annotations (10.1.5)
       System.Runtime (>= 4.0) - framework: dnxcore50
     Microsoft.NETCore.Platforms (1.0.1) - framework: dnxcore50
