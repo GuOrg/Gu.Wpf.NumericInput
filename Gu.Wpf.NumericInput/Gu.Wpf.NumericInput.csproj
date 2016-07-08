@@ -52,33 +52,33 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseBoxes\BaseBox.cs" />
-    <Compile Include="BaseBoxes\BaseBox.Events.cs" />
-    <Compile Include="BaseBoxes\DecimalDigitsBox{T}.cs" />
-    <Compile Include="BaseBoxes\FormattedView.cs" />
-    <Compile Include="BaseBoxes\IIncrementBox.cs" />
-    <Compile Include="BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
-    <Compile Include="BaseBoxes\NumericBox{T}.Events.cs" />
-    <Compile Include="BaseBoxes\Status.cs" />
-    <Compile Include="BaseBoxes\TextSource.cs" />
-    <Compile Include="BaseBoxes\ValidationTrigger.cs" />
+    <Compile Include="Boxes\BaseBoxes\BaseBox.cs" />
+    <Compile Include="Boxes\BaseBoxes\BaseBox.Events.cs" />
+    <Compile Include="Boxes\BaseBoxes\DecimalDigitsBox{T}.cs" />
+    <Compile Include="Boxes\BaseBoxes\FormattedView.cs" />
+    <Compile Include="Boxes\BaseBoxes\IIncrementBox.cs" />
+    <Compile Include="Boxes\BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
+    <Compile Include="Boxes\BaseBoxes\NumericBox{T}.Events.cs" />
+    <Compile Include="Boxes\BaseBoxes\Status.cs" />
+    <Compile Include="Boxes\TextSource.cs" />
+    <Compile Include="Boxes\ValidationTrigger.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
     <Compile Include="Internals\Debug.cs" />
     <Compile Include="Internals\DependencyPropertyExt.cs" />
-    <Compile Include="BaseBoxes\NumericBox.Keys.cs" />
-    <Compile Include="BaseBoxes\NumericBox.AttachedProperties.cs" />
+    <Compile Include="Boxes\NumericBox.Keys.cs" />
+    <Compile Include="Boxes\NumericBox.AttachedProperties.cs" />
     <Compile Include="Converters\TextValueConverter.cs" />
     <Compile Include="Internals\EmptyEnumerator.cs" />
     <Compile Include="Internals\FrameworkObject.cs" />
     <Compile Include="Internals\ManualRelayCommand.cs" />
-    <Compile Include="BaseBoxes\BaseBox.DependencyProperties.cs" />
-    <Compile Include="DecimalBox.cs" />
-    <Compile Include="DoubleBox.cs" />
-    <Compile Include="FloatBox.cs" />
-    <Compile Include="IntBox.cs" />
+    <Compile Include="Boxes\BaseBoxes\BaseBox.DependencyProperties.cs" />
+    <Compile Include="Boxes\DecimalBox.cs" />
+    <Compile Include="Boxes\DoubleBox.cs" />
+    <Compile Include="Boxes\FloatBox.cs" />
+    <Compile Include="Boxes\IntBox.cs" />
     <Compile Include="Internals\SingleChildEnumerator.cs" />
     <Compile Include="Internals\WeakRoutedEventManager.generated.cs">
       <AutoGen>True</AutoGen>
@@ -86,12 +86,12 @@
       <DependentUpon>WeakRoutedEventManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Select\TextBox.Select.cs" />
-    <Compile Include="SpinnerDecorator.cs" />
+    <Compile Include="Spinners\SpinnerDecorator.cs" />
     <Compile Include="Internals\VisualTreeHelperExt.cs" />
-    <Compile Include="LongBox.cs" />
-    <Compile Include="BaseBoxes\NumericBox{T}.cs" />
-    <Compile Include="ShortBox.cs" />
-    <Compile Include="SpinnerDecoratorAutomationPeer.cs" />
+    <Compile Include="Boxes\LongBox.cs" />
+    <Compile Include="Boxes\BaseBoxes\NumericBox{T}.cs" />
+    <Compile Include="Boxes\ShortBox.cs" />
+    <Compile Include="Spinners\SpinnerDecoratorAutomationPeer.cs" />
     <Compile Include="Touch\TextBox.cs" />
     <Compile Include="Touch\TouchKeyboard.cs" />
     <Compile Include="Touch\TouchProcessInfo.cs" />
