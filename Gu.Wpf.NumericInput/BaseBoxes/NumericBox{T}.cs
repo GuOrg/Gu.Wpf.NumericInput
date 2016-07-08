@@ -13,9 +13,7 @@
     public abstract partial class NumericBox<T> : BaseBox, IIncrementBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NumericBox{T}"/> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="NumericBox{T}"/> class.</summary>
         protected NumericBox()
         {
             this.IncreaseCommand = new ManualRelayCommand(this.Increase, this.CanIncrease);
