@@ -11,7 +11,7 @@
 
         [TestCase(true)]
         [TestCase(false)]
-        public void WithAndWithoutSpinners(bool withSpinners)
+        public void WithSpinners(bool withSpinners)
         {
             this.Window.Get<CheckBox>("AllowSpinners").Checked = withSpinners;
             var doubleBoxes = this.Window.GetByText<GroupBox>("DoubleBoxes");
