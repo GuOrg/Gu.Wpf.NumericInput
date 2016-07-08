@@ -1,9 +1,11 @@
 namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
+    using System.Threading;
+
     using NUnit.Framework;
 
-    [TestFixture, RequiresSTA]
+    [TestFixture, Apartment(ApartmentState.STA)]
     public class LongBoxTests : NumericBoxTests<LongBox,long>
     {
         protected override long Max => 10;

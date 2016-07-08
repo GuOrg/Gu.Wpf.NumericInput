@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Windows;
 
     using Gu.Wpf.NumericInput.Demo;
@@ -660,7 +661,7 @@
                 }
             }
 
-            [Test, RequiresSTA]
+            [Test, Apartment(ApartmentState.STA)]
             public void CopyTest()
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
