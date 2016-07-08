@@ -7,9 +7,7 @@ namespace Gu.Wpf.NumericInput
     public abstract class DecimalDigitsBox<T> : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        /// <summary>
-        /// Identifies the Decimals property
-        /// </summary>
+        /// <summary>Identifies the Decimals property.</summary>
         public static readonly DependencyProperty DecimalDigitsProperty = NumericBox.DecimalDigitsProperty.AddOwner(
             typeof(DecimalDigitsBox<T>),
             new FrameworkPropertyMetadata(
@@ -21,7 +19,7 @@ namespace Gu.Wpf.NumericInput
         /// Gets or sets the number of decimal digits:
         /// DecimalDigits="3" sets StringFormat to F3
         /// DecimalDigits="-3" sets StringFormat to 0.###
-        /// Defauklt is null.
+        /// Default is null.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]

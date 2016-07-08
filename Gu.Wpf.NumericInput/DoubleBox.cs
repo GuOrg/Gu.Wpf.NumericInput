@@ -5,9 +5,7 @@
     using System.Globalization;
     using System.Windows;
 
-    /// <summary>
-    /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="double"/>
-    /// </summary>
+    /// <summary>A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="double"/> or nullable double.</summary>
     [ToolboxItem(true)]
     public class DoubleBox : DecimalDigitsBox<double>
     {
