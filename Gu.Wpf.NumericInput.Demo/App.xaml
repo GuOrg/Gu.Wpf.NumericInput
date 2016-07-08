@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:numeric="http://gu.se/NumericInput"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             StartupUri="MainWindow.xaml">
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <Application.StartupUri>MainWindow.xaml</Application.StartupUri>
     <Application.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="AutomationProperties.ItemStatus" Value="{Binding Path=(Validation.HasError), RelativeSource={RelativeSource Self}, StringFormat='HasValidationError: {0}'}" />

@@ -108,6 +108,9 @@
     <Compile Include="TouchView.xaml.cs">
       <DependentUpon>TouchView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UiTestWindows\FocusWindow.xaml.cs">
+      <DependentUpon>FocusWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="BoxViews\DecimalBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +160,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TouchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UiTestWindows\FocusWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
