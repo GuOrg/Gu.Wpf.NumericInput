@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
         xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
+        xmlns:autoRowGrid="http://gu.se/AutoRowGrid"
         Title="CycleFocusWindow"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
@@ -51,20 +52,14 @@
         </GroupBox>
 
         <GroupBox Header="Settings">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Text="AllowSpinners" />
-                <CheckBox x:Name="AllowSpinners"
-                              Grid.Row="0"
-                              Grid.Column="1"
+            <autoRowGrid:Grid ColumnDefinitions="Auto *">
+                <autoRowGrid:Row>
+                    <TextBlock Text="AllowSpinners" />
+                    <CheckBox x:Name="AllowSpinners"
                               VerticalAlignment="Center"
                               IsChecked="True" />
-            </Grid>
+                </autoRowGrid:Row>
+            </autoRowGrid:Grid>
         </GroupBox>
     </StackPanel>
 </Window>
