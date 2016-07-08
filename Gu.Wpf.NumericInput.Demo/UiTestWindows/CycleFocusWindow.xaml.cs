@@ -2,9 +2,9 @@
 {
     using System.Windows;
 
-    public partial class FocusWindow : Window
+    public partial class CycleFocusWindow : Window
     {
-        public FocusWindow()
+        public CycleFocusWindow()
         {
             InitializeComponent();
         }

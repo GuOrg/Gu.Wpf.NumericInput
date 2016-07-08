@@ -2,6 +2,9 @@
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
+
     using Gu.Wpf.NumericInput.Demo;
 
     public static class Info
@@ -25,6 +28,33 @@
                 };
                 return processStartInfo;
             }
+        }
+
+
+        internal static ProcessStartInfo CreateStartInfo(string args)
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = GetExeFileName(),
+                Arguments = args,
+                UseShellExecute = false,
+                //CreateNoWindow = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            return processStartInfo;
+        }
+
+        private static string GetExeFileName()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var testDirestory = Path.GetDirectoryName(new Uri(assembly.CodeBase).AbsolutePath);
+            var assemblyName = assembly.GetName().Name;
+            var exeDirectoryName = assemblyName.Replace("UITests", "Demo");
+            var exeDirectory = testDirestory.Replace(assemblyName, exeDirectoryName);
+            var fileName = Path.Combine(exeDirectory, "Gu.Wpf.NumericInput.Demo.exe");
+
+            return fileName;
         }
     }
 }

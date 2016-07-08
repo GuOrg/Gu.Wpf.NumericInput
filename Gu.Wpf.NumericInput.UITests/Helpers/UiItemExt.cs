@@ -7,11 +7,18 @@
 
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.Custom;
+    using TestStack.White.UIItems.Finders;
     using TestStack.White.UIItems.WPFUIItems;
 
     public static class UiItemExt
     {
         private static readonly ConditionalWeakTable<TextBox, Label> FormattedTextCache = new ConditionalWeakTable<TextBox, Label>();
+
+        public static T GetByText<T>(this UIItemContainer container, string text)
+    where T : UIItem
+        {
+            return container.Get<T>(SearchCriteria.ByText(text));
+        }
 
         public static string ItemStatus(this IUIItem item)
         {
