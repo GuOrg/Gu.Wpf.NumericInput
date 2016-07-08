@@ -185,10 +185,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <UsingTask TaskName="CopyRuntimeDependencies" AssemblyFile="..\.paket\paket.exe" />
-  <Target Name="AfterBuild" Condition="Exists('..\.paket\paket.exe')">
-    <CopyRuntimeDependencies OutputPath="$(OutputPath)" ProjectsWithRuntimeLibs="System.Private.Uri;System.Runtime" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -221,7 +217,7 @@
     <When Condition="($(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v1.2' Or $(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5')) Or ($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.5' Or $(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2'))">
       <ItemGroup>
         <Reference Include="JetBrains.Annotations">
-          <HintPath>..\packages\JetBrains.Annotations\lib\net20\JetBrains.Annotations.dll</HintPath>
+          <HintPath>..\packages\JetBrains.Annotations\lib\net\JetBrains.Annotations.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
