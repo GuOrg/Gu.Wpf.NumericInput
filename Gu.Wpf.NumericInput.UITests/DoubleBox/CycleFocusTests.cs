@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.UITests
+﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using NUnit.Framework;
 

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Windows;
 
     using TestStack.White.UIItems;
@@ -12,8 +11,6 @@
 
     public static class UiItemExt
     {
-        private static readonly ConditionalWeakTable<TextBox, Label> FormattedTextCache = new ConditionalWeakTable<TextBox, Label>();
-
         public static T GetByText<T>(this UIItemContainer container, string text)
     where T : UIItem
         {
@@ -71,7 +68,7 @@
         internal static string Value(this TextBox textBox)
         {
             var itemStatus = textBox.ItemStatus();
-            var text = itemStatus.Get(DoubleBox.ValueProperty);
+            var text = itemStatus.Get(NumericBox<double>.ValueProperty);
             return text;
         }
 

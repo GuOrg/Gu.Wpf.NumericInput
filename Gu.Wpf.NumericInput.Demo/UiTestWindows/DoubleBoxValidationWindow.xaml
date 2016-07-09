@@ -7,14 +7,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
         xmlns:propertyGrid="http://gu.se/PropertyGrid"
-        Title="ValidationWindow"
+        Title="DoubleBoxValidationWindow"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <Window.DataContext>
         <demo:DoubleBoxVm />
     </Window.DataContext>
     <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-        <numeric:DoubleBox x:Name="DoubleBox"
+        <numeric:DoubleBox x:Name="LostFocusBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
                            Culture="{Binding Culture}"
@@ -28,7 +28,7 @@
                            StringFormat="{Binding StringFormat}"
                            Value="{Binding Value}" />
 
-        <numeric:DoubleBox x:Name="DoubleBoxPropertyChanged"
+        <numeric:DoubleBox x:Name="PropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
                            Culture="{Binding Culture}"
@@ -43,24 +43,27 @@
                            Value="{Binding Value,
                                            UpdateSourceTrigger=PropertyChanged}" />
 
+        <Button Content="lose focus" />
         <GroupBox Header="settings">
             <autoRowGrid:Grid ColumnDefinitions="Auto *">
-                <autoRowGrid:Row>
-                    <TextBlock Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}"
-                               Text="ViewModel:" />
-                </autoRowGrid:Row>
+                <autoRowGrid:Rows>
+                    <autoRowGrid:Row>
+                        <TextBlock Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}"
+                                   Text="ViewModel:" />
+                    </autoRowGrid:Row>
 
-                <autoRowGrid:Row>
-                    <TextBlock Text="CurrentValue" />
-                    <TextBlock Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
-                </autoRowGrid:Row>
+                    <autoRowGrid:Row>
+                        <TextBlock Text="CurrentValue" />
+                        <TextBlock Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
+                    </autoRowGrid:Row>
 
-                <autoRowGrid:Row>
-                    <TextBlock Text="Edit Value:" />
-                    <TextBox x:Name="EditValue" Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
-                </autoRowGrid:Row>
+                    <autoRowGrid:Row>
+                        <TextBlock Text="Edit Value:" />
+                        <TextBox x:Name="ViewModelValue" Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
+                    </autoRowGrid:Row>
+                </autoRowGrid:Rows>
 
                 <autoRowGrid:Row>
                     <TextBlock Grid.Column="0"
