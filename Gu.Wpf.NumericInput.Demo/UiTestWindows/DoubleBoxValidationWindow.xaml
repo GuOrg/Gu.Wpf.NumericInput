@@ -14,7 +14,7 @@
         <demo:DoubleBoxVm />
     </Window.DataContext>
     <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-        <numeric:DoubleBox x:Name="LostFocusBox"
+        <numeric:DoubleBox x:Name="LostFocusBoxValidateOnLostFocusBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
                            Culture="{Binding Culture}"
@@ -26,6 +26,7 @@
                            NumberStyles="{Binding NumberStyles}"
                            RegexPattern="{Binding RegexPattern}"
                            StringFormat="{Binding StringFormat}"
+                           ValidationTrigger="LostFocus"
                            Value="{Binding Value}" />
 
         <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
@@ -40,9 +41,10 @@
                            NumberStyles="{Binding NumberStyles}"
                            RegexPattern="{Binding RegexPattern}"
                            StringFormat="{Binding StringFormat}"
+                           ValidationTrigger="PropertyChanged"
                            Value="{Binding Value}" />
-        
-        <numeric:DoubleBox x:Name="PropertyChangedBox"
+
+        <numeric:DoubleBox x:Name="PropertyChangedValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
                            Culture="{Binding Culture}"
@@ -54,6 +56,7 @@
                            NumberStyles="{Binding NumberStyles}"
                            RegexPattern="{Binding RegexPattern}"
                            StringFormat="{Binding StringFormat}"
+                           ValidationTrigger="PropertyChanged"
                            Value="{Binding Value,
                                            UpdateSourceTrigger=PropertyChanged}" />
 
@@ -96,14 +99,14 @@
                     <CheckBox x:Name="HasErrors" IsChecked="{Binding HasErrors}" />
                 </autoRowGrid:Row>
 
-                <autoRowGrid:Row>
+                <!--<autoRowGrid:Row>
                     <TextBlock Text="ValidationTrigger:" />
                     <ComboBox x:Name="ValidationTrigger" SelectedItem="{Binding ValidationTrigger}">
                         <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
                         <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
                         <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
                     </ComboBox>
-                </autoRowGrid:Row>
+                </autoRowGrid:Row>-->
 
                 <autoRowGrid:Row>
                     <TextBlock Text="CanValueBeNull:" />
