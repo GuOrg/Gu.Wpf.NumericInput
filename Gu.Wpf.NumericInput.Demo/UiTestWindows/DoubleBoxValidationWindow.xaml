@@ -28,6 +28,20 @@
                            StringFormat="{Binding StringFormat}"
                            Value="{Binding Value}" />
 
+        <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
+                           AllowSpinners="{Binding AllowSpinners}"
+                           CanValueBeNull="{Binding CanValueBeNull}"
+                           Culture="{Binding Culture}"
+                           DecimalDigits="{Binding DecimalDigits}"
+                           Increment="{Binding Increment}"
+                           IsReadOnly="{Binding IsReadOnly}"
+                           MaxValue="{Binding Max}"
+                           MinValue="{Binding Min}"
+                           NumberStyles="{Binding NumberStyles}"
+                           RegexPattern="{Binding RegexPattern}"
+                           StringFormat="{Binding StringFormat}"
+                           Value="{Binding Value}" />
+        
         <numeric:DoubleBox x:Name="PropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"

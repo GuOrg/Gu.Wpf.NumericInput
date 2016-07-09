@@ -56,7 +56,7 @@
     <Compile Include="DoubleBoxTests.Plain.cs" />
     <Compile Include="DoubleBoxTests.Spinners.cs" />
     <Compile Include="DoubleBox\ValidationHappyPathTests.cs" />
-    <Compile Include="DoubleBox\ValidationTests.cs" />
+    <Compile Include="DoubleBox\ValidationTestsBase.cs" />
     <Compile Include="Helpers\Info.cs" />
     <Compile Include="Helpers\UiItemExt.cs" />
     <Compile Include="Helpers\WindowTests.cs" />

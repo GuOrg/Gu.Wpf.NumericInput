@@ -6,31 +6,75 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationHappyPathTests : ValidationTestsBase
     {
-        public static readonly HappyPathData[] HappyPathSource = {
-                                                                     new HappyPathData("1", "1"),
-                                                                     new HappyPathData("1.2", "1.2"),
-                                                                     new HappyPathData(".1", "0.1"),
-                                                                     new HappyPathData("0.1", "0.1"),
-                                                                     new HappyPathData("1e1", "10"),
-                                                                     new HappyPathData("1e0", "1"),
-                                                                     new HappyPathData("1e-1", "0.1"),
-                                                                     new HappyPathData("1E1", "10"),
-                                                                     new HappyPathData("1E0", "1"),
-                                                                     new HappyPathData("1E-1", "0.1"),
-                                                                 };
+        public static readonly Data[] Source =
+            {
+                new Data("1", "1"),
+                new Data(" 1", "1"),
+                new Data("1 ", "1"),
+                new Data(" 1 ", "1"),
+                new Data("1.2", "1.2"),
+                new Data("-1.2", "-1.2"),
+                new Data("+1.2", "1.2"),
+                new Data(".1", "0.1"),
+                new Data("-.1", "-0.1"),
+                new Data("0.1", "0.1"),
+                new Data("1e1", "10"),
+                new Data("1e0", "1"),
+                new Data("1e-1", "0.1"),
+                new Data("1E1", "10"),
+                new Data("1E0", "1"),
+                new Data("1E-1", "0.1"),
+                new Data("-1e1", "-10"),
+                new Data("-1e0", "-1"),
+                new Data("-1e-1", "-0.1"),
+                new Data("-1E1", "-10"),
+                new Data("-1E0", "-1"),
+                new Data("-1E-1", "-0.1"),
+            };
 
+        public static readonly Data[] SwedishSource =
+            {
+                new Data("1", "1"),
+                new Data(" 1", "1"),
+                new Data("1 ", "1"),
+                new Data(" 1 ", "1"),
+                new Data("1,2", "1.2"),
+                new Data("-1,2", "-1.2"),
+                new Data("+1,2", "1.2"),
+                new Data(",1", "0.1"),
+                new Data("-,1", "-0.1"),
+                new Data("0,1", "0.1"),
+                new Data("1e1", "10"),
+                new Data("1e0", "1"),
+                new Data("1e-1", "0.1"),
+                new Data("1E1", "10"),
+                new Data("1E0", "1"),
+                new Data("1E-1", "0.1"),
+                new Data("-1e1", "-10"),
+                new Data("-1e0", "-1"),
+                new Data("-1e-1", "-0.1"),
+                new Data("-1E1", "-10"),
+                new Data("-1E0", "-1"),
+                new Data("-1E-1", "-0.1"),
+            };
 
         [SetUp]
         public void SetUp()
         {
             this.ViewModelValueBox.Text = "0";
             this.CultureBox.Select("en-US");
+            this.AllowLeadingWhiteBox.Checked = true;
+            this.AllowTrailingWhiteBox.Checked = true;
+            this.AllowLeadingWhiteBox.Checked = true;
             this.AllowDecimalPointBox.Checked = true;
+            this.AllowThousandsBox.Checked = false;
+            this.AllowExponentBox.Checked = true;
+
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(HappyPathSource))]
-        public void HappyPathLostFocus(HappyPathData data)
+        [TestCaseSource(nameof(Source))]
+        public void LostFocus(Data data)
         {
             var doubleBox = this.Window.Get<TextBox>("LostFocusBox");
             doubleBox.Text = data.Text;
@@ -44,8 +88,23 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
         }
 
-        [TestCaseSource(nameof(HappyPathSource))]
-        public void HappyPathPropertyChanged(HappyPathData data)
+        [TestCaseSource(nameof(Source))]
+        public void LostFocusValidateOnPropertyChanged(Data data)
+        {
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(Source))]
+        public void PropertyChanged(Data data)
         {
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedBox");
             doubleBox.Text = data.Text;
@@ -54,12 +113,55 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
         }
 
-        public class HappyPathData
+        [TestCaseSource(nameof(SwedishSource))]
+        public void SwedishLostFocus(Data data)
+        {
+            this.CultureBox.Select("sv-SE");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(SwedishSource))]
+        public void SwedishLostFocusValidateOnPropertyChanged(Data data)
+        {
+            this.CultureBox.Select("sv-SE");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(SwedishSource))]
+        public void SwedishPropertyChanged(Data data)
+        {
+            this.CultureBox.Select("sv-SE");
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        public class Data
         {
             public readonly string Text;
             public readonly string Expected;
 
-            public HappyPathData(string text, string expected)
+            public Data(string text, string expected)
             {
                 this.Text = text;
                 this.Expected = expected;
