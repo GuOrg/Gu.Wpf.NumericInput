@@ -1,7 +1,7 @@
+// ReSharper disable MemberCanBePrivate.Global
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using NUnit.Framework;
-
     using TestStack.White.UIItems;
 
     public class ValidationHappyPathTests : ValidationTestsBase

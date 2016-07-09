@@ -3,16 +3,20 @@
     using System;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
 
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.Custom;
     using TestStack.White.UIItems.Finders;
     using TestStack.White.UIItems.WPFUIItems;
 
+    using Button = TestStack.White.UIItems.Button;
+    using TextBox = TestStack.White.UIItems.TextBox;
+
     public static class UiItemExt
     {
         public static T GetByText<T>(this UIItemContainer container, string text)
-    where T : UIItem
+            where T : UIItem
         {
             return container.Get<T>(SearchCriteria.ByText(text));
         }
@@ -36,6 +40,13 @@
             }
 
             throw new InvalidOperationException();
+        }
+
+        public static string ValidationError(this TextBox textBox)
+        {
+            var itemStatus = textBox.ItemStatus();
+            var text = itemStatus.Get("FirstError");
+            return text;
         }
 
         internal static TextSource TextSource(this TextBox textBox)
@@ -100,11 +111,14 @@
 
         private static string Get(this string text, DependencyProperty property)
         {
-            return text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                .Single(x => x.StartsWith(property.Name + ":"))
-                .Split(':')[1]
-                .Trim();
+            return text.Get(property.Name);
+        }
 
+        private static string Get(this string text, string property)
+        {
+            return text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                       .Single(x => x.StartsWith(property + ":"))
+                       .Split(':')[1].Trim();
         }
     }
 }

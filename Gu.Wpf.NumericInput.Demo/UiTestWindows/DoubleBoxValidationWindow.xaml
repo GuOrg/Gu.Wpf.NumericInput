@@ -28,6 +28,11 @@
                            StringFormat="{Binding StringFormat}"
                            ValidationTrigger="LostFocus"
                            Value="{Binding Value}" />
+        <TextBlock x:Name="LostFocusBoxValidateOnLostFocusBoxError"
+                   Foreground="Red"
+                   Text="{Binding Path=(Validation.Errors),
+                                  ElementName=LostFocusBoxValidateOnLostFocusBox,
+                                  Converter={x:Static demo:FirstOrDefaultErrorConverter.Default}}" />
 
         <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -44,6 +49,12 @@
                            ValidationTrigger="PropertyChanged"
                            Value="{Binding Value}" />
 
+        <TextBlock x:Name="LostFocusValidateOnPropertyChangedBoxError"
+                   Foreground="Red"
+                   Text="{Binding Path=(Validation.Errors),
+                                  ElementName=LostFocusValidateOnPropertyChangedBox,
+                                  Converter={x:Static demo:FirstOrDefaultErrorConverter.Default}}" />
+        
         <numeric:DoubleBox x:Name="PropertyChangedValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
@@ -59,7 +70,11 @@
                            ValidationTrigger="PropertyChanged"
                            Value="{Binding Value,
                                            UpdateSourceTrigger=PropertyChanged}" />
-
+        <TextBlock x:Name="PropertyChangedValidateOnPropertyChangedBoxError"
+                   Foreground="Red"
+                   Text="{Binding Path=(Validation.Errors),
+                                  ElementName=PropertyChangedValidateOnPropertyChangedBox,
+                                  Converter={x:Static demo:FirstOrDefaultErrorConverter.Default}}" />
         <Button Content="lose focus" />
         <GroupBox Header="settings">
             <autoRowGrid:Grid ColumnDefinitions="Auto *">
