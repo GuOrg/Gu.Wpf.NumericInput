@@ -58,6 +58,19 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 new Data("-1E-1", "-0.1"),
             };
 
+        public static readonly MinMaxData[] MinMaxSource =
+            {
+                new MinMaxData("1", "", "", "1"),
+                new MinMaxData("-1", "-1", "", "-1"),
+                new MinMaxData("-1", "-10", "", "-1"),
+                new MinMaxData("1", "", "1", "1"),
+                new MinMaxData("1", "", "10", "1"),
+                new MinMaxData("-2", "-2", "2", "-2"),
+                new MinMaxData("-1", "-2", "2", "-1"),
+                new MinMaxData("1", "-2", "2", "1"),
+                new MinMaxData("2", "-2", "2", "2"),
+            };
+
         [SetUp]
         public void SetUp()
         {
@@ -71,6 +84,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowDecimalPointBox.Checked = true;
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
+
+            this.MinBox.Text = "";
+            this.MaxBox.Text = "";
 
             this.LoseFocusButton.Click();
         }
@@ -201,6 +217,52 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("", this.ViewModelValueBox.Text);
         }
 
+        [TestCaseSource(nameof(MinMaxSource))]
+        public void MinMaxLostFocus(MinMaxData data)
+        {
+            this.MinBox.Text = data.Min;
+            this.MaxBox.Text = data.Max;
+            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(MinMaxSource))]
+        public void MinMaxLostFocusValidateOnPropertyChanged(MinMaxData data)
+        {
+            this.MinBox.Text = data.Min;
+            this.MaxBox.Text = data.Max;
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(MinMaxSource))]
+        public void MinMaxPropertyChanged(MinMaxData data)
+        {
+            this.MinBox.Text = data.Min;
+            this.MaxBox.Text = data.Max;
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = data.Text;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+        }
+
         public class Data
         {
             public readonly string Text;
@@ -213,6 +275,24 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
 
             public override string ToString() => $"Text: {this.Text}, Expected: {this.Expected}";
+        }
+
+        public class MinMaxData
+        {
+            public readonly string Text;
+            public readonly string Min;
+            public readonly string Max;
+            public readonly string Expected;
+
+            public MinMaxData(string text, string min, string max, string expected)
+            {
+                this.Text = text;
+                this.Min = min;
+                this.Max = max;
+                this.Expected = expected;
+            }
+
+            public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}";
         }
     }
 }
