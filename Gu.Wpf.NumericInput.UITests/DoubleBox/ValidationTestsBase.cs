@@ -27,13 +27,18 @@
 
         protected CheckBox AllowExponentBox { get; private set; }
 
+        protected TextBox MaxBox { get; private set; }
+
+        protected TextBox MinBox { get; private set; }
+
         public override void OneTimeSetUp()
         {
             base.OneTimeSetUp();
             this.LoseFocusButton = this.Window.GetByText<Button>("lose focus");
             this.ViewModelValueBox = this.Window.Get<TextBox>("ViewModelValue");
+
             this.CultureBox = this.Window.Get<ComboBox>("Culture");
-            
+
             this.CanValueBeNullBox = this.Window.Get<CheckBox>("CanValueBeNull");
             this.AllowLeadingWhiteBox = this.Window.Get<CheckBox>("AllowLeadingWhite");
             this.AllowTrailingWhiteBox = this.Window.Get<CheckBox>("AllowTrailingWhite");
@@ -41,6 +46,9 @@
             this.AllowDecimalPointBox = this.Window.Get<CheckBox>("AllowDecimalPoint");
             this.AllowThousandsBox = this.Window.Get<CheckBox>("AllowThousands");
             this.AllowExponentBox = this.Window.Get<CheckBox>("AllowExponent");
+
+            this.MinBox = this.Window.Get<TextBox>("Min");
+            this.MaxBox = this.Window.Get<TextBox>("Max");
         }
     }
 }
