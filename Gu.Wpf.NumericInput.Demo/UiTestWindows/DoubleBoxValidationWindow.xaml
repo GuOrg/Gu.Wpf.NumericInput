@@ -30,9 +30,8 @@
                            Value="{Binding Value}" />
         <TextBlock x:Name="LostFocusBoxValidateOnLostFocusBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0],
-                                  ElementName=LostFocusBoxValidateOnLostFocusBox,
-                                  Converter={x:Static demo:ValidationErrorToInfoStringConverter.Default}}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=LostFocusBoxValidateOnLostFocusBox}" />
 
         <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -51,9 +50,8 @@
 
         <TextBlock x:Name="LostFocusValidateOnPropertyChangedBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0],
-                                  ElementName=LostFocusValidateOnPropertyChangedBox,
-                                  Converter={x:Static demo:ValidationErrorToInfoStringConverter.Default}}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=LostFocusValidateOnPropertyChangedBox}" />
         
         <numeric:DoubleBox x:Name="PropertyChangedValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -72,9 +70,8 @@
                                            UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="PropertyChangedValidateOnPropertyChangedBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0],
-                                  ElementName=PropertyChangedValidateOnPropertyChangedBox,
-                                  Converter={x:Static demo:ValidationErrorToInfoStringConverter.Default}}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=PropertyChangedValidateOnPropertyChangedBox}" />
         <Button Content="lose focus" />
         <GroupBox Header="settings">
             <autoRowGrid:Grid ColumnDefinitions="Auto *">

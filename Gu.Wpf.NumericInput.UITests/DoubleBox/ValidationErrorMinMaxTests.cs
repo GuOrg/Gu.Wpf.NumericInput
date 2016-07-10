@@ -46,7 +46,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
 
-            doubleBox.BulkText = data.Text;
+            doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -67,7 +67,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            doubleBox.BulkText = data.Text;
+            doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -87,7 +87,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.StartValue;
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            doubleBox.BulkText = data.Text;
+            doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
