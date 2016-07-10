@@ -1,5 +1,9 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
+    using System.Text.RegularExpressions;
+
+    using Gu.Wpf.NumericInput.UITests.Helpers;
+
     using NUnit.Framework;
 
     using TestStack.White.UIItems;
@@ -48,13 +52,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
@@ -69,13 +74,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
@@ -89,7 +95,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
@@ -104,7 +111,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("", this.ViewModelValueBox.Text);
         }
@@ -115,22 +122,24 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             public readonly string Min;
             public readonly string Max;
             public readonly string Expected;
-            public readonly string ExpectedMessage;
+            public readonly string ExpectedInfoMessage;
 
-            public MinMaxData(string text, string min, string max, string expected, string expectedMessage)
+            public MinMaxData(string text, string min, string max, string expected, string expectedInfoMessage)
             {
                 this.Text = text;
                 this.Min = min;
                 this.Max = max;
                 this.Expected = expected;
-                this.ExpectedMessage = expectedMessage;
+                this.ExpectedInfoMessage = expectedInfoMessage;
             }
+
+            public string ErrorMessage => Regex.Match(this.ExpectedInfoMessage, "[^']+'(?<inner>[^']+)'.*").Groups["inner"].Value;
 
             public string StartValue => string.IsNullOrEmpty(this.Min)
                                             ? this.Max
                                             : this.Min;
 
-            public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedMessage}";
+            public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedInfoMessage}";
         }
     }
 }

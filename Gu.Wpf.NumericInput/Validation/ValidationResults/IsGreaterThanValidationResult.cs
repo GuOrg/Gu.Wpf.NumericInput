@@ -34,5 +34,7 @@
                               : string.Format(CultureInfo.InvariantCulture, Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0_, min);
             return new IsGreaterThanValidationResult(value, min, culture, false, message);
         }
+
+        public override string ToString() => this.ErrorContent.ToString();
     }
 }
