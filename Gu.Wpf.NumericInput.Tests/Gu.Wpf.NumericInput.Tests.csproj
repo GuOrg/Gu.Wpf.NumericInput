@@ -56,6 +56,7 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Compile Include="FormatStringTests.cs" />
     <Compile Include="Helpers\Observe.cs" />
     <Compile Include="Helpers\DependencyPropertyListener.cs" />
     <Compile Include="Internals\DecimalDigitsToStringFormatConverterTests.cs" />

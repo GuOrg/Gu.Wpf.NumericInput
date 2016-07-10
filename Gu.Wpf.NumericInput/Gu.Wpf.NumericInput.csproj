@@ -66,6 +66,7 @@
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
+    <Compile Include="Internals\FormatString.cs" />
     <Compile Include="Internals\Debug.cs" />
     <Compile Include="Internals\DependencyPropertyExt.cs" />
     <Compile Include="Boxes\NumericBox.Keys.cs" />
@@ -101,6 +102,10 @@
     <Compile Include="Touch\TouchKeyboard.cs" />
     <Compile Include="Touch\TouchProcessInfo.cs" />
     <Compile Include="Validation\ValidationResults\CanParseValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\FormatAndCulture\FormatAndCulture.cs" />
+    <Compile Include="Validation\ValidationResults\FormatAndCulture\IFormatAndCulture.cs" />
+    <Compile Include="Validation\ValidationResults\NumericValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\FormatAndCulture\OneParameterFormatAndCulture.cs" />
     <Compile Include="Validation\ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
     <Compile Include="Validation\ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
     <Compile Include="Validation\ValidationRules\IsMatch.cs" />
