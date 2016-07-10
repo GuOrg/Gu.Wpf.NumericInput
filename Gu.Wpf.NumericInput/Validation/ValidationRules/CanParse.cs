@@ -35,7 +35,7 @@
                 return ValidationResult.ValidResult;
             }
 
-            return new CanParseValidationResult(typeof(T), text, box.Culture, false, $"Cannot parse '{text}' to a {typeof(T).Name}");
+            return CanParseValidationResult.CreateErrorResult(typeof(T), text, box.Culture);
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

@@ -123,4 +123,7 @@
   <data name="Please_enter_a_value_less_than_or_equal_to__0_" xml:space="preserve">
     <value>Vänligen ange ett värde mindre än eller lika med {0}.</value>
   </data>
+  <data name="Please_enter_a_valid_number" xml:space="preserve">
+    <value>Vänligen ange en giltig siffra.</value>
+  </data>
 </root>

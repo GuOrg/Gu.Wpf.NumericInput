@@ -99,11 +99,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         [TestCaseSource(nameof(Source))]
@@ -114,11 +116,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         [TestCaseSource(nameof(Source))]
@@ -130,6 +134,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         [TestCaseSource(nameof(SwedishSource))]
@@ -141,11 +146,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         [TestCaseSource(nameof(SwedishSource))]

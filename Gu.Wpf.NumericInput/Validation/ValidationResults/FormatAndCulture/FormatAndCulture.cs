@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.Globalization;
 
+    /// <summary>A <see cref="IFormatAndCulture"/> for exactly one parameter.</summary>
     public abstract class FormatAndCulture<T> : IFormatAndCulture
         where T : IFormatAndCulture
     {
