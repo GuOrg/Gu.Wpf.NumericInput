@@ -1,25 +1,21 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System.Text.RegularExpressions;
-
-    using Gu.Wpf.NumericInput.UITests.Helpers;
-
     using NUnit.Framework;
-
     using TestStack.White.UIItems;
 
     public class ValidationErrorMinMaxTests : ValidationTestsBase
     {
         public static readonly MinMaxData[] MinMaxSource =
             {
-                new MinMaxData("-2", "-1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1'"),
-                new MinMaxData("-2.1", "-1.1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1'"),
-                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1'"),
-                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1'"),
-                new MinMaxData("2", "", "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1'"),
-                new MinMaxData("2.1", "", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1'"),
-                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1'"),
-                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1'"),
+                new MinMaxData("-2", "-1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
+                new MinMaxData("-2.1", "-1.1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
+                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+                new MinMaxData("2", "", "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
+                new MinMaxData("2.1", "", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
+                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
+                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
             };
 
         [SetUp]
@@ -101,6 +97,40 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
 
+        [TestCase("3", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
+        [TestCase("-3", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
+        public void MinMaxPropertyChangedSwedish(string value, string infoMessage)
+        {
+            this.CultureBox.Select("sv-SE");
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = "1";
+            this.MinBox.Text = "-2.1";
+            this.MaxBox.Text = "2.2";
+            doubleBox.Text = value;
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(value, doubleBox.Text);
+            Assert.AreEqual("1", this.ViewModelValueBox.Text);
+        }
+
+        [TestCase("3", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
+        [TestCase("-3", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
+        public void MinMaxPropertyChangedWhenNotLocalized(string value, string infoMessage)
+        {
+            this.CultureBox.Select("ja-JP");
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = "1";
+            this.MinBox.Text = "-2.1";
+            this.MaxBox.Text = "2.2";
+            doubleBox.Text = value;
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(value, doubleBox.Text);
+            Assert.AreEqual("1", this.ViewModelValueBox.Text);
+        }
+
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxPropertyChangedWhenNull(MinMaxData data)
         {
@@ -112,6 +142,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("", this.ViewModelValueBox.Text);
         }
@@ -133,11 +164,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.ExpectedInfoMessage = expectedInfoMessage;
             }
 
-            public string ErrorMessage => Regex.Match(this.ExpectedInfoMessage, "[^']+'(?<inner>[^']+)'.*").Groups["inner"].Value;
+            public string ErrorMessage => GetErrorMessage(this.ExpectedInfoMessage);
 
             public string StartValue => string.IsNullOrEmpty(this.Min)
                                             ? this.Max
                                             : this.Min;
+
+            public static string GetErrorMessage(string infoMessage)
+            {
+                return Regex.Match(infoMessage, "[^']+'(?<inner>[^']+)'.*").Groups["inner"].Value;
+            }
 
             public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedInfoMessage}";
         }

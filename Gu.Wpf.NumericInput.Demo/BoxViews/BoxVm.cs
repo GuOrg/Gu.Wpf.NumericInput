@@ -46,7 +46,7 @@
 
         public Type Type => typeof(TBox);
 
-        public CultureInfo[] Cultures => new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE") };
+        public CultureInfo[] Cultures => new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE"), CultureInfo.GetCultureInfo("ja-JP"),  };
 
         public ValidationTrigger ValidationTrigger
         {
