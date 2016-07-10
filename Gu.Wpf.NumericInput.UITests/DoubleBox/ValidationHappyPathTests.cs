@@ -154,6 +154,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CultureBox.Select("sv-SE");
             var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Text = data.Text;
+            this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
