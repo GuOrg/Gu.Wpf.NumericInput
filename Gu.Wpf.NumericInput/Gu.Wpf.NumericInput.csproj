@@ -104,6 +104,8 @@
     <Compile Include="Validation\ValidationResults\CanParseValidationResult.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\FormatAndCulture.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\IFormatAndCulture.cs" />
+    <Compile Include="Validation\ValidationResults\FormatAndCulture\NoParameterFormatAndCulture.cs" />
+    <Compile Include="Validation\ValidationResults\FormatAndCulture\TwoParameterFormatAndCulture.cs" />
     <Compile Include="Validation\ValidationResults\NumericValidationResult.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\OneParameterFormatAndCulture.cs" />
     <Compile Include="Validation\ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />

@@ -123,4 +123,7 @@
   <data name="Please_enter_a_value_less_than_or_equal_to__0_" xml:space="preserve">
     <value>Please enter a value less than or equal to {0}.</value>
   </data>
+  <data name="Please_enter_a_valid_number" xml:space="preserve">
+    <value>Please enter a valid number.</value>
+  </data>
 </root>
