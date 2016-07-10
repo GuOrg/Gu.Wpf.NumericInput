@@ -105,10 +105,16 @@ Available as inheriting attached property: `NumericBox.CanValueBeNull`
 ## 3.3. MinValue
 The minimum value. The default is null meaning that no validation on min is performed.
 When using spinners clicking decrease truncates to min if it would decrement below min.
+If user enters a value less than `MinValue` the validation returns an `IsLessThanValidationResult`
+With the content as a string `Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__`
+The message is localized using `box.Culture`.
 
 ## 3.4. MaxValue
 The maximum value. The default is null meaning that no validation on max is performed.
 When using spinners clicking increase truncates to max if it would increment above max.
+If user enters a value greater than `MaxValue` the validation returns an `IsGreaterThanValidationResult`
+With the content as a string `Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__`
+The message is localized using `box.Culture`.
 
 ## 3.5. NumberStyles
 The `NumberStyles` used when parsing and formatting the value.

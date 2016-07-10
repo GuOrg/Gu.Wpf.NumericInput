@@ -8,7 +8,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     {
         public static readonly MinMaxData[] MinMaxSource =
             {
-                new MinMaxData("-2", "-1", "", "0", "ValidationError.IsGreaterThanValidationResult 'Value cannot b"),
+                new MinMaxData("-2", "-1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1'"),
+                new MinMaxData("-2.1", "-1.1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1'"),
+                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1'"),
+                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1'"),
+                new MinMaxData("2", "", "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1'"),
+                new MinMaxData("2.1", "", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1'"),
+                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1'"),
+                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1'"),
             };
 
         [SetUp]
@@ -33,51 +40,73 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocus(MinMaxData data)
         {
-            Assert.Fail();
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = data.StartValue;
+            this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
-            doubleBox.Text = data.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
+
+            doubleBox.BulkText = data.Text;
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+            Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocusValidateOnPropertyChanged(MinMaxData data)
         {
-            Assert.Fail();
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = data.StartValue;
+            this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
-            doubleBox.Text = data.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
+            doubleBox.BulkText = data.Text;
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.ViewModelValueBox.Text);
+            Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxPropertyChanged(MinMaxData data)
         {
-            this.CanValueBeNullBox.Checked = true;
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = data.StartValue;
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
+            doubleBox.BulkText = data.Text;
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.Text, doubleBox.Text);
+            Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
+        }
+
+        [TestCaseSource(nameof(MinMaxSource))]
+        public void MinMaxPropertyChangedWhenNull(MinMaxData data)
+        {
+            this.CanValueBeNullBox.Checked = true;
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = "";
+            this.MinBox.Text = data.Min;
+            this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual("", this.ViewModelValueBox.Text);
         }
 
         public class MinMaxData
@@ -96,6 +125,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Expected = expected;
                 this.ExpectedMessage = expectedMessage;
             }
+
+            public string StartValue => string.IsNullOrEmpty(this.Min)
+                                            ? this.Max
+                                            : this.Min;
 
             public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedMessage}";
         }

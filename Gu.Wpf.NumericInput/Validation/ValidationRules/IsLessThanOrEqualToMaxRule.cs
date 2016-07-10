@@ -16,7 +16,7 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
+        public override ValidationResult Validate(object o, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (NumericBox<T>)((BindingExpression)owner).Target;
             if (box.TextSource == TextSource.None)
@@ -24,27 +24,22 @@ namespace Gu.Wpf.NumericInput
                 return ValidationResult.ValidResult;
             }
 
-            if (box.MaxValue == null)
+            if (box.MaxValue == null || o == null)
             {
                 return ValidationResult.ValidResult;
             }
 
-            if (value == null)
-            {
-                return new IsLessThanValidationResult(null, box.MaxValue, false, $"Value cannot be null when {nameof(NumericBox<T>.MaxValue)} is set");
-            }
-
             var max = box.MaxValue.Value;
-            var v = (T)value;
-            if (v.CompareTo(max) > 0)
+            var value = (T)o;
+            if (value.CompareTo(max) > 0)
             {
-                return new IsLessThanValidationResult(v, max, false, $"{v} > max ({max})");
+                return IsGreaterThanValidationResult.CreateErrorResult(value, max, box.Culture);
             }
 
             return ValidationResult.ValidResult;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object o, CultureInfo cultureInfo)
         {
             throw new InvalidOperationException("Should not get here");
         }
