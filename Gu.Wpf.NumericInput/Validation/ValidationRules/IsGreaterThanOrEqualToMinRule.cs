@@ -5,6 +5,8 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Controls;
     using System.Windows.Data;
 
+    using Gu.Wpf.NumericInput.Properties;
+
     internal class IsGreaterThanOrEqualToMinRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
@@ -16,7 +18,7 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
+        public override ValidationResult Validate(object o, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (NumericBox<T>)((BindingExpression)owner).Target;
             if (box.TextSource == TextSource.None)
@@ -24,27 +26,22 @@ namespace Gu.Wpf.NumericInput
                 return ValidationResult.ValidResult;
             }
 
-            if (box.MinValue == null)
+            if (box.MinValue == null || o == null)
             {
                 return ValidationResult.ValidResult;
             }
 
-            if (value == null)
-            {
-                return new IsGreaterThanValidationResult(null, box.MinValue, false, $"Value cannot be null when {nameof(NumericBox<T>.MinValue)} is set");
-            }
-
             var min = box.MinValue.Value;
-            var v = (T)value;
-            if (v.CompareTo(min) < 0)
+            var value = (T)o;
+            if (value.CompareTo(min) < 0)
             {
-                return new IsGreaterThanValidationResult(v, min, false, $"{v} < min ({min})");
+                return IsLessThanValidationResult.CreateErrorResult(value, min, box.Culture);
             }
 
             return ValidationResult.ValidResult;
         }
 
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object o, CultureInfo cultureInfo)
         {
             throw new InvalidOperationException("Should not get here");
         }

@@ -85,7 +85,7 @@
     <Compile Include="DemoVm.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FirstOrDefaultErrorConverter.cs" />
+    <Compile Include="ValidationErrorToInfoStringConverter.cs" />
     <Compile Include="FormattedTextView.xaml.cs">
       <DependentUpon>FormattedTextView.xaml</DependentUpon>
     </Compile>

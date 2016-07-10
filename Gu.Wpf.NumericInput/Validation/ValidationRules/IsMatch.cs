@@ -34,7 +34,7 @@
             if (string.IsNullOrEmpty(text))
             {
                 var formatted = text == null ? "null" : "string.Empty";
-                return new IsMatchValidationResult(text, pattern, false, $"{formatted} does not match pattern: {pattern}");
+                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{formatted} does not match pattern: {pattern}");
             }
 
             try
@@ -44,11 +44,11 @@
                     return ValidationResult.ValidResult;
                 }
 
-                return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}");
+                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{text} does not match pattern: {pattern}");
             }
             catch (Exception e)
             {
-                return new IsMatchValidationResult(text, pattern, false, $"{text} does not match pattern: {pattern}. Threw exception: {e.Message}");
+                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{text} does not match pattern: {pattern}. Threw exception: {e.Message}");
             }
         }
 
