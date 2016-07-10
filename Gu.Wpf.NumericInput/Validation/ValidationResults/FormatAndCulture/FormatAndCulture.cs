@@ -7,11 +7,15 @@
     public abstract class FormatAndCulture<T> : IFormatAndCulture
         where T : IFormatAndCulture
     {
+        private readonly Lazy<string> format;
+
         protected FormatAndCulture(IFormatProvider formatProvider, string resourceKey)
         {
             this.FormatProvider = formatProvider;
             this.ResourceKey = resourceKey;
-            this.Format = this.GetFormat(formatProvider);
+            // lazy needed here to avoid virtual call in ctor.
+            // maybe it would work any way but playing it safe.
+            this.format = new Lazy<string>(() => this.GetFormat(formatProvider));
         }
 
         /// <summary>The name of the resource. I.e. Properties.Resources.ResourceManager.GetString(<see cref="ResourceKey"/>, <see cref="CultureInfo"/>)</summary>
@@ -21,7 +25,7 @@
         public IFormatProvider FormatProvider { get; }
 
         /// <summary>Gets the localized format string.</summary>
-        public string Format { get; }
+        public string Format => this.format.Value;
 
         protected ConcurrentDictionary<CultureInfo, T> Cache { get; } = new ConcurrentDictionary<CultureInfo, T>();
 

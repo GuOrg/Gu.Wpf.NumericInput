@@ -61,7 +61,7 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a value greater than or equal to {0}.
+        ///   Looks up a localized string similar to Please enter a value greater than or equal to {0}..
         /// </summary>
         public static string Please_enter_a_value_greater_than_or_equal_to__0__ {
             get {
@@ -70,7 +70,7 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a value less than or equal to {0}.
+        ///   Looks up a localized string similar to Please enter a value less than or equal to {0}..
         /// </summary>
         public static string Please_enter_a_value_less_than_or_equal_to__0_ {
             get {
