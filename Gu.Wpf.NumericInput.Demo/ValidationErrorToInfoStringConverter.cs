@@ -11,18 +11,24 @@
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var validationError = value as ValidationError;
-            if (validationError != null)
+            if (value == null)
             {
-                var result = validationError.ErrorContent as ValidationResult;
-                if (result != null)
-                {
-                    return $"{validationError.GetType().Name}.{result.GetType().Name} '{result.ErrorContent}'";
-                }
-                return $"{validationError.GetType().Name} '{validationError.ErrorContent}'";
+                return string.Empty;
             }
 
-            return value;
+            var error = value as ValidationError;
+            if (error != null)
+            {
+                var result = error.ErrorContent as ValidationResult;
+                if (result != null)
+                {
+                    return $"{error.GetType().Name}.{result.GetType().Name} '{result.ErrorContent}'";
+                }
+
+                return $"{error.GetType().Name} '{error.ErrorContent}'";
+            }
+
+            return value.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

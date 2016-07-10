@@ -20,7 +20,7 @@
                         <Binding Path="Value" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="IsFocused" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="(Validation.HasError)" RelativeSource="{RelativeSource Self}" />
-                        <Binding Path="(Validation.Errors)[0]" RelativeSource="{RelativeSource Self}" Converter="{x:Static demo:ValidationErrorToInfoStringConverter.Default}"/>
+                        <Binding Path="(Validation.Errors)[0]" RelativeSource="{RelativeSource Self}" Converter="{x:Static demo:ValidationErrorToInfoStringConverter.Default}" FallbackValue=""/>
                         <Binding Path="Status" RelativeSource="{RelativeSource Self}" />
                         <Binding Path="TextSource" RelativeSource="{RelativeSource Self}" />
                     </MultiBinding>
