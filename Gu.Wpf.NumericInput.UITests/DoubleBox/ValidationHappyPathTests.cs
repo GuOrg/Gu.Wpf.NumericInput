@@ -126,6 +126,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = data.Text;
+            this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -169,6 +170,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CultureBox.Select("sv-SE");
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = data.Text;
+            this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
