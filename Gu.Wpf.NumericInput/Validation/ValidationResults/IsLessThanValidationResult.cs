@@ -7,14 +7,21 @@
     /// <summary>
     /// This <see cref="ValidationResult"/> is returned when <see cref="Value"/> is not less than <see cref="Max"/>
     /// </summary>
-    public class IsLessThanValidationResult : ValidationResult
+    public class IsLessThanValidationResult : NumericValidationResult
     {
-        public IsLessThanValidationResult(IFormattable value, IFormattable max, IFormatProvider culture, bool isValid, object errorContent)
-            : base(isValid, errorContent)
+        public static readonly OneParameterFormatAndCulture DefaultFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__));
+
+        public IsLessThanValidationResult(
+            IFormattable value,
+            IFormattable max,
+            IFormatProvider currentBoxCulture,
+            OneParameterFormatAndCulture formatAndCulture,
+            bool isValid,
+            object errorContent)
+            : base(currentBoxCulture, formatAndCulture, isValid, errorContent)
         {
             this.Value = value;
             this.Max = max;
-            this.Culture = culture;
         }
 
         /// <summary>Gets the current value.</summary>
@@ -23,21 +30,12 @@
         /// <summary>Gets the minimum allowed value.</summary>
         public IFormattable Max { get; }
 
-        /// <summary>Gets the culture of the numeric box.</summary>
-        public IFormatProvider Culture { get; }
-
         public static IsLessThanValidationResult CreateErrorResult<T>(T value, T min, IFormatProvider culture)
              where T : struct, IFormattable
         {
-            var format = Properties.Resources.ResourceManager.GetString(
-                            nameof(Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__),
-                            culture as CultureInfo);
-            var message = format != null
-                              ? string.Format(culture, format, min)
-                              : string.Format(CultureInfo.InvariantCulture, Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__, min);
-            return new IsLessThanValidationResult(value, min, culture, false, message);
+            var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(culture);
+            var message = formatAndCulture.FormatMessage(min);
+            return new IsLessThanValidationResult(value, min, culture, formatAndCulture, false, message);
         }
-
-        public override string ToString() => this.ErrorContent.ToString();
     }
 }

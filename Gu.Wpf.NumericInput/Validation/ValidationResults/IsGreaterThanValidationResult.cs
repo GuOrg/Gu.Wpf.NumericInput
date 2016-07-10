@@ -9,11 +9,11 @@
         public IsGreaterThanValidationResult(
             IFormattable value,
             IFormattable min,
-            IFormatProvider culture,
+            IFormatProvider currentBoxCulture,
             OneParameterFormatAndCulture formatAndCulture,
             bool isValid,
             object errorContent)
-            : base(culture, formatAndCulture, isValid, errorContent)
+            : base(currentBoxCulture, formatAndCulture, isValid, errorContent)
         {
             this.Value = value;
             this.Min = min;
