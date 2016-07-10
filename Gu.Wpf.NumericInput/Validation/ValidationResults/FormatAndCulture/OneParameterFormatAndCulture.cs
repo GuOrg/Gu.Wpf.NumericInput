@@ -11,11 +11,6 @@
         {
         }
 
-        public string FormatMessage(IFormattable arg)
-        {
-            return string.Format(this.FormatProvider, this.Format, arg);
-        }
-
         /// <summary>Create a <see cref="OneParameterFormatAndCulture"/> for a resource in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/>.</summary>
         /// <param name="resourceKey">A key in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/></param>
         /// <returns>A <see cref="OneParameterFormatAndCulture"/> that can be used for formatting error messages.</returns>
@@ -37,6 +32,11 @@
         {
             var culture = formatProvider as CultureInfo ?? CultureInfo.InvariantCulture;
             return this.Cache.GetOrAdd(culture, c => new OneParameterFormatAndCulture(formatProvider, this.ResourceKey));
+        }
+
+        public string FormatMessage(object arg)
+        {
+            return string.Format(this.FormatProvider, this.Format, arg);
         }
 
         /// <inheritdoc/>
