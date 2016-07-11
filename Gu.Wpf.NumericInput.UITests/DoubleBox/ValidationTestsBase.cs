@@ -31,6 +31,8 @@
 
         protected TextBox MinBox { get; private set; }
 
+        protected TextBox RegexPatternBox { get; private set; }
+
         public override void OneTimeSetUp()
         {
             base.OneTimeSetUp();
@@ -49,6 +51,7 @@
 
             this.MinBox = this.Window.Get<TextBox>("Min");
             this.MaxBox = this.Window.Get<TextBox>("Max");
+            this.RegexPatternBox = this.Window.Get<TextBox>("RegexPattern");
         }
     }
 }

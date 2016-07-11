@@ -2,8 +2,6 @@ namespace Gu.Wpf.NumericInput
 {
     using System;
 
-    using Gu.Wpf.NumericInput.Properties;
-
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when the user input does not match a regex pattern.</summary>
     public class RegexValidationResult : NumericValidationResult
     {

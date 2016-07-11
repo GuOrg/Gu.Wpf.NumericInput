@@ -132,4 +132,10 @@
   <data name="Please_enter_a_number" xml:space="preserve">
     <value>Vänligen ange en siffra.</value>
   </data>
+  <data name="Please_provide_valid_input" xml:space="preserve">
+    <value>Vänligen ange ett giltigt värde.</value>
+  </data>
+  <data name="Syntax_error_in_regex_pattern" xml:space="preserve">
+    <value>Felaktigt regular expression pattern.</value>
+  </data>
 </root>
