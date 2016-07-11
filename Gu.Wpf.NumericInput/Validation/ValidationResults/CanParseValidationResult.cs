@@ -2,9 +2,10 @@
 {
     using System;
 
+    /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when the user input cannot be parsed.</summary>
     public class CanParseValidationResult : NumericValidationResult
     {
-        public static readonly NoParameterFormatAndCulture DefaultFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_valid_number));
+        public static readonly NoParameterFormatAndCulture PleaseEnterAValidNumberFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_valid_number));
 
         public CanParseValidationResult(
             Type type,
@@ -28,7 +29,7 @@
         public static CanParseValidationResult CreateErrorResult<T>(string text, NumericBox<T> box)
              where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
-            var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(box.Culture);
+            var formatAndCulture = PleaseEnterAValidNumberFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
             return new CanParseValidationResult(typeof(T), text, box.Culture, formatAndCulture, false, message);
         }

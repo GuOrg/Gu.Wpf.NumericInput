@@ -132,4 +132,10 @@
   <data name="Please_enter_a_number" xml:space="preserve">
     <value>Please enter a number.</value>
   </data>
+  <data name="Please_provide_valid_input" xml:space="preserve">
+    <value>Please provide valid input</value>
+  </data>
+  <data name="Syntax_error_in_regex_pattern" xml:space="preserve">
+    <value>Syntax error in regex pattern</value>
+  </data>
 </root>

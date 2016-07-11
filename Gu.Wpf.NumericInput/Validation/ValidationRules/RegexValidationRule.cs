@@ -6,12 +6,12 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    internal class IsMatch : ValidationRule
+    internal class RegexValidationRule : ValidationRule
     {
-        internal static readonly IsMatch FromText = new IsMatch(true);
-        internal static readonly IsMatch FromValue = new IsMatch(false);
+        internal static readonly RegexValidationRule FromText = new RegexValidationRule(true);
+        internal static readonly RegexValidationRule FromValue = new RegexValidationRule(false);
 
-        private IsMatch(bool validatesOnTargetUpdated)
+        private RegexValidationRule(bool validatesOnTargetUpdated)
             : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)
         {
         }
@@ -33,8 +33,7 @@
 
             if (string.IsNullOrEmpty(text))
             {
-                var formatted = text == null ? "null" : "string.Empty";
-                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{formatted} does not match pattern: {pattern}");
+                return RegexValidationResult.CreateErrorResult(text, box);
             }
 
             try
@@ -44,11 +43,11 @@
                     return ValidationResult.ValidResult;
                 }
 
-                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{text} does not match pattern: {pattern}");
+                return RegexValidationResult.CreateErrorResult(text, box);
             }
             catch (Exception e)
             {
-                return new IsMatchValidationResult(text, pattern, box.Culture, false, $"{text} does not match pattern: {pattern}. Threw exception: {e.Message}");
+                return RegexValidationResult.CreateMalformedPatternErrorResult(text, e, box);
             }
         }
 

@@ -88,7 +88,7 @@
             var validationRules = new ValidationRule[]
             {
                 CanParse<T>.FromText,
-                RegexRule.FromText,
+                RegexValidationRule.FromText,
                 IsGreaterThanOrEqualToMinRule<T>.FromText,
                 IsLessThanOrEqualToMaxRule<T>.FromText,
             };
