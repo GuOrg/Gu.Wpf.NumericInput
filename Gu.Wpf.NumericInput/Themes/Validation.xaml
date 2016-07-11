@@ -31,7 +31,7 @@
                    Text="{Binding ErrorContent}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:IsMatchValidationResult}">
+    <DataTemplate DataType="{x:Type local:RegexValidationResult}">
         <TextBlock Style="{DynamicResource ValidationTextStyle}"
                    Text="{Binding ErrorContent}" />
     </DataTemplate>

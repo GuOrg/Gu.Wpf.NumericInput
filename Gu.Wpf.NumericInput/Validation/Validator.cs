@@ -23,7 +23,7 @@
 
             if (converter == null)
             {
-                Validation.MarkInvalid(expression, new ValidationError(IsMatch.FromText, expression.ParentBinding, $"{BaseBox.TextValueConverterProperty.Name} == null", null));
+                Validation.MarkInvalid(expression, new ValidationError(RegexRule.FromText, expression.ParentBinding, $"{BaseBox.TextValueConverterProperty.Name} == null", null));
                 return Binding.DoNothing;
             }
 
