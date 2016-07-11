@@ -2,11 +2,11 @@
 {
     using System;
 
-    public class CanParseValidationResult : NumericValidationResult
+    public class RequiredButMissingValidationResult : NumericValidationResult
     {
-        public static readonly NoParameterFormatAndCulture DefaultFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_valid_number));
+        public static readonly NoParameterFormatAndCulture DefaultFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_number));
 
-        public CanParseValidationResult(
+        public RequiredButMissingValidationResult(
             Type type,
             string text,
             IFormatProvider currentBoxCulture,
@@ -25,12 +25,12 @@
         /// <summary>Gets the text that was found invalid.</summary>
         public string Text { get; }
 
-        public static CanParseValidationResult CreateErrorResult<T>(string text, NumericBox<T> box)
+        public static RequiredButMissingValidationResult CreateErrorResult<T>(string text, NumericBox<T> box)
              where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
             var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
-            return new CanParseValidationResult(typeof(T), text, box.Culture, formatAndCulture, false, message);
+            return new RequiredButMissingValidationResult(typeof(T), text, box.Culture, formatAndCulture, false, message);
         }
     }
 }

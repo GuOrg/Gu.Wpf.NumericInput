@@ -102,6 +102,7 @@
     <Compile Include="Touch\TouchKeyboard.cs" />
     <Compile Include="Touch\TouchProcessInfo.cs" />
     <Compile Include="Validation\ValidationResults\CanParseValidationResult.cs" />
+    <Compile Include="Validation\ValidationResults\RequiredButMissingValidationResult.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\FormatAndCulture.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\IFormatAndCulture.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\NoParameterFormatAndCulture.cs" />
