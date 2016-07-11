@@ -11,6 +11,8 @@
 
         protected TextBox ViewModelValueBox { get; private set; }
 
+        protected TextBox StringFormatBox { get; private set; }
+
         protected ComboBox CultureBox { get; private set; }
 
         protected CheckBox CanValueBeNullBox { get; private set; }
@@ -45,6 +47,7 @@
             this.LoseFocusButton = this.Window.GetByText<Button>("lose focus");
             this.ViewModelValueBox = this.Window.Get<TextBox>("ViewModelValue");
 
+            this.StringFormatBox = this.Window.Get<TextBox>("StringFormat");
             this.CultureBox = this.Window.Get<ComboBox>("Culture");
 
             this.CanValueBeNullBox = this.Window.Get<CheckBox>("CanValueBeNull");

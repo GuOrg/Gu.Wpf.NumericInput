@@ -31,5 +31,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextDecorations" Value="Underline" />
+        </Style>
     </Application.Resources>
 </Application>

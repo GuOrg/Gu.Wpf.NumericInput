@@ -55,6 +55,7 @@
     <Compile Include="DoubleBoxTests.Focus.cs" />
     <Compile Include="DoubleBoxTests.Plain.cs" />
     <Compile Include="DoubleBoxTests.Spinners.cs" />
+    <Compile Include="DoubleBox\FormatTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorMinMaxTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorParseTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorRegexTests.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="DoubleBox\DoubleBoxTestsBase.cs" />
     <Compile Include="Helpers\Info.cs" />
     <Compile Include="Helpers\StringExt.cs" />
+    <Compile Include="Helpers\TextBoxExt.cs" />
     <Compile Include="Helpers\UiItemExt.cs" />
     <Compile Include="Helpers\WindowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
