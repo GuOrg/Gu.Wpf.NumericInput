@@ -25,9 +25,14 @@
             }
 
             var text = (string)value;
-            if (string.IsNullOrWhiteSpace(text) && box.CanValueBeNull)
+            if (string.IsNullOrWhiteSpace(text))
             {
-                return ValidationResult.ValidResult;
+                if (box.CanValueBeNull)
+                {
+                    return ValidationResult.ValidResult;
+                }
+
+                return RequiredButMissingValidationResult.CreateErrorResult(text, box);
             }
 
             if (box.CanParse(text))
@@ -35,7 +40,7 @@
                 return ValidationResult.ValidResult;
             }
 
-            return CanParseValidationResult.CreateErrorResult(typeof(T), text, box.Culture);
+            return CanParseValidationResult.CreateErrorResult(text, box);
         }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

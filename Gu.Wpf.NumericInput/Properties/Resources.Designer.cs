@@ -61,6 +61,15 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a number..
+        /// </summary>
+        public static string Please_enter_a_number {
+            get {
+                return ResourceManager.GetString("Please_enter_a_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid number..
         /// </summary>
         public static string Please_enter_a_valid_number {

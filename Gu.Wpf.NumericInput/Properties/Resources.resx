@@ -129,4 +129,7 @@
   <data name="Please_enter_a_value_between__0__and__1__" xml:space="preserve">
     <value>Please enter a value between {0} and {1}.</value>
   </data>
+  <data name="Please_enter_a_number" xml:space="preserve">
+    <value>Please enter a number.</value>
+  </data>
 </root>
