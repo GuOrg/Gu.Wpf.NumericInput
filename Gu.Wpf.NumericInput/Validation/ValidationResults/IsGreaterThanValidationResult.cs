@@ -5,7 +5,7 @@
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="NumericBox{T}.Value"/> is greater than <see cref="NumericBox{T}.MaxValue"/></summary>
     public class IsGreaterThanValidationResult : OutOfRangeValidationResult
     {
-        public static readonly OneParameterFormatAndCulture PleaseEnterAValueLessThanOrEqualToFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0_));
+        public static readonly OneParameterFormatAndCulture PleaseEnterAValueLessThanOrEqualToFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__));
 
         public IsGreaterThanValidationResult(
             IFormattable value,
