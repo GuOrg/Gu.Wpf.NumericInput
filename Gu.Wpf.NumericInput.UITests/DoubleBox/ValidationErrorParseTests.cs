@@ -3,7 +3,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using System.Text.RegularExpressions;
     using NUnit.Framework;
 
-    public class ValidationErrorParseTests : ValidationTestsBase
+    public class ValidationErrorParseTests : DoubleBoxTestsBase
     {
         public static readonly ParseData[] ParseSource =
             {
