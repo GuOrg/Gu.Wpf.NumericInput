@@ -40,18 +40,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
-        public void LostFocus(MinMaxData data)
+        public void LostFocusValidateOnLostFocus(MinMaxData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = data.StartValue;
             this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
 
             doubleBox.Text = data.Text;
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -136,6 +134,42 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
+        }
+
+        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
+        public void LostFocusValidateOnLostFocusWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
+        {
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            doubleBox.Text = value;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+
+            this.MinBox.Text = min;
+            this.MaxBox.Text = max;
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError").Text);
+            Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(value, doubleBox.Text);
+            Assert.AreEqual(value, this.ViewModelValueBox.Text);
+        }
+
+        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
+        public void PropertyChangedWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
+        {
+            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            doubleBox.Text = value;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+
+            this.MinBox.Text = min;
+            this.MaxBox.Text = max;
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(true, doubleBox.HasValidationError());
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(value, doubleBox.Text);
+            Assert.AreEqual(value, this.ViewModelValueBox.Text);
         }
 
         [TestCaseSource(nameof(MinMaxSource))]

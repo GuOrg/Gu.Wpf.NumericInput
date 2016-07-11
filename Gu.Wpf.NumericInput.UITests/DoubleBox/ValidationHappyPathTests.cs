@@ -94,7 +94,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(Source))]
         public void LostFocus(Data data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -141,7 +141,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void SwedishLostFocus(Data data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -188,7 +188,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void WhenNullLostFocus()
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = "";
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual("", doubleBox.Text);
@@ -232,7 +232,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusBoxValidateOnLostFocusBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
