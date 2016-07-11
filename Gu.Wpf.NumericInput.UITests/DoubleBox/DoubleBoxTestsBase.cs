@@ -3,7 +3,7 @@
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.ListBoxItems;
 
-    public class ValidationTestsBase : WindowTests
+    public class DoubleBoxTestsBase : WindowTests
     {
         protected override string WindowName { get; } = "DoubleBoxValidationWindow";
 

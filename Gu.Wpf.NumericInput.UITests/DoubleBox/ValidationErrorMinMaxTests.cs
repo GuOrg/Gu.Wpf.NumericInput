@@ -4,7 +4,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     using NUnit.Framework;
 
-    public class ValidationErrorMinMaxTests : ValidationTestsBase
+    public class ValidationErrorMinMaxTests : DoubleBoxTestsBase
     {
         public static readonly MinMaxData[] MinMaxSource =
             {
@@ -88,7 +88,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
-        public void PropertyChanged(MinMaxData data)
+        public void PropertyChangedValidateOnPropertyChanged(MinMaxData data)
         {
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
