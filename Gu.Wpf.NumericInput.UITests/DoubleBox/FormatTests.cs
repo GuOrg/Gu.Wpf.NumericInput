@@ -57,7 +57,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-
         [Test]
         public void WhenStringFormatChanges()
         {
