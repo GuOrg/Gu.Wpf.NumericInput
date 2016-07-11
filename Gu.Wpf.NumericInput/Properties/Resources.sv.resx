@@ -126,4 +126,7 @@
   <data name="Please_enter_a_valid_number" xml:space="preserve">
     <value>Vänligen ange en giltig siffra.</value>
   </data>
+  <data name="Please_enter_a_value_between__0__and__1__" xml:space="preserve">
+    <value>Vänligen ange ett värde mellan {0} och {1}.</value>
+  </data>
 </root>

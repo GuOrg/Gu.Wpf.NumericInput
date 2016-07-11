@@ -6,12 +6,14 @@
     /// <summary>This <see cref="ValidationResult"/> is returned when <see cref="Value"/> in the valid range <see cref="Max"/></summary>
     public abstract class OutOfRangeValidationResult : NumericValidationResult
     {
+        protected static readonly TwoParameterFormatAndCulture PleaseEnterAValueBetweenFormatAndCulture = TwoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_between__0__and__1__));
+
         protected OutOfRangeValidationResult(
             IFormattable value,
             IFormattable min,
             IFormattable max,
             IFormatProvider currentBoxCulture,
-            OneParameterFormatAndCulture formatAndCulture,
+            IFormatAndCulture formatAndCulture,
             bool isValid,
             object errorContent)
             : base(currentBoxCulture, formatAndCulture, isValid, errorContent)

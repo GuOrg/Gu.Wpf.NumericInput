@@ -12,12 +12,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 new MinMaxData("-2", "-1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
                 new MinMaxData("-2.1", "-1.1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
-                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
-                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
+                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
                 new MinMaxData("2", "", "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
                 new MinMaxData("2.1", "", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
-                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
-                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
+                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
+                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
             };
 
         [SetUp]
@@ -104,15 +104,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCase("3", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
-        [TestCase("-3", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
-        public void PropertyChangedSwedish(string value, string infoMessage)
+        [TestCase("3","","2.2", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
+        [TestCase("-3","-2.1","", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
+        public void PropertyChangedSwedish(string value, string min, string max, string infoMessage)
         {
             this.CultureBox.Select("sv-SE");
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = "1";
-            this.MinBox.Text = "-2.1";
-            this.MaxBox.Text = "2.2";
+            this.MinBox.Text = min;
+            this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
@@ -121,15 +121,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
         }
 
-        [TestCase("3", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
-        [TestCase("-3", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
-        public void PropertyChangedWhenNotLocalized(string value, string infoMessage)
+        [TestCase("3","","2.2", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
+        [TestCase("-3","-2.1","", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
+        public void PropertyChangedWhenNotLocalized(string value, string min, string max, string infoMessage)
         {
             this.CultureBox.Select("ja-JP");
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = "1";
-            this.MinBox.Text = "-2.1";
-            this.MaxBox.Text = "2.2";
+            this.MinBox.Text = min;
+            this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
