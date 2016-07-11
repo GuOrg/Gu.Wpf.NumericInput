@@ -38,7 +38,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.Window.WaitWhileBusy();
         }
 
-        [TestCaseSource(nameof(ParseSource))]
+        [TestCase(nameof(ParseSource))]
         public void LostFocusValidateOnLostFocus(ParseData data)
         {
             var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
@@ -124,12 +124,63 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
+        [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
+        [TestCase("2", null)]
+        public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputInvalid(string text, string infoMessage)
+        {
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+
+            doubleBox.Text = text;
+            this.LoseFocusButton.Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+
+            this.AllowDecimalPointBox.Checked = false;
+            if (infoMessage != null)
+            {
+                this.Window.WaitWhileBusy();
+                Assert.AreEqual(true, doubleBox.HasValidationError());
+                Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            }
+            else
+            {
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+            }
+        }
+
+        [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
+        [TestCase("2", null)]
+        public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
+        {
+            this.AllowDecimalPointBox.Checked = false;
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            doubleBox.Text = text;
+            this.LoseFocusButton.Click();
+            if (infoMessage != null)
+            {
+                this.Window.WaitWhileBusy();
+                Assert.AreEqual(true, doubleBox.HasValidationError());
+                Assert.AreEqual(infoMessage, doubleBox.ValidationError());
+                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            }
+            else
+            {
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+            }
+
+            this.AllowDecimalPointBox.Checked = true;
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(text, doubleBox.Text);
+            // Assert.AreEqual(text, this.ViewModelValueBox.Text); 
+            // not sure about what to do here.
+            // calling UpdateSource() is easy enough but dunno what 
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+        }
+
         public class ParseData
         {
             public readonly string Text;
-
             public readonly string Expected;
-
             public readonly string ExpectedInfoMessage;
 
             public ParseData(string text, string expected, string expectedInfoMessage)
