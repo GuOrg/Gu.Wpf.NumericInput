@@ -108,6 +108,7 @@
     <Compile Include="Validation\ValidationResults\FormatAndCulture\TwoParameterFormatAndCulture.cs" />
     <Compile Include="Validation\ValidationResults\NumericValidationResult.cs" />
     <Compile Include="Validation\ValidationResults\FormatAndCulture\OneParameterFormatAndCulture.cs" />
+    <Compile Include="Validation\ValidationResults\OutOfRangeValidationResult.cs" />
     <Compile Include="Validation\ValidationRules\IsGreaterThanOrEqualToMinRule.cs" />
     <Compile Include="Validation\ValidationRules\IsLessThanOrEqualToMaxRule.cs" />
     <Compile Include="Validation\ValidationRules\IsMatch.cs" />

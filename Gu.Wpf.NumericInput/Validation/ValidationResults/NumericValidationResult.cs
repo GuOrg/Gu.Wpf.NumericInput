@@ -22,6 +22,7 @@
         /// <summary>Gets the culture and format used when formatting the <see cref="ValidationResult.ErrorContent"/>.</summary>
         public IFormatAndCulture FormatAndCulture { get; }
 
+        /// <inheritdoc/>
         public override string ToString() => this.ErrorContent.ToString();
     }
 }
