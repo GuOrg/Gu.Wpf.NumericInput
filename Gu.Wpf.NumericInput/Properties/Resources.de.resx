@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Please_enter_a_value_greater_than_or_equal_to__0__" xml:space="preserve">
-    <value>Please enter a value greater than or equal to {0}.</value>
+    <value>Bitte einen Wert größer oder gleich {0} eingeben.</value>
   </data>
   <data name="Please_enter_a_value_less_than_or_equal_to__0_" xml:space="preserve">
-    <value>Please enter a value less than or equal to {0}.</value>
+    <value>Bitte einen Wert kleiner oder gleich {0} eingeben.</value>
   </data>
   <data name="Please_enter_a_valid_number" xml:space="preserve">
-    <value>Please enter a valid number.</value>
+    <value>Bitte eine gültige Zahl eingeben.</value>
   </data>
   <data name="Please_enter_a_value_between__0__and__1__" xml:space="preserve">
-    <value>Please enter a value between {0} and {1}.</value>
+    <value>Bitte einen Wert zwischen {0} und {1} eingeben.</value>
   </data>
   <data name="Please_enter_a_number" xml:space="preserve">
-    <value>Please enter a number.</value>
+    <value>Bitte eine Zahl eingeben.</value>
   </data>
   <data name="Please_provide_valid_input" xml:space="preserve">
-    <value>Please provide valid input.</value>
+    <value>Bitte einen gültigen Wert eingeben.</value>
   </data>
   <data name="Syntax_error_in_regex_pattern" xml:space="preserve">
-    <value>Syntax error in regex pattern.</value>
+    <value>Syntaxfehler im regulären Ausdruck.</value>
   </data>
 </root>

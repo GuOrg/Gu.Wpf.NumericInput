@@ -115,7 +115,7 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Syntax error in regex pattern.
+        ///   Looks up a localized string similar to Syntax error in regex pattern..
         /// </summary>
         public static string Syntax_error_in_regex_pattern {
             get {
