@@ -4,7 +4,8 @@
     using System.Collections.Concurrent;
     using System.Globalization;
 
-    /// <summary>A <see cref="IFormatAndCulture"/> for exactly one parameter.</summary>
+    /// <summary>Metadata about a validation error message.</summary>
+    /// <typeparam name="T">The specific type.</typeparam>
     public abstract class FormatAndCulture<T> : IFormatAndCulture
         where T : IFormatAndCulture
     {
@@ -14,18 +15,19 @@
         {
             this.FormatProvider = formatProvider;
             this.ResourceKey = resourceKey;
-            // lazy needed here to avoid virtual call in ctor.
+
+            // used lazy here to avoid virtual call in ctor.
             // maybe it would work any way but playing it safe.
             this.format = new Lazy<string>(() => this.GetFormat(formatProvider));
         }
 
-        /// <summary>The name of the resource. I.e. Properties.Resources.ResourceManager.GetString(<see cref="ResourceKey"/>, <see cref="CultureInfo"/>)</summary>
+        /// <inheritdoc/>
         public string ResourceKey { get; }
 
-        /// <summary>The culture for which the <see cref="Format"/> is for. If no localization is found <see cref="CultureInfo.InvariantCulture"/> will be used.</summary>
+        /// <inheritdoc/>
         public IFormatProvider FormatProvider { get; }
 
-        /// <summary>Gets the localized format string.</summary>
+        /// <inheritdoc/>
         public string Format => this.format.Value;
 
         protected ConcurrentDictionary<CultureInfo, T> Cache { get; } = new ConcurrentDictionary<CultureInfo, T>();
@@ -34,11 +36,11 @@
 
         public string GetFormat(IFormatProvider culture)
         {
-            var format = Properties.Resources.ResourceManager.GetString(this.ResourceKey, culture as CultureInfo);
-            if (!string.IsNullOrEmpty(format))
+            var formatString = Properties.Resources.ResourceManager.GetString(this.ResourceKey, culture as CultureInfo);
+            if (!string.IsNullOrEmpty(formatString))
             {
-                this.AssertFormat(culture, format);
-                return format;
+                this.AssertFormat(culture, formatString);
+                return formatString;
             }
 
             return Properties.Resources.ResourceManager.GetString(this.ResourceKey, CultureInfo.InvariantCulture);
