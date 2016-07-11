@@ -6,7 +6,6 @@
         xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
-        xmlns:propertyGrid="http://gu.se/PropertyGrid"
         Title="DoubleBoxValidationWindow"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
@@ -79,7 +78,7 @@
                     <autoRowGrid:Row>
                         <TextBlock Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}"
+                                   Style="{StaticResource HeaderTextBlockStyle}"
                                    Text="ViewModel:" />
                     </autoRowGrid:Row>
 
@@ -97,7 +96,7 @@
                 <autoRowGrid:Row>
                     <TextBlock Grid.Column="0"
                                Grid.ColumnSpan="2"
-                               Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}"
+                               Style="{StaticResource HeaderTextBlockStyle}"
                                Text="Settings:" />
                 </autoRowGrid:Row>
 
@@ -144,7 +143,7 @@
                 </autoRowGrid:Row>
                 <autoRowGrid:Rows>
                     <autoRowGrid:Row>
-                        <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="NumberStyles:" />
+                        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="NumberStyles:" />
                     </autoRowGrid:Row>
                     <autoRowGrid:Row>
                         <TextBlock Text="AllowLeadingWhite:" />
