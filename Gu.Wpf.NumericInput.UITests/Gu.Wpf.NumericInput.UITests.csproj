@@ -58,6 +58,7 @@
     <Compile Include="DoubleBox\ValidationErrorMinMaxTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorParseTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorRegexTests.cs" />
+    <Compile Include="DoubleBox\ValidationErrorRequiredTests.cs" />
     <Compile Include="DoubleBox\ValidationHappyPathTests.cs" />
     <Compile Include="DoubleBox\ValidationTestsBase.cs" />
     <Compile Include="Helpers\Info.cs" />
