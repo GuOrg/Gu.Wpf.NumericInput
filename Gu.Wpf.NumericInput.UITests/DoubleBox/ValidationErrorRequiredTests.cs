@@ -2,7 +2,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System.Text.RegularExpressions;
     using NUnit.Framework;
-    using TestStack.White.UIItems;
 
     public class ValidationErrorRequiredTests : DoubleBoxTestsBase
     {
