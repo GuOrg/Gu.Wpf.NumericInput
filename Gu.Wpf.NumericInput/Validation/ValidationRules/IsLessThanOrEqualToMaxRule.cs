@@ -33,7 +33,7 @@ namespace Gu.Wpf.NumericInput
             var value = (T)o;
             if (value.CompareTo(max) > 0)
             {
-                return IsGreaterThanValidationResult.CreateErrorResult(value, max, box.Culture);
+                return IsGreaterThanValidationResult.CreateErrorResult(value, box);
             }
 
             return ValidationResult.ValidResult;

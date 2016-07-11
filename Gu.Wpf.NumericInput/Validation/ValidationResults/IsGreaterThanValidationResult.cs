@@ -2,35 +2,28 @@
 {
     using System;
 
-    public class IsGreaterThanValidationResult : NumericValidationResult
+    public class IsGreaterThanValidationResult : OutOfRangeValidationResult
     {
         public static readonly OneParameterFormatAndCulture DefaultFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0_));
 
         public IsGreaterThanValidationResult(
             IFormattable value,
             IFormattable min,
+            IFormattable max,
             IFormatProvider currentBoxCulture,
             OneParameterFormatAndCulture formatAndCulture,
             bool isValid,
             object errorContent)
-            : base(currentBoxCulture, formatAndCulture, isValid, errorContent)
+            : base(value, min, max, currentBoxCulture, formatAndCulture, isValid, errorContent)
         {
-            this.Value = value;
-            this.Min = min;
         }
 
-        /// <summary>Gets the current value at the time of validation.</summary>
-        public IFormattable Value { get; }
-
-        /// <summary>Gets the minimum allowed value at the time of validation.</summary>
-        public IFormattable Min { get; }
-
-        public static IsGreaterThanValidationResult CreateErrorResult<T>(T value, T min, IFormatProvider culture)
-            where T : struct, IFormattable
+        public static IsGreaterThanValidationResult CreateErrorResult<T>(T value, NumericBox<T> box)
+            where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
-            var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(culture);
-            var message = formatAndCulture.FormatMessage(min);
-            return new IsGreaterThanValidationResult(value, min, culture, formatAndCulture, false, message);
+            var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(box.Culture);
+            var message = formatAndCulture.FormatMessage(box.MaxValue);
+            return new IsGreaterThanValidationResult(value, box.MinValue, box.MaxValue, box.Culture, formatAndCulture, false, message);
         }
     }
 }

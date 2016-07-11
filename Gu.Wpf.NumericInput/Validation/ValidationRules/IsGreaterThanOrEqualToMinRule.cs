@@ -35,7 +35,7 @@ namespace Gu.Wpf.NumericInput
             var value = (T)o;
             if (value.CompareTo(min) < 0)
             {
-                return IsLessThanValidationResult.CreateErrorResult(value, min, box.Culture);
+                return IsLessThanValidationResult.CreateErrorResult(value, box);
             }
 
             return ValidationResult.ValidResult;
