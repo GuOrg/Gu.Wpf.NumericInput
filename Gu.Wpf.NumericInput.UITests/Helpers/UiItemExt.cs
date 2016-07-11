@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Controls;
 
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.Custom;

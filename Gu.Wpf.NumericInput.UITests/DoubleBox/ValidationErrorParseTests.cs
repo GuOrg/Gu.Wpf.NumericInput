@@ -35,17 +35,19 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MinBox.Text = "";
             this.MaxBox.Text = "";
             this.LoseFocusButton.Click();
+            this.Window.WaitWhileBusy();
         }
 
         [TestCaseSource(nameof(ParseSource))]
-        public void LostFocus(ParseData data)
+        public void LostFocusValidateOnLostFocus(ParseData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            doubleBox.BulkText = "0";
+            this.LoseFocusButton.Click(); // needed to reset explicitly here for some reason
 
             doubleBox.Text = data.Text;
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            this.Window.WaitWhileBusy();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());

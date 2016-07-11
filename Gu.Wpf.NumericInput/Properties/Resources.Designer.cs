@@ -106,7 +106,7 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please provide valid input.
+        ///   Looks up a localized string similar to Please provide valid input..
         /// </summary>
         public static string Please_provide_valid_input {
             get {

@@ -92,7 +92,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(Source))]
-        public void LostFocus(Data data)
+        public void LostFocusValidateOnLostFocus(Data data)
         {
             var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = data.Text;
@@ -138,7 +138,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishSource))]
-        public void SwedishLostFocus(Data data)
+        public void SwedishLostFocusValidateOnLostFocus(Data data)
         {
             this.CultureBox.Select("sv-SE");
             var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
@@ -173,7 +173,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishSource))]
-        public void SwedishPropertyChanged(Data data)
+        public void SwedishPropertyChangedValidateOnPropertyChanged(Data data)
         {
             this.CultureBox.Select("sv-SE");
             var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
@@ -185,7 +185,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [Test]
-        public void WhenNullLostFocus()
+        public void WhenNullLostFocusValidateOnLostFocus()
         {
             this.CanValueBeNullBox.Checked = true;
             var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
