@@ -14,7 +14,7 @@
         <demo:DoubleBoxVm />
     </Window.DataContext>
     <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-        <numeric:DoubleBox x:Name="LostFocusBoxValidateOnLostFocusBox"
+        <numeric:DoubleBox x:Name="LostFocusValidateOnLostFocusBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
                            Culture="{Binding Culture}"
@@ -28,10 +28,10 @@
                            StringFormat="{Binding StringFormat}"
                            ValidationTrigger="LostFocus"
                            Value="{Binding Value}" />
-        <TextBlock x:Name="LostFocusBoxValidateOnLostFocusBoxError"
+        <TextBlock x:Name="LostFocusValidateOnLostFocusBoxError"
                    Foreground="Red"
                    Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
-                                  ElementName=LostFocusBoxValidateOnLostFocusBox}" />
+                                  ElementName=LostFocusValidateOnLostFocusBox}" />
 
         <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -52,7 +52,7 @@
                    Foreground="Red"
                    Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
                                   ElementName=LostFocusValidateOnPropertyChangedBox}" />
-        
+
         <numeric:DoubleBox x:Name="PropertyChangedValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
                            CanValueBeNull="{Binding CanValueBeNull}"
