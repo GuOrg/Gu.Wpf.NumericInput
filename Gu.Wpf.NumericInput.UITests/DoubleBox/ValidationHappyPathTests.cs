@@ -94,7 +94,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(Source))]
         public void LostFocusValidateOnLostFocus(Data data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -111,7 +112,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(Source))]
         public void LostFocusValidateOnPropertyChanged(Data data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -128,7 +130,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(Source))]
         public void PropertyChanged(Data data)
         {
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -141,7 +144,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void SwedishLostFocusValidateOnLostFocus(Data data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -159,7 +163,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void SwedishLostFocusValidateOnPropertyChanged(Data data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -176,7 +181,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void SwedishPropertyChangedValidateOnPropertyChanged(Data data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -188,7 +194,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void WhenNullLostFocusValidateOnLostFocus()
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "";
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual("", doubleBox.Text);
@@ -204,7 +211,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void WhenNullLostFocusValidateOnPropertyChanged()
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "";
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual("", doubleBox.Text);
@@ -220,7 +228,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void WheNullPropertyChanged()
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "";
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual("", doubleBox.Text);
@@ -232,7 +241,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -249,7 +259,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -266,7 +277,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);

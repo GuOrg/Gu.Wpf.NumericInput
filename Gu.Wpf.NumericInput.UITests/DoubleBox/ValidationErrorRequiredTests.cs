@@ -45,9 +45,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(RequiredSource))]
         public void LostFocusValidateOnLostFocus(RequiredData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
 
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
@@ -59,7 +60,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -78,7 +79,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputInvalid(string text, string infoMessage)
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
             this.LoseFocusButton.Click();
 
@@ -93,7 +95,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError").Text);
+                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
                 Assert.AreEqual(text, doubleBox.Text);
                 Assert.AreEqual(text, this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -113,14 +115,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputValid(string text, string infoMessage)
         {
             this.CanValueBeNullBox.Checked = false;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
             this.LoseFocusButton.Click();
             if (infoMessage != null)
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError").Text);
+                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
                 Assert.AreEqual(text, doubleBox.Text);
                 Assert.AreEqual("0", this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -145,8 +148,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(RequiredSource))]
         public void LostFocusValidateOnPropertyChanged(RequiredData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
 
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
@@ -154,7 +158,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -162,7 +166,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.LoseFocusButton.Click();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual("0", this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -185,15 +189,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(RequiredSource))]
         public void PropertyChanged(RequiredData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
 
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -212,7 +217,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void PropertyChangedSwedish(RequiredData data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
 
             doubleBox.Text = data.Text;
@@ -220,7 +227,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -240,14 +247,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.CultureBox.Select("ja-JP");
 
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
