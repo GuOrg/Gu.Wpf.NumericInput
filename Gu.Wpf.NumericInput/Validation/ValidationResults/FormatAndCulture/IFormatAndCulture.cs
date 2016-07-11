@@ -5,15 +5,21 @@
 
     public interface IFormatAndCulture
     {
-        /// <summary>The name of the resource. I.e. Properties.Resources.ResourceManager.GetString(<see cref="IFormatAndCulture.ResourceKey"/>, <see cref="CultureInfo"/>)</summary>
+        /// <summary>Gets the name of the resource. I.e. Properties.Resources.ResourceManager.GetString(<see cref="IFormatAndCulture.ResourceKey"/>, <see cref="CultureInfo"/>)</summary>
         string ResourceKey { get; }
 
-        /// <summary>The culture for which the <see cref="IFormatAndCulture.Format"/> is for. If no localization is found <see cref="CultureInfo.InvariantCulture"/> will be used.</summary>
+        /// <summary>Gets the culture for which the <see cref="IFormatAndCulture.Format"/> is for. If no localization is found <see cref="CultureInfo.InvariantCulture"/> will be used.</summary>
         IFormatProvider FormatProvider { get; }
 
         /// <summary>Gets the localized format string.</summary>
         string Format { get; }
 
+        /// <summary>
+        /// Gets the format in <paramref name="culture"/> if it exists.
+        /// Returns format for <see cref="CultureInfo.InvariantCulture"/> if not exists.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <returns>A format string for a validation error message.</returns>
         string GetFormat(IFormatProvider culture);
     }
 }

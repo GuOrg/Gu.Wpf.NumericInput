@@ -20,6 +20,6 @@ namespace Gu.Wpf.NumericInput
         public string Pattern { get; }
 
         /// <summary>Gets the culture of the numeric box.</summary>
-        public IFormatProvider Culture { get; set; }
+        public IFormatProvider Culture { get; }
     }
 }
