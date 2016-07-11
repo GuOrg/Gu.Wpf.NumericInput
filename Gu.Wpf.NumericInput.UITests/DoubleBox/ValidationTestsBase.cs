@@ -33,6 +33,12 @@
 
         protected TextBox RegexPatternBox { get; private set; }
 
+        protected TextBoxAndErrorBox LostFocusValidateOnLostFocusBoxes { get; private set; }
+
+        protected TextBoxAndErrorBox LostFocusValidateOnPropertyChangedBoxes { get; private set; }
+
+        protected TextBoxAndErrorBox PropertyChangedValidateOnPropertyChangedBoxes { get; private set; }
+
         public override void OneTimeSetUp()
         {
             base.OneTimeSetUp();
@@ -52,6 +58,29 @@
             this.MinBox = this.Window.Get<TextBox>("Min");
             this.MaxBox = this.Window.Get<TextBox>("Max");
             this.RegexPatternBox = this.Window.Get<TextBox>("RegexPattern");
+            this.LostFocusValidateOnLostFocusBoxes =new TextBoxAndErrorBox(
+                    this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox"),
+                    this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError"));
+
+            this.LostFocusValidateOnPropertyChangedBoxes = new TextBoxAndErrorBox(
+                    this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox"),
+                    this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError"));
+
+            this.PropertyChangedValidateOnPropertyChangedBoxes = new TextBoxAndErrorBox(
+                    this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox"),
+                    this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError"));
+        }
+
+        public class TextBoxAndErrorBox
+        {
+            public readonly TextBox DoubleBox;
+            public readonly Label ErrorBlock;
+
+            public TextBoxAndErrorBox(TextBox doubleBox, Label errorBlock)
+            {
+                this.DoubleBox = doubleBox;
+                this.ErrorBlock = errorBlock;
+            }
         }
     }
 }

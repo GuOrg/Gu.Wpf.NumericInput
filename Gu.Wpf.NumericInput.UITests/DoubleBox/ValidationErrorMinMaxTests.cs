@@ -4,8 +4,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     using NUnit.Framework;
 
-    using TestStack.White.UIItems;
-
     public class ValidationErrorMinMaxTests : ValidationTestsBase
     {
         public static readonly MinMaxData[] MinMaxSource =
@@ -42,7 +40,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void LostFocusValidateOnLostFocus(MinMaxData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.StartValue;
             this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
@@ -57,6 +56,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -65,7 +65,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void LostFocusValidateOnPropertyChanged(MinMaxData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.StartValue;
             this.LoseFocusButton.Click();
             this.MinBox.Text = data.Min;
@@ -73,7 +74,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -89,48 +90,51 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void PropertyChanged(MinMaxData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.StartValue;
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.StartValue, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCase("3","","2.2", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
-        [TestCase("-3","-2.1","", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
+        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
         public void PropertyChangedSwedish(string value, string min, string max, string infoMessage)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "1";
             this.MinBox.Text = min;
             this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
         }
 
-        [TestCase("3","","2.2", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
-        [TestCase("-3","-2.1","", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
+        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 2.2.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void PropertyChangedWhenNotLocalized(string value, string min, string max, string infoMessage)
         {
             this.CultureBox.Select("ja-JP");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "1";
             this.MinBox.Text = min;
             this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
@@ -140,7 +144,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void LostFocusValidateOnLostFocusWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = value;
             Assert.AreEqual(false, doubleBox.HasValidationError());
 
@@ -148,7 +153,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError").Text);
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual(value, this.ViewModelValueBox.Text);
@@ -158,7 +163,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void PropertyChangedWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
         {
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = value;
             Assert.AreEqual(false, doubleBox.HasValidationError());
 
@@ -166,7 +172,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual(value, this.ViewModelValueBox.Text);
@@ -176,14 +182,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void PropertyChangedWhenNull(MinMaxData data)
         {
             this.CanValueBeNullBox.Checked = true;
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = "";
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("", this.ViewModelValueBox.Text);
         }

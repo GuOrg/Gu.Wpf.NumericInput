@@ -2,7 +2,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System.Text.RegularExpressions;
     using NUnit.Framework;
-    using TestStack.White.UIItems;
 
     public class ValidationErrorParseTests : ValidationTestsBase
     {
@@ -38,11 +37,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.Window.WaitWhileBusy();
         }
 
-        [TestCase(nameof(ParseSource))]
+        [TestCaseSource(nameof(ParseSource))]
         public void LostFocusValidateOnLostFocus(ParseData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox");
-            doubleBox.BulkText = "0";
+            var boxes = this.LostFocusValidateOnLostFocusBoxes;
+            var doubleBox = boxes.DoubleBox;
+            doubleBox.Text = "0";
             this.LoseFocusButton.Click(); // needed to reset explicitly here for some reason
 
             doubleBox.Text = data.Text;
@@ -55,6 +55,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -63,12 +64,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(ParseSource))]
         public void LostFocusValidateOnPropertyChanged(ParseData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
-
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -84,11 +85,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(ParseSource))]
         public void PropertyChanged(ParseData data)
         {
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -99,10 +101,11 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void PropertyChangedSwedish(ParseData data)
         {
             this.CultureBox.Select("sv-SE");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -113,11 +116,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void PropertyChangedWhenNotLocalized(ParseData data)
         {
             this.CultureBox.Select("ja-JP");
-            var doubleBox = this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox");
+            var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(data.ErrorMessage, this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+            Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
@@ -128,8 +132,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("2", null)]
         public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputInvalid(string text, string infoMessage)
         {
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
-
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -140,7 +144,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             }
             else
             {
@@ -153,7 +157,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
         {
             this.AllowDecimalPointBox.Checked = false;
-            var doubleBox = this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox");
+            var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
+            var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
             this.LoseFocusButton.Click();
             if (infoMessage != null)
@@ -161,7 +166,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             }
             else
             {
