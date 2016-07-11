@@ -1,12 +1,11 @@
 ﻿namespace Gu.Wpf.NumericInput
 {
     using System;
-    using System.Windows.Controls;
 
-    /// <summary>This <see cref="ValidationResult"/> is returned when <see cref="Value"/> in the valid range <see cref="Max"/></summary>
+    /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="Value"/> in the valid range of <see cref="Max"/> and <see cref="Min"/></summary>
     public abstract class OutOfRangeValidationResult : NumericValidationResult
     {
-        protected static readonly TwoParameterFormatAndCulture PleaseEnterAValueBetweenFormatAndCulture = TwoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_between__0__and__1__));
+        public static readonly TwoParameterFormatAndCulture PleaseEnterAValueBetweenFormatAndCulture = TwoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_between__0__and__1__));
 
         protected OutOfRangeValidationResult(
             IFormattable value,

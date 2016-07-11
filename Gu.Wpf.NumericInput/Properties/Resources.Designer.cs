@@ -104,5 +104,23 @@ namespace Gu.Wpf.NumericInput.Properties {
                 return ResourceManager.GetString("Please_enter_a_value_less_than_or_equal_to__0_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide valid input.
+        /// </summary>
+        public static string Please_provide_valid_input {
+            get {
+                return ResourceManager.GetString("Please_provide_valid_input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syntax error in regex pattern.
+        /// </summary>
+        public static string Syntax_error_in_regex_pattern {
+            get {
+                return ResourceManager.GetString("Syntax_error_in_regex_pattern", resourceCulture);
+            }
+        }
     }
 }
