@@ -70,6 +70,15 @@ namespace Gu.Wpf.NumericInput.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a value between {0} and {1}..
+        /// </summary>
+        public static string Please_enter_a_value_between__0__and__1__ {
+            get {
+                return ResourceManager.GetString("Please_enter_a_value_between__0__and__1__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a value greater than or equal to {0}..
         /// </summary>
         public static string Please_enter_a_value_greater_than_or_equal_to__0__ {
