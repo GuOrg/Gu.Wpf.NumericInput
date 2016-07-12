@@ -17,8 +17,8 @@
             var doubleBoxes = this.Window.GetByText<GroupBox>("DoubleBoxes");
             var textBox = doubleBoxes.Get<TextBox>("TextBox1");
             textBox.Click();
-            this.Window.Get<CheckBox>("AllowSpinners").Checked = withSpinners;
-
+            this.Window.GetByText<GroupBox>("Settings").Get<CheckBox>("AllowSpinners").Checked = withSpinners;
+            this.Window.WaitWhileBusy();
             var doubleBox1 = doubleBoxes.Get<TextBox>("DoubleBox1");
             var doubleBox2 = doubleBoxes.Get<TextBox>("DoubleBox2");
             var doubleBox3 = doubleBoxes.Get<TextBox>("DoubleBox3");
