@@ -36,10 +36,14 @@
             var actuals = attributes.Select(a => (string)a.ConstructorArguments[1].Value)
                                     .OrderBy(x => x)
                                     .ToArray();
+
+#if DEBUG
             foreach (var s in strings)
             {
                 Console.WriteLine(@"[assembly: XmlnsDefinition(""{0}"", ""{1}"")]", NumericUri, s);
             }
+#endif
+
             CollectionAssert.AreEqual(strings, actuals);
             foreach (var attribute in attributes)
             {
