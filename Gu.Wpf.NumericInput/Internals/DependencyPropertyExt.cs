@@ -173,7 +173,7 @@
 
         private static FrameworkPropertyMetadataOptions GetFlags(FrameworkPropertyMetadata fpm)
         {
-            FrameworkPropertyMetadataOptions flags = FrameworkPropertyMetadataOptions.None;
+            var flags = FrameworkPropertyMetadataOptions.None;
             if (fpm.AffectsMeasure)
             {
                 flags |= FrameworkPropertyMetadataOptions.AffectsMeasure;

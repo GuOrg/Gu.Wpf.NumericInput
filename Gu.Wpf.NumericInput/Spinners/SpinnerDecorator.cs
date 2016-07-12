@@ -81,7 +81,7 @@
 
             if (newChild != null)
             {
-                DependencyObject logicalParent = LogicalTreeHelper.GetParent(newChild);
+                var logicalParent = LogicalTreeHelper.GetParent(newChild);
                 if (logicalParent != null)
                 {
                     if (this.TemplatedParent != null && FrameworkObject.IsEffectiveAncestor(logicalParent, this))
