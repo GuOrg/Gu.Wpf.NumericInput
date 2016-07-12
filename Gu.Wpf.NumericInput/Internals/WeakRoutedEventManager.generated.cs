@@ -4,7 +4,6 @@ namespace Gu.Wpf.NumericInput
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Input;
 
     internal static class WeakRoutedEventManager
     {

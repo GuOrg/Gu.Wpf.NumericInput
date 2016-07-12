@@ -19,6 +19,7 @@
                 var workingDirectory = System.IO.Path.GetDirectoryName(fileName);
                 var processStartInfo = new ProcessStartInfo
                 {
+                    // ReSharper disable once AssignNullToNotNullAttribute
                     WorkingDirectory =  workingDirectory,
                     FileName = fileName,
                     //UseShellExecute = false,

@@ -16,6 +16,7 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
+        /// <inheritdoc/>
         public override ValidationResult Validate(object o, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (NumericBox<T>)((BindingExpression)owner).Target;
@@ -39,6 +40,7 @@ namespace Gu.Wpf.NumericInput
             return ValidationResult.ValidResult;
         }
 
+        /// <summary> This should never be called.</summary>
         public override ValidationResult Validate(object o, CultureInfo cultureInfo)
         {
             throw new InvalidOperationException("Should not get here");

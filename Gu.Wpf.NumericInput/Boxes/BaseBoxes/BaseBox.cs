@@ -11,7 +11,7 @@
     /// </summary>
     public abstract partial class BaseBox : TextBox
     {
-        private static readonly RoutedEventHandler LoadedHandler = new RoutedEventHandler(OnLoaded);
+        private static readonly RoutedEventHandler LoadedHandler = OnLoaded;
 
         // this is only used to create the binding expression needed for Validator
         private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };

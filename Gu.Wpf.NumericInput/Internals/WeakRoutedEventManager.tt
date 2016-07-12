@@ -13,7 +13,6 @@ namespace Gu.Wpf.NumericInput
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Input;
 <#
     var events = new[]
     {
@@ -178,6 +177,10 @@ namespace Gu.Wpf.NumericInput
 
     public class Data
     {
+	
+        public readonly Type OwnerType;
+        public readonly RoutedEvent Event;
+
 	    public Data(RoutedEvent @event)
 		    : this(@event.OwnerType, @event)
         {
@@ -188,9 +191,5 @@ namespace Gu.Wpf.NumericInput
             this.OwnerType = ownerType;
             this.Event = @event;
         }
-
-        public Type OwnerType { get; private set; }
-
-        public RoutedEvent Event { get; private set; }
     }
 #>

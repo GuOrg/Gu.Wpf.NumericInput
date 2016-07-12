@@ -56,12 +56,13 @@
     <Compile Include="Boxes\BaseBoxes\BaseBox.Events.cs" />
     <Compile Include="Boxes\BaseBoxes\DecimalDigitsBox{T}.cs" />
     <Compile Include="Boxes\BaseBoxes\FormattedView.cs" />
-    <Compile Include="Boxes\BaseBoxes\IIncrementBox.cs" />
+    <Compile Include="Boxes\BaseBoxes\ISpinnerBox.cs" />
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.Events.cs" />
     <Compile Include="Boxes\BaseBoxes\Status.cs" />
     <Compile Include="Boxes\TextSource.cs" />
     <Compile Include="Boxes\ValidationTrigger.cs" />
+    <Compile Include="Converters\ErrorContentToStringConverter.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
@@ -181,6 +182,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.sv.resx" />
     <EmbeddedResource Include="Properties\Resources.de.resx" />
-    <EmbeddedResource Include="Properties\Resources.nl.resx" />
+    <EmbeddedResource Include="Properties\Resources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
