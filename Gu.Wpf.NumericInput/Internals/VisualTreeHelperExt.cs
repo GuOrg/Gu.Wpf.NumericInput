@@ -21,7 +21,7 @@
 
         internal static IEnumerable<DependencyObject> NestedChildren(this DependencyObject parent)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
                 yield return child;
@@ -75,7 +75,7 @@
 
         internal static IEnumerable<Visual> VisualChildren(this Visual parent)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 yield return (Visual)VisualTreeHelper.GetChild(parent, i);
             }
@@ -96,7 +96,7 @@
             if (VisualTreeHelper.GetChildrenCount(parent) != 0)
             {
                 writer.Indent++;
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
                 {
                     var child = VisualTreeHelper.GetChild(parent, i);
                     DumpVisualTree(child, writer);

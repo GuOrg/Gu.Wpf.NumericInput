@@ -639,7 +639,7 @@ namespace Gu.Wpf.NumericInput
 
         internal static bool IsEffectiveAncestor(DependencyObject d1, DependencyObject d2)
         {
-            for (FrameworkObject fo = new FrameworkObject(d2);
+            for (var fo = new FrameworkObject(d2);
                 fo.DependencyObject != null;
                 fo.Reset(fo.EffectiveParent))
             {
@@ -654,7 +654,7 @@ namespace Gu.Wpf.NumericInput
 
         internal static FrameworkObject GetContainingFrameworkElement(DependencyObject current)
         {
-            FrameworkObject fo = new FrameworkObject(current);
+            var fo = new FrameworkObject(current);
 
             while (!fo.IsValid && fo.DependencyObject != null)
             {

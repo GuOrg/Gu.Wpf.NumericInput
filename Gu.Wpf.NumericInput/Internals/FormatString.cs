@@ -67,7 +67,7 @@
                 return true;
             }
 
-            int pos = 0;
+            var pos = 0;
             anyItemHasFormat = false;
             var indices = Indices.Value;
             indices.Clear();

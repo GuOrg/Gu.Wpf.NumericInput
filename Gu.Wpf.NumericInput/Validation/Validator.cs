@@ -27,7 +27,7 @@
                 return Binding.DoNothing;
             }
 
-            bool validated = false;
+            var validated = false;
             var value = Default;
             foreach (var rule in box.ValidationRules)
             {
