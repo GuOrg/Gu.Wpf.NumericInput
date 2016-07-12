@@ -58,7 +58,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type ValidationError}">
                         <TextBlock Style="{StaticResource ValidationTextStyle}"
-                                   Text="{Binding ErrorContent.ErrorContent}" />
+                                   Text="{Binding ., Converter={x:Static local:ErrorContentToStringConverter.Default}}"/>
                         <!--  yes it is supposed to be ErrorContent.ErrorContent  -->
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -99,7 +99,7 @@
                                    VerticalAlignment="Top"
                                    Padding="0"
                                    Style="{StaticResource ValidationTextStyle}"
-                                   Text="{Binding ErrorContent.ErrorContent}" />
+                                   Text="{Binding ., Converter={x:Static local:ErrorContentToStringConverter.Default}}" />
                         <!--  yes it is supposed to be ErrorContent.ErrorContent  -->
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

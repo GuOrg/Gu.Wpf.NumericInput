@@ -22,9 +22,9 @@
 
         public static readonly DependencyProperty ChildProperty = DependencyProperty.Register(
             "Child",
-            typeof(IIncrementBox),
+            typeof(ISpinnerBox),
             typeof(SpinnerDecorator),
-            new PropertyMetadata(default(IIncrementBox), OnChildChanged));
+            new PropertyMetadata(default(ISpinnerBox), OnChildChanged));
 
         static SpinnerDecorator()
         {
@@ -34,9 +34,9 @@
         /// <summary>
         /// Gets or sets the single child of a <see cref="SpinnerDecorator" />
         /// </summary>
-        public IIncrementBox Child
+        public ISpinnerBox Child
         {
-            get { return (IIncrementBox)this.GetValue(ChildProperty); }
+            get { return (ISpinnerBox)this.GetValue(ChildProperty); }
             set { this.SetValue(ChildProperty, value); }
         }
 

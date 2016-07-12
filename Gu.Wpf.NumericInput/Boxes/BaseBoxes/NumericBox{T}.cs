@@ -10,7 +10,7 @@
 
     /// <summary>Baseclass with common functionality for numeric textboxes.</summary>
     /// <typeparam name="T">The type of the numeric value.</typeparam>
-    public abstract partial class NumericBox<T> : BaseBox, IIncrementBox
+    public abstract partial class NumericBox<T> : BaseBox, ISpinnerBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         /// <summary>Initializes a new instance of the <see cref="NumericBox{T}"/> class.</summary>

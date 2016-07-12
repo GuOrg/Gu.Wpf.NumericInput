@@ -16,6 +16,7 @@
         {
         }
 
+        /// <inheritdoc/>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo, BindingExpressionBase owner)
         {
             var box = (NumericBox<T>)((BindingExpression)owner).Target;
@@ -43,6 +44,7 @@
             return CanParseValidationResult.CreateErrorResult(text, box);
         }
 
+        /// <summary> This should never be called.</summary>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             throw new InvalidOperationException("Should not get here");
