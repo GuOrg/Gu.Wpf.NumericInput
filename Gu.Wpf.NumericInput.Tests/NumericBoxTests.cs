@@ -103,67 +103,6 @@
             Assert.AreEqual(TextSource.ValueBinding, this.Box.TextSource);
         }
 
-        [TestCase("9", "9", false)]
-        [TestCase("10", "10", false)]
-        [TestCase("11", "", true)]
-        [TestCase("-9", "-9", false)]
-        [TestCase("-10", "-10", false)]
-        [TestCase("-11", "", true)]
-        [TestCase("1e", "", true)]
-        public void SetTextValidatesPropertyChanged(string text, string expectedValue, bool expected)
-        {
-            Assert.Inconclusive("Not sure we can test this");
-            var changes = new List<DependencyPropertyChangedEventArgs>();
-            this.Box.ValidationTrigger = ValidationTrigger.PropertyChanged;
-            using (this.Box.PropertyChanged(NumericBox<T>.ValueProperty, x => changes.Add(x)))
-            {
-                this.Box.Text = text;
-                Assert.AreEqual(expected, Validation.GetHasError(this.Box));
-                if (expected)
-                {
-                    CollectionAssert.IsEmpty(changes);
-                }
-                else
-                {
-                    Assert.AreEqual(1, changes.Count);
-                }
-            }
-
-            Assert.AreEqual(text, this.Box.Text);
-            Assert.AreEqual(expectedValue, this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
-        }
-
-        [Test]
-        public void SetTextValidatesLostFocus()
-        {
-            Assert.Inconclusive("Not sure we can unit test this");
-            var changes = new List<DependencyPropertyChangedEventArgs>();
-            this.Box.ValidationTrigger = ValidationTrigger.LostFocus;
-            using (this.Box.PropertyChanged(NumericBox<T>.ValueProperty, x => changes.Add(x)))
-            {
-                this.Box.Text = "ggg";
-                Assert.AreEqual(false, Validation.GetHasError(this.Box));
-                CollectionAssert.IsEmpty(changes);
-
-                this.Box.RaiseLostFocus();
-                Assert.AreEqual(true, Validation.GetHasError(this.Box));
-                CollectionAssert.IsEmpty(changes);
-
-                this.Box.Text = "1";
-                Assert.AreEqual(true, Validation.GetHasError(this.Box));
-                Assert.AreEqual(1, changes.Count);
-
-                this.Box.RaiseLostFocus();
-                Assert.AreEqual(false, Validation.GetHasError(this.Box));
-                Assert.AreEqual(1, changes.Count);
-            }
-
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
-        }
-
         [TestCase(1, "11", true, "1", false)]
         public void SetTextTwiceTest(T vmValue, string text1, bool expected1, string text2, bool expected2)
         {

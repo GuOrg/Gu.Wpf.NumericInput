@@ -7,9 +7,10 @@
     using System.Windows.Controls;
     using NUnit.Framework;
 
+    [Explicit("Code gen")]
     public class DumpTemplateBindings
     {
-        [TestCase(typeof(TextBox)), Explicit]
+        [TestCase(typeof(TextBox))]
         public void TemplateBindDepedencyProperties(Type type)
         {
             this.WriteTemplateBindings(type);

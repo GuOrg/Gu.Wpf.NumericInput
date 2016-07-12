@@ -12,7 +12,7 @@
     <Window.DataContext>
         <demo:FocusVm />
     </Window.DataContext>
-    <StackPanel>
+    <UniformGrid Rows="1">
         <GroupBox Header="TextBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
                 <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
@@ -61,5 +61,5 @@
                 </autoRowGrid:Row>
             </autoRowGrid:Grid>
         </GroupBox>
-    </StackPanel>
+    </UniformGrid>
 </Window>
