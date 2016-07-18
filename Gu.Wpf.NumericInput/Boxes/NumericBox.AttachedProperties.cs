@@ -16,7 +16,7 @@
             typeof(IFormatProvider),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(
-                CultureInfo.CurrentCulture,
+                CultureInfo.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits));
 
         public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.RegisterAttached(
