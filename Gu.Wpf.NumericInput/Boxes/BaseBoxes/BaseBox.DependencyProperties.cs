@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -72,7 +73,7 @@
         public static readonly DependencyProperty CultureProperty = NumericBox.CultureProperty.AddOwner(
             typeof(BaseBox),
             new FrameworkPropertyMetadata(
-                Thread.CurrentThread.CurrentUICulture,
+                CultureInfo.CurrentCulture,
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnCultureChanged));
 
