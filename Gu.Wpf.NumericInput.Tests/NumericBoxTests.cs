@@ -30,13 +30,15 @@
         [SetUp]
         public void SetUp()
         {
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en");
+            var enUs = CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = enUs;
+            Thread.CurrentThread.CurrentCulture = enUs;
             base.Box = this.Creator();
             this.Box.IsReadOnly = false;
             this.Box.MinValue = this.Min;
             this.Box.MaxValue = this.Max;
             this.Box.Increment = this.Increment;
-            this.Box.Culture = Thread.CurrentThread.CurrentCulture;
+            this.Box.Culture = Thread.CurrentThread.CurrentUICulture;
             this.Vm = new DummyVm<T>();
             var binding = new Binding("Value")
             {
