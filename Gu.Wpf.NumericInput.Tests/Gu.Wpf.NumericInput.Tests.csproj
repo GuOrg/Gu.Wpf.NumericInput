@@ -116,7 +116,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\.paket\paket.targets" />
   <ItemGroup>
     <Folder Include="SandBox\" />
   </ItemGroup>
@@ -201,4 +200,5 @@
       </ItemGroup>
     </When>
   </Choose>
+  <Import Project="..\.paket\paket.targets" />
 </Project>

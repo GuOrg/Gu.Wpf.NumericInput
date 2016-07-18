@@ -30,11 +30,13 @@
         [SetUp]
         public void SetUp()
         {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en");
             base.Box = this.Creator();
             this.Box.IsReadOnly = false;
             this.Box.MinValue = this.Min;
             this.Box.MaxValue = this.Max;
             this.Box.Increment = this.Increment;
+            this.Box.Culture = Thread.CurrentThread.CurrentCulture;
             this.Vm = new DummyVm<T>();
             var binding = new Binding("Value")
             {
@@ -44,7 +46,6 @@
             };
             BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
             this.Box.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         }
 
         [Test]
