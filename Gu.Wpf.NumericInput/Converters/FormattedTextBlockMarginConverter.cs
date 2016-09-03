@@ -21,7 +21,11 @@
             var textMargin = ((FrameworkElement)presenter?.Content)?.Margin;
             if (presenterMargin == null || textMargin == null)
             {
+#if DEBUG
+                throw new InvalidOperationException("Failed getting formatted text margin.");
+#else
                 return new Thickness(2, 0, 2, 0);
+#endif
             }
 
             var result = new Thickness(

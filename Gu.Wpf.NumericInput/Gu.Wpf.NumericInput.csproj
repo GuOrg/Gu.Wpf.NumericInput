@@ -151,9 +151,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Internals\WeakRoutedEventManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
