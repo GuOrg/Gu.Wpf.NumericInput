@@ -1,5 +1,9 @@
 ﻿type project
 title Gu.Wpf.NumericInput
+
+releasenotes
+  BUGFIX: Don't throw NRE in marginconverter.
+
 tags wpf xaml numeric textbox
 projectUrl https://github.com/JohanLarsson/Gu.Wpf.NumericInput
 licenseUrl http://opensource.org/licenses/MIT
