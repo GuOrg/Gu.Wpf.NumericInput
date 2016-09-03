@@ -1,5 +1,4 @@
 ﻿type project
-title Gu.Wpf.NumericInput
 
 releasenotes
   BUGFIX: Don't throw NRE in marginconverter.
