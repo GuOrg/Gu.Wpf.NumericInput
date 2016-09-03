@@ -41,7 +41,10 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary> This should never be called.</summary>
-        public override ValidationResult Validate(object o, CultureInfo cultureInfo)
+        /// <param name="value">_</param>
+        /// <param name="cultureInfo">__</param>
+        /// <returns>___</returns>
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             throw new InvalidOperationException("Should not get here");
         }

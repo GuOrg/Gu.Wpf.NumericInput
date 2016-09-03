@@ -1,4 +1,5 @@
-﻿namespace Gu.Wpf.NumericInput
+﻿// ReSharper disable StaticMemberInGenericType
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.ComponentModel;

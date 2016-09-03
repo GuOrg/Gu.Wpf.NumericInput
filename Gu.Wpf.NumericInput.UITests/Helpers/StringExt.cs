@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.UITests.Helpers
+﻿namespace Gu.Wpf.NumericInput.UITests
 {
     public static class StringExt
     {

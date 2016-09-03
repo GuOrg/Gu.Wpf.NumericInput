@@ -6,7 +6,7 @@
     {
         public CycleFocusWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

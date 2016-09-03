@@ -2,9 +2,7 @@
 {
     using System;
     using System.Diagnostics;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Windows.Input;
 
     public static class TouchKeyboard
     {
@@ -47,10 +45,10 @@
             }
         }
 
-        private static bool HasTouchInput()
-        {
-            return Tablet.TabletDevices.Cast<TabletDevice>().Any(tabletDevice => tabletDevice.Type == TabletDeviceType.Touch);
-        }
+        ////private static bool HasTouchInput()
+        ////{
+        ////    return Tablet.TabletDevices.Cast<TabletDevice>().Any(tabletDevice => tabletDevice.Type == TabletDeviceType.Touch);
+        ////}
 
         private static class NativeMethods
         {

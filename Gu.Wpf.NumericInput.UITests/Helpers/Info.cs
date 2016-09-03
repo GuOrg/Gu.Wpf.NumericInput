@@ -16,7 +16,7 @@
                 var assembly = typeof(MainWindow).Assembly;
                 var uri = new Uri(assembly.CodeBase, UriKind.Absolute);
                 var fileName = uri.AbsolutePath;
-                var workingDirectory = System.IO.Path.GetDirectoryName(fileName);
+                var workingDirectory = Path.GetDirectoryName(fileName);
                 var processStartInfo = new ProcessStartInfo
                 {
                     // ReSharper disable once AssignNullToNotNullAttribute
@@ -49,9 +49,10 @@
         private static string GetExeFileName()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var testDirestory = Path.GetDirectoryName(new Uri(assembly.CodeBase).AbsolutePath);
+            var testDirestory = Path.GetDirectoryName(new Uri(assembly.CodeBase).LocalPath);
             var assemblyName = assembly.GetName().Name;
             var exeDirectoryName = assemblyName.Replace("UITests", "Demo");
+            // ReSharper disable once PossibleNullReferenceException
             var exeDirectory = testDirestory.Replace(assemblyName, exeDirectoryName);
             var fileName = Path.Combine(exeDirectory, "Gu.Wpf.NumericInput.Demo.exe");
 

@@ -9,7 +9,7 @@
     public class DummyVm<T> : INotifyPropertyChanged
         where T : struct, IEquatable<T>
     {
-        private T? value = null;
+        private T? value;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
