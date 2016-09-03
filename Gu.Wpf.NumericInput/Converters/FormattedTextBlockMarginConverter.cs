@@ -17,13 +17,18 @@
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var presenter = (ScrollContentPresenter)parameter;
-            var presenterMargin = presenter.Margin;
-            var textMargin = ((FrameworkElement)presenter.Content).Margin;
+            var presenterMargin = presenter?.Margin;
+            var textMargin = ((FrameworkElement)presenter?.Content)?.Margin;
+            if (presenterMargin == null || textMargin == null)
+            {
+                return new Thickness(2, 0, 2, 0);
+            }
+
             var result = new Thickness(
-                presenterMargin.Left + textMargin.Left,
-                presenterMargin.Top + textMargin.Top,
-                presenterMargin.Right + textMargin.Right,
-                presenterMargin.Bottom + textMargin.Bottom);
+                presenterMargin.Value.Left + textMargin.Value.Left,
+                presenterMargin.Value.Top + textMargin.Value.Top,
+                presenterMargin.Value.Right + textMargin.Value.Right,
+                presenterMargin.Value.Bottom + textMargin.Value.Bottom);
             return result;
         }
 
