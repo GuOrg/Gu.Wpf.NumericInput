@@ -22,7 +22,7 @@
 
         public static string ItemStatus(this IUIItem item)
         {
-            return (string)item.AutomationElement.Current.ItemStatus;
+            return item.AutomationElement.Current.ItemStatus;
         }
 
         public static bool HasValidationError(this UIItem item)

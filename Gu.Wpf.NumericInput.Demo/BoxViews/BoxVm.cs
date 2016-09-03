@@ -1,4 +1,5 @@
-﻿namespace Gu.Wpf.NumericInput.Demo
+﻿// ReSharper disable ExplicitCallerInfoArgument
+namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
     using System.Collections;

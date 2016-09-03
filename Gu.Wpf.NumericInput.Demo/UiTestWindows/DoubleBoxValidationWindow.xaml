@@ -76,10 +76,7 @@
             <autoRowGrid:Grid ColumnDefinitions="Auto *">
                 <autoRowGrid:Rows>
                     <autoRowGrid:Row>
-                        <TextBlock Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   Style="{StaticResource HeaderTextBlockStyle}"
-                                   Text="ViewModel:" />
+                        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="ViewModel:" />
                     </autoRowGrid:Row>
 
                     <autoRowGrid:Row>
@@ -94,10 +91,7 @@
                 </autoRowGrid:Rows>
 
                 <autoRowGrid:Row>
-                    <TextBlock Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               Style="{StaticResource HeaderTextBlockStyle}"
-                               Text="Settings:" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Settings:" />
                 </autoRowGrid:Row>
 
                 <autoRowGrid:Row>

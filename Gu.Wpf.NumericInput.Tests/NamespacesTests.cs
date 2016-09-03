@@ -1,6 +1,5 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
-    using System;
     using System.Linq;
     using System.Reflection;
     using System.Windows.Markup;

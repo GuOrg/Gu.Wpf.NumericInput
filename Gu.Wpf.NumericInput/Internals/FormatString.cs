@@ -176,34 +176,6 @@
             return true;
         }
 
-        private static bool TryParseItemFormat(string text, ref int pos, out int index, out string format)
-        {
-            if (text[pos] != '{')
-            {
-                index = -1;
-                format = null;
-                return false;
-            }
-
-            pos++;
-            if (!TryParseUnsignedInt(text, ref pos, out index))
-            {
-                format = null;
-                return false;
-            }
-
-            TryParseFormatSuffix(text, ref pos, out format);
-            if (!TrySkipTo(text, '}', ref pos))
-            {
-                index = -1;
-                format = null;
-                return false;
-            }
-
-            pos++;
-            return true;
-        }
-
         private static bool TryParseFormatSuffix(string text, ref int pos, out bool? itemHasFormat)
         {
             if (pos >= text.Length)
@@ -241,32 +213,6 @@
             return true;
         }
 
-        private static bool TryParseFormatSuffix(string text, ref int pos, out string result)
-        {
-            if (text[pos] != ':')
-            {
-                result = null;
-                return false;
-            }
-
-            if (pos < text.Length - 1 && text[pos + 1] == '}')
-            {
-                result = null;
-                return false;
-            }
-
-            pos++;
-            var start = pos;
-            if (!TrySkipTo(text, '}', ref pos))
-            {
-                result = null;
-                return false;
-            }
-
-            result = text.Slice(start, pos - 1);
-            return true;
-        }
-
         private static bool TryParseUnsignedInt(string text, ref int pos, out int result)
         {
             result = -1;
@@ -292,11 +238,6 @@
             }
 
             return result != -1;
-        }
-
-        private static string Slice(this string text, int start, int end)
-        {
-            return text.Substring(start, end - start);
         }
     }
 }

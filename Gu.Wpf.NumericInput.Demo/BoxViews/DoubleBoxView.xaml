@@ -101,7 +101,8 @@
                                                                       Mode=TwoWay}"
                                                ValidationTrigger="{Binding ValidationTrigger}"
                                                Value="{Binding Value,
-                                                               ValidatesOnNotifyDataErrors=True}" />
+                                                               ValidatesOnNotifyDataErrors=True}"
+                                               d:DataContext="{d:DesignInstance local:DoubleBoxVm}" />
                         </numeric:SpinnerDecorator>
                     </GroupBox>
                 </ControlTemplate>

@@ -1,13 +1,12 @@
 ﻿namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using Gu.Wpf.NumericInput.Tests.Internals;
+
     using NUnit.Framework;
 
     public abstract class NumericBoxTests<TBox, T>

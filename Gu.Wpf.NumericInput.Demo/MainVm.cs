@@ -6,10 +6,6 @@
 
     public class MainVm : INotifyPropertyChanged
     {
-        public MainVm()
-        {
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
