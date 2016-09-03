@@ -26,9 +26,9 @@
             return value?.ToString();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException($"{this.GetType().Name} does not support twoway bindings.");
+            throw new NotSupportedException($"{this.GetType().Name} does not support use in bindings with Mode = TwoWay.");
         }
     }
 }

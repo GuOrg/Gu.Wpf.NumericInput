@@ -44,7 +44,7 @@
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException($"{this.GetType().Name} does not support use in bindings with Mode = TwoWay.");
         }
     }
 }
