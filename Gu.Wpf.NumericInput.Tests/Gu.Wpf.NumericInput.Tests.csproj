@@ -64,7 +64,6 @@
     <Compile Include="Internals\Observe.cs" />
     <Compile Include="Internals\TextBoxExt.cs" />
     <Compile Include="NamespacesTests.cs" />
-    <Compile Include="CodeGen\DumpTemplateBindings.cs" />
     <Compile Include="DecimalBoxTests.cs" />
     <Compile Include="DoubleBoxTests.cs" />
     <Compile Include="BaseBoxTests.cs" />
