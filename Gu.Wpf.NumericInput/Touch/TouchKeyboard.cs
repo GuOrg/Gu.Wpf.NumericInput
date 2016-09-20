@@ -35,13 +35,13 @@
             // http://mheironimus.blogspot.se/2015/05/adding-touch-keyboard-support-to-wpf.html
             var keyboardWnd = NativeMethods.FindWindow("IPTip_Main_Window", null);
             var nullIntPtr = new IntPtr(0);
-            const uint WmSyscommand = 0x0112;
+            const uint wmSysCommand = 0x0112;
             var scClose = new IntPtr(0xF060);
 
             if (keyboardWnd != nullIntPtr)
             {
                 NumericInput.Debug.WriteLine("hide");
-                NativeMethods.SendMessage(keyboardWnd, WmSyscommand, scClose, nullIntPtr);
+                NativeMethods.SendMessage(keyboardWnd, wmSysCommand, scClose, nullIntPtr);
             }
         }
 
