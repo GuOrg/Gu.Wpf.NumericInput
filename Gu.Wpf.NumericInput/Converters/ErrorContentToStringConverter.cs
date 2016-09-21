@@ -5,7 +5,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    public class ErrorContentToStringConverter : IValueConverter
+    public sealed class ErrorContentToStringConverter : IValueConverter
     {
         public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
 
