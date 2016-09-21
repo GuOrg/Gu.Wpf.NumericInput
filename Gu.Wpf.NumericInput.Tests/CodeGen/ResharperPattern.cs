@@ -22,6 +22,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [Test]
+        [Explicit]
         public void DotSettingsHasCorrectPattern()
         {
             var pattern = this.MutablePropertiesRegex<IntBox>();
