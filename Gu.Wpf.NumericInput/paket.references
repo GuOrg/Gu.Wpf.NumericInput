@@ -1,1 +1,2 @@
-StyleCop.Analyzers
+group Analyzers
+  StyleCop.Analyzers
