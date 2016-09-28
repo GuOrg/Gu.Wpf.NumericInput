@@ -1,3 +1,6 @@
-JetBrains.Annotations
-Gu.PropertyGrid
-Gu.Wpf.AutoRowGrid
+group Analyzers
+  JetBrains.Annotations
+
+group Demo
+  Gu.PropertyGrid
+  Gu.Wpf.AutoRowGrid

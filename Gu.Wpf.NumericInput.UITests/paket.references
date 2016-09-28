@@ -1,5 +1,10 @@
-NUnit
-TestStack.White
-JetBrains.Annotations
-Gu.PropertyGrid
-Gu.Wpf.AutoRowGrid
+group Analyzers
+  JetBrains.Annotations
+
+group Test
+  NUnit
+  TestStack.White
+
+group Demo
+  Gu.PropertyGrid
+  Gu.Wpf.AutoRowGrid

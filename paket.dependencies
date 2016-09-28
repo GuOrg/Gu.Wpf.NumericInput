@@ -1,9 +1,20 @@
 source http://www.nuget.org/api/v2/
-framework: auto-detect
+framework >= net45
 
-nuget NUnit
-nuget JetBrains.Annotations
-nuget StyleCop.Analyzers
-nuget Gu.PropertyGrid
-nuget Gu.Wpf.AutoRowGrid
-nuget TestStack.White
+group Analyzers
+  source http://www.nuget.org/api/v2/
+  framework >= net45
+  nuget JetBrains.Annotations
+  nuget StyleCop.Analyzers
+
+group Test
+  source http://www.nuget.org/api/v2/
+  framework >= net45
+  nuget NUnit
+  nuget TestStack.White
+
+group Demo
+  source http://www.nuget.org/api/v2/
+  framework >= net45
+  nuget Gu.PropertyGrid
+  nuget Gu.Wpf.AutoRowGrid
