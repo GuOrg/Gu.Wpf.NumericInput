@@ -58,7 +58,9 @@
             this.IsUndoEnabled = isUndoEnabled;
         }
 
+        //// ReSharper disable UnusedParameter.Global
         protected virtual void OnStringFormatChanged(string oldFormat, string newFormat)
+        //// ReSharper restore UnusedParameter.Global
         {
         }
 

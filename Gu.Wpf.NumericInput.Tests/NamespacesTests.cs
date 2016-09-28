@@ -39,7 +39,7 @@
 #if DEBUG
             foreach (var s in strings)
             {
-                Console.WriteLine(@"[assembly: XmlnsDefinition(""{0}"", ""{1}"")]", NumericUri, s);
+                System.Console.WriteLine(@"[assembly: XmlnsDefinition(""{0}"", ""{1}"")]", NumericUri, s);
             }
 #endif
 
