@@ -2,7 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:autoRowGrid="http://gu.se/AutoRowGrid"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
         xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
