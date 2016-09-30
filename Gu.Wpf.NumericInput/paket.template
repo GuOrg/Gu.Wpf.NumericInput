@@ -1,7 +1,7 @@
 ﻿type project
 
 releasenotes
-  BUGFIX: Don't throw NRE in marginconverter.
+  BUGFIX: Use type IFormatProvider in CLR accessors for NumericBox.Culture.
 
 tags wpf xaml numeric textbox
 projectUrl https://github.com/JohanLarsson/Gu.Wpf.NumericInput
