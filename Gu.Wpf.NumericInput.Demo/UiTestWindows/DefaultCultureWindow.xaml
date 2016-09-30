@@ -1,7 +1,6 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
         xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
@@ -17,12 +16,9 @@
             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                        ElementName=AllowSpinners}"
                                AutomationProperties.AutomationId="SpinnerDoubleBox"
-                               DecimalDigits="{Binding DecimalDigits}"
                                Value="{Binding Value}" />
         </numeric:SpinnerDecorator>
 
-        <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox"
-                           DecimalDigits="{Binding DecimalDigits}"
-                           Value="{Binding Value}" />
+        <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox" Value="{Binding Value}" />
     </StackPanel>
 </Window>
