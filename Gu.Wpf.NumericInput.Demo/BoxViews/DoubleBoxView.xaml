@@ -84,7 +84,8 @@
                               DataContext="{TemplateBinding Content}"
                               Header="{TemplateBinding Header}">
                         <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
-                            <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
+                            <numeric:DoubleBox d:DataContext="{d:DesignInstance local:DoubleBoxVm}"
+                                               AllowSpinners="{Binding AllowSpinners}"
                                                AutomationProperties.AutomationId="{x:Static local:AutomationIds.InputBox}"
                                                CanValueBeNull="{Binding CanValueBeNull}"
                                                Culture="{Binding Culture}"
@@ -101,8 +102,7 @@
                                                                       Mode=TwoWay}"
                                                ValidationTrigger="{Binding ValidationTrigger}"
                                                Value="{Binding Value,
-                                                               ValidatesOnNotifyDataErrors=True}"
-                                               d:DataContext="{d:DesignInstance local:DoubleBoxVm}" />
+                                                               ValidatesOnNotifyDataErrors=True}" />
                         </numeric:SpinnerDecorator>
                     </GroupBox>
                 </ControlTemplate>

@@ -1,0 +1,58 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:autoRowGrid="http://gu.se/AutoRowGrid"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:numeric="http://gu.se/NumericInput"
+        xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
+        Title="CultureWindow"
+        numeric:NumericBox.Culture="sv-se"
+        SizeToContent="WidthAndHeight"
+        mc:Ignorable="d">
+    <Window.DataContext>
+        <uiTestWindows:CultureVm />
+    </Window.DataContext>
+    <UniformGrid Rows="1">
+        <StackPanel KeyboardNavigation.TabNavigation="Cycle">
+            <TextBox AutomationProperties.AutomationId="ValueTextBox" Text="{Binding Value}" />
+            <numeric:SpinnerDecorator>
+                <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
+                                                           ElementName=AllowSpinners}"
+                                   AutomationProperties.AutomationId="SpinnerDoubleBox"
+                                   Value="{Binding Value}" />
+            </numeric:SpinnerDecorator>
+
+            <numeric:DoubleBox AutomationProperties.AutomationId="InheritingCultureDoubleBox" Value="{Binding Value}" />
+
+            <numeric:DoubleBox AutomationProperties.AutomationId="SvSeDoubleBox"
+                               Culture="sv-se"
+                               Value="{Binding Value}" />
+
+            <numeric:DoubleBox AutomationProperties.AutomationId="EnUsDoubleBox"
+                               Culture="en-us"
+                               Value="{Binding Value}" />
+
+            <numeric:DoubleBox AutomationProperties.AutomationId="BoundCultureDoubleBox"
+                               Culture="{Binding Culture}"
+                               Value="{Binding Value}" />
+        </StackPanel>
+
+        <GroupBox Header="Settings">
+            <autoRowGrid:Grid ColumnDefinitions="Auto *">
+                <autoRowGrid:Row>
+                    <TextBlock Text="AllowSpinners" />
+                    <CheckBox x:Name="AllowSpinners"
+                              VerticalAlignment="Center"
+                              IsChecked="True" />
+                </autoRowGrid:Row>
+                <autoRowGrid:Row>
+                    <TextBlock Text="Culture" />
+                    <TextBox x:Name="CultureTextBox"
+                             MinWidth="30"
+                             Text="{Binding Culture}" />
+                </autoRowGrid:Row>
+            </autoRowGrid:Grid>
+        </GroupBox>
+    </UniformGrid>
+</Window>
