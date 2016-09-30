@@ -62,12 +62,12 @@
             typeof(NumericBox),
             new PropertyMetadata(default(string)));
 
-        public static void SetCulture(this UIElement element, CultureInfo value) => element.SetValue(CultureProperty, value);
+        public static void SetCulture(this UIElement element, IFormatProvider value) => element.SetValue(CultureProperty, value);
 
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         [TypeConverter(typeof(CultureInfoConverter))]
-        public static CultureInfo GetCulture(this UIElement element) => (CultureInfo)element.GetValue(CultureProperty);
+        public static IFormatProvider GetCulture(this UIElement element) => (IFormatProvider)element.GetValue(CultureProperty);
 
         public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
 

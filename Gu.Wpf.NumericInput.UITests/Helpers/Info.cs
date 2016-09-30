@@ -39,9 +39,6 @@
                 FileName = GetExeFileName(),
                 Arguments = args,
                 UseShellExecute = false,
-                //CreateNoWindow = false,
-                //RedirectStandardOutput = true,
-                //RedirectStandardError = true
             };
             return processStartInfo;
         }
