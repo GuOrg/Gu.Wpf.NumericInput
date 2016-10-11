@@ -90,11 +90,13 @@
 
         public static readonly DependencyProperty TextSourceProperty = TextSourcePropertyKey.DependencyProperty;
 
-        internal static readonly DependencyProperty StatusProperty = DependencyProperty.Register(
+        internal static readonly DependencyPropertyKey StatusPropertyKey = DependencyProperty.RegisterReadOnly(
             "Status",
             typeof(Status),
             typeof(BaseBox),
             new PropertyMetadata(Status.Idle, OnStatusChanged));
+
+        internal static readonly DependencyProperty StatusProperty = StatusPropertyKey.DependencyProperty;
 
         static BaseBox()
         {
@@ -189,7 +191,7 @@
         internal Status Status
         {
             get { return (Status)this.GetValue(StatusProperty); }
-            set { this.SetValue(StatusProperty, value); }
+            set { this.SetValue(StatusPropertyKey, value); }
         }
 
         private static void OnIsValidationDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

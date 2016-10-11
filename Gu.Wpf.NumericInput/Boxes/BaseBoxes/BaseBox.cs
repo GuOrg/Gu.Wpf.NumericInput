@@ -52,10 +52,10 @@
 
         protected virtual void SetTextClearUndo(string text)
         {
-            var isUndoEnabled = this.IsUndoEnabled;
-            this.IsUndoEnabled = false;
+            var isUndoEnabled = this.GetValue(IsUndoEnabledProperty);
+            this.SetCurrentValue(IsUndoEnabledProperty, false);
             this.SetCurrentValue(TextProperty, text);
-            this.IsUndoEnabled = isUndoEnabled;
+            this.SetCurrentValue(IsUndoEnabledProperty, isUndoEnabled);
         }
 
         //// ReSharper disable UnusedParameter.Global

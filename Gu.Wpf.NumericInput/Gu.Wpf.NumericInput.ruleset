@@ -75,10 +75,21 @@
     <Rule Id="SA1619" Action="None" />
     <Rule Id="SA1633" Action="None" />
   </Rules>
-  <Rules AnalyzerId="WpfAnalyzers.Analyzers" RuleNamespace="WpfAnalyzers.Analyzers">
-    <Rule Id="WA1200" Action="Error" />
-    <Rule Id="WA1201" Action="Error" />
-    <Rule Id="WA1202" Action="Error" />
-    <Rule Id="WA1210" Action="Error" />
+  <Rules AnalyzerId="WpfAnalyzers.Analyzers" RuleNamespace="WpfAnalyzers">
+    <Rule Id="WPF0001" Action="Error" />
+    <Rule Id="WPF0002" Action="Error" />
+    <Rule Id="WPF0003" Action="Error" />
+    <Rule Id="WPF0004" Action="Error" />
+    <Rule Id="WPF0010" Action="Error" />
+    <Rule Id="WPF0011" Action="Error" />
+    <Rule Id="WPF0012" Action="Error" />
+    <Rule Id="WPF0013" Action="Error" />
+    <Rule Id="WPF0014" Action="Error" />
+    <Rule Id="WPF0030" Action="Error" />
+    <Rule Id="WPF0031" Action="Error" />
+    <Rule Id="WPF0032" Action="Error" />
+    <Rule Id="WPF0040" Action="Error" />
+    <Rule Id="WPF0041" Action="Error" />
+    <Rule Id="WPF1001" Action="Error" />
   </Rules>
 </RuleSet>

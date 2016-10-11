@@ -289,11 +289,11 @@ namespace Gu.Wpf.NumericInput
             {
                 if (this.IsFE)
                 {
-                    this.frameworkElement.Style = value;
+                    this.frameworkElement.SetCurrentValue(FrameworkElement.StyleProperty, value);
                 }
                 else if (this.IsFCE)
                 {
-                    this.frameworkContentElement.Style = value;
+                    this.frameworkContentElement.SetCurrentValue(FrameworkContentElement.StyleProperty, value);
                 }
             }
         }

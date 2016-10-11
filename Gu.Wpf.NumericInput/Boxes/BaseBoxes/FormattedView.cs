@@ -95,11 +95,7 @@
 
         private void HideFormatted()
         {
-            if (this.formattedBox != null)
-            {
-                this.formattedBox.Visibility = Visibility.Hidden;
-            }
-
+            this.formattedBox?.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Hidden);
             this.textView?.InvalidateProperty(UIElement.OpacityProperty);
         }
 
@@ -107,7 +103,7 @@
         {
             if (this.formattedBox != null)
             {
-                this.formattedBox.Visibility = Visibility.Visible;
+                this.formattedBox.SetCurrentValue(UIElement.VisibilityProperty, Visibility.Visible);
                 this.textView?.SetCurrentValue(UIElement.OpacityProperty, 0.0);
             }
             else
