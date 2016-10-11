@@ -41,7 +41,7 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        private static readonly DependencyPropertyKey IsSelectingPropertyKey = DependencyProperty.RegisterReadOnly(
+        private static readonly DependencyPropertyKey IsSelectingPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
             "IsSelecting",
             typeof(bool),
             typeof(TextBox),
