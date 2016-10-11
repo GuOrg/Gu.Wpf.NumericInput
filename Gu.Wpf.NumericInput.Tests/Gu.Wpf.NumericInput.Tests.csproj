@@ -56,7 +56,6 @@
     </When>
   </Choose>
   <ItemGroup>
-    <Compile Include="CodeGen\ResharperPattern.cs" />
     <Compile Include="FormatStringTests.cs" />
     <Compile Include="Helpers\Observe.cs" />
     <Compile Include="Helpers\DependencyPropertyListener.cs" />
@@ -77,11 +76,6 @@
     <Compile Include="NumericBoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionExt.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ShortBoxTests.cs" />
     <Compile Include="Todos.cs" />
   </ItemGroup>
@@ -123,16 +117,6 @@
   -->
   <ItemGroup>
     <Folder Include="SandBox\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CodeGen\Pattern.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\.paket\paket.targets" />
   <Choose>
