@@ -13,7 +13,7 @@ namespace Gu.Wpf.NumericInput
             new FrameworkPropertyMetadata(
                 null,
                 FrameworkPropertyMetadataOptions.Inherits,
-                OnDecimalsDigitsChanged));
+                OnDecimalDigitsChanged));
 
         /// <summary>
         /// Gets or sets the number of decimal digits:
@@ -58,7 +58,7 @@ namespace Gu.Wpf.NumericInput
             base.OnCultureChanged(oldCulture, newCulture);
         }
 
-        private static void OnDecimalsDigitsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDecimalDigitsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (DecimalDigitsBox<T>)d;
             var format = (string)DecimalDigitsToStringFormatConverter.Default.Convert(e.NewValue, null, null, null);

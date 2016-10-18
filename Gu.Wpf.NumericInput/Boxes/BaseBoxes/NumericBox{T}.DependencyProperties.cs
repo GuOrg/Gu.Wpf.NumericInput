@@ -26,7 +26,7 @@ namespace Gu.Wpf.NumericInput
 
         public static readonly DependencyProperty CanValueBeNullProperty = NumericBox.CanValueBeNullProperty.AddOwner(
             typeof(NumericBox<T>),
-            new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits, OnCanBeNullChanged));
+            new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits, OnCanValueBeNullChanged));
 
         public static readonly DependencyProperty NumberStylesProperty = NumericBox.NumberStylesProperty.AddOwner(
             typeof(NumericBox<T>),
@@ -179,7 +179,7 @@ namespace Gu.Wpf.NumericInput
             numericBox.OnValueChanged((T?)e.OldValue, (T?)e.NewValue);
         }
 
-        private static void OnCanBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCanValueBeNullChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (NumericBox<T>)d;
             if (box.TextSource != TextSource.None)

@@ -6,14 +6,14 @@ NUGET
   remote: http://www.nuget.org/api/v2
     JetBrains.Annotations (10.2.1)
     StyleCop.Analyzers (1.0)
-    WpfAnalyzers (0.2.1.5-dev)
+    WpfAnalyzers (0.2.4-dev)
 
 GROUP Demo
 FRAMEWORK: >= NET45
 NUGET
   remote: http://www.nuget.org/api/v2
     Gu.PropertyGrid (1.0)
-    Gu.Wpf.AutoRowGrid (0.6)
+    Gu.Wpf.AutoRowGrid (0.6.0.1)
 
 GROUP Test
 FRAMEWORK: >= NET45

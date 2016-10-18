@@ -80,7 +80,7 @@
             "RegexPattern",
             typeof(string),
             typeof(BaseBox),
-            new PropertyMetadata(default(string), OnPatternChanged));
+            new PropertyMetadata(default(string), OnRegexPatternChanged));
 
         protected static readonly DependencyPropertyKey TextSourcePropertyKey = DependencyProperty.RegisterReadOnly(
             "TextSource",
@@ -283,7 +283,7 @@
             }
         }
 
-        private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnRegexPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
