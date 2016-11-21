@@ -46,6 +46,10 @@
             <demo:FocusView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
 
+        <TabItem Header="Touch">
+            <demo:TouchView HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </TabItem>
+        
         <TabItem Header="Sandbox">
             <demo:SandboxView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>

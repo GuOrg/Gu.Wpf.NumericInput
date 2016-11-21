@@ -85,6 +85,12 @@
     <Compile Include="DemoVm.cs">
       <DependentUpon>DemoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainVm.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TouchVm.cs">
+      <DependentUpon>TouchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UiTestWindows\CultureVm.cs" />
     <Compile Include="ValidationErrorToInfoStringConverter.cs" />
     <Compile Include="FormattedTextView.xaml.cs">
@@ -102,7 +108,6 @@
     <Compile Include="FocusVm.cs">
       <DependentUpon>FocusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainVm.cs" />
     <Compile Include="BoxViews\BoxVm.cs" />
     <Compile Include="StyledDoubleBoxVm.cs">
       <DependentUpon>StyledDoubleBoxView.xaml</DependentUpon>

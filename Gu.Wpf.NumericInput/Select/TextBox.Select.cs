@@ -1,6 +1,7 @@
 ﻿namespace Gu.Wpf.NumericInput.Select
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -41,6 +42,14 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        public static readonly DependencyProperty LoseFocusOnEnterProperty = DependencyProperty.RegisterAttached(
+            "LoseFocusOnEnter",
+            typeof(bool),
+            typeof(TextBox),
+            new FrameworkPropertyMetadata(
+                BooleanBoxes.False,
+                FrameworkPropertyMetadataOptions.Inherits));
+
         private static readonly DependencyPropertyKey IsSelectingPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
             "IsSelecting",
             typeof(bool),
@@ -51,7 +60,7 @@
 
         static TextBox()
         {
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent, new KeyEventHandler(OnKeyDownMoveFocusOnEnter));
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent, new KeyEventHandler(OnKeyDown));
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent, new RoutedEventHandler(OnMouseUpSelectAllText), true);
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.GotKeyboardFocusEvent, new RoutedEventHandler(OnGotKeyboardFocusSelectAllText));
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseLeftButtonDownEvent, new RoutedEventHandler(OnMouseClickSelectAllText), true);
@@ -106,6 +115,18 @@
             return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
         }
 
+        public static void SetLoseFocusOnEnter(this DependencyObject element, bool value)
+        {
+            element.SetValue(LoseFocusOnEnterProperty, value);
+        }
+
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
+        public static bool GetLoseFocusOnEnter(this DependencyObject element)
+        {
+            return (bool)element.GetValue(LoseFocusOnEnterProperty);
+        }
+
         private static void SetIsSelecting(this DependencyObject element, bool value)
         {
             element.SetValue(IsSelectingPropertyKey, BooleanBoxes.Box(value));
@@ -116,28 +137,41 @@
             return Equals(BooleanBoxes.True, element.GetValue(IsSelectingProperty));
         }
 
-        private static void OnKeyDownMoveFocusOnEnter(object sender, KeyEventArgs e)
+        private static void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return || e.Key == Key.Enter)
             {
-                if ((sender as TextBoxBase)?.GetMoveFocusOnEnter() != true)
+                var textBox = sender as TextBoxBase;
+                if (textBox == null)
                 {
                     return;
                 }
 
-                // MoveFocus takes a TraversalRequest as its argument.
-                var request = new TraversalRequest(FocusNavigationDirection.Next);
-
-                // Gets the element with keyboard focus.
-                var elementWithFocus = Keyboard.FocusedElement as UIElement;
-
-                // Change keyboard focus.
-                if (elementWithFocus != null)
+                if (textBox.GetMoveFocusOnEnter())
                 {
-                    if (elementWithFocus.MoveFocus(request))
+                    // MoveFocus takes a TraversalRequest as its argument.
+                    var request = new TraversalRequest(FocusNavigationDirection.Next);
+
+                    // Gets the element with keyboard focus.
+                    var elementWithFocus = Keyboard.FocusedElement as UIElement;
+
+                    // Change keyboard focus.
+                    if (elementWithFocus != null)
                     {
-                        e.Handled = true;
+                        if (elementWithFocus.MoveFocus(request))
+                        {
+                            e.Handled = true;
+                        }
                     }
+                }
+
+                if (textBox.IsFocused && textBox.GetLoseFocusOnEnter())
+                {
+                    var focusableAncestor = textBox.Ancestors()
+                        .OfType<IInputElement>()
+                        .FirstOrDefault(x => x.Focusable);
+                    var scope = FocusManager.GetFocusScope(textBox);
+                    FocusManager.SetFocusedElement(scope, focusableAncestor);
                 }
             }
         }

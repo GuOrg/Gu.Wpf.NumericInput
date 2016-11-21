@@ -12,6 +12,8 @@
     </UserControl.DataContext>
     <UniformGrid select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
                                                            ElementName=MoveFocusOnEnter}"
+                 select:TextBox.LoseFocusOnEnter="{Binding IsChecked,
+                                                           ElementName=LoseFocusOnEnter}"
                  select:TextBox.SelectAllOnClick="{Binding IsChecked,
                                                            ElementName=SelectAllOnClick}"
                  select:TextBox.SelectAllOnDoubleClick="{Binding IsChecked,
@@ -128,6 +130,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -187,8 +190,17 @@
 
                 <TextBlock Grid.Row="5"
                            Grid.Column="0"
+                           Text="LoseFocusOnEnter" />
+                <CheckBox x:Name="LoseFocusOnEnter"
+                          Grid.Row="5"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          IsChecked="False" />
+                
+                <TextBlock Grid.Row="6"
+                           Grid.Column="0"
                            Text="DecimalDigits" />
-                <TextBox Grid.Row="5"
+                <TextBox Grid.Row="6"
                          Grid.Column="1"
                          VerticalAlignment="Center"
                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DigitsBox}"
