@@ -22,8 +22,8 @@
             }
 
             var box = (NumericBox<T>)parameter;
-            T result;
-            if (box.TryParse(text, out result))
+            T result = default(T);
+            if (box?.TryParse(text, out result) == true)
             {
                 return result;
             }
@@ -34,7 +34,7 @@
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var box = (NumericBox<T>)parameter;
-            return box.ToRawText(value as T?);
+            return box?.ToRawText(value as T?);
         }
     }
 }
