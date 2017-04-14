@@ -1,4 +1,6 @@
-﻿namespace Gu.Wpf.NumericInput.Tests
+﻿#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
+#pragma warning disable WPF0014 // SetValue must use registered type.
+namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
     using System.Globalization;
