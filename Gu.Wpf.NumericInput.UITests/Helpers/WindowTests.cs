@@ -26,8 +26,8 @@ namespace Gu.Wpf.NumericInput.UITests
             this.application?.Dispose();
             this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
             this.Window?.Dispose();
-            this.Window = this.application.GetWindow(this.WindowName);
             this.application.WaitWhileBusy();
+            this.Window = this.application.GetWindow(this.WindowName);
             this.Window.WaitWhileBusy();
         }
 
