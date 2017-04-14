@@ -9,16 +9,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 new RequiredData("1.2", true, "1.2", null),
                 new RequiredData("1.2", false, "1.2", null),
-                new RequiredData("", false, "0", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
-                new RequiredData("", true, "", null),
+                new RequiredData(string.Empty, false, "0", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
+                new RequiredData(string.Empty, true, string.Empty, null),
             };
 
         public static readonly RequiredData[] SwedishRequiredSource =
             {
                 new RequiredData("1,2", true, "1.2", null),
                 new RequiredData("1,2", false, "1.2", null),
-                new RequiredData("", false, "0", "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
-                new RequiredData("", true, "", null),
+                new RequiredData(string.Empty, false, "0", "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
+                new RequiredData(string.Empty, true, string.Empty, null),
             };
 
         [SetUp]
@@ -35,9 +35,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
 
-            this.MinBox.Text = "";
-            this.MaxBox.Text = "";
-            this.RegexPatternBox.Text = "";
+            this.MinBox.Text = string.Empty;
+            this.MaxBox.Text = string.Empty;
+            this.RegexPatternBox.Text = string.Empty;
             this.LoseFocusButton.Click();
         }
 

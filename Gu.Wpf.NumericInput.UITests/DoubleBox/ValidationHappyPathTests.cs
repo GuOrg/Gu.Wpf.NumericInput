@@ -59,11 +59,11 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         public static readonly MinMaxData[] MinMaxSource =
             {
-                new MinMaxData("1", "", "", "1"),
-                new MinMaxData("-1", "-1", "", "-1"),
-                new MinMaxData("-1", "-10", "", "-1"),
-                new MinMaxData("1", "", "1", "1"),
-                new MinMaxData("1", "", "10", "1"),
+                new MinMaxData("1", string.Empty, string.Empty, "1"),
+                new MinMaxData("-1", "-1", string.Empty, "-1"),
+                new MinMaxData("-1", "-10", string.Empty, "-1"),
+                new MinMaxData("1", string.Empty, "1", "1"),
+                new MinMaxData("1", string.Empty, "10", "1"),
                 new MinMaxData("-2", "-2", "2", "-2"),
                 new MinMaxData("-1", "-2", "2", "-1"),
                 new MinMaxData("1", "-2", "2", "1"),
@@ -84,8 +84,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
 
-            this.MinBox.Text = "";
-            this.MaxBox.Text = "";
+            this.MinBox.Text = string.Empty;
+            this.MaxBox.Text = string.Empty;
 
             this.LoseFocusButton.Click();
         }
@@ -195,15 +195,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CanValueBeNullBox.Checked = true;
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = "";
+            doubleBox.Text = string.Empty;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual("", doubleBox.Text);
+            Assert.AreEqual(string.Empty, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual("", doubleBox.Text);
-            Assert.AreEqual("", this.ViewModelValueBox.Text);
+            Assert.AreEqual(string.Empty, doubleBox.Text);
+            Assert.AreEqual(string.Empty, this.ViewModelValueBox.Text);
         }
 
         [Test]
@@ -212,15 +212,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CanValueBeNullBox.Checked = true;
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = "";
+            doubleBox.Text = string.Empty;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual("", doubleBox.Text);
+            Assert.AreEqual(string.Empty, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual("", doubleBox.Text);
-            Assert.AreEqual("", this.ViewModelValueBox.Text);
+            Assert.AreEqual(string.Empty, doubleBox.Text);
+            Assert.AreEqual(string.Empty, this.ViewModelValueBox.Text);
         }
 
         [Test]
@@ -229,10 +229,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CanValueBeNullBox.Checked = true;
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = "";
+            doubleBox.Text = string.Empty;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual("", doubleBox.Text);
-            Assert.AreEqual("", this.ViewModelValueBox.Text);
+            Assert.AreEqual(string.Empty, doubleBox.Text);
+            Assert.AreEqual(string.Empty, this.ViewModelValueBox.Text);
         }
 
         [TestCaseSource(nameof(MinMaxSource))]

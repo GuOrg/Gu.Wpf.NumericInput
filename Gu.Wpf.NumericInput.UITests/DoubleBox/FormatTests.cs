@@ -23,7 +23,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             this.ViewModelValueBox.Text = "0";
             this.CultureBox.Select("en-US");
-            this.StringFormatBox.Text = "";
+            this.StringFormatBox.Text = string.Empty;
             this.CanValueBeNullBox.Checked = false;
 
             this.AllowLeadingWhiteBox.Checked = true;
@@ -33,8 +33,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
 
-            this.MinBox.Text = "";
-            this.MaxBox.Text = "";
+            this.MinBox.Text = string.Empty;
+            this.MaxBox.Text = string.Empty;
 
             this.LoseFocusButton.Click();
         }

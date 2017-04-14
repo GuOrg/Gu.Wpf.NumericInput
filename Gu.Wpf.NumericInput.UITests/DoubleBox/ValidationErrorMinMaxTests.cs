@@ -8,12 +8,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     {
         public static readonly MinMaxData[] MinMaxSource =
             {
-                new MinMaxData("-2", "-1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
-                new MinMaxData("-2.1", "-1.1", "", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+                new MinMaxData("-2", "-1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
+                new MinMaxData("-2.1", "-1.1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
                 new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
                 new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
-                new MinMaxData("2", "", "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
-                new MinMaxData("2.1", "", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
+                new MinMaxData("2", string.Empty, "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
+                new MinMaxData("2.1", string.Empty, "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
                 new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
                 new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
             };
@@ -32,8 +32,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
 
-            this.MinBox.Text = "";
-            this.MaxBox.Text = "";
+            this.MinBox.Text = string.Empty;
+            this.MaxBox.Text = string.Empty;
             this.LoseFocusButton.Click();
         }
 
@@ -184,7 +184,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.CanValueBeNullBox.Checked = true;
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = "";
+            doubleBox.Text = string.Empty;
             this.MinBox.Text = data.Min;
             this.MaxBox.Text = data.Max;
             doubleBox.Text = data.Text;
@@ -192,7 +192,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
             Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual("", this.ViewModelValueBox.Text);
+            Assert.AreEqual(string.Empty, this.ViewModelValueBox.Text);
         }
 
         public class MinMaxData

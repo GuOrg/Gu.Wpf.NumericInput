@@ -89,13 +89,13 @@
 
                     canBeNullBox.Checked = true;
                     Assert.AreEqual("0", inputBox.Text);
-                    inputBox.Enter("");
+                    inputBox.Enter(string.Empty);
                     vmValueBox.Click();
-                    Assert.AreEqual("", inputBox.EditText());
-                    Assert.AreEqual("", inputBox.FormattedText());
-                    Assert.AreEqual("", vmValueBox.Text);
+                    Assert.AreEqual(string.Empty, inputBox.EditText());
+                    Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                    Assert.AreEqual(string.Empty, vmValueBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("", inputBox.Value());
+                    Assert.AreEqual(string.Empty, inputBox.Value());
                     Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                     Assert.AreEqual(Status.Idle, inputBox.Status());
 
@@ -110,10 +110,10 @@
                     Assert.AreEqual(Status.Idle, inputBox.Status());
 
                     canBeNullBox.Checked = false;
-                    inputBox.Enter("");
+                    inputBox.Enter(string.Empty);
                     vmValueBox.Click();
-                    Assert.AreEqual("", inputBox.EditText());
-                    Assert.AreEqual("", inputBox.FormattedText());
+                    Assert.AreEqual(string.Empty, inputBox.EditText());
+                    Assert.AreEqual(string.Empty, inputBox.FormattedText());
                     Assert.AreEqual("1", vmValueBox.Text);
                     Assert.AreEqual(true, inputBox.HasValidationError());
                     Assert.AreEqual("1", inputBox.Value());
@@ -121,21 +121,21 @@
                     Assert.AreEqual(Status.Idle, inputBox.Status());
 
                     canBeNullBox.Checked = true;
-                    Assert.AreEqual("", inputBox.EditText());
-                    Assert.AreEqual("", inputBox.FormattedText());
+                    Assert.AreEqual(string.Empty, inputBox.EditText());
+                    Assert.AreEqual(string.Empty, inputBox.FormattedText());
                     Assert.AreEqual("1", vmValueBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("", inputBox.Value());
+                    Assert.AreEqual(string.Empty, inputBox.Value());
                     Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                     Assert.AreEqual(Status.Idle, inputBox.Status());
 
                     inputBox.Click();
                     vmValueBox.Click();
-                    Assert.AreEqual("", inputBox.EditText());
-                    Assert.AreEqual("", inputBox.FormattedText());
-                    Assert.AreEqual("", vmValueBox.Text);
+                    Assert.AreEqual(string.Empty, inputBox.EditText());
+                    Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                    Assert.AreEqual(string.Empty, vmValueBox.Text);
                     Assert.AreEqual(false, inputBox.HasValidationError());
-                    Assert.AreEqual("", inputBox.Value());
+                    Assert.AreEqual(string.Empty, inputBox.Value());
                     Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                     Assert.AreEqual(Status.Idle, inputBox.Status());
                 }

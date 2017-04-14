@@ -31,9 +31,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowThousandsBox.Checked = false;
             this.AllowExponentBox.Checked = true;
 
-            this.MinBox.Text = "";
-            this.MaxBox.Text = "";
-            this.RegexPatternBox.Text = "";
+            this.MinBox.Text = string.Empty;
+            this.MaxBox.Text = string.Empty;
+            this.RegexPatternBox.Text = string.Empty;
             this.LoseFocusButton.Click();
         }
 
