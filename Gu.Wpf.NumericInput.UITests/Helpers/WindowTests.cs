@@ -1,3 +1,4 @@
+// ReSharper disable UnusedMember.Global
 namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
@@ -26,6 +27,8 @@ namespace Gu.Wpf.NumericInput.UITests
             this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
             this.Window?.Dispose();
             this.Window = this.application.GetWindow(this.WindowName);
+            this.application.WaitWhileBusy();
+            this.Window.WaitWhileBusy();
         }
 
         [OneTimeTearDown]
@@ -68,14 +71,6 @@ namespace Gu.Wpf.NumericInput.UITests
             {
                 this.application?.Dispose();
                 this.Window?.Dispose();
-            }
-        }
-
-        protected void ThrowIfDisposed()
-        {
-            if (this.disposed)
-            {
-                throw new ObjectDisposedException(this.GetType().FullName);
             }
         }
     }
