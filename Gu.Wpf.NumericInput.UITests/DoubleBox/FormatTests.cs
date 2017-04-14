@@ -1,5 +1,6 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
+    using System.Collections.Generic;
     using System.Globalization;
     using NUnit.Framework;
 
@@ -8,14 +9,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         private static readonly CultureInfo EnUs = CultureInfo.GetCultureInfo("en-US");
         private static readonly CultureInfo SvSe = CultureInfo.GetCultureInfo("sv-SE");
 
-        private static readonly FormatData[] Source =
+        private static readonly IReadOnlyList<TestCase> TestCases = new[]
             {
-                new FormatData("1", "F1", EnUs, "1.0", "1"),
-                new FormatData("1", "F1", SvSe, "1,0", "1"),
-                new FormatData("1.23456", "F3", EnUs, "1.235", "1.23456"),
-                new FormatData("1.23456", "F4", EnUs, "1.2346", "1.23456"),
-                new FormatData("1", "0.#", EnUs, "1", "1"),
-                new FormatData("1.23456", "0.###", EnUs, "1.235", "1.23456"),
+                new TestCase("1", "F1", EnUs, "1.0", "1"),
+                new TestCase("1", "F1", SvSe, "1,0", "1"),
+                new TestCase("1.23456", "F3", EnUs, "1.235", "1.23456"),
+                new TestCase("1.23456", "F4", EnUs, "1.2346", "1.23456"),
+                new TestCase("1", "0.#", EnUs, "1", "1"),
+                new TestCase("1.23456", "0.###", EnUs, "1.235", "1.23456"),
             };
 
         [SetUp]
@@ -39,21 +40,21 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(Source))]
-        public void WithStringFormat(FormatData formatData)
+        [TestCaseSource(nameof(TestCases))]
+        public void WithStringFormat(TestCase testCase)
         {
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
-            this.StringFormatBox.Text = formatData.StringFormat;
-            this.CultureBox.Select(formatData.Culture.Name);
+            this.StringFormatBox.Text = testCase.StringFormat;
+            this.CultureBox.Select(testCase.Culture.Name);
 
-            doubleBox.Text = formatData.Text;
+            doubleBox.Text = testCase.Text;
             this.LoseFocusButton.Click();
 
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(formatData.Text, doubleBox.Text);
-            Assert.AreEqual(formatData.Formatted, doubleBox.FormattedView().Text);
-            Assert.AreEqual(formatData.ViewModelValue, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Formatted, doubleBox.FormattedView().Text);
+            Assert.AreEqual(testCase.ViewModelValue, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
@@ -90,15 +91,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        public class FormatData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly string StringFormat;
-            public readonly CultureInfo Culture;
-            public readonly string Formatted;
-            public readonly string ViewModelValue;
-
-            public FormatData(string text, string stringFormat, CultureInfo culture, string formatted, string viewModelValue)
+            public TestCase(string text, string stringFormat, CultureInfo culture, string formatted, string viewModelValue)
             {
                 this.Text = text;
                 this.StringFormat = stringFormat;
@@ -106,6 +101,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Formatted = formatted;
                 this.ViewModelValue = viewModelValue;
             }
+
+            public string Text { get; }
+
+            public string StringFormat { get; }
+
+            public CultureInfo Culture { get; }
+
+            public string Formatted { get; }
+
+            public string ViewModelValue { get; }
 
             public override string ToString() => $"Text: {this.Text}, Expected: {this.Formatted}";
         }

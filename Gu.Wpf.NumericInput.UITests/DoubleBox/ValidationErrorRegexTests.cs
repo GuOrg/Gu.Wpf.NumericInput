@@ -5,17 +5,17 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationErrorRegexTests : DoubleBoxTestsBase
     {
-        public static readonly RegexData[] RegexSource =
-            {
-                new RegexData("1.2", @"^\d\.\d$", "1.2", null),
-                new RegexData("12.34", @"^\d\.\d$", "0", "ValidationError.RegexValidationResult 'Please provide valid input.'"),
-            };
+        private static readonly TestCase[] TestCases =
+        {
+            new TestCase("1.2", @"^\d\.\d$", "1.2", null),
+            new TestCase("12.34", @"^\d\.\d$", "0", "ValidationError.RegexValidationResult 'Please provide valid input.'"),
+        };
 
-        public static readonly RegexData[] SwedishRegexSource =
-            {
-                new RegexData("1,2",  @"^\d,\d$", "1.2", null),
-                new RegexData("12,34",  @"^\d,\d$", "0", "ValidationError.RegexValidationResult 'Vänligen ange ett giltigt värde.'"),
-            };
+        private static readonly TestCase[] SwedishCases =
+        {
+            new TestCase("1,2",  @"^\d,\d$", "1.2", null),
+            new TestCase("12,34",  @"^\d,\d$", "0", "ValidationError.RegexValidationResult 'Vänligen ange ett giltigt värde.'"),
+        };
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(RegexSource))]
-        public void LostFocusValidateOnLostFocus(RegexData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocus(TestCase data)
         {
             this.RegexPatternBox.Text = data.Pattern;
 
@@ -69,8 +69,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RegexSource))]
-        public void LostFocusValidateOnLostFocusWhenPatternChanges(RegexData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocusWhenPatternChanges(TestCase data)
         {
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -101,8 +101,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RegexSource))]
-        public void LostFocusValidateOnPropertyChanged(RegexData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -142,8 +142,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RegexSource))]
-        public void PropertyChanged(RegexData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChanged(TestCase data)
         {
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -169,8 +169,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(SwedishRegexSource))]
-        public void PropertyChangedSwedish(RegexData data)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void PropertyChangedSwedish(TestCase data)
         {
             this.CultureBox.Select("sv-SE");
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
@@ -197,8 +197,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RegexSource))]
-        public void PropertyChangedWhenNotLocalized(RegexData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChangedWhenNotLocalized(TestCase data)
         {
             this.CultureBox.Select("ja-JP");
 
@@ -225,14 +225,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        public class RegexData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly string Pattern;
-            public readonly string Expected;
-            public readonly string ExpectedInfoMessage;
-
-            public RegexData(string text, string pattern, string expected, string expectedInfoMessage)
+            public TestCase(string text, string pattern, string expected, string expectedInfoMessage)
             {
                 this.Text = text;
                 this.Pattern = pattern;
@@ -240,14 +235,22 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.ExpectedInfoMessage = expectedInfoMessage;
             }
 
+            public string Text { get; }
+
+            public string Pattern { get; }
+
+            public string Expected { get; }
+
+            public string ExpectedInfoMessage { get; }
+
             public string ErrorMessage => GetErrorMessage(this.ExpectedInfoMessage);
 
-            public static string GetErrorMessage(string infoMessage)
+            public override string ToString() => $"Text: {this.Text}, Pattern: {this.Pattern}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedInfoMessage}";
+
+            private static string GetErrorMessage(string infoMessage)
             {
                 return Regex.Match(infoMessage, "[^']+'(?<inner>[^']+)'.*").Groups["inner"].Value;
             }
-
-            public override string ToString() => $"Text: {this.Text}, Pattern: {this.Pattern}, Expected: {this.Expected}, ExpectedMessage: {this.ExpectedInfoMessage}";
         }
     }
 }

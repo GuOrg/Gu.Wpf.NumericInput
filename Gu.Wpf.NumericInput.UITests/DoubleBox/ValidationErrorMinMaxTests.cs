@@ -6,17 +6,17 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationErrorMinMaxTests : DoubleBoxTestsBase
     {
-        public static readonly MinMaxData[] MinMaxSource =
-            {
-                new MinMaxData("-2", "-1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
-                new MinMaxData("-2.1", "-1.1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
-                new MinMaxData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
-                new MinMaxData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
-                new MinMaxData("2", string.Empty, "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
-                new MinMaxData("2.1", string.Empty, "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
-                new MinMaxData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
-                new MinMaxData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
-            };
+        private static readonly TestCase[] TestCases =
+        {
+            new TestCase("-2", "-1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
+            new TestCase("-2.1", "-1.1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+            new TestCase("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
+            new TestCase("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
+            new TestCase("2", string.Empty, "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
+            new TestCase("2.1", string.Empty, "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
+            new TestCase("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
+            new TestCase("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
+        };
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(MinMaxSource))]
-        public void LostFocusValidateOnLostFocus(MinMaxData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocus(TestCase data)
         {
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -62,8 +62,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(MinMaxSource))]
-        public void LostFocusValidateOnPropertyChanged(MinMaxData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -87,8 +87,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(MinMaxSource))]
-        public void PropertyChangedValidateOnPropertyChanged(MinMaxData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChangedValidateOnPropertyChanged(TestCase data)
         {
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -116,7 +116,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+            Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
@@ -134,7 +134,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             doubleBox.Text = value;
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+            Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual("1", this.ViewModelValueBox.Text);
@@ -153,7 +153,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+            Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual(value, this.ViewModelValueBox.Text);
@@ -172,14 +172,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.MaxBox.Text = max;
             this.LoseFocusButton.Click();
             Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(MinMaxData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+            Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             Assert.AreEqual(infoMessage, doubleBox.ValidationError());
             Assert.AreEqual(value, doubleBox.Text);
             Assert.AreEqual(value, this.ViewModelValueBox.Text);
         }
 
-        [TestCaseSource(nameof(MinMaxSource))]
-        public void PropertyChangedWhenNull(MinMaxData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChangedWhenNull(TestCase data)
         {
             this.CanValueBeNullBox.Checked = true;
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
@@ -195,15 +195,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(string.Empty, this.ViewModelValueBox.Text);
         }
 
-        public class MinMaxData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly string Min;
-            public readonly string Max;
-            public readonly string Expected;
-            public readonly string ExpectedInfoMessage;
-
-            public MinMaxData(string text, string min, string max, string expected, string expectedInfoMessage)
+            public TestCase(string text, string min, string max, string expected, string expectedInfoMessage)
             {
                 this.Text = text;
                 this.Min = min;
@@ -211,6 +205,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Expected = expected;
                 this.ExpectedInfoMessage = expectedInfoMessage;
             }
+
+            public string Text { get; }
+
+            public string Min { get; }
+
+            public string Max { get; }
+
+            public string Expected { get; }
+
+            public string ExpectedInfoMessage { get; }
 
             public string ErrorMessage => GetErrorMessage(this.ExpectedInfoMessage);
 

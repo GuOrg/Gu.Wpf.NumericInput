@@ -5,59 +5,59 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationHappyPathTests : DoubleBoxTestsBase
     {
-        public static readonly ValidationData[] Source =
+        private static readonly TestCase[] TestCases =
+        {
+            new TestCase("1", "1"),
+            new TestCase(" 1", "1"),
+            new TestCase("1 ", "1"),
+            new TestCase(" 1 ", "1"),
+            new TestCase("1.2", "1.2"),
+            new TestCase("-1.2", "-1.2"),
+            new TestCase("+1.2", "1.2"),
+            new TestCase(".1", "0.1"),
+            new TestCase("-.1", "-0.1"),
+            new TestCase("0.1", "0.1"),
+            new TestCase("1e1", "10"),
+            new TestCase("1e0", "1"),
+            new TestCase("1e-1", "0.1"),
+            new TestCase("1E1", "10"),
+            new TestCase("1E0", "1"),
+            new TestCase("1E-1", "0.1"),
+            new TestCase("-1e1", "-10"),
+            new TestCase("-1e0", "-1"),
+            new TestCase("-1e-1", "-0.1"),
+            new TestCase("-1E1", "-10"),
+            new TestCase("-1E0", "-1"),
+            new TestCase("-1E-1", "-0.1"),
+        };
+
+        private static readonly TestCase[] SwedishCases =
             {
-                new ValidationData("1", "1"),
-                new ValidationData(" 1", "1"),
-                new ValidationData("1 ", "1"),
-                new ValidationData(" 1 ", "1"),
-                new ValidationData("1.2", "1.2"),
-                new ValidationData("-1.2", "-1.2"),
-                new ValidationData("+1.2", "1.2"),
-                new ValidationData(".1", "0.1"),
-                new ValidationData("-.1", "-0.1"),
-                new ValidationData("0.1", "0.1"),
-                new ValidationData("1e1", "10"),
-                new ValidationData("1e0", "1"),
-                new ValidationData("1e-1", "0.1"),
-                new ValidationData("1E1", "10"),
-                new ValidationData("1E0", "1"),
-                new ValidationData("1E-1", "0.1"),
-                new ValidationData("-1e1", "-10"),
-                new ValidationData("-1e0", "-1"),
-                new ValidationData("-1e-1", "-0.1"),
-                new ValidationData("-1E1", "-10"),
-                new ValidationData("-1E0", "-1"),
-                new ValidationData("-1E-1", "-0.1"),
+                new TestCase("1", "1"),
+                new TestCase(" 1", "1"),
+                new TestCase("1 ", "1"),
+                new TestCase(" 1 ", "1"),
+                new TestCase("1,2", "1.2"),
+                new TestCase("-1,2", "-1.2"),
+                new TestCase("+1,2", "1.2"),
+                new TestCase(",1", "0.1"),
+                new TestCase("-,1", "-0.1"),
+                new TestCase("0,1", "0.1"),
+                new TestCase("1e1", "10"),
+                new TestCase("1e0", "1"),
+                new TestCase("1e-1", "0.1"),
+                new TestCase("1E1", "10"),
+                new TestCase("1E0", "1"),
+                new TestCase("1E-1", "0.1"),
+                new TestCase("-1e1", "-10"),
+                new TestCase("-1e0", "-1"),
+                new TestCase("-1e-1", "-0.1"),
+                new TestCase("-1E1", "-10"),
+                new TestCase("-1E0", "-1"),
+                new TestCase("-1E-1", "-0.1"),
             };
 
-        public static readonly ValidationData[] SwedishSource =
-            {
-                new ValidationData("1", "1"),
-                new ValidationData(" 1", "1"),
-                new ValidationData("1 ", "1"),
-                new ValidationData(" 1 ", "1"),
-                new ValidationData("1,2", "1.2"),
-                new ValidationData("-1,2", "-1.2"),
-                new ValidationData("+1,2", "1.2"),
-                new ValidationData(",1", "0.1"),
-                new ValidationData("-,1", "-0.1"),
-                new ValidationData("0,1", "0.1"),
-                new ValidationData("1e1", "10"),
-                new ValidationData("1e0", "1"),
-                new ValidationData("1e-1", "0.1"),
-                new ValidationData("1E1", "10"),
-                new ValidationData("1E0", "1"),
-                new ValidationData("1E-1", "0.1"),
-                new ValidationData("-1e1", "-10"),
-                new ValidationData("-1e0", "-1"),
-                new ValidationData("-1e-1", "-0.1"),
-                new ValidationData("-1E1", "-10"),
-                new ValidationData("-1E0", "-1"),
-                new ValidationData("-1E-1", "-0.1"),
-            };
-
-        public static readonly MinMaxData[] MinMaxSource =
+        private static readonly MinMaxData[] MinMaxSource =
             {
                 new MinMaxData("1", string.Empty, string.Empty, "1"),
                 new MinMaxData("-1", "-1", string.Empty, "-1"),
@@ -90,103 +90,103 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(Source))]
-        public void LostFocusValidateOnLostFocus(ValidationData validationData)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocus(TestCase testCase)
         {
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(Source))]
-        public void LostFocusValidateOnPropertyChanged(ValidationData validationData)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnPropertyChanged(TestCase testCase)
         {
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(Source))]
-        public void PropertyChanged(ValidationData validationData)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChanged(TestCase testCase)
         {
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(SwedishSource))]
-        public void SwedishLostFocusValidateOnLostFocus(ValidationData validationData)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void SwedishLostFocusValidateOnLostFocus(TestCase testCase)
         {
             this.CultureBox.Select("sv-SE");
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(SwedishSource))]
-        public void SwedishLostFocusValidateOnPropertyChanged(ValidationData validationData)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void SwedishLostFocusValidateOnPropertyChanged(TestCase testCase)
         {
             this.CultureBox.Select("sv-SE");
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual("0", this.ViewModelValueBox.Text);
 
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
         }
 
-        [TestCaseSource(nameof(SwedishSource))]
-        public void SwedishPropertyChangedValidateOnPropertyChanged(ValidationData validationData)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void SwedishPropertyChangedValidateOnPropertyChanged(TestCase testCase)
         {
             this.CultureBox.Select("sv-SE");
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = validationData.Text;
+            doubleBox.Text = testCase.Text;
             this.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(validationData.Text, doubleBox.Text);
-            Assert.AreEqual(validationData.Expected, this.ViewModelValueBox.Text);
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Expected, this.ViewModelValueBox.Text);
         }
 
         [Test]
@@ -284,27 +284,23 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(data.Expected, this.ViewModelValueBox.Text);
         }
 
-        public class ValidationData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly string Expected;
-
-            public ValidationData(string text, string expected)
+            public TestCase(string text, string expected)
             {
                 this.Text = text;
                 this.Expected = expected;
             }
+
+            public string Text { get; }
+
+            public string Expected { get; }
 
             public override string ToString() => $"Text: {this.Text}, Expected: {this.Expected}";
         }
 
         public class MinMaxData
         {
-            public readonly string Text;
-            public readonly string Min;
-            public readonly string Max;
-            public readonly string Expected;
-
             public MinMaxData(string text, string min, string max, string expected)
             {
                 this.Text = text;
@@ -312,6 +308,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Max = max;
                 this.Expected = expected;
             }
+
+            public string Text { get; }
+
+            public string Min { get; }
+
+            public string Max { get; }
+
+            public string Expected { get; }
 
             public override string ToString() => $"Text: {this.Text}, Min: {this.Min}, Max: {this.Max}, Expected: {this.Expected}";
         }

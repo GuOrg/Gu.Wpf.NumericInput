@@ -5,16 +5,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationErrorParseTests : DoubleBoxTestsBase
     {
-        public static readonly ParseData[] ParseSource =
+        private static readonly TestCase[] TestCases =
             {
-                new ParseData("abc", "0", "ValidationError.CanParseValidationResult 'Please enter a valid number.'"),
-                new ParseData("2,1", "2", "ValidationError.CanParseValidationResult 'Please enter a valid number.'"),
+                new TestCase("abc", "0", "ValidationError.CanParseValidationResult 'Please enter a valid number.'"),
+                new TestCase("2,1", "2", "ValidationError.CanParseValidationResult 'Please enter a valid number.'"),
             };
 
-        public static readonly ParseData[] SwedishParseSource =
+        private static readonly TestCase[] SwedishCases =
             {
-                new ParseData("abc", "0", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
-                new ParseData("2.1", "2", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
+                new TestCase("abc", "0", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
+                new TestCase("2.1", "2", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
             };
 
         [SetUp]
@@ -37,8 +37,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.Window.WaitWhileBusy();
         }
 
-        [TestCaseSource(nameof(ParseSource))]
-        public void LostFocusValidateOnLostFocus(ParseData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocus(TestCase data)
         {
             var boxes = this.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -61,8 +61,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(ParseSource))]
-        public void LostFocusValidateOnPropertyChanged(ParseData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -82,8 +82,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(ParseSource))]
-        public void PropertyChanged(ParseData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChanged(TestCase data)
         {
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -97,8 +97,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(SwedishParseSource))]
-        public void PropertyChangedSwedish(ParseData data)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void PropertyChangedSwedish(TestCase data)
         {
             this.CultureBox.Select("sv-SE");
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
@@ -112,8 +112,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(ParseSource))]
-        public void PropertyChangedWhenNotLocalized(ParseData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChangedWhenNotLocalized(TestCase data)
         {
             this.CultureBox.Select("ja-JP");
             var boxes = this.PropertyChangedValidateOnPropertyChangedBoxes;
@@ -144,7 +144,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+                Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             }
             else
             {
@@ -166,7 +166,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 this.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(ParseData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+                Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
             }
             else
             {
@@ -182,18 +182,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        public class ParseData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly string Expected;
-            public readonly string ExpectedInfoMessage;
-
-            public ParseData(string text, string expected, string expectedInfoMessage)
+            public TestCase(string text, string expected, string expectedInfoMessage)
             {
                 this.Text = text;
                 this.Expected = expected;
                 this.ExpectedInfoMessage = expectedInfoMessage;
             }
+
+            public string Text { get; }
+
+            public string Expected { get; }
+
+            public string ExpectedInfoMessage { get; }
 
             public string ErrorMessage => GetErrorMessage(this.ExpectedInfoMessage);
 

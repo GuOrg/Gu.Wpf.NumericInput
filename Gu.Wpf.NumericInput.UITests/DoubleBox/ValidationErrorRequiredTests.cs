@@ -5,21 +5,21 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
     public class ValidationErrorRequiredTests : DoubleBoxTestsBase
     {
-        public static readonly RequiredData[] RequiredSource =
-            {
-                new RequiredData(text: "1.2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
-                new RequiredData(text: "1.2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
-                new RequiredData(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
-                new RequiredData(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
-            };
+        private static readonly TestCase[] TestCases =
+        {
+            new TestCase(text: "1.2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
+            new TestCase(text: "1.2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
+            new TestCase(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
+            new TestCase(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
+        };
 
-        public static readonly RequiredData[] SwedishRequiredSource =
-            {
-                new RequiredData(text: "1,2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
-                new RequiredData(text: "1,2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
-                new RequiredData(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
-                new RequiredData(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
-            };
+        private static readonly TestCase[] SwedishCases =
+        {
+            new TestCase(text: "1,2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
+            new TestCase(text: "1,2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
+            new TestCase(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
+            new TestCase(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
+        };
 
         [SetUp]
         public void SetUp()
@@ -41,8 +41,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
         }
 
-        [TestCaseSource(nameof(RequiredSource))]
-        public void LostFocusValidateOnLostFocus(RequiredData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnLostFocus(TestCase data)
         {
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
 
@@ -94,7 +94,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+                Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
                 Assert.AreEqual(text, doubleBox.Text);
                 Assert.AreEqual(text, this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -122,7 +122,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(RequiredData.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
+                Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
                 Assert.AreEqual(text, doubleBox.Text);
                 Assert.AreEqual("0", this.ViewModelValueBox.Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -144,8 +144,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
-        [TestCaseSource(nameof(RequiredSource))]
-        public void LostFocusValidateOnPropertyChanged(RequiredData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
             var boxes = this.LostFocusValidateOnPropertyChangedBoxes;
@@ -185,8 +185,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RequiredSource))]
-        public void PropertyChanged(RequiredData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChanged(TestCase data)
         {
             this.CanValueBeNullBox.Checked = data.CanValueBeNull;
 
@@ -212,8 +212,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(SwedishRequiredSource))]
-        public void PropertyChangedSwedish(RequiredData data)
+        [TestCaseSource(nameof(SwedishCases))]
+        public void PropertyChangedSwedish(TestCase data)
         {
             this.CultureBox.Select("sv-SE");
 
@@ -241,8 +241,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCaseSource(nameof(RequiredSource))]
-        public void PropertyChangedWhenNotLocalized(RequiredData data)
+        [TestCaseSource(nameof(TestCases))]
+        public void PropertyChangedWhenNotLocalized(TestCase data)
         {
             this.CultureBox.Select("ja-JP");
 
@@ -269,20 +269,23 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        public class RequiredData
+        public class TestCase
         {
-            public readonly string Text;
-            public readonly bool CanValueBeNull;
-            public readonly string Expected;
-            public readonly string ExpectedInfoMessage;
-
-            public RequiredData(string text, bool canValueBeNull, string expected, string expectedInfoMessage)
+            public TestCase(string text, bool canValueBeNull, string expected, string expectedInfoMessage)
             {
                 this.Text = text;
                 this.CanValueBeNull = canValueBeNull;
                 this.Expected = expected;
                 this.ExpectedInfoMessage = expectedInfoMessage;
             }
+
+            public string Text { get; }
+
+            public bool CanValueBeNull { get; }
+
+            public string Expected { get; }
+
+            public string ExpectedInfoMessage { get; }
 
             public string ErrorMessage => GetErrorMessage(this.ExpectedInfoMessage);
 

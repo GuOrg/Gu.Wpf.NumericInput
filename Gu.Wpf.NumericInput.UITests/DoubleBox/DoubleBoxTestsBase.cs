@@ -76,14 +76,15 @@
 
         public class TextBoxAndErrorBox
         {
-            public readonly TextBox DoubleBox;
-            public readonly Label ErrorBlock;
-
             public TextBoxAndErrorBox(TextBox doubleBox, Label errorBlock)
             {
                 this.DoubleBox = doubleBox;
                 this.ErrorBlock = errorBlock;
             }
+
+            public TextBox DoubleBox { get; }
+
+            public Label ErrorBlock { get; }
         }
     }
 }
