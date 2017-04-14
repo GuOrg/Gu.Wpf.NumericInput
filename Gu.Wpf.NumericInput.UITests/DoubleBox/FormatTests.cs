@@ -8,14 +8,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         private static readonly CultureInfo EnUs = CultureInfo.GetCultureInfo("en-US");
         private static readonly CultureInfo SvSe = CultureInfo.GetCultureInfo("sv-SE");
 
-        public static readonly FormatData[] Source =
+        private static readonly FormatData[] Source =
             {
-                new FormatData("1", "F1", EnUs, "1.0","1"),
-                new FormatData("1", "F1", SvSe, "1,0","1"),
-                new FormatData("1.23456", "F3", EnUs, "1.235","1.23456"),
-                new FormatData("1.23456", "F4", EnUs, "1.2346","1.23456"),
-                new FormatData("1", "0.#", EnUs, "1","1"),
-                new FormatData("1.23456", "0.###", EnUs, "1.235","1.23456"),
+                new FormatData("1", "F1", EnUs, "1.0", "1"),
+                new FormatData("1", "F1", SvSe, "1,0", "1"),
+                new FormatData("1.23456", "F3", EnUs, "1.235", "1.23456"),
+                new FormatData("1.23456", "F4", EnUs, "1.2346", "1.23456"),
+                new FormatData("1", "0.#", EnUs, "1", "1"),
+                new FormatData("1.23456", "0.###", EnUs, "1.235", "1.23456"),
             };
 
         [SetUp]

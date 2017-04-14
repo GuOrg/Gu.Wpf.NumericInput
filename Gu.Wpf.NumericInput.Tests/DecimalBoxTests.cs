@@ -5,7 +5,8 @@ namespace Gu.Wpf.NumericInput.Tests
 
     using NUnit.Framework;
 
-    [TestFixture, Apartment(ApartmentState.STA)]
+    [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class DecimalBoxTests : FloatBaseTests<DecimalBox, decimal>
     {
         protected override decimal Max => 10;

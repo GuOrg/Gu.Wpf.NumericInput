@@ -5,15 +5,19 @@
 
     using NUnit.Framework;
 
-    [TestFixture, Apartment(ApartmentState.STA)]
+    [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class ShortBoxTests : NumericBoxTests<ShortBox, short>
     {
         protected override Func<ShortBox> Creator
         {
             get { return () => new ShortBox(); }
         }
+
         protected override short Max => 10;
+
         protected override short Min => -10;
+
         protected override short Increment => 1;
 
         [Test]

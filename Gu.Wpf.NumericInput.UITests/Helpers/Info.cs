@@ -6,6 +6,7 @@
     using System.Reflection;
 
     using Gu.Wpf.NumericInput.Demo;
+    using NUnit.Framework;
 
     public static class Info
     {
@@ -17,20 +18,15 @@
                 var uri = new Uri(assembly.CodeBase, UriKind.Absolute);
                 var fileName = uri.AbsolutePath;
                 var workingDirectory = Path.GetDirectoryName(fileName);
+                Assert.NotNull(workingDirectory);
                 var processStartInfo = new ProcessStartInfo
                 {
-                    // ReSharper disable once AssignNullToNotNullAttribute
-                    WorkingDirectory =  workingDirectory,
+                    WorkingDirectory = workingDirectory,
                     FileName = fileName,
-                    //UseShellExecute = false,
-                    //CreateNoWindow = false,
-                    //RedirectStandardOutput = true,
-                    //RedirectStandardError = true
                 };
                 return processStartInfo;
             }
         }
-
 
         internal static ProcessStartInfo CreateStartInfo(string args)
         {
@@ -46,11 +42,11 @@
         private static string GetExeFileName()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var testDirestory = Path.GetDirectoryName(new Uri(assembly.CodeBase).LocalPath);
+            var testDirectory = Path.GetDirectoryName(new Uri(assembly.CodeBase).LocalPath);
             var assemblyName = assembly.GetName().Name;
             var exeDirectoryName = assemblyName.Replace("UITests", "Demo");
-            // ReSharper disable once PossibleNullReferenceException
-            var exeDirectory = testDirestory.Replace(assemblyName, exeDirectoryName);
+            //// ReSharper disable once PossibleNullReferenceException
+            var exeDirectory = testDirectory.Replace(assemblyName, exeDirectoryName);
             var fileName = Path.Combine(exeDirectory, "Gu.Wpf.NumericInput.Demo.exe");
 
             return fileName;

@@ -21,7 +21,7 @@
         private TextBox BoundCultureDoubleBox => this.GetCachedTextBox();
 
         private TextBox CultureTextBox => this.GetCachedTextBox();
-        
+
         [Test]
         public void TestCultures()
         {

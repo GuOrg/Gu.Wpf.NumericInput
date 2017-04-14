@@ -12,9 +12,8 @@
             element.UpdateLayout();
         }
 
-
         public static void Invalidate<T>(T element)
-    where T : FrameworkElement
+            where T : FrameworkElement
         {
             element.InvalidateVisual();
         }
@@ -29,8 +28,9 @@
             window.Show();
             return window;
         }
+
         public static Window ShowInWindow<T>(this T element, object dataContext)
-    where T : FrameworkElement
+            where T : FrameworkElement
         {
             var window = new Window()
             {

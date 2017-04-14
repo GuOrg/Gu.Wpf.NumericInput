@@ -140,7 +140,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(text, doubleBox.Text);
-            //Assert.AreEqual(text, this.ViewModelValueBox.Text);
+            ////Assert.AreEqual(text, this.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 

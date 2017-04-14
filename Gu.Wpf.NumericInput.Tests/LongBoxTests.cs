@@ -5,8 +5,9 @@ namespace Gu.Wpf.NumericInput.Tests
 
     using NUnit.Framework;
 
-    [TestFixture, Apartment(ApartmentState.STA)]
-    public class LongBoxTests : NumericBoxTests<LongBox,long>
+    [TestFixture]
+    [Apartment(ApartmentState.STA)]
+    public class LongBoxTests : NumericBoxTests<LongBox, long>
     {
         protected override long Max => 10;
 

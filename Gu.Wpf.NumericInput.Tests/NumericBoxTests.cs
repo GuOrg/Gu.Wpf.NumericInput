@@ -16,7 +16,7 @@ namespace Gu.Wpf.NumericInput.Tests
         where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        public new TBox Box => (TBox)base.Box;
+        protected new TBox Box => (TBox)base.Box;
 
         protected abstract Func<TBox> Creator { get; }
 
@@ -26,7 +26,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected abstract T Increment { get; }
 
-        internal DummyVm<T> Vm { get; private set; }
+        protected DummyVm<T> Vm { get; private set; }
 
         [SetUp]
         public void SetUp()
@@ -116,7 +116,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
             this.Box.Text = text2;
             Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
-            //Assert.Fail("11 -> 1");
+            ////Assert.Fail("11 -> 1");
             Assert.AreEqual(Status.Idle, this.Box.Status);
             Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
         }

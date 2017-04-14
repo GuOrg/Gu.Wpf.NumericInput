@@ -8,14 +8,19 @@
     {
         private string text = "1.2345";
         private double value = 1.2345;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Text
         {
-            get { return this.text; }
+            get => this.text;
             set
             {
-                if (Equals(value, this.text)) return;
+                if (Equals(value, this.text))
+                {
+                    return;
+                }
+
                 this.text = value;
                 this.OnPropertyChanged();
             }
@@ -23,10 +28,14 @@
 
         public double Value
         {
-            get { return this.value; }
+            get => this.value;
             set
             {
-                if (value.Equals(this.value)) return;
+                if (value.Equals(this.value))
+                {
+                    return;
+                }
+
                 this.value = value;
                 this.OnPropertyChanged();
             }

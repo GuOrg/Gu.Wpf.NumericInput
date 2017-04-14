@@ -61,7 +61,7 @@
             this.MinBox = this.Window.Get<TextBox>("Min");
             this.MaxBox = this.Window.Get<TextBox>("Max");
             this.RegexPatternBox = this.Window.Get<TextBox>("RegexPattern");
-            this.LostFocusValidateOnLostFocusBoxes =new TextBoxAndErrorBox(
+            this.LostFocusValidateOnLostFocusBoxes = new TextBoxAndErrorBox(
                     this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox"),
                     this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError"));
 

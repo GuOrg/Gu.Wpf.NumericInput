@@ -45,7 +45,8 @@ namespace Gu.Wpf.NumericInput.UITests
             return this.GetCached<Button>(name);
         }
 
-        public T GetCached<T>(string name) where T : IUIItem
+        public T GetCached<T>(string name)
+            where T : IUIItem
         {
             return (T)this.itemCache.GetOrAdd(name, n => this.Window.Get<T>(n));
         }

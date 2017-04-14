@@ -13,7 +13,7 @@ namespace Gu.Wpf.NumericInput.Tests
             "Proxy",
             typeof(object),
             typeof(DependencyPropertyListener),
-            new PropertyMetadata(null, OnSourceChanged));
+            new PropertyMetadata(null, OnProxyChanged));
 
         private readonly Action<DependencyPropertyChangedEventArgs> onChanged;
         private bool disposed;
@@ -61,7 +61,7 @@ namespace Gu.Wpf.NumericInput.Tests
             BindingOperations.ClearBinding(this, ProxyProperty);
         }
 
-        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var listener = (DependencyPropertyListener)d;
             if (listener.disposed)

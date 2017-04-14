@@ -18,10 +18,14 @@
 
         public double? DoubleValue
         {
-            get { return this.doubleValue; }
+            get => this.doubleValue;
             set
             {
-                if (value.Equals(this.doubleValue)) return;
+                if (value.Equals(this.doubleValue))
+                {
+                    return;
+                }
+
                 this.doubleValue = value;
                 this.OnPropertyChanged();
             }
@@ -29,10 +33,14 @@
 
         public decimal? DecimalValue
         {
-            get { return this.decimalValue; }
+            get => this.decimalValue;
             set
             {
-                if (value == this.decimalValue) return;
+                if (value == this.decimalValue)
+                {
+                    return;
+                }
+
                 this.decimalValue = value;
                 this.OnPropertyChanged();
             }
@@ -40,10 +48,14 @@
 
         public int? IntValue
         {
-            get { return this.intValue; }
+            get => this.intValue;
             set
             {
-                if (value == this.intValue) return;
+                if (value == this.intValue)
+                {
+                    return;
+                }
+
                 this.intValue = value;
                 this.OnPropertyChanged();
             }
@@ -51,23 +63,29 @@
 
         public short? ShortValue
         {
-            get { return this.shortValue; }
+            get => this.shortValue;
             set
             {
-                if (value == this.shortValue) return;
+                if (value == this.shortValue)
+                {
+                    return;
+                }
+
                 this.shortValue = value;
                 this.OnPropertyChanged();
             }
         }
+
         public bool ShowTouchKeyboardOnTouchEnter
         {
-            get
-            {
-                return this.showTouchKeyboardOnTouchEnter;
-            }
+            get => this.showTouchKeyboardOnTouchEnter;
             set
             {
-                if (value == this.showTouchKeyboardOnTouchEnter) return;
+                if (value == this.showTouchKeyboardOnTouchEnter)
+                {
+                    return;
+                }
+
                 this.showTouchKeyboardOnTouchEnter = value;
                 this.OnPropertyChanged();
             }

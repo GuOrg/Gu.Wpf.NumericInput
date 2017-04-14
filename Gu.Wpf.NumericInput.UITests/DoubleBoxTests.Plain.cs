@@ -22,6 +22,13 @@
     {
         public class Plain
         {
+            private static readonly IReadOnlyList<string> BoxContainerIds = new[]
+            {
+                AutomationIds.VanillaGroupBox,
+                AutomationIds.DataTemplateGroupBox,
+                AutomationIds.ControlTemplate
+            };
+
             [TestCaseSource(nameof(BoxContainerIds))]
             public void UpdatesViewModel(string containerId)
             {
@@ -684,7 +691,8 @@
                 }
             }
 
-            [Test, Apartment(ApartmentState.STA)]
+            [Test]
+            [Apartment(ApartmentState.STA)]
             public void CopyTest()
             {
                 using (var app = Application.AttachOrLaunch(Info.ProcessStartInfo))
@@ -712,13 +720,6 @@
                     }
                 }
             }
-
-            private static readonly IReadOnlyList<string> BoxContainerIds = new[]
-            {
-                AutomationIds.VanillaGroupBox,
-                AutomationIds.DataTemplateGroupBox,
-                AutomationIds.ControlTemplate
-            };
         }
     }
 }

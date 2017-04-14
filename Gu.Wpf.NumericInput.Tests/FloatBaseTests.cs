@@ -174,7 +174,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Text = text;
             Assert.AreEqual(text, this.Box.Text);
             this.Box.UpdateFormattedText();
-            //Assert.AreEqual(text, this.Box.FormattedText);
+            ////Assert.AreEqual(text, this.Box.FormattedText);
             Assert.AreEqual(expectedValue, this.Box.Value.ToString());
             Assert.AreEqual(Status.Idle, this.Box.Status);
             Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);

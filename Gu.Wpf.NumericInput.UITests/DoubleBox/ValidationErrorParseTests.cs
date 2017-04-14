@@ -176,9 +176,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.AllowDecimalPointBox.Checked = true;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(text, doubleBox.Text);
-            // Assert.AreEqual(text, this.ViewModelValueBox.Text); 
-            // not sure about what to do here.
-            // calling UpdateSource() is easy enough but dunno what 
+            //// Assert.AreEqual(text, this.ViewModelValueBox.Text);
+            //// not sure about what to do here.
+            //// calling UpdateSource() is easy enough but dunno what
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 

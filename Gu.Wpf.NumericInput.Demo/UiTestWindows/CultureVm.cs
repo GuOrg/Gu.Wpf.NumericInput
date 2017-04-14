@@ -14,10 +14,14 @@
 
         public double Value
         {
-            get { return this.value; }
+            get => this.value;
             set
             {
-                if (value.Equals(this.value)) return;
+                if (value.Equals(this.value))
+                {
+                    return;
+                }
+
                 this.value = value;
                 this.OnPropertyChanged();
             }
@@ -25,10 +29,14 @@
 
         public CultureInfo Culture
         {
-            get { return this.culture; }
+            get => this.culture;
             set
             {
-                if (Equals(value, this.culture)) return;
+                if (Equals(value, this.culture))
+                {
+                    return;
+                }
+
                 this.culture = value;
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CultureName));

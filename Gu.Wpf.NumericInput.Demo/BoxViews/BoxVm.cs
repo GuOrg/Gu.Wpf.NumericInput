@@ -51,7 +51,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public ValidationTrigger ValidationTrigger
         {
-            get { return this.validationTrigger; }
+            get => this.validationTrigger;
             set
             {
                 if (value == this.validationTrigger)
@@ -66,16 +66,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public IFormatProvider Culture
         {
-            get
-            {
-                return this.culture;
-            }
+            get => this.culture;
             set
             {
                 if (Equals(value, this.culture))
                 {
                     return;
                 }
+
                 this.culture = value;
                 this.OnPropertyChanged();
             }
@@ -83,7 +81,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public NumberStyles NumberStyles
         {
-            get { return this.numberStyles; }
+            get => this.numberStyles;
             set
             {
                 if (value == this.numberStyles)
@@ -104,7 +102,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowLeadingWhite
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowLeadingWhite); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowLeadingWhite);
             set
             {
                 if (value)
@@ -120,7 +118,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowTrailingWhite
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowTrailingWhite); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowTrailingWhite);
             set
             {
                 if (value)
@@ -136,7 +134,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowLeadingSign
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowLeadingSign); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowLeadingSign);
             set
             {
                 if (value)
@@ -152,7 +150,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowDecimalPoint
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowDecimalPoint); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowDecimalPoint);
             set
             {
                 if (value)
@@ -168,7 +166,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowExponent
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowExponent); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowExponent);
             set
             {
                 if (value)
@@ -184,7 +182,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowThousands
         {
-            get { return this.NumberStyles.HasFlag(NumberStyles.AllowThousands); }
+            get => this.NumberStyles.HasFlag(NumberStyles.AllowThousands);
             set
             {
                 if (value)
@@ -200,16 +198,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public TValue? Min
         {
-            get
-            {
-                return this.min;
-            }
+            get => this.min;
             set
             {
                 if (Equals(value, this.min))
                 {
                     return;
                 }
+
                 this.min = value;
                 this.OnPropertyChanged();
             }
@@ -217,10 +213,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public TValue? Max
         {
-            get
-            {
-                return this.max;
-            }
+            get => this.max;
             set
             {
                 if (Equals(value, this.max))
@@ -235,13 +228,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public TValue? Value
         {
-            get { return this.value; }
+            get => this.value;
             set
             {
                 if (value.Equals(this.value))
                 {
                     return;
                 }
+
                 this.value = value;
                 this.OnPropertyChanged();
             }
@@ -249,7 +243,7 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool CanValueBeNull
         {
-            get { return this.canValueBeNull; }
+            get => this.canValueBeNull;
             set
             {
                 if (value == this.canValueBeNull)
@@ -264,13 +258,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public TValue Increment
         {
-            get { return this.increment; }
+            get => this.increment;
             set
             {
                 if (value.Equals(this.increment))
                 {
                     return;
                 }
+
                 this.increment = value;
                 this.OnPropertyChanged();
             }
@@ -278,16 +273,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public int? DecimalDigits
         {
-            get
-            {
-                return this.decimalDigits;
-            }
+            get => this.decimalDigits;
             set
             {
                 if (value == this.decimalDigits)
                 {
                     return;
                 }
+
                 this.decimalDigits = value;
                 this.OnPropertyChanged();
             }
@@ -295,10 +288,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public string StringFormat
         {
-            get { return this.stringFormat; }
+            get => this.stringFormat;
             set
             {
-                if (value == this.stringFormat) return;
+                if (value == this.stringFormat)
+                {
+                    return;
+                }
+
                 this.stringFormat = value;
                 this.OnPropertyChanged();
             }
@@ -306,16 +303,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool AllowSpinners
         {
-            get
-            {
-                return this.allowSpinners;
-            }
+            get => this.allowSpinners;
             set
             {
                 if (value.Equals(this.allowSpinners))
                 {
                     return;
                 }
+
                 this.allowSpinners = value;
                 this.OnPropertyChanged();
             }
@@ -323,16 +318,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool IsReadOnly
         {
-            get
-            {
-                return this.isReadOnly;
-            }
+            get => this.isReadOnly;
             set
             {
                 if (value.Equals(this.isReadOnly))
                 {
                     return;
                 }
+
                 this.isReadOnly = value;
                 this.OnPropertyChanged();
             }
@@ -340,16 +333,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public string RegexPattern
         {
-            get
-            {
-                return this.regexPattern;
-            }
+            get => this.regexPattern;
             set
             {
                 if (value == this.regexPattern)
                 {
                     return;
                 }
+
                 this.regexPattern = value;
                 this.OnPropertyChanged();
             }
@@ -357,10 +348,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public bool HasErrors
         {
-            get { return this.hasErrors; }
+            get => this.hasErrors;
             set
             {
-                if (value == this.hasErrors) return;
+                if (value == this.hasErrors)
+                {
+                    return;
+                }
+
                 this.hasErrors = value;
                 this.OnPropertyChanged();
                 this.OnErrorsChanged(nameof(this.Value));

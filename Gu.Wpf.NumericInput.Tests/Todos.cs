@@ -2,7 +2,8 @@
 {
     using NUnit.Framework;
 
-    [TestFixture, Explicit]
+    [TestFixture]
+    [Explicit]
     public class Todos
     {
         [Test]

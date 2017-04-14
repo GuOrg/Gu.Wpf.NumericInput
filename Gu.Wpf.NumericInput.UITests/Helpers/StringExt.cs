@@ -4,7 +4,7 @@
     {
         public static string Slice(this string text, int startIndex, int endIndex)
         {
-            return text.Substring(startIndex, endIndex- startIndex);
+            return text.Substring(startIndex, endIndex - startIndex);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace Gu.Wpf.NumericInput.Tests
+﻿#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
+namespace Gu.Wpf.NumericInput.Tests
 {
     using System.Windows.Controls;
 
@@ -7,7 +8,7 @@
     [TestFixture]
     public abstract class BaseBoxTests
     {
-        protected BaseBox Box;
+        protected BaseBox Box { get; set; }
 
         [TestCase("1", null, false)]
         [TestCase("1", "", false)]

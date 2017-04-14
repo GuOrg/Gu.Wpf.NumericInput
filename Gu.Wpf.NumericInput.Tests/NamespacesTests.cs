@@ -7,16 +7,11 @@
 
     public class NamespacesTests
     {
-        private Assembly assembly;
         private const string NumericUri = @"http://gu.se/NumericInput";
         private const string SelectUri = @"http://gu.se/Select";
         private const string TouchUri = @"http://gu.se/Touch";
 
-        [SetUp]
-        public void SetUp()
-        {
-            this.assembly = typeof(DoubleBox).Assembly;
-        }
+        private readonly Assembly assembly = typeof(DoubleBox).Assembly;
 
         [Test]
         public void XmlnsDefinitions()

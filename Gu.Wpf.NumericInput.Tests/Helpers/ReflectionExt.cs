@@ -13,8 +13,10 @@
                 {
                     return true;
                 }
+
                 toCheck = toCheck.BaseType;
             }
+
             return false;
         }
     }

@@ -5,7 +5,8 @@ namespace Gu.Wpf.NumericInput.Tests
 
     using NUnit.Framework;
 
-    [TestFixture, Apartment(ApartmentState.STA)]
+    [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class DoubleBoxTests : FloatBaseTests<DoubleBox, double>
     {
         protected override double Max => 10;

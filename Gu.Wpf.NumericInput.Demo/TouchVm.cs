@@ -15,10 +15,14 @@
 
         public double Value1
         {
-            get { return this.value1; }
+            get => this.value1;
             set
             {
-                if (value.Equals(this.value1)) return;
+                if (value.Equals(this.value1))
+                {
+                    return;
+                }
+
                 this.value1 = value;
                 this.OnPropertyChanged();
             }
@@ -26,10 +30,14 @@
 
         public double Value2
         {
-            get { return this.value2; }
+            get => this.value2;
             set
             {
-                if (value.Equals(this.value2)) return;
+                if (value.Equals(this.value2))
+                {
+                    return;
+                }
+
                 this.value2 = value;
                 this.OnPropertyChanged();
             }
@@ -37,10 +45,14 @@
 
         public double Value3
         {
-            get { return this.value3; }
+            get => this.value3;
             set
             {
-                if (value.Equals(this.value3)) return;
+                if (value.Equals(this.value3))
+                {
+                    return;
+                }
+
                 this.value3 = value;
                 this.OnPropertyChanged();
             }
@@ -48,16 +60,14 @@
 
         public int? DecimalDigits
         {
-            get
-            {
-                return this.decimalDigits;
-            }
+            get => this.decimalDigits;
             set
             {
                 if (value == this.decimalDigits)
                 {
                     return;
                 }
+
                 this.decimalDigits = value;
                 this.OnPropertyChanged();
             }

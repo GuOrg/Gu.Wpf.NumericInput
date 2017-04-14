@@ -15,16 +15,14 @@
 
         public T? Value
         {
-            get
-            {
-                return this.value;
-            }
+            get => this.value;
             set
             {
                 if (Equals(value, this.value))
                 {
                     return;
                 }
+
                 this.value = value;
                 this.OnPropertyChanged();
             }

@@ -13,6 +13,13 @@
     {
         public class Spinners
         {
+            private static readonly IReadOnlyList<string> BoxContainerIds = new[]
+            {
+                AutomationIds.VanillaGroupBox,
+                AutomationIds.DataTemplateGroupBox,
+                AutomationIds.ControlTemplate
+            };
+
             [TestCaseSource(nameof(BoxContainerIds))]
             public void UpdatesViewModel(string containerId)
             {
@@ -318,13 +325,6 @@
                     }
                 }
             }
-
-            private static readonly IReadOnlyList<string> BoxContainerIds = new[]
-            {
-                AutomationIds.VanillaGroupBox,
-                AutomationIds.DataTemplateGroupBox,
-                AutomationIds.ControlTemplate
-            };
         }
     }
 }
