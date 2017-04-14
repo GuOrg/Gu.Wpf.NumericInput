@@ -20,7 +20,7 @@ GROUP Test
 FRAMEWORK: >= NET45
 NUGET
   remote: http://www.nuget.org/api/v2
-    Castle.Core (4.0)
+    Castle.Core (3.3)
     Microsoft.Win32.Primitives (4.3) - framework: >= net463
     NETStandard.Library (1.6.1) - framework: >= net463
       Microsoft.Win32.Primitives (>= 4.3) - framework: >= net46

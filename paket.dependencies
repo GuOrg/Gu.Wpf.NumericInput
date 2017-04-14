@@ -14,6 +14,7 @@ group Test
   framework >= net45
   nuget NUnit
   nuget TestStack.White
+  nuget Castle.Core 3.3.0
 
 group Demo
   source http://www.nuget.org/api/v2/
