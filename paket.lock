@@ -4,7 +4,7 @@ GROUP Analyzers
 FRAMEWORK: >= NET45
 NUGET
   remote: http://www.nuget.org/api/v2
-    Gu.Analyzers (0.1.11.15-dev)
+    Gu.Analyzers (0.1.11.19-dev)
     JetBrains.Annotations (10.4)
     StyleCop.Analyzers (1.0)
     WpfAnalyzers (0.2.7.8)
@@ -20,7 +20,7 @@ GROUP Test
 FRAMEWORK: >= NET45
 NUGET
   remote: http://www.nuget.org/api/v2
-    Castle.Core (3.3.3)
+    Castle.Core (4.0)
     Microsoft.Win32.Primitives (4.3) - framework: >= net463
     NETStandard.Library (1.6.1) - framework: >= net463
       Microsoft.Win32.Primitives (>= 4.3) - framework: >= net46
@@ -44,13 +44,12 @@ NUGET
       System.Security.Cryptography.Primitives (>= 4.3) - framework: >= net46
       System.Security.Cryptography.X509Certificates (>= 4.3) - framework: >= net46
       System.Threading.Timer (>= 4.3) - framework: >= net451
-    NUnit (3.6)
+    NUnit (3.6.1)
       NETStandard.Library (>= 1.6) - framework: >= net463
       System.Runtime.Loader (>= 4.0) - framework: >= net463
     System.AppContext (4.3) - framework: >= net463
     System.Collections.Concurrent (4.3) - framework: >= net463
     System.Console (4.3) - framework: >= net463
-    System.Diagnostics.DiagnosticSource (4.3) - framework: >= net463
     System.Diagnostics.Tracing (4.3) - framework: >= net463
     System.Globalization.Calendars (4.3) - framework: >= net463
     System.IO (4.3) - framework: >= net463
@@ -59,8 +58,7 @@ NUGET
     System.IO.FileSystem (4.3) - framework: >= net463
       System.IO.FileSystem.Primitives (>= 4.3) - framework: >= net46
     System.IO.FileSystem.Primitives (4.3)
-    System.Net.Http (4.3) - framework: >= net463
-      System.Diagnostics.DiagnosticSource (>= 4.3) - framework: >= net46
+    System.Net.Http (4.3.1) - framework: >= net463
       System.Security.Cryptography.X509Certificates (>= 4.3) - framework: >= net46
     System.Net.Sockets (4.3) - framework: >= net463
     System.Runtime (4.3)
