@@ -8,8 +8,8 @@ namespace Gu.Wpf.NumericInput
     internal class IsGreaterThanOrEqualToMinRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly IsGreaterThanOrEqualToMinRule<T> FromText = new IsGreaterThanOrEqualToMinRule<T>(true);
-        internal static readonly IsGreaterThanOrEqualToMinRule<T> FromValue = new IsGreaterThanOrEqualToMinRule<T>(false);
+        internal static readonly IsGreaterThanOrEqualToMinRule<T> FromText = new IsGreaterThanOrEqualToMinRule<T>(validatesOnTargetUpdated: true);
+        internal static readonly IsGreaterThanOrEqualToMinRule<T> FromValue = new IsGreaterThanOrEqualToMinRule<T>(validatesOnTargetUpdated: false);
 
         private IsGreaterThanOrEqualToMinRule(bool validatesOnTargetUpdated)
             : base(ValidationStep.ConvertedProposedValue, validatesOnTargetUpdated)

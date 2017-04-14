@@ -7,18 +7,18 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     {
         public static readonly RequiredData[] RequiredSource =
             {
-                new RequiredData("1.2", true, "1.2", null),
-                new RequiredData("1.2", false, "1.2", null),
-                new RequiredData(string.Empty, false, "0", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
-                new RequiredData(string.Empty, true, string.Empty, null),
+                new RequiredData(text: "1.2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
+                new RequiredData(text: "1.2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
+                new RequiredData(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'"),
+                new RequiredData(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
             };
 
         public static readonly RequiredData[] SwedishRequiredSource =
             {
-                new RequiredData("1,2", true, "1.2", null),
-                new RequiredData("1,2", false, "1.2", null),
-                new RequiredData(string.Empty, false, "0", "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
-                new RequiredData(string.Empty, true, string.Empty, null),
+                new RequiredData(text: "1,2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
+                new RequiredData(text: "1,2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
+                new RequiredData(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
+                new RequiredData(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
             };
 
         [SetUp]

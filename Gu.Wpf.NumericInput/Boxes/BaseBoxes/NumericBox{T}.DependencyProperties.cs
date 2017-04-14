@@ -17,12 +17,12 @@ namespace Gu.Wpf.NumericInput
             typeof(T?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
-                null,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                OnValueChanged,
-                null,
-                false,
-                UpdateSourceTrigger.LostFocus));
+                defaultValue: null,
+                flags: FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                propertyChangedCallback: OnValueChanged,
+                coerceValueCallback: null,
+                isAnimationProhibited: false,
+                defaultUpdateSourceTrigger: UpdateSourceTrigger.LostFocus));
 
         public static readonly DependencyProperty CanValueBeNullProperty = NumericBox.CanValueBeNullProperty.AddOwner(
             typeof(NumericBox<T>),

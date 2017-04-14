@@ -86,7 +86,7 @@
 
         public void UpdateFormattedText()
         {
-            this.UpdateFormattedText(false);
+            this.UpdateFormattedText(skipIfNotDirty: false);
         }
 
         public override void UpdateValidation()
@@ -327,14 +327,14 @@
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
-            this.UpdateFormattedText(true);
+            this.UpdateFormattedText(skipIfNotDirty: true);
             base.OnLostKeyboardFocus(e);
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
-            this.UpdateFormattedText(true);
+            this.UpdateFormattedText(skipIfNotDirty: true);
             base.OnLostFocus(e);
         }
 
@@ -367,7 +367,7 @@
                 return;
             }
 
-            box.UpdateFormattedText(true);
+            box.UpdateFormattedText(skipIfNotDirty: true);
         }
 
         private static void OnValidationDirty(object sender, RoutedEventArgs e)

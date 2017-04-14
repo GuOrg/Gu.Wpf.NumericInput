@@ -31,7 +31,13 @@
         {
             var formatAndCulture = PleaseEnterAValidNumberFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
-            return new CanParseValidationResult(typeof(T), text, box.Culture, formatAndCulture, false, message);
+            return new CanParseValidationResult(
+                type: typeof(T),
+                text: text,
+                currentBoxCulture: box.Culture,
+                formatAndCulture: formatAndCulture,
+                isValid: false,
+                errorContent: message);
         }
     }
 }

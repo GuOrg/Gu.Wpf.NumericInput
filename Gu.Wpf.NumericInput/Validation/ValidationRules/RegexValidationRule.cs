@@ -8,8 +8,8 @@
 
     internal class RegexValidationRule : ValidationRule
     {
-        internal static readonly RegexValidationRule FromText = new RegexValidationRule(true);
-        internal static readonly RegexValidationRule FromValue = new RegexValidationRule(false);
+        internal static readonly RegexValidationRule FromText = new RegexValidationRule(validatesOnTargetUpdated: true);
+        internal static readonly RegexValidationRule FromValue = new RegexValidationRule(validatesOnTargetUpdated: false);
 
         private RegexValidationRule(bool validatesOnTargetUpdated)
             : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)

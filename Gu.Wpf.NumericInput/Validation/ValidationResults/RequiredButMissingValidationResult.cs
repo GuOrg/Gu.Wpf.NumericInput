@@ -30,7 +30,13 @@
         {
             var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
-            return new RequiredButMissingValidationResult(typeof(T), text, box.Culture, formatAndCulture, false, message);
+            return new RequiredButMissingValidationResult(
+                type: typeof(T),
+                text: text,
+                currentBoxCulture: box.Culture,
+                formatAndCulture: formatAndCulture,
+                isValid: false,
+                errorContent: message);
         }
     }
 }

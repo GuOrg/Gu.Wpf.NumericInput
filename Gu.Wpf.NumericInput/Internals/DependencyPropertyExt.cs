@@ -26,12 +26,12 @@
                 property.OverrideMetadata(
                     forType,
                     new FrameworkPropertyMetadata(
-                        metadata.DefaultValue,
-                        FrameworkPropertyMetadataOptions.None,
-                        metadata.PropertyChangedCallback,
-                        metadata.CoerceValueCallback,
-                        true,
-                        updateSourceTrigger));
+                        defaultValue: metadata.DefaultValue,
+                        flags: FrameworkPropertyMetadataOptions.None,
+                        propertyChangedCallback: metadata.PropertyChangedCallback,
+                        coerceValueCallback: metadata.CoerceValueCallback,
+                        isAnimationProhibited: true,
+                        defaultUpdateSourceTrigger: updateSourceTrigger));
                 return;
             }
 
@@ -42,12 +42,12 @@
                 property.OverrideMetadata(
                     forType,
                     new FrameworkPropertyMetadata(
-                        fpm.DefaultValue,
-                        flags,
-                        metadata.PropertyChangedCallback,
-                        metadata.CoerceValueCallback,
-                        fpm.IsAnimationProhibited,
-                        updateSourceTrigger));
+                        defaultValue: fpm.DefaultValue,
+                        flags: flags,
+                        propertyChangedCallback: metadata.PropertyChangedCallback,
+                        coerceValueCallback: metadata.CoerceValueCallback,
+                        isAnimationProhibited: fpm.IsAnimationProhibited,
+                        defaultUpdateSourceTrigger: updateSourceTrigger));
                 return;
             }
 
@@ -143,12 +143,12 @@
                 property.OverrideMetadata(
                     forType,
                     new FrameworkPropertyMetadata(
-                        metadata.DefaultValue,
-                        options,
-                        metadata.PropertyChangedCallback,
-                        metadata.CoerceValueCallback,
-                        false,
-                        UpdateSourceTrigger.PropertyChanged));
+                        defaultValue: metadata.DefaultValue,
+                        flags: options,
+                        propertyChangedCallback: metadata.PropertyChangedCallback,
+                        coerceValueCallback: metadata.CoerceValueCallback,
+                        isAnimationProhibited: false,
+                        defaultUpdateSourceTrigger: UpdateSourceTrigger.PropertyChanged));
                 return;
             }
 
@@ -158,12 +158,12 @@
                 property.OverrideMetadata(
                     forType,
                     new FrameworkPropertyMetadata(
-                        metadata.DefaultValue,
-                        options,
-                        metadata.PropertyChangedCallback,
-                        metadata.CoerceValueCallback,
-                        fpm.IsAnimationProhibited,
-                        fpm.DefaultUpdateSourceTrigger));
+                        defaultValue: metadata.DefaultValue,
+                        flags: options,
+                        propertyChangedCallback: metadata.PropertyChangedCallback,
+                        coerceValueCallback: metadata.CoerceValueCallback,
+                        isAnimationProhibited: fpm.IsAnimationProhibited,
+                        defaultUpdateSourceTrigger: fpm.DefaultUpdateSourceTrigger));
                 return;
             }
 

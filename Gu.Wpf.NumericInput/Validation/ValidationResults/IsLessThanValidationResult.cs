@@ -26,13 +26,27 @@
             {
                 var formatAndCulture = PleaseEnterAValueGreaterThanOrEqualToFormatAndCulture.GetOrCreate(box.Culture);
                 var message = formatAndCulture.FormatMessage(box.MinValue);
-                return new IsLessThanValidationResult(value, box.MinValue, box.MaxValue, box.Culture, formatAndCulture, false, message);
+                return new IsLessThanValidationResult(
+                    value: value,
+                    min: box.MinValue,
+                    max: box.MaxValue,
+                    currentBoxCulture: box.Culture,
+                    formatAndCulture: formatAndCulture,
+                    isValid: false,
+                    errorContent: message);
             }
             else
             {
                 var formatAndCulture = PleaseEnterAValueBetweenFormatAndCulture.GetOrCreate(box.Culture);
                 var message = formatAndCulture.FormatMessage(box.MinValue, box.MaxValue);
-                return new IsLessThanValidationResult(value, box.MinValue, box.MaxValue, box.Culture, formatAndCulture, false, message);
+                return new IsLessThanValidationResult(
+                    value: value,
+                    min: box.MinValue,
+                    max: box.MaxValue,
+                    currentBoxCulture: box.Culture,
+                    formatAndCulture: formatAndCulture,
+                    isValid: false,
+                    errorContent: message);
             }
         }
     }

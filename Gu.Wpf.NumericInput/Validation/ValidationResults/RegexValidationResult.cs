@@ -33,20 +33,34 @@ namespace Gu.Wpf.NumericInput
         /// Gets the <see cref="Exception"/> that was thrown during <see cref="System.Text.RegularExpressions.Regex.Match(string, string)"/> if any.
         /// Null if no exception was thrown.
         /// </summary>
-        public Exception Exception { get;  }
+        public Exception Exception { get; }
 
         public static RegexValidationResult CreateErrorResult(string text, BaseBox box)
         {
             var formatAndCulture = PleaseProvideValidInputFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
-            return new RegexValidationResult(text, box.RegexPattern, null, box.Culture, formatAndCulture, false, message);
+            return new RegexValidationResult(
+                text: text,
+                pattern: box.RegexPattern,
+                exception: null,
+                currentBoxCulture: box.Culture,
+                formatAndCulture: formatAndCulture,
+                isValid: false,
+                errorContent: message);
         }
 
         public static RegexValidationResult CreateMalformedPatternErrorResult(string text, Exception exception, BaseBox box)
         {
             var formatAndCulture = SyntaxErrorInRegexPatternFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
-            return new RegexValidationResult(text, box.RegexPattern, exception, box.Culture, formatAndCulture, false, message);
+            return new RegexValidationResult(
+                text: text,
+                pattern: box.RegexPattern,
+                exception: exception,
+                currentBoxCulture: box.Culture,
+                formatAndCulture: formatAndCulture,
+                isValid: false,
+                errorContent: message);
         }
     }
 }
