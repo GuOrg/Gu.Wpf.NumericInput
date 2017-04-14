@@ -6,7 +6,7 @@
     using System.Windows;
 
     /// <summary>
-    /// A <see cref="System.Windows.Controls.TextBox"/> for inut of <see cref="long"/>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="long"/>
     /// </summary>
     [ToolboxItem(true)]
     public class LongBox : NumericBox<long>

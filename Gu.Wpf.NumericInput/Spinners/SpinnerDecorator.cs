@@ -36,8 +36,8 @@
         /// </summary>
         public ISpinnerBox Child
         {
-            get { return (ISpinnerBox)this.GetValue(ChildProperty); }
-            set { this.SetValue(ChildProperty, value); }
+            get => (ISpinnerBox)this.GetValue(ChildProperty);
+            set => this.SetValue(ChildProperty, value);
         }
 
         /// <summary>

@@ -104,72 +104,72 @@ namespace Gu.Wpf.NumericInput
         [Browsable(true)]
         public T? Value
         {
-            get { return (T?)this.GetValue(ValueProperty); }
-            set { this.SetValue(ValueProperty, value); }
+            get => (T?)this.GetValue(ValueProperty);
+            set => this.SetValue(ValueProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool CanValueBeNull
         {
-            get { return (bool)this.GetValue(CanValueBeNullProperty); }
-            set { this.SetValue(CanValueBeNullProperty, value); }
+            get => (bool)this.GetValue(CanValueBeNullProperty);
+            set => this.SetValue(CanValueBeNullProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public NumberStyles NumberStyles
         {
-            get { return (NumberStyles)this.GetValue(NumberStylesProperty); }
-            set { this.SetValue(NumberStylesProperty, value); }
+            get => (NumberStyles)this.GetValue(NumberStylesProperty);
+            set => this.SetValue(NumberStylesProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MinValue
         {
-            get { return (T?)this.GetValue(MinValueProperty); }
-            set { this.SetValue(MinValueProperty, value); }
+            get => (T?)this.GetValue(MinValueProperty);
+            set => this.SetValue(MinValueProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MaxValue
         {
-            get { return (T?)this.GetValue(MaxValueProperty); }
-            set { this.SetValue(MaxValueProperty, value); }
+            get => (T?)this.GetValue(MaxValueProperty);
+            set => this.SetValue(MaxValueProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool AllowSpinners
         {
-            get { return (bool)this.GetValue(AllowSpinnersProperty); }
-            set { this.SetValue(AllowSpinnersProperty, value); }
+            get => (bool)this.GetValue(AllowSpinnersProperty);
+            set => this.SetValue(AllowSpinnersProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public ICommand IncreaseCommand
         {
-            get { return (ICommand)this.GetValue(IncreaseCommandProperty); }
-            private set { this.SetValue(IncreaseCommandPropertyKey, value); }
+            get => (ICommand)this.GetValue(IncreaseCommandProperty);
+            private set => this.SetValue(IncreaseCommandPropertyKey, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public ICommand DecreaseCommand
         {
-            get { return (ICommand)this.GetValue(DecreaseCommandProperty); }
-            private set { this.SetValue(DecreaseCommandPropertyKey, value); }
+            get => (ICommand)this.GetValue(DecreaseCommandProperty);
+            private set => this.SetValue(DecreaseCommandPropertyKey, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T Increment
         {
-            get { return (T)this.GetValue(IncrementProperty); }
-            set { this.SetValue(IncrementProperty, value); }
+            get => (T)this.GetValue(IncrementProperty);
+            set => this.SetValue(IncrementProperty, value);
         }
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -26,8 +26,7 @@
             get
             {
                 var text = this.Text;
-                T result;
-                if (this.TryParse(text, out result))
+                if (this.TryParse(text, out T result))
                 {
                     return result;
                 }
@@ -54,8 +53,7 @@
                 return true;
             }
 
-            T temp;
-            return this.TryParse(text, out temp);
+            return this.TryParse(text, out T _);
         }
 
         public T? Parse(string text)
@@ -65,8 +63,7 @@
                 return null;
             }
 
-            T result;
-            if (this.TryParse(text, out result))
+            if (this.TryParse(text, out T result))
             {
                 return result;
             }
@@ -113,8 +110,7 @@
             }
 
             var text = this.Text;
-            T result;
-            if (this.TryParse(text, out result))
+            if (this.TryParse(text, out T result))
             {
                 this.UpdateFormattedText(result);
             }

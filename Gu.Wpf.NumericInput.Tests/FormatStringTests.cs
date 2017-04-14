@@ -87,9 +87,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("First: {0N}", false, -1, null)]
         public void IsValidFormatWithOutParams(string text, bool expected, int expectedIndex, bool? expectedFormat)
         {
-            int count;
-            bool? anyItemHasFormat;
-            Assert.AreEqual(expected, FormatString.IsValidFormat(text, out count, out anyItemHasFormat));
+            Assert.AreEqual(expected, FormatString.IsValidFormat(text, out int count, out bool? anyItemHasFormat));
             Assert.AreEqual(expectedIndex, count);
             Assert.AreEqual(expectedFormat, anyItemHasFormat);
         }

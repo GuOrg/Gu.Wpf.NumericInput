@@ -52,8 +52,7 @@
         {
             var itemStatus = textBox.ItemStatus();
             var text = itemStatus.Get(BaseBox.TextSourceProperty);
-            TextSource result;
-            if (!Enum.TryParse(text, out result))
+            if (!Enum.TryParse(text, out TextSource result))
             {
                 throw new ArgumentException();
             }
@@ -65,9 +64,8 @@
         {
             var itemStatus = textBox.ItemStatus();
             var text = itemStatus.Get(BaseBox.StatusProperty);
-            Status result;
 
-            if (!Enum.TryParse(text, out result))
+            if (!Enum.TryParse(text, out Status result))
             {
                 throw new ArgumentException();
             }

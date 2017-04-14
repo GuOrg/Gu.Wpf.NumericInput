@@ -21,10 +21,7 @@
         /// <summary>
         /// Gets throws <see cref="InvalidOperationException"/>
         /// </summary>
-        object IEnumerator.Current
-        {
-            get { throw new InvalidOperationException(); }
-        }
+        object IEnumerator.Current => throw new InvalidOperationException();
 
         /// <summary>
         /// Does nothing.

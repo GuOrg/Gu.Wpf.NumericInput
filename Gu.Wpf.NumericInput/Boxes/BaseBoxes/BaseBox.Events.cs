@@ -24,14 +24,14 @@
 
         internal event RoutedEventHandler FormatDirty
         {
-            add { this.AddHandler(FormatDirtyEvent, value); }
-            remove { this.RemoveHandler(FormatDirtyEvent, value); }
+            add => this.AddHandler(FormatDirtyEvent, value);
+            remove => this.RemoveHandler(FormatDirtyEvent, value);
         }
 
         internal event RoutedEventHandler ValidationDirty
         {
-            add { this.AddHandler(ValidationDirtyEvent, value); }
-            remove { this.RemoveHandler(ValidationDirtyEvent, value); }
+            add => this.AddHandler(ValidationDirtyEvent, value);
+            remove => this.RemoveHandler(ValidationDirtyEvent, value);
         }
     }
 }

@@ -108,46 +108,46 @@
         [Browsable(true)]
         public bool HasFormattedView
         {
-            get { return (bool)this.GetValue(HasFormattedViewProperty); }
-            protected internal set { this.SetValue(HasFormattedViewPropertyKey, value); }
+            get => (bool)this.GetValue(HasFormattedViewProperty);
+            protected internal set => this.SetValue(HasFormattedViewPropertyKey, value);
         }
 
         public IValueConverter TextValueConverter
         {
-            get { return (IValueConverter)this.GetValue(TextValueConverterProperty); }
-            set { this.SetValue(TextValueConverterProperty, value); }
+            get => (IValueConverter)this.GetValue(TextValueConverterProperty);
+            set => this.SetValue(TextValueConverterProperty, value);
         }
 
         public ValidationTrigger ValidationTrigger
         {
-            get { return (ValidationTrigger)this.GetValue(ValidationTriggerProperty); }
-            set { this.SetValue(ValidationTriggerProperty, value); }
+            get => (ValidationTrigger)this.GetValue(ValidationTriggerProperty);
+            set => this.SetValue(ValidationTriggerProperty, value);
         }
 
         public IReadOnlyList<ValidationRule> ValidationRules
         {
-            get { return (IReadOnlyList<ValidationRule>)this.GetValue(ValidationRulesProperty); }
-            set { this.SetValue(ValidationRulesProperty, value); }
+            get => (IReadOnlyList<ValidationRule>)this.GetValue(ValidationRulesProperty);
+            set => this.SetValue(ValidationRulesProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public string FormattedText
         {
-            get { return (string)this.GetValue(FormattedTextProperty); }
-            protected set { this.SetValue(FormattedTextPropertyKey, value); }
+            get => (string)this.GetValue(FormattedTextProperty);
+            protected set => this.SetValue(FormattedTextPropertyKey, value);
         }
 
         internal bool IsFormattingDirty
         {
-            get { return (bool)this.GetValue(IsFormattingDirtyProperty); }
-            set { this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
+            get => (bool)this.GetValue(IsFormattingDirtyProperty);
+            set => this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
         }
 
         internal bool IsValidationDirty
         {
-            get { return (bool)this.GetValue(IsValidationDirtyProperty); }
-            set { this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False); }
+            get => (bool)this.GetValue(IsValidationDirtyProperty);
+            set => this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
         }
 
         /// <summary>
@@ -159,16 +159,16 @@
         [TypeConverter(typeof(CultureInfoConverter))]
         public IFormatProvider Culture
         {
-            get { return (IFormatProvider)this.GetValue(CultureProperty); }
-            set { this.SetValue(CultureProperty, value); }
+            get => (IFormatProvider)this.GetValue(CultureProperty);
+            set => this.SetValue(CultureProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public string StringFormat
         {
-            get { return (string)this.GetValue(StringFormatProperty); }
-            set { this.SetValue(StringFormatProperty, value); }
+            get => (string)this.GetValue(StringFormatProperty);
+            set => this.SetValue(StringFormatProperty, value);
         }
 
         /// <summary>
@@ -178,20 +178,20 @@
         [Browsable(true)]
         public string RegexPattern
         {
-            get { return (string)this.GetValue(RegexPatternProperty); }
-            set { this.SetValue(RegexPatternProperty, value); }
+            get => (string)this.GetValue(RegexPatternProperty);
+            set => this.SetValue(RegexPatternProperty, value);
         }
 
         public TextSource TextSource
         {
-            get { return (TextSource)this.GetValue(TextSourceProperty); }
-            protected set { this.SetValue(TextSourcePropertyKey, value); }
+            get => (TextSource)this.GetValue(TextSourceProperty);
+            protected set => this.SetValue(TextSourcePropertyKey, value);
         }
 
         internal Status Status
         {
-            get { return (Status)this.GetValue(StatusProperty); }
-            set { this.SetValue(StatusPropertyKey, value); }
+            get => (Status)this.GetValue(StatusProperty);
+            set => this.SetValue(StatusPropertyKey, value);
         }
 
         private static void OnIsValidationDirtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

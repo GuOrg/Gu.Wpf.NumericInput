@@ -27,15 +27,9 @@
 
         public event EventHandler CanExecuteChanged
         {
-            add
-            {
-                InternalCanExecuteChangedEventManager.AddHandler(this, value);
-            }
+            add => InternalCanExecuteChangedEventManager.AddHandler(this, value);
 
-            remove
-            {
-                InternalCanExecuteChangedEventManager.RemoveHandler(this, value);
-            }
+            remove => InternalCanExecuteChangedEventManager.RemoveHandler(this, value);
         }
 
         private event EventHandler InternalCanExecuteChanged;

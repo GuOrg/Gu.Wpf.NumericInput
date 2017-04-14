@@ -38,9 +38,7 @@ namespace Gu.Wpf.NumericInput
         /// <inheritdoc/>
         protected override void AssertFormat(IFormatProvider culture, string format)
         {
-            int itemCount;
-            bool? _;
-            if (!FormatString.IsValidFormat(format, out itemCount, out _))
+            if (!FormatString.IsValidFormat(format, out int itemCount, out bool? _))
             {
                 throw new InvalidOperationException($"The format: '{format}' for culture: '{culture}' is not valid.");
             }

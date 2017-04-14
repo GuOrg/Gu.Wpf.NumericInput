@@ -25,8 +25,8 @@ namespace Gu.Wpf.NumericInput
         [Browsable(true)]
         public int? DecimalDigits
         {
-            get { return (int?)this.GetValue(DecimalDigitsProperty); }
-            set { this.SetValue(DecimalDigitsProperty, value); }
+            get => (int?)this.GetValue(DecimalDigitsProperty);
+            set => this.SetValue(DecimalDigitsProperty, value);
         }
 
         protected override void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
@@ -37,8 +37,7 @@ namespace Gu.Wpf.NumericInput
                 return;
             }
 
-            T result;
-            if (this.TryParse(text, this.NumberStyles, oldCulture, out result))
+            if (this.TryParse(text, this.NumberStyles, oldCulture, out T result))
             {
                 var status = this.Status;
                 this.Status = Status.Formatting;

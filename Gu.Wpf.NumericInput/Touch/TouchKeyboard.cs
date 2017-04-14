@@ -10,8 +10,8 @@
 
         public static string TouchKeyboardPath
         {
-            get { return touchProcessInfo?.ProcessStartInfo.FileName; }
-            set { touchProcessInfo = TouchProcessInfo.Create(value); }
+            get => touchProcessInfo?.ProcessStartInfo.FileName;
+            set => touchProcessInfo = TouchProcessInfo.Create(value);
         }
 
         public static void Show()

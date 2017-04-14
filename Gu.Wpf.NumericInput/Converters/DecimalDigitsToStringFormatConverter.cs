@@ -22,8 +22,7 @@
                 return null;
             }
 
-            string format;
-            if (Cache.TryGetValue(i.Value, out format))
+            if (Cache.TryGetValue(i.Value, out string format))
             {
                 return format;
             }
