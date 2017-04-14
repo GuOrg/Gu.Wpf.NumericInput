@@ -1,5 +1,6 @@
 namespace Gu.Wpf.NumericInput.UITests
 {
+    using System;
     using System.Collections.Concurrent;
     using System.Runtime.CompilerServices;
     using NUnit.Framework;
@@ -8,10 +9,11 @@ namespace Gu.Wpf.NumericInput.UITests
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.WindowItems;
 
-    public abstract class WindowTests
+    public abstract class WindowTests : IDisposable
     {
         private readonly ConcurrentDictionary<string, IUIItem> itemCache = new ConcurrentDictionary<string, IUIItem>();
         private Application application;
+        private bool disposed;
 
         protected Window Window { get; private set; }
 
@@ -20,7 +22,9 @@ namespace Gu.Wpf.NumericInput.UITests
         [OneTimeSetUp]
         public virtual void OneTimeSetUp()
         {
+            this.application?.Dispose();
             this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
+            this.Window?.Dispose();
             this.Window = this.application.GetWindow(this.WindowName);
         }
 
@@ -44,6 +48,34 @@ namespace Gu.Wpf.NumericInput.UITests
         public T GetCached<T>(string name) where T : IUIItem
         {
             return (T)this.itemCache.GetOrAdd(name, n => this.Window.Get<T>(n));
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+
+            this.disposed = true;
+            if (disposing)
+            {
+                this.application?.Dispose();
+                this.Window?.Dispose();
+            }
+        }
+
+        protected void ThrowIfDisposed()
+        {
+            if (this.disposed)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName);
+            }
         }
     }
 }
