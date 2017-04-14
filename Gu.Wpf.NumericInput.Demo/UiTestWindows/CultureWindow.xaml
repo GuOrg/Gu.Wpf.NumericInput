@@ -8,6 +8,7 @@
         Title="CultureWindow"
         numeric:NumericBox.Culture="sv-se"
         SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.DataContext>
         <uiTestWindows:CultureVm />
