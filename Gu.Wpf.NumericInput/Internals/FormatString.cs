@@ -14,7 +14,7 @@
         /// <returns>True if the string contains format placeholders.</returns>
         public static bool IsFormatString(string format)
         {
-            if (IsValidFormat(format, out int count, out bool? anyItemHasFormat))
+            if (IsValidFormat(format, out int count, out bool? _))
             {
                 return count != 0;
             }
@@ -38,7 +38,7 @@
                 throw new ArgumentException(nameof(numberOfArguments));
             }
 
-            if (IsValidFormat(format, out int indexCount, out bool? anyItemHasFormat))
+            if (IsValidFormat(format, out int indexCount, out bool? _))
             {
                 return indexCount == numberOfArguments;
             }

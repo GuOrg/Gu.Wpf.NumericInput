@@ -51,8 +51,6 @@
     <Compile Include="Helpers\Observe.cs" />
     <Compile Include="Helpers\DependencyPropertyListener.cs" />
     <Compile Include="Internals\DecimalDigitsToStringFormatConverterTests.cs" />
-    <Compile Include="Internals\DependencyPropertyListener.cs" />
-    <Compile Include="Internals\Observe.cs" />
     <Compile Include="Internals\TextBoxExt.cs" />
     <Compile Include="NamespacesTests.cs" />
     <Compile Include="DecimalBoxTests.cs" />

@@ -17,6 +17,7 @@
         [Test]
         public void OnLoad()
         {
+            this.Window.WaitWhileBusy();
             this.ValueTextBox.BulkText = "1.234";
             this.Window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
             Assert.AreEqual("1.234", this.SpinnerDoubleBox.Text);
