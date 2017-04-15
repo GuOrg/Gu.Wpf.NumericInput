@@ -32,6 +32,8 @@
         [SetUp]
         public void SetUp()
         {
+            Assert.NotNull(this.Window, "this.Window != null");
+            this.Window.WaitWhileBusy();
             this.DigitsBox.Enter(string.Empty);
             this.MinBox.Enter(string.Empty);
             this.MaxBox.Enter(string.Empty);
