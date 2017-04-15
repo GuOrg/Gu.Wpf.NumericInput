@@ -10,6 +10,7 @@ namespace Gu.Wpf.NumericInput.UITests
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.WindowItems;
 
+    [SingleThreaded]
     public abstract class WindowTests : IDisposable
     {
         private readonly ConcurrentDictionary<string, IUIItem> itemCache = new ConcurrentDictionary<string, IUIItem>();
