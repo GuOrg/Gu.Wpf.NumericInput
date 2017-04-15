@@ -10,31 +10,17 @@
         d:DesignWidth="800"
         AutomationProperties.AutomationId="{x:Static demo:AutomationIds.MainWindow}"
         mc:Ignorable="d">
+
+    <Window.DataContext>
+        <demo:MainVm />
+    </Window.DataContext>
     <TabControl>
         <TabItem Header="Demo">
             <demo:DemoView />
         </TabItem>
 
         <TabItem AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DebugTab}" Header="Debug">
-            <UniformGrid Rows="1">
-                <GroupBox VerticalAlignment="Top"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxGroupBox}"
-                          Header="DoubleBox">
-                    <demo:DoubleBoxView HorizontalAlignment="Left" />
-                </GroupBox>
-
-                <GroupBox VerticalAlignment="Top" Header="DecimalBox">
-                    <demo:DecimalBoxView HorizontalAlignment="Left" />
-                </GroupBox>
-
-                <GroupBox VerticalAlignment="Top" Header="IntBox">
-                    <demo:IntBoxView HorizontalAlignment="Left" />
-                </GroupBox>
-
-                <GroupBox VerticalAlignment="Top" Header="ShortBox">
-                    <demo:ShortBoxView HorizontalAlignment="Left" />
-                </GroupBox>
-            </UniformGrid>
+            <demo:DebugView />
         </TabItem>
 
         <TabItem Header="Styled">
