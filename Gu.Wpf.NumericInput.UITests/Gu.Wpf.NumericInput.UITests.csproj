@@ -57,6 +57,7 @@
     <Compile Include="DoubleBox\CycleFocusTests.cs" />
     <Compile Include="DoubleBoxTests.Focus.cs" />
     <Compile Include="DoubleBox\DefaultCultureWindowTests.cs" />
+    <Compile Include="Helpers\DoubleBoxView.cs" />
     <Compile Include="DoubleBox\FormatTests.cs" />
     <Compile Include="DoubleBox\MiscTests.cs" />
     <Compile Include="DoubleBox\SpinnersTests.cs" />

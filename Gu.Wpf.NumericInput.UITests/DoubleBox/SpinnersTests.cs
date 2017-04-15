@@ -1,12 +1,14 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
+    using System;
     using System.Collections.Generic;
     using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White.UIItems;
     using TestStack.White.WindowsAPI;
+    using DoubleBoxView = Gu.Wpf.NumericInput.UITests.DoubleBoxView;
 
-    public class SpinnersTests : WindowTests
+    public sealed class SpinnersTests : IDisposable
     {
         private static readonly IReadOnlyList<string> BoxContainerIds = new[]
         {
@@ -15,43 +17,31 @@
             AutomationIds.ControlTemplate
         };
 
-        protected override string WindowName { get; } = "SpinnerWindow";
+        private readonly DoubleBoxView view;
 
-        private CheckBox AllowSpinnersBox => this.GetCached<CheckBox>(AutomationIds.AllowSpinnersBox);
+        private bool disposed;
 
-        private TextBox DigitsBox => this.GetCached<TextBox>(AutomationIds.DigitsBox);
-
-        private TextBox VmValueBox => this.GetCached<TextBox>(AutomationIds.VmValueBox);
-
-        private TextBox IncrementBox => this.GetCached<TextBox>(AutomationIds.IncrementBox);
-
-        private TextBox MinBox => this.GetCached<TextBox>(AutomationIds.MinBox);
-
-        private TextBox MaxBox => this.GetCached<TextBox>(AutomationIds.MaxBox);
+        public SpinnersTests()
+        {
+            this.view = new DoubleBoxView("SpinnerWindow");
+        }
 
         [SetUp]
         public void SetUp()
         {
-            Assert.NotNull(this.Window, "this.Window != null");
-            this.Window.WaitWhileBusy();
-            this.DigitsBox.Enter(string.Empty);
-            this.MinBox.Enter(string.Empty);
-            this.MaxBox.Enter(string.Empty);
-            this.IncrementBox.Enter("1");
-            this.VmValueBox.Enter("0");
-            this.AllowSpinnersBox.Checked = false;
+            this.view.Reset();
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            this.DigitsBox.Enter("1");
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            this.view.DigitsBox.Enter("1");
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             inputBox.Enter("1.23");
             vmValueBox.Click();
             Assert.AreEqual("1.23", inputBox.EditText());
@@ -77,7 +67,7 @@
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual(Status.Idle, inputBox.Status());
 
-            this.IncrementBox.Enter("5");
+            this.view.IncrementBox.Enter("5");
             vmValueBox.Click();
             increaseButton.Click();
             vmValueBox.Click();
@@ -103,14 +93,14 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            this.IncrementBox.Enter("5");
-            this.MaxBox.Enter("3");
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            this.view.IncrementBox.Enter("5");
+            this.view.MaxBox.Enter("3");
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -138,14 +128,14 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMin(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            this.IncrementBox.Enter("5");
-            this.MinBox.Enter("-3");
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            this.view.IncrementBox.Enter("5");
+            this.view.MinBox.Enter("-3");
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -173,13 +163,13 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            this.MaxBox.Enter("3");
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            this.view.MaxBox.Enter("3");
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             inputBox.Enter("5");
             vmValueBox.Click();
@@ -218,13 +208,13 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            this.MinBox.Enter("-3");
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            this.view.MinBox.Enter("-3");
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             inputBox.Enter("-5");
             vmValueBox.Click();
@@ -262,12 +252,12 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            this.AllowSpinnersBox.Checked = true;
-            var container = this.GetCached<UIItemContainer>(containerId);
+            this.view.AllowSpinnersBox.Checked = true;
+            var container = this.view.Window.Get<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             ////var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
-            var vmValueBox = this.VmValueBox;
+            var vmValueBox = this.view.VmValueBox;
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
             increaseButton.Click();
@@ -280,7 +270,7 @@
             Assert.AreEqual(Status.Idle, inputBox.Status());
 
             inputBox.Click();
-            var keyboard = this.Window.Keyboard;
+            var keyboard = this.view.Window.Keyboard;
             keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
             keyboard.Enter("z");
             keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
@@ -292,6 +282,17 @@
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual(Status.Idle, inputBox.Status());
+        }
+
+        public void Dispose()
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+
+            this.disposed = true;
+            this.view?.Dispose();
         }
     }
 }

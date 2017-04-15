@@ -116,9 +116,6 @@
     <Compile Include="TouchView.xaml.cs">
       <DependentUpon>TouchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UiTestWindows\DoubleBoxValidationWindow.xaml.cs">
-      <DependentUpon>DoubleBoxValidationWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="BoxViews\DecimalBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

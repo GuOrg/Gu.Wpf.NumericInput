@@ -1,5 +1,4 @@
-﻿<Window x:Class="Gu.Wpf.NumericInput.Demo.UiTestWindows.DoubleBoxValidationWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:autoRowGrid="http://gu.se/AutoRowGrid"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -29,7 +28,8 @@
                            Value="{Binding Value}" />
         <TextBlock x:Name="LostFocusValidateOnLostFocusBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent, ElementName=LostFocusValidateOnLostFocusBox}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=LostFocusValidateOnLostFocusBox}" />
 
         <numeric:DoubleBox x:Name="LostFocusValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -48,7 +48,8 @@
 
         <TextBlock x:Name="LostFocusValidateOnPropertyChangedBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent, ElementName=LostFocusValidateOnPropertyChangedBox}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=LostFocusValidateOnPropertyChangedBox}" />
 
         <numeric:DoubleBox x:Name="PropertyChangedValidateOnPropertyChangedBox"
                            AllowSpinners="{Binding AllowSpinners}"
@@ -63,10 +64,12 @@
                            RegexPattern="{Binding RegexPattern}"
                            StringFormat="{Binding StringFormat}"
                            ValidationTrigger="PropertyChanged"
-                           Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                           Value="{Binding Value,
+                                           UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock x:Name="PropertyChangedValidateOnPropertyChangedBoxError"
                    Foreground="Red"
-                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent, ElementName=PropertyChangedValidateOnPropertyChangedBox}" />
+                   Text="{Binding Path=(Validation.Errors)[0].ErrorContent,
+                                  ElementName=PropertyChangedValidateOnPropertyChangedBox}" />
         <Button Content="lose focus" />
         <GroupBox Header="settings">
             <autoRowGrid:Grid ColumnDefinitions="Auto *">

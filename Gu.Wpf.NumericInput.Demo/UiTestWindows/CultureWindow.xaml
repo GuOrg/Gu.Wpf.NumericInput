@@ -17,7 +17,8 @@
         <StackPanel KeyboardNavigation.TabNavigation="Cycle">
             <TextBox AutomationProperties.AutomationId="ValueTextBox" Text="{Binding Value}" />
             <numeric:SpinnerDecorator>
-                <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
+                <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
+                                                           ElementName=AllowSpinners}"
                                    AutomationProperties.AutomationId="SpinnerDoubleBox"
                                    Value="{Binding Value}" />
             </numeric:SpinnerDecorator>
