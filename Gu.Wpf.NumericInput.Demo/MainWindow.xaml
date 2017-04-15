@@ -9,7 +9,6 @@
         d:DesignHeight="1200"
         d:DesignWidth="800"
         AutomationProperties.AutomationId="{x:Static demo:AutomationIds.MainWindow}"
-        WindowState="Maximized"
         mc:Ignorable="d">
     <TabControl>
         <TabItem Header="Demo">
@@ -49,7 +48,7 @@
         <TabItem Header="Touch">
             <demo:TouchView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>
-        
+
         <TabItem Header="Sandbox">
             <demo:SandboxView HorizontalAlignment="Center" VerticalAlignment="Center" />
         </TabItem>

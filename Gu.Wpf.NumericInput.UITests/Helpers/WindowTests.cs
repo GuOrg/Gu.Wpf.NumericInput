@@ -23,13 +23,15 @@ namespace Gu.Wpf.NumericInput.UITests
         [OneTimeSetUp]
         public virtual void OneTimeSetUp()
         {
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 try
                 {
                     this.itemCache.Clear();
-                    this.application?.WaitWhileBusy();
+                    this.Window?.WaitWhileBusy();
                     this.Window?.Dispose();
+
+                    this.application?.WaitWhileBusy();
                     this.application?.Dispose();
 
                     this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
