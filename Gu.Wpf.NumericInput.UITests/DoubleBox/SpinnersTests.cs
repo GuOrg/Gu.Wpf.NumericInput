@@ -34,9 +34,9 @@
         [SetUp]
         public void SetUp()
         {
-            this.DigitsBox.Enter("");
-            this.MinBox.Enter("");
-            this.MaxBox.Enter("");
+            this.DigitsBox.Enter(string.Empty);
+            this.MinBox.Enter(string.Empty);
+            this.MaxBox.Enter(string.Empty);
             this.IncrementBox.Enter("1");
             this.VmValueBox.Enter("0");
             this.AllowSpinnersBox.Checked = false;
