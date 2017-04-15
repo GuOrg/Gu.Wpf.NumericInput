@@ -64,19 +64,23 @@ namespace Gu.Wpf.NumericInput.UITests
 
         public TextBox GetCachedTextBox([CallerMemberName]string name = null)
         {
+            Assert.NotNull(name, "name != null");
             return this.GetCached<TextBox>(name);
         }
 
         public Button GetCachedButton([CallerMemberName]string name = null)
         {
-            Assert.NotNull(name);
+            Assert.NotNull(name, "name != null");
             return this.GetCached<Button>(name);
         }
 
         public T GetCached<T>(string name)
             where T : IUIItem
         {
-            return (T)this.itemCache.GetOrAdd(name, n => this.Window.Get<T>(n));
+            Assert.NotNull(name, "name != null");
+            var cached = (T)this.itemCache.GetOrAdd(name, n => this.Window.Get<T>(n));
+            Assert.NotNull(cached, "cached != null");
+            return cached;
         }
 
         public void Dispose()
