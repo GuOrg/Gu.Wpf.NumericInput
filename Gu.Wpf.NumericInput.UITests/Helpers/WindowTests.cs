@@ -23,9 +23,11 @@ namespace Gu.Wpf.NumericInput.UITests
         [OneTimeSetUp]
         public virtual void OneTimeSetUp()
         {
-            this.application?.Dispose();
-            this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
+            this.application?.WaitWhileBusy();
             this.Window?.Dispose();
+            this.application?.Dispose();
+
+            this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
             this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(this.WindowName);
             this.Window.WaitWhileBusy();
@@ -34,6 +36,7 @@ namespace Gu.Wpf.NumericInput.UITests
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
+            this.Window?.Dispose();
             this.application?.Dispose();
         }
 
@@ -69,8 +72,8 @@ namespace Gu.Wpf.NumericInput.UITests
             this.disposed = true;
             if (disposing)
             {
-                this.application?.Dispose();
                 this.Window?.Dispose();
+                this.application?.Dispose();
             }
         }
     }
