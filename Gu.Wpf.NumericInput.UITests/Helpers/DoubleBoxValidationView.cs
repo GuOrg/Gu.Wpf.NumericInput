@@ -15,9 +15,7 @@
         {
             var windowName = "DoubleBoxValidationWindow";
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
-            this.Window.WaitWhileBusy();
             this.LoseFocusButton = this.Window.GetByText<Button>("lose focus");
             this.ViewModelValueBox = this.Window.Get<TextBox>("ViewModelValue");
 

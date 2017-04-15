@@ -127,7 +127,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = testCase.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
@@ -160,7 +159,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = testCase.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
@@ -178,7 +176,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = testCase.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(testCase.Text, doubleBox.Text);
             Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);

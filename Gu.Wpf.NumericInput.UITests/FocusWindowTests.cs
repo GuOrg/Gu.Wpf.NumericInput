@@ -16,9 +16,7 @@
         {
             var windowName = "FocusWindow";
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
-            this.Window.WaitWhileBusy();
         }
 
         private Window Window { get; }

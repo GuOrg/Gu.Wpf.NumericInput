@@ -16,9 +16,7 @@
         {
             var windowName = "DefaultCultureWindow";
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
-            this.Window.WaitWhileBusy();
             this.ValueTextBox = this.Window.Get<TextBox>(nameof(this.ValueTextBox));
             this.SpinnerDoubleBox = this.Window.Get<TextBox>(nameof(this.SpinnerDoubleBox));
             this.DoubleBox = this.Window.Get<TextBox>(nameof(this.DoubleBox));

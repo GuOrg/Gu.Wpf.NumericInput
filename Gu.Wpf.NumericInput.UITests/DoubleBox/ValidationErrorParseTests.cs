@@ -41,7 +41,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.view.LoseFocusButton.Click(); // needed to reset explicitly here for some reason
 
             doubleBox.Text = data.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(data.Text, doubleBox.Text);
             Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
@@ -83,7 +82,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
@@ -114,7 +112,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = data.Text;
-            this.view.Window.WaitWhileBusy();
             Assert.AreEqual(true, doubleBox.HasValidationError());
             Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
             Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
@@ -136,7 +133,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.view.AllowDecimalPointBox.Checked = false;
             if (infoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);
@@ -158,7 +154,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.view.LoseFocusButton.Click();
             if (infoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(infoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), boxes.ErrorBlock.Text);

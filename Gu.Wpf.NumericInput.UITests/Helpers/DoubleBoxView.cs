@@ -14,9 +14,7 @@ namespace Gu.Wpf.NumericInput.UITests
         public DoubleBoxView(string windowName)
         {
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
-            this.Window.WaitWhileBusy();
             this.AllowSpinnersBox = this.Window.Get<CheckBox>("AllowSpinnersBox");
             this.DigitsBox = this.Window.Get<TextBox>("DigitsBox");
             this.VmValueBox = this.Window.Get<TextBox>("VmValueBox");

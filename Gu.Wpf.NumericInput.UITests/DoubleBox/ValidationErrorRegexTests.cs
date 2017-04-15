@@ -106,7 +106,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
@@ -147,7 +146,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
@@ -175,7 +173,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
@@ -203,7 +200,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {
-                this.view.Window.WaitWhileBusy();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ErrorMessage, boxes.ErrorBlock.Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
