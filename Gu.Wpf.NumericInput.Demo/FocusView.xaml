@@ -21,29 +21,29 @@
                  select:TextBox.SelectAllOnGotKeyboardFocus="{Binding IsChecked,
                                                                       ElementName=SelectAllOnFocus}"
                  Rows="1">
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBoxes}" Header="TextBoxes">
+        <GroupBox AutomationProperties.AutomationId="TextBoxes" Header="TextBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox2}" Text="{Binding Value2}" />
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox3}" Text="{Binding Value3}" />
+                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="TextBox2" Text="{Binding Value2}" />
+                <TextBox AutomationProperties.AutomationId="TextBox3" Text="{Binding Value3}" />
             </StackPanel>
         </GroupBox>
 
-        <GroupBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBoxes}" Header="DoubleBoxes">
+        <GroupBox AutomationProperties.AutomationId="DoubleBoxes" Header="DoubleBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
 
-                <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
+                <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners1">
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                       AutomationProperties.AutomationId="DoubleBox1"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value2}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                            ElementName=AllowSpinners}"
-                                   AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                   AutomationProperties.AutomationId="DoubleBox2"
                                    DecimalDigits="{Binding DecimalDigits}"
                                    Value="{Binding Value3}" />
             </StackPanel>
@@ -63,20 +63,20 @@
                                 <VirtualizingStackPanel IsVirtualizing="True" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+                        <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
 
-                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
+                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners1">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                        ElementName=AllowSpinners}"
-                                               AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                               AutomationProperties.AutomationId="DoubleBox1"
                                                DecimalDigits="{Binding DecimalDigits}"
                                                Value="{Binding Value2}" />
                         </numeric:SpinnerDecorator>
 
-                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners2}">
+                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners2">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                        ElementName=AllowSpinners}"
-                                               AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                               AutomationProperties.AutomationId="DoubleBox2"
                                                DecimalDigits="{Binding DecimalDigits}"
                                                Value="{Binding Value3}" />
                         </numeric:SpinnerDecorator>
@@ -93,26 +93,26 @@
                             bug
                         </TextBlock>
 
-                        <TextBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.TextBox1}" Text="{Binding Value1}" />
+                        <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
 
-                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners1}">
+                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners1">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                        ElementName=AllowSpinners}"
-                                               AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox1}"
+                                               AutomationProperties.AutomationId="DoubleBox1"
                                                DecimalDigits="{Binding DecimalDigits}"
                                                Value="{Binding Value2}" />
                         </numeric:SpinnerDecorator>
 
-                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="{x:Static demo:AutomationIds.Spinners2}">
+                        <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners2">
                             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                        ElementName=AllowSpinners}"
-                                               AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                               AutomationProperties.AutomationId="DoubleBox2"
                                                DecimalDigits="{Binding DecimalDigits}"
                                                Value="{Binding Value3}" />
                         </numeric:SpinnerDecorator>
                         <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                    ElementName=AllowSpinners}"
-                                           AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DoubleBox2}"
+                                           AutomationProperties.AutomationId="DoubleBox2"
                                            DecimalDigits="{Binding DecimalDigits}"
                                            Value="{Binding Value3}" />
                     </ItemsControl>
@@ -144,7 +144,7 @@
                           Grid.Row="0"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowSpinnersBox}"
+                          AutomationProperties.AutomationId="AllowSpinnersBox"
                           IsChecked="True" />
 
                 <TextBlock Grid.Row="1"
@@ -154,7 +154,7 @@
                           Grid.Row="1"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnFocusBox}"
+                          AutomationProperties.AutomationId="SelectAllOnFocusBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="2"
@@ -165,7 +165,7 @@
                           Grid.Row="2"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnClickBox}"
+                          AutomationProperties.AutomationId="SelectAllOnClickBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="3"
@@ -175,7 +175,7 @@
                           Grid.Row="3"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.SelectAllOnDoubleClickBox}"
+                          AutomationProperties.AutomationId="SelectAllOnDoubleClickBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="4"
@@ -185,7 +185,7 @@
                           Grid.Row="4"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="{x:Static demo:AutomationIds.MoveFocusOnEnterBox}"
+                          AutomationProperties.AutomationId="MoveFocusOnEnterBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="5"
@@ -203,7 +203,7 @@
                 <TextBox Grid.Row="6"
                          Grid.Column="1"
                          VerticalAlignment="Center"
-                         AutomationProperties.AutomationId="{x:Static demo:AutomationIds.DigitsBox}"
+                         AutomationProperties.AutomationId="DigitsBox"
                          Text="{Binding DecimalDigits,
                                         TargetNullValue=''}" />
             </Grid>

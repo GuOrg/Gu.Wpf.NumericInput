@@ -66,11 +66,11 @@
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="HasErrors">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.HasErrorsBox}" IsChecked="{Binding HasErrors}" />
+                <CheckBox AutomationProperties.AutomationId="HasErrorsBox" IsChecked="{Binding HasErrors}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="ValidationTrigger">
-                <ComboBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.ValidationTriggerBox}" SelectedItem="{Binding ValidationTrigger}">
+                <ComboBox AutomationProperties.AutomationId="ValidationTriggerBox" SelectedItem="{Binding ValidationTrigger}">
                     <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
                     <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
                     <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
@@ -78,7 +78,7 @@
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="CanValueBeNull">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.CanBeNullBox}" IsChecked="{Binding CanValueBeNull}" />
+                <CheckBox AutomationProperties.AutomationId="CanBeNullBox" IsChecked="{Binding CanValueBeNull}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Culture">
@@ -89,27 +89,27 @@
 
 
             <HeaderedContentControl Header="AllowLeadingWhite">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowLeadingWhiteBox}" IsChecked="{Binding AllowLeadingWhite}" />
+                <CheckBox AutomationProperties.AutomationId="AllowLeadingWhiteBox" IsChecked="{Binding AllowLeadingWhite}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="AllowTrailingWhite">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowTrailingWhiteBox}" IsChecked="{Binding AllowTrailingWhite}" />
+                <CheckBox AutomationProperties.AutomationId="AllowTrailingWhiteBox" IsChecked="{Binding AllowTrailingWhite}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="AllowLeadingSign">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowLeadingSignBox}" IsChecked="{Binding AllowLeadingSign}" />
+                <CheckBox AutomationProperties.AutomationId="AllowLeadingSignBox" IsChecked="{Binding AllowLeadingSign}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="AllowDecimalPoint">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowDecimalPointBox}" IsChecked="{Binding AllowDecimalPoint}" />
+                <CheckBox AutomationProperties.AutomationId="AllowDecimalPointBox" IsChecked="{Binding AllowDecimalPoint}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="AllowThousands">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowThousandsBox}" IsChecked="{Binding AllowThousands}" />
+                <CheckBox AutomationProperties.AutomationId="AllowThousandsBox" IsChecked="{Binding AllowThousands}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="AllowExponent">
-                <CheckBox AutomationProperties.AutomationId="{x:Static demo:AutomationIds.AllowExponentBox}" IsChecked="{Binding AllowExponent}" />
+                <CheckBox AutomationProperties.AutomationId="AllowExponentBox" IsChecked="{Binding AllowExponent}" />
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Max">

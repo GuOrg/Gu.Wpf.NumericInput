@@ -52,7 +52,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AutomationIds.cs" />
     <Compile Include="BoxViews\DecimalBoxView.xaml.cs">
       <DependentUpon>DecimalBoxView.xaml</DependentUpon>
     </Compile>
