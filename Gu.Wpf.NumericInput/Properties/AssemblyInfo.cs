@@ -20,9 +20,10 @@ using System.Windows.Markup;
 [assembly: AssemblyFileVersion("0.5.1.4")]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
+
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Tests", AllInternalsVisible = true)]
-[assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.Demo", AllInternalsVisible = true)]
 [assembly: InternalsVisibleTo("Gu.Wpf.NumericInput.UITests", AllInternalsVisible = true)]
+
 [assembly: XmlnsDefinition("http://gu.se/NumericInput", "Gu.Wpf.NumericInput")]
 [assembly: XmlnsPrefix("http://gu.se/NumericInput", "numeric")]
 

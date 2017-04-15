@@ -23,21 +23,41 @@ namespace Gu.Wpf.NumericInput.UITests
         [OneTimeSetUp]
         public virtual void OneTimeSetUp()
         {
-            this.application?.WaitWhileBusy();
-            this.Window?.Dispose();
-            this.application?.Dispose();
+            for (int i = 0; i < 3; i++)
+            {
+                try
+                {
+                    this.application?.WaitWhileBusy();
+                    this.Window?.Dispose();
+                    this.application?.Dispose();
 
-            this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
-            this.application.WaitWhileBusy();
-            this.Window = this.application.GetWindow(this.WindowName);
-            this.Window.WaitWhileBusy();
+                    this.application = Application.AttachOrLaunch(Info.CreateStartInfo(this.WindowName));
+                    this.application.WaitWhileBusy();
+                    this.Window = this.application.GetWindow(this.WindowName);
+                    this.Window.WaitWhileBusy();
+                    return;
+                }
+                catch
+                {
+                    // We get this on AppVeyor.
+                    // Testing a retry strategy :)
+                }
+            }
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            this.Window?.Dispose();
-            this.application?.Dispose();
+            try
+            {
+                this.application?.WaitWhileBusy();
+                this.Window?.Dispose();
+                this.application?.Dispose();
+            }
+            catch
+            {
+                // We get this on AppVeyor.
+            }
         }
 
         public TextBox GetCachedTextBox([CallerMemberName]string name = null)
@@ -72,8 +92,16 @@ namespace Gu.Wpf.NumericInput.UITests
             this.disposed = true;
             if (disposing)
             {
-                this.Window?.Dispose();
-                this.application?.Dispose();
+                try
+                {
+                    this.application?.WaitWhileBusy();
+                    this.Window?.Dispose();
+                    this.application?.Dispose();
+                }
+                catch
+                {
+                    // We get this on AppVeyor.
+                }
             }
         }
     }
