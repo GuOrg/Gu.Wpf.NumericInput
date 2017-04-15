@@ -5,7 +5,6 @@
         xmlns:numeric="http://gu.se/NumericInput"
         xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
         Title="DefaultCultureWindow"
-        SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <Window.DataContext>
         <uiTestWindows:CultureVm />
