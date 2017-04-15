@@ -5,7 +5,6 @@
     using NUnit.Framework;
     using TestStack.White.UIItems;
     using TestStack.White.WindowsAPI;
-    using DoubleBoxView = Gu.Wpf.NumericInput.UITests.DoubleBoxView;
 
     public sealed class SpinnersTests : IDisposable
     {

@@ -7,6 +7,7 @@
         xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
         Title="CultureWindow"
         numeric:NumericBox.Culture="sv-se"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.DataContext>

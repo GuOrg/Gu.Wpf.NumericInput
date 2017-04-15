@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
         Title="CycleFocusWindow"
+        SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <Window.DataContext>
         <demo:FocusVm />

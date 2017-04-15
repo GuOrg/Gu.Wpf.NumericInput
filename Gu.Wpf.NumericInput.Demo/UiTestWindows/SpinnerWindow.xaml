@@ -3,6 +3,7 @@
         xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="SpinnerWindow"
+        SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <demo:DoubleBoxView />
 </Window>

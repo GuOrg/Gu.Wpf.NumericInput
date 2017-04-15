@@ -10,10 +10,10 @@
     <UserControl.DataContext>
         <demo:FocusVm />
     </UserControl.DataContext>
-    <UniformGrid select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
-                                                           ElementName=MoveFocusOnEnter}"
-                 select:TextBox.LoseFocusOnEnter="{Binding IsChecked,
+    <UniformGrid select:TextBox.LoseFocusOnEnter="{Binding IsChecked,
                                                            ElementName=LoseFocusOnEnter}"
+                 select:TextBox.MoveFocusOnEnter="{Binding IsChecked,
+                                                           ElementName=MoveFocusOnEnter}"
                  select:TextBox.SelectAllOnClick="{Binding IsChecked,
                                                            ElementName=SelectAllOnClick}"
                  select:TextBox.SelectAllOnDoubleClick="{Binding IsChecked,
@@ -196,7 +196,7 @@
                           Grid.Column="1"
                           VerticalAlignment="Center"
                           IsChecked="False" />
-                
+
                 <TextBlock Grid.Row="6"
                            Grid.Column="0"
                            Text="DecimalDigits" />
