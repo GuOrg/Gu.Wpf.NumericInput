@@ -56,9 +56,9 @@
     <Compile Include="DoubleBox\CultureWindowTests.cs" />
     <Compile Include="DoubleBox\CycleFocusTests.cs" />
     <Compile Include="DoubleBoxTests.Focus.cs" />
-    <Compile Include="DoubleBoxTests.Plain.cs" />
     <Compile Include="DoubleBox\DefaultCultureWindowTests.cs" />
     <Compile Include="DoubleBox\FormatTests.cs" />
+    <Compile Include="DoubleBox\MiscTests.cs" />
     <Compile Include="DoubleBox\SpinnersTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorMinMaxTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorParseTests.cs" />

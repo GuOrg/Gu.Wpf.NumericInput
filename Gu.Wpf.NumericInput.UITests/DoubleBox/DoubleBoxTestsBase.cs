@@ -44,6 +44,7 @@
         public override void OneTimeSetUp()
         {
             base.OneTimeSetUp();
+
             this.LoseFocusButton = this.Window.GetByText<Button>("lose focus");
             this.ViewModelValueBox = this.Window.Get<TextBox>("ViewModelValue");
 

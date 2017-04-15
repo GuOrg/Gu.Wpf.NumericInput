@@ -8,7 +8,7 @@
     using TestStack.White.UIItems.TabItems;
     using TestStack.White.WindowsAPI;
 
-    public partial class DoubleBoxTests
+    public class DoubleBoxTests
     {
         public class Focus
         {
