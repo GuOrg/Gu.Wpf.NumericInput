@@ -17,19 +17,17 @@
 
         protected override string WindowName { get; } = "SpinnerWindow";
 
-        private GroupBox DoubleBoxGroupBox => this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
+        private CheckBox AllowSpinnersBox => this.GetCached<CheckBox>(AutomationIds.AllowSpinnersBox);
 
-        private CheckBox AllowSpinnersBox => this.DoubleBoxGroupBox.Get<CheckBox>(AutomationIds.AllowSpinnersBox);
+        private TextBox DigitsBox => this.GetCached<TextBox>(AutomationIds.DigitsBox);
 
-        private TextBox DigitsBox => this.DoubleBoxGroupBox.Get<TextBox>(AutomationIds.DigitsBox);
+        private TextBox VmValueBox => this.GetCached<TextBox>(AutomationIds.VmValueBox);
 
-        private TextBox VmValueBox => this.DoubleBoxGroupBox.Get<TextBox>(AutomationIds.VmValueBox);
+        private TextBox IncrementBox => this.GetCached<TextBox>(AutomationIds.IncrementBox);
 
-        private TextBox IncrementBox => this.DoubleBoxGroupBox.Get<TextBox>(AutomationIds.IncrementBox);
+        private TextBox MinBox => this.GetCached<TextBox>(AutomationIds.MinBox);
 
-        private TextBox MinBox => this.DoubleBoxGroupBox.Get<TextBox>(AutomationIds.MinBox);
-
-        private TextBox MaxBox => this.DoubleBoxGroupBox.Get<TextBox>(AutomationIds.MaxBox);
+        private TextBox MaxBox => this.GetCached<TextBox>(AutomationIds.MaxBox);
 
         [SetUp]
         public void SetUp()
@@ -47,7 +45,7 @@
         {
             this.AllowSpinnersBox.Checked = true;
             this.DigitsBox.Enter("1");
-            var container = this.DoubleBoxGroupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
@@ -103,11 +101,10 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            var groupBox = this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
             this.AllowSpinnersBox.Checked = true;
             this.IncrementBox.Enter("5");
             this.MaxBox.Enter("3");
-            var container = groupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
@@ -139,11 +136,10 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMin(string containerId)
         {
-            var groupBox = this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
             this.AllowSpinnersBox.Checked = true;
             this.IncrementBox.Enter("5");
             this.MinBox.Enter("-3");
-            var container = groupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
@@ -175,10 +171,9 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            var groupBox = this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
             this.AllowSpinnersBox.Checked = true;
             this.MaxBox.Enter("3");
-            var container = groupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
@@ -221,10 +216,9 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            var groupBox = this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
             this.AllowSpinnersBox.Checked = true;
             this.MinBox.Enter("-3");
-            var container = groupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
@@ -266,9 +260,8 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            var groupBox = this.Window.Get<GroupBox>(AutomationIds.DoubleBoxGroupBox);
             this.AllowSpinnersBox.Checked = true;
-            var container = groupBox.Get<UIItemContainer>(containerId);
+            var container = this.GetCached<UIItemContainer>(containerId);
             var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             ////var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
