@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Demo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -204,6 +210,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk">
+      <Link>Gu.Wpf.NumericInput.snk</Link>
+    </None>
     <None Include="Gu.Wpf.NumericInput.Demo.ruleset" />
     <None Include="paket.references" />
     <AppDesigner Include="Properties\" />

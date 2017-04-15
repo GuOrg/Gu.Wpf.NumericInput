@@ -38,6 +38,12 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>bin\Release\Gu.Wpf.NumericInput.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xaml">
@@ -121,6 +127,7 @@
     </Compile>
     <Compile Include="Validation\ValidationRules\CanParse.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />
+    <None Include="Gu.Wpf.NumericInput.snk" />
     <None Include="paket.references" />
     <None Include="paket.template" />
     <AppDesigner Include="Properties\" />

@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -69,6 +75,9 @@
     <Compile Include="Todos.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk">
+      <Link>Gu.Wpf.NumericInput.snk</Link>
+    </None>
     <None Include="Gu.Wpf.NumericInput.Tests.ruleset" />
     <None Include="paket.references" />
   </ItemGroup>
