@@ -15,7 +15,7 @@
         public CycleFocusTests()
         {
             var windowName = "CycleFocusWindow";
-            this.application = Application.AttachOrLaunch(Info.CreateStartInfo(windowName));
+            this.application = Application.Launch(Info.CreateStartInfo(windowName));
             this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
             this.Window.WaitWhileBusy();
