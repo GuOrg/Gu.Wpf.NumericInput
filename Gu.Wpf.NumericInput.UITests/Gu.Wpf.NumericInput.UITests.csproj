@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="DoubleBox\CultureWindowTests.cs" />
     <Compile Include="DoubleBox\CycleFocusTests.cs" />
-    <Compile Include="DoubleBoxTests.Focus.cs" />
+    <Compile Include="FocusWindowTests.cs" />
     <Compile Include="DoubleBox\DefaultCultureWindowTests.cs" />
     <Compile Include="Helpers\DoubleBoxView.cs" />
     <Compile Include="DoubleBox\FormatTests.cs" />

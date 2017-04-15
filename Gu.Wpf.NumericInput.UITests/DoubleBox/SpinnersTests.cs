@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White.UIItems;
     using TestStack.White.WindowsAPI;
@@ -12,9 +11,9 @@
     {
         private static readonly IReadOnlyList<string> BoxContainerIds = new[]
         {
-            AutomationIds.VanillaGroupBox,
-            AutomationIds.DataTemplateGroupBox,
-            AutomationIds.ControlTemplate
+            "VanillaGroupBox",
+            "DataTemplateGroupBox",
+            "ControlTemplate"
         };
 
         private readonly DoubleBoxView view;
@@ -38,7 +37,7 @@
             this.view.AllowSpinnersBox.Checked = true;
             this.view.DigitsBox.Enter("1");
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -97,7 +96,7 @@
             this.view.IncrementBox.Enter("5");
             this.view.MaxBox.Enter("3");
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -132,7 +131,7 @@
             this.view.IncrementBox.Enter("5");
             this.view.MinBox.Enter("-3");
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -166,7 +165,7 @@
             this.view.AllowSpinnersBox.Checked = true;
             this.view.MaxBox.Enter("3");
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -211,7 +210,7 @@
             this.view.AllowSpinnersBox.Checked = true;
             this.view.MinBox.Enter("-3");
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -254,7 +253,7 @@
         {
             this.view.AllowSpinnersBox.Checked = true;
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
             ////var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;

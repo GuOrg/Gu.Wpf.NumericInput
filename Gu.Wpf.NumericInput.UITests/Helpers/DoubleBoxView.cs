@@ -1,7 +1,6 @@
 namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
-    using Gu.Wpf.NumericInput.Demo;
     using TestStack.White;
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.ListBoxItems;
@@ -18,12 +17,12 @@ namespace Gu.Wpf.NumericInput.UITests
             this.application.WaitWhileBusy();
             this.Window = this.application.GetWindow(windowName);
             this.Window.WaitWhileBusy();
-            this.AllowSpinnersBox = this.Window.Get<CheckBox>(AutomationIds.AllowSpinnersBox);
-            this.DigitsBox = this.Window.Get<TextBox>(AutomationIds.DigitsBox);
-            this.VmValueBox = this.Window.Get<TextBox>(AutomationIds.VmValueBox);
-            this.IncrementBox = this.Window.Get<TextBox>(AutomationIds.IncrementBox);
-            this.MinBox = this.Window.Get<TextBox>(AutomationIds.MinBox);
-            this.MaxBox = this.Window.Get<TextBox>(AutomationIds.MaxBox);
+            this.AllowSpinnersBox = this.Window.Get<CheckBox>("AllowSpinnersBox");
+            this.DigitsBox = this.Window.Get<TextBox>("DigitsBox");
+            this.VmValueBox = this.Window.Get<TextBox>("VmValueBox");
+            this.IncrementBox = this.Window.Get<TextBox>("IncrementBox");
+            this.MinBox = this.Window.Get<TextBox>("MinBox");
+            this.MaxBox = this.Window.Get<TextBox>("MaxBox");
         }
 
         public Window Window { get; }
@@ -59,11 +58,11 @@ namespace Gu.Wpf.NumericInput.UITests
             this.MaxBox.Enter(string.Empty);
             this.IncrementBox.Enter("1");
             this.VmValueBox.Enter("0");
-            this.Window.Get<ComboBox>(AutomationIds.CultureBox).Select("en-US");
-            this.Window.Get<ComboBox>(AutomationIds.ValidationTriggerBox).Select(ValidationTrigger.PropertyChanged.ToString());
-            this.Window.Get<CheckBox>(AutomationIds.AllowLeadingSignBox).Checked = true;
-            this.Window.Get<TextBox>(AutomationIds.StringFormatBox).Enter(string.Empty);
-            this.Window.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = false;
+            this.Window.Get<ComboBox>("CultureBox").Select("en-US");
+            this.Window.Get<ComboBox>("ValidationTriggerBox").Select(ValidationTrigger.PropertyChanged.ToString());
+            this.Window.Get<CheckBox>("AllowLeadingSignBox").Checked = true;
+            this.Window.Get<TextBox>("StringFormatBox").Enter(string.Empty);
+            this.Window.Get<CheckBox>("AllowThousandsBox").Checked = false;
             this.AllowSpinnersBox.Checked = false;
         }
     }

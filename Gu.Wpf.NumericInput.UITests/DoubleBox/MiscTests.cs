@@ -4,7 +4,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows;
-    using Gu.Wpf.NumericInput.Demo;
     using NUnit.Framework;
     using TestStack.White.UIItems;
     using TestStack.White.UIItems.ListBoxItems;
@@ -17,9 +16,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     {
         private static readonly IReadOnlyList<string> BoxContainerIds = new[]
         {
-            AutomationIds.VanillaGroupBox,
-            AutomationIds.DataTemplateGroupBox,
-            AutomationIds.ControlTemplate
+            "VanillaGroupBox",
+            "DataTemplateGroupBox",
+            "ControlTemplate"
         };
 
         private readonly DoubleBoxView view;
@@ -41,7 +40,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void UpdatesViewModel(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
@@ -59,7 +58,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void UpdatesFromViewModel(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             Assert.AreEqual(this.view.VmValueBox.Text, inputBox.Text);
             Assert.AreEqual("0", inputBox.Text);
             this.view.VmValueBox.Enter("1.2");
@@ -76,8 +75,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void CanBeNull(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
-            var canBeNullBox = this.view.Window.Get<CheckBox>(AutomationIds.CanBeNullBox);
+            var inputBox = container.Get<TextBox>("InputBox");
+            var canBeNullBox = this.view.Window.Get<CheckBox>("CanBeNullBox");
 
             canBeNullBox.Checked = true;
             Assert.AreEqual("0", inputBox.Text);
@@ -135,10 +134,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Culture(string containerId)
         {
-            this.view.Window.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = false;
+            this.view.Window.Get<CheckBox>("AllowThousandsBox").Checked = false;
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
-            var cultureBox = this.view.Window.Get<ComboBox>(AutomationIds.CultureBox);
+            var inputBox = container.Get<TextBox>("InputBox");
+            var cultureBox = this.view.Window.Get<ComboBox>("CultureBox");
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
             inputBox.Enter("1.2");
@@ -216,8 +215,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void ValidationTriggerLostFocus(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
-            this.view.Window.Get<ComboBox>(AutomationIds.ValidationTriggerBox).Select(ValidationTrigger.LostFocus.ToString());
+            var inputBox = container.Get<TextBox>("InputBox");
+            this.view.Window.Get<ComboBox>("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
@@ -253,8 +252,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void NumberStylesAllowLeadingSign(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
-            var signBox = this.view.Window.Get<CheckBox>(AutomationIds.AllowLeadingSignBox);
+            var inputBox = container.Get<TextBox>("InputBox");
+            var signBox = this.view.Window.Get<CheckBox>("AllowLeadingSignBox");
             inputBox.Enter("-1.2");
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
@@ -287,7 +286,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void UpdateDigitsWhenGreaterThanMax(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var digitsBox = this.view.DigitsBox;
             var maxBox = this.view.MaxBox;
             Assert.AreEqual("0", inputBox.Text);
@@ -323,7 +322,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void DecimalDigits(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var digitsBox = this.view.DigitsBox;
             Assert.AreEqual("0", inputBox.Text);
             digitsBox.Enter("4");
@@ -393,8 +392,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void StringFormat(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
-            var stringFormatBox = this.view.Window.Get<TextBox>(AutomationIds.StringFormatBox);
+            var inputBox = container.Get<TextBox>("InputBox");
+            var stringFormatBox = this.view.Window.Get<TextBox>("StringFormatBox");
 
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -409,7 +408,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual(Status.Idle, inputBox.Status());
 
-            this.view.Window.Get<CheckBox>(AutomationIds.AllowThousandsBox).Checked = true;
+            this.view.Window.Get<CheckBox>("AllowThousandsBox").Checked = true;
             stringFormatBox.Enter("N3");
             this.view.VmValueBox.Click();
             Assert.AreEqual("123456.78", inputBox.EditText());
@@ -448,7 +447,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void Max(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var maxBox = this.view.MaxBox;
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -531,7 +530,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void Min(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             var minBox = this.view.MinBox;
             Assert.AreNotEqual("1.2", inputBox.Text);
             inputBox.Enter("1.2");
@@ -566,7 +565,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void Undo(string containerId)
         {
             var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = container.Get<TextBox>("InputBox");
             Assert.AreEqual("0", inputBox.Text);
             var keyboard = this.view.Window.Keyboard;
             inputBox.Click();
@@ -582,7 +581,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void CopyTest()
         {
-            var inputBox = this.view.Window.Get<TextBox>(AutomationIds.InputBox);
+            var inputBox = this.view.Window.Get<TextBox>("InputBox");
             var attachedKeyboard = this.view.Window.Keyboard;
             inputBox.Text = "1.2";
             attachedKeyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
