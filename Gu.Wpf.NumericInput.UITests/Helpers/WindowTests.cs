@@ -27,6 +27,7 @@ namespace Gu.Wpf.NumericInput.UITests
             {
                 try
                 {
+                    this.itemCache.Clear();
                     this.application?.WaitWhileBusy();
                     this.Window?.Dispose();
                     this.application?.Dispose();
@@ -50,6 +51,7 @@ namespace Gu.Wpf.NumericInput.UITests
         {
             try
             {
+                this.itemCache.Clear();
                 this.application?.WaitWhileBusy();
                 this.Window?.Dispose();
                 this.application?.Dispose();
@@ -94,6 +96,7 @@ namespace Gu.Wpf.NumericInput.UITests
             {
                 try
                 {
+                    this.itemCache.Clear();
                     this.application?.WaitWhileBusy();
                     this.Window?.Dispose();
                     this.application?.Dispose();
