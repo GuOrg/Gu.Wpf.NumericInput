@@ -68,10 +68,8 @@
     <Compile Include="DoubleBox\ValidationHappyPathTests.cs" />
     <Compile Include="Helpers\DoubleBoxValidationView.cs" />
     <Compile Include="Helpers\Info.cs" />
-    <Compile Include="Helpers\StringExt.cs" />
     <Compile Include="Helpers\TextBoxExt.cs" />
     <Compile Include="Helpers\UiItemExt.cs" />
-    <Compile Include="Helpers\WindowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

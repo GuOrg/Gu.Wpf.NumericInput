@@ -1,13 +1,27 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
+    using System;
     using NUnit.Framework;
-
+    using TestStack.White;
     using TestStack.White.UIItems;
+    using TestStack.White.UIItems.WindowItems;
     using TestStack.White.WindowsAPI;
 
-    public class CycleFocusTests : WindowTests
+    public sealed class CycleFocusTests : IDisposable
     {
-        protected override string WindowName { get; } = "CycleFocusWindow";
+        private readonly Application application;
+        private bool disposed;
+
+        public CycleFocusTests()
+        {
+            var windowName = "CycleFocusWindow";
+            this.application = Application.AttachOrLaunch(Info.CreateStartInfo(windowName));
+            this.application.WaitWhileBusy();
+            this.Window = this.application.GetWindow(windowName);
+            this.Window.WaitWhileBusy();
+        }
+
+        private Window Window { get; }
 
         [TestCase(true)]
         [TestCase(false)]
@@ -52,6 +66,18 @@
             Assert.AreEqual(false, doubleBox1.IsFocussed);
             Assert.AreEqual(false, doubleBox2.IsFocussed);
             Assert.AreEqual(false, doubleBox3.IsFocussed);
+        }
+
+        public void Dispose()
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+
+            this.disposed = true;
+            this.application?.Dispose();
+            this.Window?.Dispose();
         }
     }
 }
