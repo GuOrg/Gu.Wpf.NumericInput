@@ -16,8 +16,8 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("0.5.1.5")]
-[assembly: AssemblyFileVersion("0.5.1.5")]
+[assembly: AssemblyVersion("0.5.2.0")]
+[assembly: AssemblyFileVersion("0.5.2.0")]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: Guid("2026010E-5005-413E-BA3F-18CF88F28B0F")]
 
