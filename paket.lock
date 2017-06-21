@@ -1,83 +1,26 @@
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 
 GROUP Analyzers
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
-    Gu.Analyzers (0.1.11.24-dev)
+    Gu.Analyzers (0.1.11.25-dev)
     JetBrains.Annotations (10.4)
-    StyleCop.Analyzers (1.0)
+    StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (0.2.7.10)
 
 GROUP Demo
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
     Gu.PropertyGrid (1.0)
     Gu.Wpf.AutoRowGrid (0.6.0.1)
 
 GROUP Test
-FRAMEWORK: >= NET45
+RESTRICTION: >= net45
 NUGET
   remote: http://www.nuget.org/api/v2
     Castle.Core (3.3)
-    Microsoft.Win32.Primitives (4.3) - framework: >= net463
-    NETStandard.Library (1.6.1) - framework: >= net463
-      Microsoft.Win32.Primitives (>= 4.3) - framework: >= net46
-      System.AppContext (>= 4.3) - framework: >= net46
-      System.Collections.Concurrent (>= 4.3)
-      System.Console (>= 4.3) - framework: >= net46
-      System.Diagnostics.Tracing (>= 4.3)
-      System.Globalization.Calendars (>= 4.3) - framework: >= net46
-      System.IO.Compression (>= 4.3)
-      System.IO.Compression.ZipFile (>= 4.3) - framework: >= net46
-      System.IO.FileSystem (>= 4.3) - framework: >= net46
-      System.IO.FileSystem.Primitives (>= 4.3) - framework: >= net46
-      System.Net.Http (>= 4.3)
-      System.Net.Sockets (>= 4.3) - framework: >= net46
-      System.Runtime.Handles (>= 4.3) - framework: >= net46
-      System.Runtime.InteropServices (>= 4.3)
-      System.Runtime.InteropServices.RuntimeInformation (>= 4.3)
-      System.Runtime.Numerics (>= 4.3)
-      System.Security.Cryptography.Algorithms (>= 4.3) - framework: >= net46
-      System.Security.Cryptography.Encoding (>= 4.3) - framework: >= net46
-      System.Security.Cryptography.Primitives (>= 4.3) - framework: >= net46
-      System.Security.Cryptography.X509Certificates (>= 4.3) - framework: >= net46
-      System.Threading.Timer (>= 4.3) - framework: >= net451
-    NUnit (3.6.1)
-      NETStandard.Library (>= 1.6) - framework: >= net463
-      System.Runtime.Loader (>= 4.0) - framework: >= net463
-    System.AppContext (4.3) - framework: >= net463
-    System.Collections.Concurrent (4.3) - framework: >= net463
-    System.Console (4.3) - framework: >= net463
-    System.Diagnostics.Tracing (4.3) - framework: >= net463
-    System.Globalization.Calendars (4.3) - framework: >= net463
-    System.IO (4.3) - framework: >= net463
-    System.IO.Compression (4.3) - framework: >= net463
-    System.IO.Compression.ZipFile (4.3) - framework: >= net463
-    System.IO.FileSystem (4.3) - framework: >= net463
-      System.IO.FileSystem.Primitives (>= 4.3) - framework: >= net46
-    System.IO.FileSystem.Primitives (4.3)
-    System.Net.Http (4.3.1) - framework: >= net463
-      System.Security.Cryptography.X509Certificates (>= 4.3) - framework: >= net46
-    System.Net.Sockets (4.3) - framework: >= net463
-    System.Runtime (4.3)
-    System.Runtime.Handles (4.3) - framework: >= net463
-    System.Runtime.InteropServices (4.3) - framework: >= net463
-      System.Runtime (>= 4.3) - framework: >= net462
-    System.Runtime.InteropServices.RuntimeInformation (4.3) - framework: >= net463
-    System.Runtime.Loader (4.3) - framework: >= net463
-    System.Runtime.Numerics (4.3) - framework: >= net463
-    System.Security.Cryptography.Algorithms (4.3)
-      System.IO (>= 4.3) - framework: >= net463
-      System.Runtime (>= 4.3) - framework: >= net463
-      System.Security.Cryptography.Encoding (>= 4.3) - framework: >= net463
-      System.Security.Cryptography.Primitives (>= 4.3) - framework: net46, net461, >= net463
-    System.Security.Cryptography.Encoding (4.3)
-    System.Security.Cryptography.Primitives (4.3)
-    System.Security.Cryptography.X509Certificates (4.3)
-      System.Security.Cryptography.Algorithms (>= 4.3) - framework: >= net46
-      System.Security.Cryptography.Encoding (>= 4.3) - framework: >= net46
-    System.Threading.Timer (4.3) - framework: >= net463
+    NUnit (3.7.1)
     TestStack.White (0.13.3)
       Castle.Core (>= 3.3)
