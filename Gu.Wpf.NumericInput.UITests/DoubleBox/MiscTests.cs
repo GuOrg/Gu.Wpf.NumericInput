@@ -586,6 +586,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Keyboard.Type("ac");
             }
 
+            Thread.Sleep(100);
             var clipboardText = System.Windows.Clipboard.GetText();
             Assert.AreEqual("1.2", clipboardText);
         }

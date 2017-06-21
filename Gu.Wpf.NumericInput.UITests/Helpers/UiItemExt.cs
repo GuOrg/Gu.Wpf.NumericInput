@@ -5,7 +5,6 @@
     using System.Windows;
     using FlaUI.Core.AutomationElements;
     using FlaUI.Core.AutomationElements.Infrastructure;
-    using FlaUI.Core.Definitions;
 
     public static class UiItemExt
     {
