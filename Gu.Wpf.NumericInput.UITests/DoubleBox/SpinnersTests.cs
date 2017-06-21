@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using FlaUI.Core.Definitions;
+    using FlaUI.Core.Input;
+    using FlaUI.Core.WindowsAPI;
     using NUnit.Framework;
-    using TestStack.White.UIItems;
-    using TestStack.White.WindowsAPI;
 
     public sealed class SpinnersTests : IDisposable
     {
@@ -33,12 +34,12 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
+            this.view.AllowSpinnersBox.State = ToggleState.On;
             this.view.DigitsBox.Enter("1");
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             inputBox.Enter("1.23");
             vmValueBox.Click();
@@ -47,10 +48,10 @@
             Assert.AreEqual("1.23", vmValueBox.Text);
             Assert.AreEqual("1.23", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
             increaseButton.Click();
             Assert.AreEqual("2.23", inputBox.EditText());
             Assert.AreEqual("2.2", inputBox.FormattedText());
@@ -63,7 +64,7 @@
             Assert.AreEqual("2.23", vmValueBox.Text);
             Assert.AreEqual("2.23", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             this.view.IncrementBox.Enter("5");
             vmValueBox.Click();
@@ -75,7 +76,7 @@
             Assert.AreEqual("7.23", vmValueBox.Text);
             Assert.AreEqual("7.23", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             decreaseButton.Click();
             vmValueBox.Click();
@@ -85,19 +86,19 @@
             Assert.AreEqual("2.23", vmValueBox.Text);
             Assert.AreEqual("2.23", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
+            this.view.AllowSpinnersBox.State = ToggleState.On;
             this.view.IncrementBox.Enter("5");
             this.view.MaxBox.Enter("3");
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             Assert.AreEqual("0", inputBox.EditText());
@@ -105,10 +106,10 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
             increaseButton.Click();
             vmValueBox.Click();
             Assert.AreEqual("3", inputBox.EditText());
@@ -117,22 +118,22 @@
             Assert.AreEqual("3", vmValueBox.Text);
             Assert.AreEqual("3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(false, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMin(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
+            this.view.AllowSpinnersBox.State = ToggleState.On;
             this.view.IncrementBox.Enter("5");
             this.view.MinBox.Enter("-3");
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             Assert.AreEqual("0", inputBox.EditText());
@@ -140,10 +141,10 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
             decreaseButton.Click();
             vmValueBox.Click();
             Assert.AreEqual("-3", inputBox.EditText());
@@ -152,21 +153,21 @@
             Assert.AreEqual("-3", vmValueBox.Text);
             Assert.AreEqual("-3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(false, decreaseButton.Enabled);
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
+            this.view.AllowSpinnersBox.State = ToggleState.On;
             this.view.MaxBox.Enter("3");
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             inputBox.Enter("5");
@@ -177,10 +178,10 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(false, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
             decreaseButton.Click();
             Assert.AreEqual("4", inputBox.EditText());
             Assert.AreEqual("4", inputBox.FormattedText());
@@ -188,10 +189,10 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            Assert.AreEqual(false, increaseButton.Enabled);
-            Assert.AreEqual(true, decreaseButton.Enabled);
+            Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
 
             decreaseButton.Click();
             Assert.AreEqual("3", inputBox.EditText());
@@ -200,18 +201,18 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
+            this.view.AllowSpinnersBox.State = ToggleState.On;
             this.view.MinBox.Enter("-3");
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             vmValueBox.Click();
             inputBox.Enter("-5");
@@ -222,9 +223,9 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(false, decreaseButton.Enabled);
+            Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
 
             increaseButton.Click();
             Assert.AreEqual("-4", inputBox.EditText());
@@ -233,9 +234,9 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
-            Assert.AreEqual(true, increaseButton.Enabled);
-            Assert.AreEqual(false, decreaseButton.Enabled);
+            Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
 
             increaseButton.Click();
             Assert.AreEqual("-3", inputBox.EditText());
@@ -244,17 +245,17 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("-3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            this.view.AllowSpinnersBox.Checked = true;
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var increaseButton = container.Get<Button>(SpinnerDecorator.IncreaseButtonName);
-            ////var decreaseButton = container.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            this.view.AllowSpinnersBox.State = ToggleState.On;
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            ////var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -265,13 +266,14 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("1", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Click();
-            var keyboard = this.view.Window.Keyboard;
-            keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
-            keyboard.Enter("z");
-            keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
+            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            {
+                Keyboard.Type("z");
+            }
+
             vmValueBox.Click();
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -279,7 +281,7 @@
             Assert.AreEqual("0", vmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         public void Dispose()

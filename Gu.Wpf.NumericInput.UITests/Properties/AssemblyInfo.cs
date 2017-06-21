@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+
 [assembly: AssemblyTitle("Gu.Wpf.NumericInput.UITests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

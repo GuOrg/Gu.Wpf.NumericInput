@@ -1,11 +1,12 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
+    using FlaUI.Core;
+    using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Input;
+    using FlaUI.Core.WindowsAPI;
+    using FlaUI.UIA3;
     using NUnit.Framework;
-    using TestStack.White;
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.WindowItems;
-    using TestStack.White.WindowsAPI;
 
     public sealed class CultureWindowTests : IDisposable
     {
@@ -20,16 +21,16 @@
         [Test]
         public void TestCultures()
         {
-            this.view.ValueTextBox.BulkText = "1.234";
-            this.view.Window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
+            this.view.ValueTextBox.Enter("1.234");
+            Keyboard.Press(VirtualKeyShort.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
             Assert.AreEqual("1.234", this.view.EnUsDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.BoundCultureDoubleBox.Text);
 
-            this.view.CultureTextBox.Text = "en-us";
-            this.view.Window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
+            this.view.CultureTextBox.Enter("en-us");
+            Keyboard.Press(VirtualKeyShort.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
@@ -51,20 +52,22 @@
         public sealed class CultureView : IDisposable
         {
             private readonly Application application;
+            private readonly UIA3Automation automation;
+
             private bool disposed;
 
             public CultureView()
             {
-                var windowName = "CultureWindow";
-                this.application = Application.Launch(Info.CreateStartInfo(windowName));
-                this.Window = this.application.GetWindow(windowName);
-                this.ValueTextBox = this.Window.Get<TextBox>(nameof(this.ValueTextBox));
-                this.SpinnerDoubleBox = this.Window.Get<TextBox>(nameof(this.SpinnerDoubleBox));
-                this.InheritingCultureDoubleBox = this.Window.Get<TextBox>(nameof(this.InheritingCultureDoubleBox));
-                this.SvSeDoubleBox = this.Window.Get<TextBox>(nameof(this.SvSeDoubleBox));
-                this.EnUsDoubleBox = this.Window.Get<TextBox>(nameof(this.EnUsDoubleBox));
-                this.BoundCultureDoubleBox = this.Window.Get<TextBox>(nameof(this.BoundCultureDoubleBox));
-                this.CultureTextBox = this.Window.Get<TextBox>(nameof(this.CultureTextBox));
+                this.application = Application.Launch(Info.CreateStartInfo("CultureWindow"));
+                this.automation = new UIA3Automation();
+                this.Window = this.application.GetMainWindow(this.automation);
+                this.ValueTextBox = this.Window.FindTextBox(nameof(this.ValueTextBox));
+                this.SpinnerDoubleBox = this.Window.FindTextBox(nameof(this.SpinnerDoubleBox));
+                this.InheritingCultureDoubleBox = this.Window.FindTextBox(nameof(this.InheritingCultureDoubleBox));
+                this.SvSeDoubleBox = this.Window.FindTextBox(nameof(this.SvSeDoubleBox));
+                this.EnUsDoubleBox = this.Window.FindTextBox(nameof(this.EnUsDoubleBox));
+                this.BoundCultureDoubleBox = this.Window.FindTextBox(nameof(this.BoundCultureDoubleBox));
+                this.CultureTextBox = this.Window.FindTextBox(nameof(this.CultureTextBox));
             }
 
             public Window Window { get; }
@@ -92,7 +95,7 @@
 
                 this.disposed = true;
                 this.application?.Dispose();
-                this.Window?.Dispose();
+                this.automation.Dispose();
             }
         }
     }

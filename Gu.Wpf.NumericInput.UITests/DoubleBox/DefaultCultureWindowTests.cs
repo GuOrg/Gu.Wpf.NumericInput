@@ -1,25 +1,29 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
+    using FlaUI.Core;
+    using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Input;
+    using FlaUI.Core.WindowsAPI;
+    using FlaUI.UIA3;
     using NUnit.Framework;
-    using TestStack.White;
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.WindowItems;
-    using TestStack.White.WindowsAPI;
 
     public sealed class DefaultCultureWindowTests : IDisposable
     {
         private readonly Application application;
+        private readonly UIA3Automation automation;
+
         private bool disposed;
 
         public DefaultCultureWindowTests()
         {
             var windowName = "DefaultCultureWindow";
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.Window = this.application.GetWindow(windowName);
-            this.ValueTextBox = this.Window.Get<TextBox>(nameof(this.ValueTextBox));
-            this.SpinnerDoubleBox = this.Window.Get<TextBox>(nameof(this.SpinnerDoubleBox));
-            this.DoubleBox = this.Window.Get<TextBox>(nameof(this.DoubleBox));
+            this.automation = new UIA3Automation();
+            this.Window = this.application.GetMainWindow(this.automation);
+            this.ValueTextBox = this.Window.FindTextBox(nameof(this.ValueTextBox));
+            this.SpinnerDoubleBox = this.Window.FindTextBox(nameof(this.SpinnerDoubleBox));
+            this.DoubleBox = this.Window.FindTextBox(nameof(this.DoubleBox));
         }
 
         private Window Window { get; }
@@ -33,8 +37,8 @@
         [Test]
         public void OnLoad()
         {
-            this.ValueTextBox.BulkText = "1.234";
-            this.Window.Keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.TAB);
+            this.ValueTextBox.Enter("1.234");
+            Keyboard.Press(VirtualKeyShort.TAB);
             Assert.AreEqual("1.234", this.SpinnerDoubleBox.Text);
             Assert.AreEqual("1.234", this.DoubleBox.Text);
         }
@@ -48,7 +52,7 @@
 
             this.disposed = true;
             this.application?.Dispose();
-            this.Window?.Dispose();
+            this.automation.Dispose();
         }
     }
 }

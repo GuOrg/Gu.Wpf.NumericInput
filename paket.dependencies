@@ -1,9 +1,7 @@
 source http://www.nuget.org/api/v2/
-framework >= net45
 
 group Analyzers
   source http://www.nuget.org/api/v2/
-  framework >= net45
   nuget StyleCop.Analyzers
   nuget WpfAnalyzers
   nuget Gu.Analyzers
@@ -11,13 +9,12 @@ group Analyzers
 
 group Test
   source http://www.nuget.org/api/v2/
-  framework >= net45
+  framework: net461
   nuget NUnit
-  nuget TestStack.White
-  nuget Castle.Core 3.3.0
+  nuget FlaUI.UIA3
 
 group Demo
   source http://www.nuget.org/api/v2/
-  framework >= net45
+  framework: net461
   nuget Gu.PropertyGrid
   nuget Gu.Wpf.AutoRowGrid

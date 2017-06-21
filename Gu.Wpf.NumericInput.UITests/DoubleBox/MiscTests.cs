@@ -3,13 +3,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using System.Windows;
+    using FlaUI.Core.Definitions;
+    using FlaUI.Core.Input;
+    using FlaUI.Core.WindowsAPI;
     using NUnit.Framework;
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.ListBoxItems;
-    using TestStack.White.Utility;
-    using TestStack.White.WindowsAPI;
-    using DoubleBoxView = Gu.Wpf.NumericInput.UITests.DoubleBoxView;
 
     [Apartment(ApartmentState.STA)]
     public sealed class MiscTests : IDisposable
@@ -39,26 +36,26 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
             inputBox.Enter("1.2");
             this.view.VmValueBox.Click();
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesFromViewModel(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual(this.view.VmValueBox.Text, inputBox.Text);
             Assert.AreEqual("0", inputBox.Text);
             this.view.VmValueBox.Enter("1.2");
@@ -68,17 +65,17 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void CanBeNull(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var canBeNullBox = this.view.Window.Get<CheckBox>("CanBeNullBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var canBeNullBox = this.view.Window.FindCheckBox("CanBeNullBox");
 
-            canBeNullBox.Checked = true;
+            canBeNullBox.State = ToggleState.On;
             Assert.AreEqual("0", inputBox.Text);
             inputBox.Enter(string.Empty);
             this.view.VmValueBox.Click();
@@ -88,7 +85,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual(string.Empty, inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("1");
             this.view.VmValueBox.Click();
@@ -98,9 +95,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.Checked = false;
+            canBeNullBox.State = ToggleState.Off;
             inputBox.Enter(string.Empty);
             this.view.VmValueBox.Click();
             Assert.AreEqual(string.Empty, inputBox.EditText());
@@ -109,16 +106,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(true, inputBox.HasValidationError());
             Assert.AreEqual("1", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.Checked = true;
+            canBeNullBox.State = ToggleState.On;
             Assert.AreEqual(string.Empty, inputBox.EditText());
             Assert.AreEqual(string.Empty, inputBox.FormattedText());
             Assert.AreEqual("1", this.view.VmValueBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual(string.Empty, inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Click();
             this.view.VmValueBox.Click();
@@ -128,16 +125,16 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual(string.Empty, inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Culture(string containerId)
         {
-            this.view.Window.Get<CheckBox>("AllowThousandsBox").Checked = false;
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var cultureBox = this.view.Window.Get<ComboBox>("CultureBox");
+            this.view.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.Off;
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var cultureBox = this.view.Window.FindComboBox("CultureBox");
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
             inputBox.Enter("1.2");
@@ -150,7 +147,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             cultureBox.Select("sv-SE");
             this.view.VmValueBox.Click();
@@ -160,7 +157,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("2.3");
             Assert.AreEqual("2.3", inputBox.EditText());
@@ -168,7 +165,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             cultureBox.Select("en-US");
             this.view.VmValueBox.Click();
@@ -178,7 +175,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Click();
             this.view.VmValueBox.Click();
@@ -188,7 +185,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("2.3", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("5.6a");
             this.view.VmValueBox.Click();
@@ -198,7 +195,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("2.3", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             cultureBox.Select("sv-SE");
             this.view.VmValueBox.Click();
@@ -208,26 +205,26 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("2.3", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void ValidationTriggerLostFocus(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            this.view.Window.Get<ComboBox>("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            this.view.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
             inputBox.Enter("1.2");
             this.view.VmValueBox.Click();
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("ggg");
             Assert.AreEqual("ggg", inputBox.EditText());
@@ -236,7 +233,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             this.view.VmValueBox.Click();
             Assert.AreEqual("ggg", inputBox.EditText());
@@ -245,15 +242,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual(true, inputBox.HasValidationError());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void NumberStylesAllowLeadingSign(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var signBox = this.view.Window.Get<CheckBox>("AllowLeadingSignBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var signBox = this.view.Window.FindCheckBox("AllowLeadingSignBox");
             inputBox.Enter("-1.2");
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
@@ -261,32 +258,32 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("-1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.Checked = false;
+            signBox.State = ToggleState.Off;
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
             Assert.AreEqual(true, inputBox.HasValidationError());
             Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("-1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.Checked = true;
+            signBox.State = ToggleState.On;
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
             Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("-1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdateDigitsWhenGreaterThanMax(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             var digitsBox = this.view.DigitsBox;
             var maxBox = this.view.MaxBox;
             Assert.AreEqual("0", inputBox.Text);
@@ -296,7 +293,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("0", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             maxBox.Enter("1");
             this.view.VmValueBox.Click();
@@ -305,7 +302,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             digitsBox.Enter("4");
             this.view.VmValueBox.Click();
@@ -315,14 +312,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecimalDigits(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             var digitsBox = this.view.DigitsBox;
             Assert.AreEqual("0", inputBox.Text);
             digitsBox.Enter("4");
@@ -333,7 +330,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("0", this.view.VmValueBox.Text);
             Assert.AreEqual("0", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             this.view.VmValueBox.Enter("1.2");
             inputBox.Click();
@@ -345,7 +342,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             digitsBox.Enter("0");
             this.view.VmValueBox.Click();
@@ -355,7 +352,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             digitsBox.Enter("-3");
             this.view.VmValueBox.Click();
@@ -365,7 +362,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("1.234567");
             this.view.VmValueBox.Click();
@@ -375,7 +372,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.234567", this.view.VmValueBox.Text);
             Assert.AreEqual("1.234567", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             digitsBox.Enter("4");
             this.view.VmValueBox.Click();
@@ -385,15 +382,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.234567", this.view.VmValueBox.Text);
             Assert.AreEqual("1.234567", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void StringFormat(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
-            var stringFormatBox = this.view.Window.Get<TextBox>("StringFormatBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var stringFormatBox = this.view.Window.FindTextBox("StringFormatBox");
 
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -406,9 +403,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("123456.78", this.view.VmValueBox.Text);
             Assert.AreEqual("123456.78", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.Window.Get<CheckBox>("AllowThousandsBox").Checked = true;
+            this.view.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.On;
             stringFormatBox.Enter("N3");
             this.view.VmValueBox.Click();
             Assert.AreEqual("123456.78", inputBox.EditText());
@@ -417,7 +414,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("123456.78", this.view.VmValueBox.Text);
             Assert.AreEqual("123456.78", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("2222.33333");
             this.view.VmValueBox.Click();
@@ -427,7 +424,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("2222.33333", this.view.VmValueBox.Text);
             Assert.AreEqual("2222.33333", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             this.view.VmValueBox.Enter("4444.5555");
             inputBox.Click();
@@ -440,14 +437,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("4444.5555", this.view.VmValueBox.Text);
             Assert.AreEqual("4444.5555", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Max(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             var maxBox = this.view.MaxBox;
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -459,7 +456,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             maxBox.Enter("-1");
             this.view.VmValueBox.Click();
@@ -469,7 +466,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Enter("2.3");
             Assert.AreEqual("2.3", inputBox.EditText());
@@ -483,7 +480,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("1.2", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             maxBox.Enter("6");
             this.view.VmValueBox.Click();
@@ -493,7 +490,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("1.2", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             inputBox.Click();
             this.view.VmValueBox.Click();
@@ -503,7 +500,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("2.3", this.view.VmValueBox.Text);
             Assert.AreEqual("2.3", inputBox.Value());
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             this.view.VmValueBox.Enter("7.8");
             inputBox.Click();
@@ -513,7 +510,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("7.8", this.view.VmValueBox.Text);
             Assert.AreEqual("7.8", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
 
             maxBox.Enter("10");
             this.view.VmValueBox.Click();
@@ -523,14 +520,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("7.8", this.view.VmValueBox.Text);
             Assert.AreEqual("7.8", inputBox.Value());
             Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual(Status.Idle, inputBox.Status());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Min(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             var minBox = this.view.MinBox;
             Assert.AreNotEqual("1.2", inputBox.Text);
             inputBox.Enter("1.2");
@@ -564,16 +561,17 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            var container = this.view.Window.Get<UIItemContainer>(containerId);
-            var inputBox = container.Get<TextBox>("InputBox");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual("0", inputBox.Text);
-            var keyboard = this.view.Window.Keyboard;
             inputBox.Click();
-            keyboard.Enter("1");
+            Keyboard.Type("1");
             Assert.AreEqual("10", inputBox.Text);
-            keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
-            keyboard.Enter("z");
-            keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
+            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            {
+                Keyboard.Type("z");
+            }
+
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", this.view.VmValueBox.Text);
         }
@@ -581,21 +579,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void CopyTest()
         {
-            var inputBox = this.view.Window.Get<TextBox>("InputBox");
-            var attachedKeyboard = this.view.Window.Keyboard;
+            var inputBox = this.view.Window.FindTextBox("InputBox");
             inputBox.Text = "1.2";
-            attachedKeyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
-            attachedKeyboard.Enter("ac");
-            attachedKeyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL);
+            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            {
+                Keyboard.Type("ac");
+            }
 
-            // check the text is the same as that on the clipboard
-            Retry.For(
-                () =>
-                {
-                    var clipboardText = Clipboard.GetText();
-                    Assert.AreEqual("1.2", clipboardText);
-                },
-                TimeSpan.FromSeconds(5));
+            var clipboardText = System.Windows.Clipboard.GetText();
+            Assert.AreEqual("1.2", clipboardText);
         }
 
         public void Dispose()

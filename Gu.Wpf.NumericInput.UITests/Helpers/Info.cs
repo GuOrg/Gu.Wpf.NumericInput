@@ -5,24 +5,15 @@
     using System.IO;
     using System.Reflection;
 
-    using Gu.Wpf.NumericInput.Demo;
-    using NUnit.Framework;
-
     public static class Info
     {
         public static ProcessStartInfo ProcessStartInfo
         {
             get
             {
-                var assembly = typeof(MainWindow).Assembly;
-                var uri = new Uri(assembly.CodeBase, UriKind.Absolute);
-                var fileName = uri.AbsolutePath;
-                var workingDirectory = Path.GetDirectoryName(fileName);
-                Assert.NotNull(workingDirectory);
                 var processStartInfo = new ProcessStartInfo
                 {
-                    WorkingDirectory = workingDirectory,
-                    FileName = fileName,
+                    FileName = GetExeFileName(),
                 };
                 return processStartInfo;
             }

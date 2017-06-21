@@ -3,29 +3,18 @@
     using System;
     using System.Linq;
     using System.Windows;
-
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.Custom;
-    using TestStack.White.UIItems.Finders;
-    using TestStack.White.UIItems.WPFUIItems;
-
-    using Button = TestStack.White.UIItems.Button;
-    using TextBox = TestStack.White.UIItems.TextBox;
+    using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.AutomationElements.Infrastructure;
+    using FlaUI.Core.Definitions;
 
     public static class UiItemExt
     {
-        public static T GetByText<T>(this UIItemContainer container, string text)
-            where T : UIItem
+        public static string ItemStatus(this AutomationElement item)
         {
-            return container.Get<T>(SearchCriteria.ByText(text));
+            return item.Properties.ItemStatus.Value;
         }
 
-        public static string ItemStatus(this IUIItem item)
-        {
-            return item.AutomationElement.Current.ItemStatus;
-        }
-
-        public static bool HasValidationError(this UIItem item)
+        public static bool HasValidationError(this AutomationElement item)
         {
             var itemStatus = item.ItemStatus();
             if (itemStatus.Contains("HasError: True"))
@@ -60,17 +49,10 @@
             return result;
         }
 
-        internal static Status Status(this TextBox textBox)
+        internal static string Status(this TextBox textBox)
         {
             var itemStatus = textBox.ItemStatus();
-            var text = itemStatus.Get(BaseBox.StatusProperty);
-
-            if (!Enum.TryParse(text, out Status result))
-            {
-                throw new ArgumentException();
-            }
-
-            return result;
+            return itemStatus.Get("Status");
         }
 
         internal static string Value(this TextBox textBox)
@@ -96,14 +78,14 @@
 
         internal static Button IncreaseButton(this TextBox textBox)
         {
-            var parent = textBox.GetParent<CustomUIItem>();
-            return parent.Get<Button>(SpinnerDecorator.IncreaseButtonName);
+            return textBox.Parent()
+                          .FindButton(SpinnerDecorator.IncreaseButtonName);
         }
 
         internal static Button DecreaseButton(this TextBox textBox)
         {
-            var parent = textBox.GetParent<CustomUIItem>();
-            return parent.Get<Button>(SpinnerDecorator.DecreaseButtonName);
+            return textBox.Parent()
+                          .FindButton(SpinnerDecorator.DecreaseButtonName);
         }
 
         private static string Get(this string text, DependencyProperty property)

@@ -1,26 +1,29 @@
 namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
-    using TestStack.White;
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.ListBoxItems;
-    using TestStack.White.UIItems.WindowItems;
+    using FlaUI.Core;
+    using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Definitions;
+    using FlaUI.UIA3;
 
     public sealed class DoubleBoxView : IDisposable
     {
         private readonly Application application;
+        private readonly UIA3Automation automation;
+
         private bool disposed;
 
         public DoubleBoxView(string windowName)
         {
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.Window = this.application.GetWindow(windowName);
-            this.AllowSpinnersBox = this.Window.Get<CheckBox>("AllowSpinnersBox");
-            this.DigitsBox = this.Window.Get<TextBox>("DigitsBox");
-            this.VmValueBox = this.Window.Get<TextBox>("VmValueBox");
-            this.IncrementBox = this.Window.Get<TextBox>("IncrementBox");
-            this.MinBox = this.Window.Get<TextBox>("MinBox");
-            this.MaxBox = this.Window.Get<TextBox>("MaxBox");
+            this.automation = new UIA3Automation();
+            this.Window = this.application.GetMainWindow(this.automation);
+            this.AllowSpinnersBox = this.Window.FindCheckBox("AllowSpinnersBox");
+            this.DigitsBox = this.Window.FindTextBox("DigitsBox");
+            this.VmValueBox = this.Window.FindTextBox("VmValueBox");
+            this.IncrementBox = this.Window.FindTextBox("IncrementBox");
+            this.MinBox = this.Window.FindTextBox("MinBox");
+            this.MaxBox = this.Window.FindTextBox("MaxBox");
         }
 
         public Window Window { get; }
@@ -46,7 +49,7 @@ namespace Gu.Wpf.NumericInput.UITests
 
             this.disposed = true;
             this.application?.Dispose();
-            this.Window?.Dispose();
+            this.automation.Dispose();
         }
 
         public void Reset()
@@ -56,12 +59,12 @@ namespace Gu.Wpf.NumericInput.UITests
             this.MaxBox.Enter(string.Empty);
             this.IncrementBox.Enter("1");
             this.VmValueBox.Enter("0");
-            this.Window.Get<ComboBox>("CultureBox").Select("en-US");
-            this.Window.Get<ComboBox>("ValidationTriggerBox").Select(ValidationTrigger.PropertyChanged.ToString());
-            this.Window.Get<CheckBox>("AllowLeadingSignBox").Checked = true;
-            this.Window.Get<TextBox>("StringFormatBox").Enter(string.Empty);
-            this.Window.Get<CheckBox>("AllowThousandsBox").Checked = false;
-            this.AllowSpinnersBox.Checked = false;
+            this.Window.FindComboBox("CultureBox").Select("en-US");
+            this.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.PropertyChanged.ToString());
+            this.Window.FindCheckBox("AllowLeadingSignBox").State = ToggleState.On;
+            this.Window.FindTextBox("StringFormatBox").Enter(string.Empty);
+            this.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.Off;
+            this.AllowSpinnersBox.State = ToggleState.Off;
         }
     }
 }

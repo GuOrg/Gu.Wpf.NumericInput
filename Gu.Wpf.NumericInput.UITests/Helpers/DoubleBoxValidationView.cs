@@ -1,49 +1,51 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
-    using TestStack.White;
-    using TestStack.White.UIItems;
-    using TestStack.White.UIItems.ListBoxItems;
-    using TestStack.White.UIItems.WindowItems;
+    using FlaUI.Core;
+    using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Definitions;
+    using FlaUI.UIA3;
 
     public sealed class DoubleBoxValidationView : IDisposable
     {
         private readonly Application application;
+        private readonly UIA3Automation automation;
+
         private bool disposed;
 
         public DoubleBoxValidationView()
         {
-            var windowName = "DoubleBoxValidationWindow";
-            this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.Window = this.application.GetWindow(windowName);
-            this.LoseFocusButton = this.Window.GetByText<Button>("lose focus");
-            this.ViewModelValueBox = this.Window.Get<TextBox>("ViewModelValue");
+            this.application = Application.Launch(Info.CreateStartInfo("DoubleBoxValidationWindow"));
+            this.automation = new UIA3Automation();
+            this.Window = this.application.GetMainWindow(this.automation);
+            this.LoseFocusButton = this.Window.FindButton("lose focus");
+            this.ViewModelValueBox = this.Window.FindTextBox("ViewModelValue");
 
-            this.StringFormatBox = this.Window.Get<TextBox>("StringFormat");
-            this.CultureBox = this.Window.Get<ComboBox>("Culture");
+            this.StringFormatBox = this.Window.FindTextBox("StringFormat");
+            this.CultureBox = this.Window.FindComboBox("Culture");
 
-            this.CanValueBeNullBox = this.Window.Get<CheckBox>("CanValueBeNull");
-            this.AllowLeadingWhiteBox = this.Window.Get<CheckBox>("AllowLeadingWhite");
-            this.AllowTrailingWhiteBox = this.Window.Get<CheckBox>("AllowTrailingWhite");
-            this.AllowLeadingSignBox = this.Window.Get<CheckBox>("AllowLeadingSign");
-            this.AllowDecimalPointBox = this.Window.Get<CheckBox>("AllowDecimalPoint");
-            this.AllowThousandsBox = this.Window.Get<CheckBox>("AllowThousands");
-            this.AllowExponentBox = this.Window.Get<CheckBox>("AllowExponent");
+            this.CanValueBeNullBox = this.Window.FindCheckBox("CanValueBeNull");
+            this.AllowLeadingWhiteBox = this.Window.FindCheckBox("AllowLeadingWhite");
+            this.AllowTrailingWhiteBox = this.Window.FindCheckBox("AllowTrailingWhite");
+            this.AllowLeadingSignBox = this.Window.FindCheckBox("AllowLeadingSign");
+            this.AllowDecimalPointBox = this.Window.FindCheckBox("AllowDecimalPoint");
+            this.AllowThousandsBox = this.Window.FindCheckBox("AllowThousands");
+            this.AllowExponentBox = this.Window.FindCheckBox("AllowExponent");
 
-            this.MinBox = this.Window.Get<TextBox>("Min");
-            this.MaxBox = this.Window.Get<TextBox>("Max");
-            this.RegexPatternBox = this.Window.Get<TextBox>("RegexPattern");
+            this.MinBox = this.Window.FindTextBox("Min");
+            this.MaxBox = this.Window.FindTextBox("Max");
+            this.RegexPatternBox = this.Window.FindTextBox("RegexPattern");
             this.LostFocusValidateOnLostFocusBoxes = new TextBoxAndErrorBox(
-                this.Window.Get<TextBox>("LostFocusValidateOnLostFocusBox"),
-                this.Window.Get<Label>("LostFocusValidateOnLostFocusBoxError"));
+                this.Window.FindTextBox("LostFocusValidateOnLostFocusBox"),
+                this.Window.FindLabel("LostFocusValidateOnLostFocusBoxError"));
 
             this.LostFocusValidateOnPropertyChangedBoxes = new TextBoxAndErrorBox(
-                this.Window.Get<TextBox>("LostFocusValidateOnPropertyChangedBox"),
-                this.Window.Get<Label>("LostFocusValidateOnPropertyChangedBoxError"));
+                this.Window.FindTextBox("LostFocusValidateOnPropertyChangedBox"),
+                this.Window.FindLabel("LostFocusValidateOnPropertyChangedBoxError"));
 
             this.PropertyChangedValidateOnPropertyChangedBoxes = new TextBoxAndErrorBox(
-                this.Window.Get<TextBox>("PropertyChangedValidateOnPropertyChangedBox"),
-                this.Window.Get<Label>("PropertyChangedValidateOnPropertyChangedBoxError"));
+                this.Window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox"),
+                this.Window.FindLabel("PropertyChangedValidateOnPropertyChangedBoxError"));
         }
 
         public Window Window { get; }
@@ -86,14 +88,14 @@
         {
             this.ViewModelValueBox.Text = "0";
             this.CultureBox.Select("en-US");
-            this.CanValueBeNullBox.Checked = false;
+            this.CanValueBeNullBox.State = ToggleState.Off;
 
-            this.AllowLeadingWhiteBox.Checked = true;
-            this.AllowTrailingWhiteBox.Checked = true;
-            this.AllowLeadingSignBox.Checked = true;
-            this.AllowDecimalPointBox.Checked = true;
-            this.AllowThousandsBox.Checked = false;
-            this.AllowExponentBox.Checked = true;
+            this.AllowLeadingWhiteBox.State = ToggleState.On;
+            this.AllowTrailingWhiteBox.State = ToggleState.On;
+            this.AllowLeadingSignBox.State = ToggleState.On;
+            this.AllowDecimalPointBox.State = ToggleState.On;
+            this.AllowThousandsBox.State = ToggleState.Off;
+            this.AllowExponentBox.State = ToggleState.On;
 
             this.MinBox.Text = string.Empty;
             this.MaxBox.Text = string.Empty;
@@ -110,7 +112,7 @@
 
             this.disposed = true;
             this.application?.Dispose();
-            this.Window?.Dispose();
+            this.automation.Dispose();
         }
 
         public class TextBoxAndErrorBox

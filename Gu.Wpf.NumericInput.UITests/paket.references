@@ -6,7 +6,7 @@ group Analyzers
 
 group Test
   NUnit
-  TestStack.White
+  FlaUI.UIA3
 
 group Demo
   Gu.PropertyGrid

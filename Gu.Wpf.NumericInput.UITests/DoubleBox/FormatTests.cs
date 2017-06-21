@@ -42,7 +42,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.view.StringFormatBox.Text = testCase.StringFormat;
             this.view.CultureBox.Select(testCase.Culture.Name);
 
-            doubleBox.Text = testCase.Text;
+            doubleBox.Enter(testCase.Text);
             this.view.LoseFocusButton.Click();
 
             Assert.AreEqual(false, doubleBox.HasValidationError());
