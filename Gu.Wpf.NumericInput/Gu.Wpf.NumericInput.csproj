@@ -62,11 +62,13 @@
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.DependencyProperties.cs" />
     <Compile Include="Boxes\BaseBoxes\NumericBox{T}.Events.cs" />
     <Compile Include="Boxes\BaseBoxes\Status.cs" />
+    <Compile Include="Boxes\SpinUpdateMode.cs" />
     <Compile Include="Boxes\TextSource.cs" />
     <Compile Include="Boxes\ValidationTrigger.cs" />
     <Compile Include="Converters\ErrorContentToStringConverter.cs" />
     <Compile Include="Converters\FormattedTextBlockMarginConverter.cs" />
     <Compile Include="Internals\BindingHelper.cs" />
+    <Compile Include="Internals\BindingModeExt.cs" />
     <Compile Include="Internals\BooleanBoxes.cs" />
     <Compile Include="Converters\DecimalDigitsToStringFormatConverter.cs" />
     <Compile Include="Internals\FormatString.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Boxes\FloatBox.cs" />
     <Compile Include="Boxes\IntBox.cs" />
     <Compile Include="Internals\SingleChildEnumerator.cs" />
+    <Compile Include="Internals\UpdateSourceTriggerExt.cs" />
     <Compile Include="Internals\WeakRoutedEventManager.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -174,7 +174,13 @@ If the value is 9.5 and `Increment="1"`and `Max="10"` one click on increment wil
 ## 5.2. AllowSpinners
 Controls if spinners are visible assuming the control is wrapped in a `SpinnerDecorator`
 
-## 5.3. IncrementCommand and DecrementCommand
+## 5.3. SpinUpdateMode
+Controls how the `IncreaseCommand` and the `DecreaseCommand`behaves.
+The default is `AsBinding` meaning the value updates using the `UpdateSourceTrigger` specified in the binding. Default is lostfocus.
+If set to `PropertyChanged` the binding source will be updated at each click even if the binding has `UpdateSourceTrigger = LostFocus`
+This property inherits so it can be set for example on the `Window` ex: `numericInput:NumericBox.SpinUpdateMode = "PropertyChanged"`
+
+## 5.4. IncrementCommand and DecrementCommand
 The boxes exposes two command for incrementing and decrementing the current value with `Increment` clicking changes the text so it is undoable.
 
 

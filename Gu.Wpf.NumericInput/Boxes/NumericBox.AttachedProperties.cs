@@ -56,6 +56,12 @@
             typeof(NumericBox),
             new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits));
 
+        public static readonly DependencyProperty SpinUpdateModeProperty = DependencyProperty.RegisterAttached(
+            "SpinUpdateMode",
+            typeof(SpinUpdateMode),
+            typeof(NumericBox),
+            new FrameworkPropertyMetadata(SpinUpdateMode.AsBinding, FrameworkPropertyMetadataOptions.Inherits));
+
         internal static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
             "Text",
             typeof(string),
@@ -91,8 +97,34 @@
 
         public static int? GetDecimalDigits(this UIElement element) => (int?)element.GetValue(DecimalDigitsProperty);
 
+        /// <summary>
+        /// Gets a value indicating whether spinners should be visible.
+        /// </summary>
+        public static bool GetAllowSpinners(this UIElement element) => (bool)element.GetValue(AllowSpinnersProperty);
+
+        /// <summary>
+        /// Sets a value indicating whether spinners should be visible.
+        /// </summary>
         public static void SetAllowSpinners(this UIElement element, bool value) => element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
 
-        public static bool GetAllowSpinners(this UIElement element) => (bool)element.GetValue(AllowSpinnersProperty);
+        /// <summary>
+        /// Get a value that specifies how the IncreaseCommand and DecreaseCommand behaves.
+        /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// </summary>
+        public static SpinUpdateMode GetSpinUpdateMode(DependencyObject element)
+        {
+            return (SpinUpdateMode)element.GetValue(SpinUpdateModeProperty);
+        }
+
+        /// <summary>
+        /// Set a value that specifies how the IncreaseCommand and DecreaseCommand behaves.
+        /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// </summary>
+        public static void SetSpinUpdateMode(DependencyObject element, SpinUpdateMode value)
+        {
+            element.SetValue(SpinUpdateModeProperty, value);
+        }
     }
 }

@@ -159,6 +159,23 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.IncreaseCommand.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
+            Assert.AreEqual(this.Box.Parse("0"), this.Vm.Value);
+        }
+
+        [TestCase("-100", "-99", 0)]
+        [TestCase("-10", "-9", -9)]
+        [TestCase("0", "1", 1)]
+        [TestCase("9", "10", 10)]
+        [TestCase("10", "10", 10)]
+        public void IncreaseCommand_Execute_SpinUpdateMode_PropertyChanged(string text, string expectedText, T expected)
+        {
+            this.Vm.Value = this.Box.Parse("0");
+            this.Box.Text = text;
+            this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
+            this.Box.IncreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Box.Text);
+            Assert.AreEqual(expected, this.Box.Value);
+            Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
         }
 
         [TestCase("9", true)]
@@ -251,6 +268,22 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.DecreaseCommand.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
+        }
+
+        [TestCase("100", "99", 0)]
+        [TestCase("10", "9", 9)]
+        [TestCase("0", "-1", -1)]
+        [TestCase("-9", "-10", -10)]
+        [TestCase("-10", "-10", -10)]
+        public void DecreaseCommand_Execute_SpinUpdateMode_PropertyChanged(string text, string expectedText, T expected)
+        {
+            this.Vm.Value = this.Box.Parse("0");
+            this.Box.Text = text;
+            this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
+            this.Box.DecreaseCommand.Execute(null);
+            Assert.AreEqual(expectedText, this.Box.Text);
+            Assert.AreEqual(expected, this.Box.Value);
+            Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
         }
 
         [Test]

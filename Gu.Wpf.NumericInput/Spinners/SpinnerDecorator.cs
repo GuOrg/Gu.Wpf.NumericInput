@@ -20,6 +20,12 @@
         public const string DecreaseButtonName = "PART_DecreaseButton";
         public const string IncreaseButtonName = "PART_IncreaseButton";
 
+        public static readonly DependencyProperty SpinUpdateModeProperty = NumericBox.SpinUpdateModeProperty.AddOwner(
+            typeof(SpinnerDecorator),
+            new FrameworkPropertyMetadata(
+                SpinUpdateMode.AsBinding,
+                FrameworkPropertyMetadataOptions.Inherits));
+
         public static readonly DependencyProperty ChildProperty = DependencyProperty.Register(
             "Child",
             typeof(ISpinnerBox),
@@ -29,6 +35,19 @@
         static SpinnerDecorator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerDecorator), new FrameworkPropertyMetadata(typeof(SpinnerDecorator)));
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating how the IncreaseCommand and DecreaseCommand behaves.
+        /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// </summary>
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public SpinUpdateMode SpinUpdateMode
+        {
+            get => (SpinUpdateMode)this.GetValue(SpinUpdateModeProperty);
+            set => this.SetValue(SpinUpdateModeProperty, value);
         }
 
         /// <summary>

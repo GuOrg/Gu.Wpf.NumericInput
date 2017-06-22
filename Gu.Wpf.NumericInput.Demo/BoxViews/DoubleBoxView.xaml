@@ -22,15 +22,12 @@
                                    IsReadOnly="{Binding IsReadOnly}"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
-                                   NumberStyles="{Binding NumberStyles,
-                                                          Mode=OneWay,
-                                                          UpdateSourceTrigger=PropertyChanged}"
+                                   NumberStyles="{Binding NumberStyles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    RegexPattern="{Binding RegexPattern}"
-                                   StringFormat="{Binding StringFormat,
-                                                          Mode=TwoWay}"
+                                   SpinUpdateMode="{Binding SpinUpdateMode}"
+                                   StringFormat="{Binding StringFormat, Mode=TwoWay}"
                                    ValidationTrigger="{Binding ValidationTrigger}"
-                                   Value="{Binding Value,
-                                                   ValidatesOnNotifyDataErrors=True}" />
+                                   Value="{Binding Value, ValidatesOnNotifyDataErrors=True}" />
             </numeric:SpinnerDecorator>
         </DataTemplate>
     </UserControl.Resources>
@@ -56,15 +53,12 @@
                                    IsReadOnly="{Binding IsReadOnly}"
                                    MaxValue="{Binding Max}"
                                    MinValue="{Binding Min}"
-                                   NumberStyles="{Binding NumberStyles,
-                                                          Mode=OneWay,
-                                                          UpdateSourceTrigger=PropertyChanged}"
+                                   NumberStyles="{Binding NumberStyles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    RegexPattern="{Binding RegexPattern}"
-                                   StringFormat="{Binding StringFormat,
-                                                          Mode=TwoWay}"
+                                   SpinUpdateMode="{Binding SpinUpdateMode}"
+                                   StringFormat="{Binding StringFormat, Mode=TwoWay}"
                                    ValidationTrigger="{Binding ValidationTrigger}"
-                                   Value="{Binding Value,
-                                                   ValidatesOnNotifyDataErrors=True}" />
+                                   Value="{Binding Value, ValidatesOnNotifyDataErrors=True}" />
             </numeric:SpinnerDecorator>
         </GroupBox>
 
@@ -94,15 +88,12 @@
                                                IsReadOnly="{Binding IsReadOnly}"
                                                MaxValue="{Binding Max}"
                                                MinValue="{Binding Min}"
-                                               NumberStyles="{Binding NumberStyles,
-                                                                      Mode=OneWay,
-                                                                      UpdateSourceTrigger=PropertyChanged}"
+                                               NumberStyles="{Binding NumberStyles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                RegexPattern="{Binding RegexPattern}"
-                                               StringFormat="{Binding StringFormat,
-                                                                      Mode=TwoWay}"
+                                               SpinUpdateMode="{Binding SpinUpdateMode}"
+                                               StringFormat="{Binding StringFormat, Mode=TwoWay}"
                                                ValidationTrigger="{Binding ValidationTrigger}"
-                                               Value="{Binding Value,
-                                                               ValidatesOnNotifyDataErrors=True}" />
+                                               Value="{Binding Value, ValidatesOnNotifyDataErrors=True}" />
                         </numeric:SpinnerDecorator>
                     </GroupBox>
                 </ControlTemplate>
@@ -191,6 +182,13 @@
 
             <HeaderedContentControl Header="AllowSpinners">
                 <CheckBox AutomationProperties.AutomationId="AllowSpinnersBox" IsChecked="{Binding AllowSpinners}" />
+            </HeaderedContentControl>
+
+            <HeaderedContentControl Header="SpinUpdateMode">
+                <ComboBox AutomationProperties.AutomationId="SpinUpdateMode" SelectedItem="{Binding SpinUpdateMode}">
+                    <numeric:SpinUpdateMode>AsBinding</numeric:SpinUpdateMode>
+                    <numeric:SpinUpdateMode>PropertyChanged</numeric:SpinUpdateMode>
+                </ComboBox>
             </HeaderedContentControl>
 
             <HeaderedContentControl Header="Increment">

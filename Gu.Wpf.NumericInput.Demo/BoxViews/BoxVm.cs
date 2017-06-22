@@ -7,7 +7,6 @@ namespace Gu.Wpf.NumericInput.Demo
     using System.Globalization;
     using System.Linq;
     using System.Runtime.CompilerServices;
-    using JetBrains.Annotations;
 
     public abstract class BoxVm<TBox, TValue> : INotifyDataErrorInfo, INotifyPropertyChanged
         where TBox : NumericBox<TValue>
@@ -20,6 +19,7 @@ namespace Gu.Wpf.NumericInput.Demo
         private NumberStyles numberStyles;
         private int? decimalDigits;
         private bool allowSpinners;
+        private SpinUpdateMode spinUpdateMode;
         private bool isReadOnly;
         private string regexPattern;
         private TValue increment;
@@ -36,6 +36,7 @@ namespace Gu.Wpf.NumericInput.Demo
             this.numberStyles = DefaultValue(x => x.NumberStyles);
             this.decimalDigits = DefaultValue(x => (x as DecimalDigitsBox<TValue>)?.DecimalDigits);
             this.allowSpinners = DefaultValue(x => x.AllowSpinners);
+            this.spinUpdateMode = DefaultValue(x => x.SpinUpdateMode);
             this.isReadOnly = DefaultValue(x => x.IsReadOnly);
             this.increment = DefaultValue(x => x.Increment);
             this.regexPattern = DefaultValue(x => x.RegexPattern);
@@ -316,6 +317,22 @@ namespace Gu.Wpf.NumericInput.Demo
             }
         }
 
+        public SpinUpdateMode SpinUpdateMode
+        {
+            get => this.spinUpdateMode;
+
+            set
+            {
+                if (value == this.spinUpdateMode)
+                {
+                    return;
+                }
+
+                this.spinUpdateMode = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         public bool IsReadOnly
         {
             get => this.isReadOnly;
@@ -369,7 +386,6 @@ namespace Gu.Wpf.NumericInput.Demo
                 : Enumerable.Empty<string>();
         }
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
