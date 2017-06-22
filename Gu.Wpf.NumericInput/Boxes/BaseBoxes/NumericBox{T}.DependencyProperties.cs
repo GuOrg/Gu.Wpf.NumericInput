@@ -55,6 +55,12 @@ namespace Gu.Wpf.NumericInput
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnAllowSpinnersChanged));
 
+        public static readonly DependencyProperty SpinUpdateModeProperty = NumericBox.SpinUpdateModeProperty.AddOwner(
+            typeof(NumericBox<T>),
+            new FrameworkPropertyMetadata(
+                SpinUpdateMode.AsBinding,
+                FrameworkPropertyMetadataOptions.Inherits));
+
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
             "IncreaseCommand",
             typeof(ICommand),
@@ -140,12 +146,28 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(MaxValueProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether spinners should be visible.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool AllowSpinners
         {
             get => (bool)this.GetValue(AllowSpinnersProperty);
             set => this.SetValue(AllowSpinnersProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating how the IncreaseCommand and DecreaseCommand behaves.
+        /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// </summary>
+        [Category(nameof(NumericBox))]
+        [Browsable(true)]
+        public SpinUpdateMode SpinUpdateMode
+        {
+            get => (SpinUpdateMode)this.GetValue(SpinUpdateModeProperty);
+            set => this.SetValue(SpinUpdateModeProperty, value);
         }
 
         [Category(nameof(NumericBox))]

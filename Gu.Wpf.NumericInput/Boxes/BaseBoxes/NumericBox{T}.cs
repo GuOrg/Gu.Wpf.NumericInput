@@ -7,6 +7,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
+    using Gu.Wpf.NumericInput.Internals;
 
     /// <summary>Baseclass with common functionality for numeric textboxes.</summary>
     /// <typeparam name="T">The type of the numeric value.</typeparam>
@@ -298,6 +299,18 @@
             Keyboard.Focus(this);
             this.SetTextAndCreateUndoAction(value.ToString(this.Culture));
             this.UpdateFormattedText(value);
+            if (this.SpinUpdateMode == SpinUpdateMode.PropertyChanged)
+            {
+                var expression = BindingOperations.GetBindingExpression(this, ValueProperty);
+                var binding = expression?.ParentBinding;
+                if (binding != null &&
+                    binding.Mode.IsEither(BindingMode.TwoWay, BindingMode.Default) &&
+                    binding.UpdateSourceTrigger.IsEither(UpdateSourceTrigger.Default, UpdateSourceTrigger.LostFocus))
+                {
+                    this.UpdateValidation();
+                    expression.UpdateSource();
+                }
+            }
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)

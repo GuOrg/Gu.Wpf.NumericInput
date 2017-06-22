@@ -7,9 +7,9 @@
     internal static class DependencyPropertyExt
     {
         internal static void OverrideMetadataWithUpdateSourceTrigger(
-    this DependencyProperty property,
-    Type forType,
-    UpdateSourceTrigger updateSourceTrigger)
+            this DependencyProperty property,
+            Type forType,
+            UpdateSourceTrigger updateSourceTrigger)
         {
             OverrideMetadataWithUpdateSourceTrigger(property, property.OwnerType, forType, updateSourceTrigger);
         }
