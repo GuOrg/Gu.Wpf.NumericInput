@@ -68,18 +68,28 @@
             typeof(NumericBox),
             new PropertyMetadata(default(string)));
 
-        public static void SetCulture(this UIElement element, IFormatProvider value) => element.SetValue(CultureProperty, value);
-
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         [TypeConverter(typeof(CultureInfoConverter))]
         public static IFormatProvider GetCulture(this UIElement element) => (IFormatProvider)element.GetValue(CultureProperty);
 
-        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
+        public static void SetCulture(this UIElement element, IFormatProvider value) => element.SetValue(CultureProperty, value);
 
+        /// <summary>
+        /// Gets a value indicating when validation is performed, the default is LostFocus to be consistent with vanilla WPF TextBox
+        /// Setting ValidationTrigger="PropertyChanged" validates as you type even if the binding has UpdateSourceTrigger=LostFocus.
+        /// Inherits so can be set on for example a Window.
+        /// </summary>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static ValidationTrigger GetValidationTrigger(this UIElement element) => (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
+
+        /// <summary>
+        /// Gets a value indicating when validation is performed, the default is LostFocus to be consistent with vanilla WPF TextBox
+        /// Setting ValidationTrigger="PropertyChanged" validates as you type even if the binding has UpdateSourceTrigger=LostFocus.
+        /// Inherits so can be set on for example a Window.
+        /// </summary>
+        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
 
         public static void SetCanValueBeNull(this UIElement element, bool value) => element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
 

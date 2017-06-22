@@ -118,6 +118,11 @@
             set => this.SetValue(TextValueConverterProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating when validation is performed, the default is LostFocus to be consistent with vanilla WPF TextBox
+        /// Setting ValidationTrigger="PropertyChanged" validates as you type even if the binding has UpdateSourceTrigger=LostFocus.
+        /// Inherits so can be set on for example a Window.
+        /// </summary>
         public ValidationTrigger ValidationTrigger
         {
             get => (ValidationTrigger)this.GetValue(ValidationTriggerProperty);

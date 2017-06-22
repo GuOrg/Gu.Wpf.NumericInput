@@ -68,14 +68,15 @@ Bind the `Value`property of the boxes like this:
     <numeric:DoubleBox Value="{Binding Value,
                                        ValidatesOnNotifyDataErrors=True}" 
                        CanValueBeNull="{Binding CanValueBeNull}"
-					   ValidationTrigger="PropertyChanged"
+                       ValidationTrigger="PropertyChanged"
                        MaxValue="10"
                        MinValue="-10"
                        NumberStyles="AllowDecimalPoint,AllowLeadingSign"
                        RegexPattern="\1\d+(\.2\d+)"
                        StringFormat="N2"
-					   AllowSpinners="True"
-					   Increment="{Binding Increment}"/>
+                       AllowSpinners="True"
+                       SpinUpdateMode="PropertyChanged"
+                       Increment="{Binding Increment}"/>
 </numeric:SpinnerDecorator>
 ```
 
@@ -95,7 +96,7 @@ Bind the `Value`property of the boxes like this:
 
 ## 3.1. ValidationTrigger
 Control when validation is performed, the default is `LostFocus` to be consistent with vanilla WPF `TextBox`
-Setting `ValidationTrigger="PropertyChanged"` validates as you type even if the binding has `UpdateSourceTrigger=LostFocus.`
+Setting `ValidationTrigger="PropertyChanged"` validates as you type even if the binding has `UpdateSourceTrigger=LostFocus`.
 Available as inheriting attached property: `NumericBox.ValidationTrigger`
 
 ## 3.2. CanValueBeNull
@@ -198,11 +199,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.Culture="sv-se">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.2. NumericBox.ValidationTrigger
@@ -216,11 +217,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.ValidationTrigger="PropertyChanged">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.3. NumericBox.CanValueBeNull
@@ -234,11 +235,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.CanValueBeNull="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.4. NumericBox.NumberStyles
@@ -252,11 +253,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.NumberStyles="AllowDecimalPoint, AllowLeadingSign">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.5. NumericBox.StringFormat
@@ -270,11 +271,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.StringFormat="F2">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.6. NumericBox.DecimalDigits
@@ -288,11 +289,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.DecimalDigits="-2">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.1.7. NumericBox.AllowSpinners
@@ -306,11 +307,11 @@ Sample:
              ...
              xmlns:numeric="http://gu.se/NumericInput">
     <Grid numeric:NumericBox.AllowSpinners="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <numeric:DoubleBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <numeric:DoubleBox .../>
+        ...
+    </Grid>
 ```
 
 ## 5.2. Gu.Wpf.NumericInput.Select.TextBox
@@ -325,11 +326,11 @@ Sample:
              ...
              xmlns:select="http://gu.se/Select">
     <Grid select:TextBox.SelectAllOnGotKeyboardFocus="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <TextBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <TextBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.2.2. TextBox.SelectAllOnClick
@@ -343,11 +344,11 @@ Sample:
              ...
              xmlns:select="http://gu.se/Select">
     <Grid select:TextBox.SelectAllOnClick="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <TextBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <TextBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.2.3. TextBox.SelectAllOnDoubleClick
@@ -362,11 +363,11 @@ Sample:
              ...
              xmlns:select="http://gu.se/Select">
     <Grid select:TextBox.SelectAllOnDoubleClick="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <TextBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <TextBox .../>
+        ...
+    </Grid>
 ```
 
 ### 5.2.4. TextBox.MoveFocusOnEnter
@@ -381,12 +382,12 @@ Sample:
              ...
              xmlns:select="http://gu.se/Select">
     <Grid select:TextBox.MoveFocusOnEnter="True"
-	      KeyboardNavigation.TabNavigation="Cycle">
-		...
-	    <numeric:DoubleBox .../>
-	    <TextBox .../>
-	    ...
-	</Grid>
+          KeyboardNavigation.TabNavigation="Cycle">
+        ...
+        <numeric:DoubleBox .../>
+        <TextBox .../>
+        ...
+    </Grid>
 ```
 
 ## 5.3 Gu.Wpf.NumericInput.Touch.TextBox
@@ -401,11 +402,11 @@ Sample:
              ...
              xmlns:touch="http://gu.se/Touch">
     <Grid touch:TextBox.ShowTouchKeyboardOnTouchEnter="True">
-		...
-	    <numeric:DoubleBox .../>
-	    <TextBox .../>
-	    ...
-	</Grid>
+        ...
+        <numeric:DoubleBox .../>
+        <TextBox .../>
+        ...
+    </Grid>
 ```
 
 # 6. Style and Template keys
