@@ -59,6 +59,7 @@ namespace Gu.Wpf.NumericInput.UITests
             this.MaxBox.Enter(string.Empty);
             this.IncrementBox.Enter("1");
             this.VmValueBox.Enter("0");
+            this.Window.FindComboBox("SpinUpdateMode").Select("AsBinding");
             this.Window.FindComboBox("CultureBox").Select("en-US");
             this.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.PropertyChanged.ToString());
             this.Window.FindCheckBox("AllowLeadingSignBox").State = ToggleState.On;
