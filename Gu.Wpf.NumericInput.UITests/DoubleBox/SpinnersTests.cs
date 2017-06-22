@@ -90,6 +90,64 @@
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
+        public void UpdatesViewModelSpinUpdateModePropertyChanged(string containerId)
+        {
+            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.DigitsBox.Enter("1");
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            this.view.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
+            inputBox.Click();
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
+            var vmValueBox = this.view.VmValueBox;
+            inputBox.Enter("1.23");
+            vmValueBox.Click();
+            Assert.AreEqual("1.23", inputBox.EditText());
+            Assert.AreEqual("1.2", inputBox.FormattedText());
+            Assert.AreEqual("1.23", vmValueBox.Text);
+            Assert.AreEqual("1.23", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
+            Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
+            Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+            increaseButton.Click();
+            Assert.AreEqual("2.23", inputBox.EditText());
+            Assert.AreEqual("2.2", inputBox.FormattedText());
+            Assert.AreEqual("2.23", vmValueBox.Text);
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            vmValueBox.Click();
+
+            Assert.AreEqual("2.23", inputBox.EditText());
+            Assert.AreEqual("2.2", inputBox.FormattedText());
+            Assert.AreEqual("2.23", vmValueBox.Text);
+            Assert.AreEqual("2.23", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
+            this.view.IncrementBox.Enter("5");
+            vmValueBox.Click();
+            increaseButton.Click();
+            Assert.AreEqual("7.23", inputBox.EditText());
+            Assert.AreEqual("7.2", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("7.23", vmValueBox.Text);
+            Assert.AreEqual("7.23", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
+            decreaseButton.Click();
+            Assert.AreEqual("2.23", inputBox.EditText());
+            Assert.AreEqual("2.2", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("2.23", vmValueBox.Text);
+            Assert.AreEqual("2.23", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+        }
+
+        [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
             this.view.AllowSpinnersBox.State = ToggleState.On;
@@ -255,7 +313,6 @@
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-            ////var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
             Assert.AreEqual("0", inputBox.EditText());
             Assert.AreEqual("0", inputBox.FormattedText());
@@ -268,7 +325,42 @@
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
+            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            {
+                Keyboard.Type("z");
+            }
+
+            vmValueBox.Click();
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+        }
+
+        [TestCaseSource(nameof(BoxContainerIds))]
+        public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
+        {
+            this.view.AllowSpinnersBox.State = ToggleState.On;
+            var container = this.view.Window.FindByNameOrId(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            this.view.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
             inputBox.Click();
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var vmValueBox = this.view.VmValueBox;
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            increaseButton.Click();
+            Assert.AreEqual("1", inputBox.EditText());
+            Assert.AreEqual("1", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("1", vmValueBox.Text);
+            Assert.AreEqual("1", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
             using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
             {
                 Keyboard.Type("z");
