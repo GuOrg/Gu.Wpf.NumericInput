@@ -141,10 +141,21 @@ Available as inheriting attached property: `NumericBox.Culture`
 ## 4.1. NumberStyles
 The `NumberStyles` used when parsing and formatting the value.
 
+```xaml
+<numeric:DoubleBox NumberStyles="AllowDecimalPoint, AllowLeadingSign"
+                   Value="{Binding Value}" />
+```
+
 ## 4.2 StringFormat
 The string format used in the formatted view.
 
 Available as inheriting attached property: `NumericBox.StringFormat`
+
+```xaml
+<numeric:DoubleBox Culture="sv-se"
+                   StringFormat="#,0.00"
+                   Value="{Binding Value}" />
+```
 
 ## 4.3 DecimalDigits
 `DecimalDigits="3"` sets stringformat to `F3` which means the value will always have three digits.
