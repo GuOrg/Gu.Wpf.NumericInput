@@ -7,7 +7,6 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
-    using Gu.Wpf.NumericInput.Internals;
 
     /// <summary>Baseclass with common functionality for numeric textboxes.</summary>
     /// <typeparam name="T">The type of the numeric value.</typeparam>

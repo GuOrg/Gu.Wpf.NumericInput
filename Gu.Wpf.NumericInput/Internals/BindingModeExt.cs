@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Internals
+﻿namespace Gu.Wpf.NumericInput
 {
     using System.Windows.Data;
 
