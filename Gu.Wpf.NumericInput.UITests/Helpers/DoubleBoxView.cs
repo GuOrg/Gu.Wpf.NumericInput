@@ -1,23 +1,18 @@
 namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
-    using FlaUI.Core;
-    using FlaUI.Core.AutomationElements;
-    using FlaUI.Core.Definitions;
-    using FlaUI.UIA3;
+    using Gu.Wpf.UiAutomation;
 
     public sealed class DoubleBoxView : IDisposable
     {
         private readonly Application application;
-        private readonly UIA3Automation automation;
 
         private bool disposed;
 
         public DoubleBoxView(string windowName)
         {
             this.application = Application.Launch(Info.CreateStartInfo(windowName));
-            this.automation = new UIA3Automation();
-            this.Window = this.application.GetMainWindow(this.automation);
+            this.Window = this.application.MainWindow;
             this.AllowSpinnersBox = this.Window.FindCheckBox("AllowSpinnersBox");
             this.DigitsBox = this.Window.FindTextBox("DigitsBox");
             this.VmValueBox = this.Window.FindTextBox("VmValueBox");
@@ -49,7 +44,6 @@ namespace Gu.Wpf.NumericInput.UITests
 
             this.disposed = true;
             this.application?.Dispose();
-            this.automation.Dispose();
         }
 
         public void Reset()
@@ -62,10 +56,10 @@ namespace Gu.Wpf.NumericInput.UITests
             this.Window.FindComboBox("SpinUpdateMode").Select("AsBinding");
             this.Window.FindComboBox("CultureBox").Select("en-US");
             this.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.PropertyChanged.ToString());
-            this.Window.FindCheckBox("AllowLeadingSignBox").State = ToggleState.On;
+            this.Window.FindCheckBox("AllowLeadingSignBox").IsChecked = true;
             this.Window.FindTextBox("StringFormatBox").Enter(string.Empty);
-            this.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.Off;
-            this.AllowSpinnersBox.State = ToggleState.Off;
+            this.Window.FindCheckBox("AllowThousandsBox").IsChecked = false;
+            this.AllowSpinnersBox.IsChecked = false;
         }
     }
 }

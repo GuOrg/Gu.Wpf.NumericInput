@@ -3,9 +3,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using FlaUI.Core.Definitions;
-    using FlaUI.Core.Input;
-    using FlaUI.Core.WindowsAPI;
+    using Gu.Wpf.UiAutomation;
+    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     [Apartment(ApartmentState.STA)]
@@ -75,7 +74,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var inputBox = container.FindTextBox("InputBox");
             var canBeNullBox = this.view.Window.FindCheckBox("CanBeNullBox");
 
-            canBeNullBox.State = ToggleState.On;
+            canBeNullBox.IsChecked = true;
             Assert.AreEqual("0", inputBox.Text);
             inputBox.Enter(string.Empty);
             this.view.VmValueBox.Click();
@@ -97,7 +96,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.State = ToggleState.Off;
+            canBeNullBox.IsChecked = false;
             inputBox.Enter(string.Empty);
             this.view.VmValueBox.Click();
             Assert.AreEqual(string.Empty, inputBox.EditText());
@@ -108,7 +107,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.State = ToggleState.On;
+            canBeNullBox.IsChecked = true;
             Assert.AreEqual(string.Empty, inputBox.EditText());
             Assert.AreEqual(string.Empty, inputBox.FormattedText());
             Assert.AreEqual("1", this.view.VmValueBox.Text);
@@ -131,7 +130,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Culture(string containerId)
         {
-            this.view.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.Off;
+            this.view.Window.FindCheckBox("AllowThousandsBox").IsChecked = false;
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var cultureBox = this.view.Window.FindComboBox("CultureBox");
@@ -260,7 +259,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.State = ToggleState.Off;
+            signBox.IsChecked = false;
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
             Assert.AreEqual(true, inputBox.HasValidationError());
@@ -269,7 +268,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.State = ToggleState.On;
+            signBox.IsChecked = true;
             this.view.VmValueBox.Click();
             Assert.AreEqual("-1.2", inputBox.Text);
             Assert.AreEqual(false, inputBox.HasValidationError());
@@ -405,7 +404,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.Window.FindCheckBox("AllowThousandsBox").State = ToggleState.On;
+            this.view.Window.FindCheckBox("AllowThousandsBox").IsChecked = true;
             stringFormatBox.Enter("N3");
             this.view.VmValueBox.Click();
             Assert.AreEqual("123456.78", inputBox.EditText());

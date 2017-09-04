@@ -3,8 +3,7 @@
     using System;
     using System.Linq;
     using System.Windows;
-    using FlaUI.Core.AutomationElements;
-    using FlaUI.Core.AutomationElements.Infrastructure;
+    using Gu.Wpf.UiAutomation;
 
     public static class UiItemExt
     {
@@ -50,7 +49,7 @@
 
         internal static string Status(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             return itemStatus.Get("Status");
         }
 
@@ -77,13 +76,13 @@
 
         internal static Button IncreaseButton(this TextBox textBox)
         {
-            return textBox.Parent()
+            return textBox.Parent
                           .FindButton(SpinnerDecorator.IncreaseButtonName);
         }
 
         internal static Button DecreaseButton(this TextBox textBox)
         {
-            return textBox.Parent()
+            return textBox.Parent
                           .FindButton(SpinnerDecorator.DecreaseButtonName);
         }
 

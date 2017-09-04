@@ -2,7 +2,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
     using System.Text.RegularExpressions;
-    using FlaUI.Core.Definitions;
     using NUnit.Framework;
 
     public sealed class ValidationErrorMinMaxTests : IDisposable
@@ -178,7 +177,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChangedWhenNull(TestCase data)
         {
-            this.view.CanValueBeNullBox.State = ToggleState.On;
+            this.view.CanValueBeNullBox.IsChecked = true;
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = string.Empty;

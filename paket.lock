@@ -4,14 +4,14 @@ GROUP Analyzers
 NUGET
   remote: http://www.nuget.org/api/v2
     Gu.Analyzers (0.1.11.25-dev)
-    JetBrains.Annotations (10.4)
-      System.Runtime (>= 4.1) - restriction: && (< net20) (>= netstandard10)
-    Microsoft.NETCore.Platforms (1.1) - restriction: || (&& (< net20) (>= netstandard10) (< netstandard12) (< monoandroid) (< win8) (< wp8)) (&& (< net20) (>= netstandard12) (< netstandard13) (< monoandroid) (< win8) (< wpa81)) (&& (< net20) (>= netstandard13) (< netstandard15) (< monoandroid) (< win8) (< wpa81)) (&& (< net20) (>= netstandard15) (< monotouch) (< xamarinios) (< xamarinmac)) (&& (>= dnxcore50) (>= netstandard10))
-    Microsoft.NETCore.Targets (1.1) - restriction: || (&& (< net20) (>= netstandard10) (< netstandard12) (< monoandroid) (< win8) (< wp8)) (&& (< net20) (>= netstandard12) (< netstandard13) (< monoandroid) (< win8) (< wpa81)) (&& (< net20) (>= netstandard13) (< netstandard15) (< monoandroid) (< win8) (< wpa81)) (&& (< net20) (>= netstandard15) (< monotouch) (< xamarinios) (< xamarinmac)) (&& (>= dnxcore50) (>= netstandard10))
+    JetBrains.Annotations (11.0)
+      System.Runtime (>= 4.1) - restriction: && (< net10) (>= netstandard1.0)
+    Microsoft.NETCore.Platforms (2.0) - restriction: || (&& (< net10) (>= netstandard1.0) (< netstandard1.2) (< monoandroid) (< win8) (< wp8)) (&& (< net10) (>= netstandard1.2) (< netstandard1.3) (< monoandroid) (< win8) (< wpa81)) (&& (< net10) (>= netstandard1.3) (< netstandard1.5) (< monoandroid) (< win8) (< wpa81)) (&& (< net10) (>= netstandard1.5) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac)) (&& (>= dnxcore50) (>= netstandard1.0))
+    Microsoft.NETCore.Targets (2.0) - restriction: || (&& (< net10) (>= netstandard1.0) (< netstandard1.2) (< monoandroid) (< win8) (< wp8)) (&& (< net10) (>= netstandard1.2) (< netstandard1.3) (< monoandroid) (< win8) (< wpa81)) (&& (< net10) (>= netstandard1.3) (< netstandard1.5) (< monoandroid) (< win8) (< wpa81)) (&& (< net10) (>= netstandard1.5) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac)) (&& (>= dnxcore50) (>= netstandard1.0))
     StyleCop.Analyzers (1.0.2)
-    System.Runtime (4.3) - restriction: && (< net20) (>= netstandard10)
-      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard12) (< monoandroid) (< win8) (< wp8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15) (< monotouch) (< xamarinios) (< xamarinmac)) (>= dnxcore50)
-      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard10) (< netstandard12) (< monoandroid) (< win8) (< wp8)) (&& (< net45) (>= netstandard12) (< netstandard13) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard13) (< netstandard15) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard15) (< monotouch) (< xamarinios) (< xamarinmac)) (>= dnxcore50)
+    System.Runtime (4.3) - restriction: && (< net10) (>= netstandard1.0)
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.2) (< monoandroid) (< win8) (< wp8)) (&& (< net45) (>= netstandard1.2) (< netstandard1.3) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard1.3) (< netstandard1.5) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard1.5) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac)) (>= dnxcore50)
+      Microsoft.NETCore.Targets (>= 1.1) - restriction: || (&& (< net45) (>= netstandard1.0) (< netstandard1.2) (< monoandroid) (< win8) (< wp8)) (&& (< net45) (>= netstandard1.2) (< netstandard1.3) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard1.3) (< netstandard1.5) (< monoandroid) (< win8) (< wpa81)) (&& (< net45) (>= netstandard1.5) (< monotouch) (< xamarintvos) (< xamarinwatchos) (< xamarinios) (< xamarinmac)) (>= dnxcore50)
     WpfAnalyzers (0.2.7.10)
 
 GROUP Demo
@@ -25,7 +25,5 @@ GROUP Test
 RESTRICTION: == net461
 NUGET
   remote: http://www.nuget.org/api/v2
-    FlaUI.Core (1.2)
-    FlaUI.UIA3 (1.2)
-      FlaUI.Core (>= 1.2)
+    Gu.Wpf.UiAutomation (0.1.5-dev)
     NUnit (3.7.1)

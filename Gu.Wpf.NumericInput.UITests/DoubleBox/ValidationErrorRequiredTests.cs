@@ -2,7 +2,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
     using System.Text.RegularExpressions;
-    using FlaUI.Core.Definitions;
     using NUnit.Framework;
 
     public sealed class ValidationErrorRequiredTests : IDisposable
@@ -40,7 +39,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocus(TestCase data)
         {
-            this.view.CanValueBeNullBox.State = data.CanValueBeNull ? ToggleState.On : ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = data.CanValueBeNull;
 
             var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -73,7 +72,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'")]
         public void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputInvalid(string text, string infoMessage)
         {
-            this.view.CanValueBeNullBox.State = ToggleState.On;
+            this.view.CanValueBeNullBox.IsChecked = true;
             var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
@@ -84,7 +83,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual(text, this.view.ViewModelValueBox.Text);
             Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-            this.view.CanValueBeNullBox.State = ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = false;
             this.view.LoseFocusButton.Click();
             if (infoMessage != null)
             {
@@ -108,7 +107,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'")]
         public void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputValid(string text, string infoMessage)
         {
-            this.view.CanValueBeNullBox.State = ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = false;
             var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
@@ -130,7 +129,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
             }
 
-            this.view.CanValueBeNullBox.State = ToggleState.On;
+            this.view.CanValueBeNullBox.IsChecked = true;
             this.view.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(text, doubleBox.Text);
@@ -141,7 +140,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
-            this.view.CanValueBeNullBox.State = data.CanValueBeNull ? ToggleState.On : ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = data.CanValueBeNull;
             var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
 
@@ -181,7 +180,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChanged(TestCase data)
         {
-            this.view.CanValueBeNullBox.State = data.CanValueBeNull ? ToggleState.On : ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = data.CanValueBeNull;
 
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
@@ -211,7 +210,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            this.view.CanValueBeNullBox.State = data.CanValueBeNull ? ToggleState.On : ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = data.CanValueBeNull;
 
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
@@ -239,7 +238,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
             var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
-            this.view.CanValueBeNullBox.State = data.CanValueBeNull ? ToggleState.On : ToggleState.Off;
+            this.view.CanValueBeNullBox.IsChecked = data.CanValueBeNull;
             doubleBox.Text = data.Text;
             if (data.ExpectedInfoMessage != null)
             {

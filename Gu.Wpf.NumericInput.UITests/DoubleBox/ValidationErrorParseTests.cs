@@ -2,7 +2,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
     using System.Text.RegularExpressions;
-    using FlaUI.Core.Definitions;
     using NUnit.Framework;
 
     public sealed class ValidationErrorParseTests : IDisposable
@@ -131,7 +130,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             this.view.LoseFocusButton.Click();
             Assert.AreEqual(false, doubleBox.HasValidationError());
 
-            this.view.AllowDecimalPointBox.State = ToggleState.Off;
+            this.view.AllowDecimalPointBox.IsChecked = false;
             if (infoMessage != null)
             {
                 Assert.AreEqual(true, doubleBox.HasValidationError());
@@ -148,7 +147,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("2", null)]
         public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
         {
-            this.view.AllowDecimalPointBox.State = ToggleState.Off;
+            this.view.AllowDecimalPointBox.IsChecked = false;
             var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
             var doubleBox = boxes.DoubleBox;
             doubleBox.Text = text;
@@ -164,7 +163,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(false, doubleBox.HasValidationError());
             }
 
-            this.view.AllowDecimalPointBox.State = ToggleState.On;
+            this.view.AllowDecimalPointBox.IsChecked = true;
             Assert.AreEqual(false, doubleBox.HasValidationError());
             Assert.AreEqual(text, doubleBox.Text);
             //// Assert.AreEqual(text, this.view.ViewModelValueBox.Text);

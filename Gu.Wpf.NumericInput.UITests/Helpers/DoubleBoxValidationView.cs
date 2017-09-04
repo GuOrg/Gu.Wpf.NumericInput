@@ -1,23 +1,18 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
-    using FlaUI.Core;
-    using FlaUI.Core.AutomationElements;
-    using FlaUI.Core.Definitions;
-    using FlaUI.UIA3;
+    using Gu.Wpf.UiAutomation;
 
     public sealed class DoubleBoxValidationView : IDisposable
     {
         private readonly Application application;
-        private readonly UIA3Automation automation;
 
         private bool disposed;
 
         public DoubleBoxValidationView()
         {
             this.application = Application.Launch(Info.CreateStartInfo("DoubleBoxValidationWindow"));
-            this.automation = new UIA3Automation();
-            this.Window = this.application.GetMainWindow(this.automation);
+            this.Window = this.application.MainWindow;
             this.LoseFocusButton = this.Window.FindButton("lose focus");
             this.ViewModelValueBox = this.Window.FindTextBox("ViewModelValue");
 
@@ -88,14 +83,14 @@
         {
             this.ViewModelValueBox.Text = "0";
             this.CultureBox.Select("en-US");
-            this.CanValueBeNullBox.State = ToggleState.Off;
+            this.CanValueBeNullBox.IsChecked = false;
 
-            this.AllowLeadingWhiteBox.State = ToggleState.On;
-            this.AllowTrailingWhiteBox.State = ToggleState.On;
-            this.AllowLeadingSignBox.State = ToggleState.On;
-            this.AllowDecimalPointBox.State = ToggleState.On;
-            this.AllowThousandsBox.State = ToggleState.Off;
-            this.AllowExponentBox.State = ToggleState.On;
+            this.AllowLeadingWhiteBox.IsChecked = true;
+            this.AllowTrailingWhiteBox.IsChecked = true;
+            this.AllowLeadingSignBox.IsChecked = true;
+            this.AllowDecimalPointBox.IsChecked = true;
+            this.AllowThousandsBox.IsChecked = false;
+            this.AllowExponentBox.IsChecked = true;
 
             this.MinBox.Text = string.Empty;
             this.MaxBox.Text = string.Empty;
@@ -112,7 +107,6 @@
 
             this.disposed = true;
             this.application?.Dispose();
-            this.automation.Dispose();
         }
 
         public class TextBoxAndErrorBox

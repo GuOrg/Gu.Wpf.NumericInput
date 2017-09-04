@@ -2,9 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using FlaUI.Core.Definitions;
-    using FlaUI.Core.Input;
-    using FlaUI.Core.WindowsAPI;
+    using Gu.Wpf.UiAutomation;
+    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class SpinnersTests : IDisposable
@@ -34,7 +33,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.DigitsBox.Enter("1");
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
@@ -92,7 +91,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModelSpinUpdateModePropertyChanged(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.DigitsBox.Enter("1");
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
@@ -150,7 +149,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.IncrementBox.Enter("5");
             this.view.MaxBox.Enter("3");
             var container = this.view.Window.FindByNameOrId(containerId);
@@ -185,7 +184,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMin(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.IncrementBox.Enter("5");
             this.view.MinBox.Enter("-3");
             var container = this.view.Window.FindByNameOrId(containerId);
@@ -220,7 +219,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.MaxBox.Enter("3");
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
@@ -265,7 +264,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             this.view.MinBox.Enter("-3");
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
@@ -309,7 +308,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
@@ -343,7 +342,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
         {
-            this.view.AllowSpinnersBox.State = ToggleState.On;
+            this.view.AllowSpinnersBox.IsChecked = true;
             var container = this.view.Window.FindByNameOrId(containerId);
             var inputBox = container.FindTextBox("InputBox");
             this.view.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");

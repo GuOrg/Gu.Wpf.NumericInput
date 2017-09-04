@@ -1,11 +1,8 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System;
-    using FlaUI.Core;
-    using FlaUI.Core.AutomationElements;
-    using FlaUI.Core.Input;
-    using FlaUI.Core.WindowsAPI;
-    using FlaUI.UIA3;
+    using Gu.Wpf.UiAutomation;
+    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class CultureWindowTests : IDisposable
@@ -22,7 +19,7 @@
         public void TestCultures()
         {
             this.view.ValueTextBox.Enter("1.234");
-            Keyboard.Press(VirtualKeyShort.TAB);
+            Keyboard.Type(VirtualKeyShort.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
@@ -30,7 +27,7 @@
             Assert.AreEqual("1,234", this.view.BoundCultureDoubleBox.Text);
 
             this.view.CultureTextBox.Enter("en-us");
-            Keyboard.Press(VirtualKeyShort.TAB);
+            Keyboard.Type(VirtualKeyShort.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
@@ -52,15 +49,13 @@
         public sealed class CultureView : IDisposable
         {
             private readonly Application application;
-            private readonly UIA3Automation automation;
 
             private bool disposed;
 
             public CultureView()
             {
                 this.application = Application.Launch(Info.CreateStartInfo("CultureWindow"));
-                this.automation = new UIA3Automation();
-                this.Window = this.application.GetMainWindow(this.automation);
+                this.Window = this.application.MainWindow;
                 this.ValueTextBox = this.Window.FindTextBox(nameof(this.ValueTextBox));
                 this.SpinnerDoubleBox = this.Window.FindTextBox(nameof(this.SpinnerDoubleBox));
                 this.InheritingCultureDoubleBox = this.Window.FindTextBox(nameof(this.InheritingCultureDoubleBox));
@@ -95,7 +90,6 @@
 
                 this.disposed = true;
                 this.application?.Dispose();
-                this.automation.Dispose();
             }
         }
     }
