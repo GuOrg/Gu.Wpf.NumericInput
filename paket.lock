@@ -25,5 +25,5 @@ GROUP Test
 RESTRICTION: == net461
 NUGET
   remote: http://www.nuget.org/api/v2
-    Gu.Wpf.UiAutomation (0.1.5-dev)
+    Gu.Wpf.UiAutomation (0.1.6-dev)
     NUnit (3.7.1)
