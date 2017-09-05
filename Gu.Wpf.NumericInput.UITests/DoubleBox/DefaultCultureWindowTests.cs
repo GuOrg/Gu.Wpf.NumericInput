@@ -2,7 +2,6 @@
 {
     using System;
     using Gu.Wpf.UiAutomation;
-    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class DefaultCultureWindowTests : IDisposable
@@ -33,7 +32,7 @@
         public void OnLoad()
         {
             this.ValueTextBox.Enter("1.234");
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual("1.234", this.SpinnerDoubleBox.Text);
             Assert.AreEqual("1.234", this.DoubleBox.Text);
         }

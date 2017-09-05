@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Gu.Wpf.UiAutomation;
-    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class SpinnersTests : IDisposable
@@ -324,7 +323,7 @@
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            using (Keyboard.Pressing(Key.CONTROL))
             {
                 Keyboard.Type("z");
             }
@@ -360,7 +359,7 @@
             Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
             Assert.AreEqual("Idle", inputBox.Status());
 
-            using (Keyboard.Pressing(VirtualKeyShort.CONTROL))
+            using (Keyboard.Pressing(Key.CONTROL))
             {
                 Keyboard.Type("z");
             }

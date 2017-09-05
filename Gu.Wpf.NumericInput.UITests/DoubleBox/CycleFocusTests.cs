@@ -2,7 +2,6 @@
 {
     using System;
     using Gu.Wpf.UiAutomation;
-    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class CycleFocusTests : IDisposable
@@ -37,25 +36,25 @@
             Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox3.Properties.HasKeyboardFocus);
 
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual(false, textBox.Properties.HasKeyboardFocus);
             Assert.AreEqual(true, doubleBox1.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox3.Properties.HasKeyboardFocus);
 
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual(false, textBox.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
             Assert.AreEqual(true, doubleBox2.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox3.Properties.HasKeyboardFocus);
 
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual(false, textBox.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
             Assert.AreEqual(true, doubleBox3.Properties.HasKeyboardFocus);
 
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual(true, textBox.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
             Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);

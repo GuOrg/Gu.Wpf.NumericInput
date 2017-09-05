@@ -2,7 +2,6 @@
 {
     using System;
     using Gu.Wpf.UiAutomation;
-    using Gu.Wpf.UiAutomation.WindowsAPI;
     using NUnit.Framework;
 
     public sealed class CultureWindowTests : IDisposable
@@ -19,7 +18,7 @@
         public void TestCultures()
         {
             this.view.ValueTextBox.Enter("1.234");
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
@@ -27,7 +26,7 @@
             Assert.AreEqual("1,234", this.view.BoundCultureDoubleBox.Text);
 
             this.view.CultureTextBox.Enter("en-us");
-            Keyboard.Type(VirtualKeyShort.TAB);
+            Keyboard.Type(Key.TAB);
             Assert.AreEqual("1,234", this.view.SpinnerDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.InheritingCultureDoubleBox.Text);
             Assert.AreEqual("1,234", this.view.SvSeDoubleBox.Text);
