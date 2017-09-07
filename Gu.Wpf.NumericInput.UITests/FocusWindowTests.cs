@@ -35,28 +35,28 @@
             var doubleBox2 = doubleBoxes.FindTextBox("DoubleBox2");
             doubleBox1.Click();
 
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
             doubleBox1.Enter("2");
             Assert.AreEqual("2.345", textBoxes.FindTextBox("TextBox2").Text);
 
             Keyboard.Type(Key.TAB);
             Assert.AreEqual("2", textBoxes.FindTextBox("TextBox2").Text);
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox2.HasKeyboardFocus);
 
             Keyboard.Type(Key.TAB);
-            Assert.AreEqual(true, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(true, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
 
             Keyboard.Type(Key.TAB);
             this.Window.WaitUntilResponsive();
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
         }
 
         [Test]
@@ -69,17 +69,17 @@
             var doubleBox2 = doubleBoxes.FindTextBox("DoubleBox2");
             this.Window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
             doubleBox1.Click();
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
             doubleBox1.Enter("2");
             Assert.AreEqual("2.345", textBoxes.FindTextBox("TextBox2").Text);
 
             Keyboard.Type(Key.TAB);
             Assert.AreEqual("2", textBoxes.FindTextBox("TextBox2").Text);
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox2.HasKeyboardFocus);
             doubleBox1.IncreaseButton().Click();
             Assert.AreEqual("3", doubleBox1.EditText());
             Assert.AreEqual("2", textBoxes.FindTextBox("TextBox2").Text);
@@ -87,14 +87,14 @@
             Keyboard.Type(Key.TAB);
             Assert.AreEqual("3", doubleBox1.EditText());
             Assert.AreEqual("3", textBoxes.FindTextBox("TextBox2").Text);
-            Assert.AreEqual(false, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(false, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(true, doubleBox2.HasKeyboardFocus);
 
             Keyboard.Type(Key.TAB);
-            Assert.AreEqual(true, textBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.Properties.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.Properties.HasKeyboardFocus);
+            Assert.AreEqual(true, textBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
+            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
         }
 
         public void Dispose()
