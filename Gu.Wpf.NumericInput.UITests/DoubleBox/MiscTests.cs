@@ -34,7 +34,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual("0", inputBox.Text);
             Assert.AreEqual("0", inputBox.Value());
@@ -52,7 +52,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesFromViewModel(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual(this.view.VmValueBox.Text, inputBox.Text);
             Assert.AreEqual("0", inputBox.Text);
@@ -69,7 +69,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void CanBeNull(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var canBeNullBox = this.view.Window.FindCheckBox("CanBeNullBox");
 
@@ -130,7 +130,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         public void Culture(string containerId)
         {
             this.view.Window.FindCheckBox("AllowThousandsBox").IsChecked = false;
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var cultureBox = this.view.Window.FindComboBox("CultureBox");
             Assert.AreEqual("0", inputBox.EditText());
@@ -209,7 +209,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void ValidationTriggerLostFocus(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             this.view.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
             Assert.AreEqual("0", inputBox.Text);
@@ -246,7 +246,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void NumberStylesAllowLeadingSign(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var signBox = this.view.Window.FindCheckBox("AllowLeadingSignBox");
             inputBox.Enter("-1.2");
@@ -280,7 +280,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdateDigitsWhenGreaterThanMax(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var digitsBox = this.view.DigitsBox;
             var maxBox = this.view.MaxBox;
@@ -316,7 +316,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecimalDigits(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var digitsBox = this.view.DigitsBox;
             Assert.AreEqual("0", inputBox.Text);
@@ -386,7 +386,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void StringFormat(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var stringFormatBox = this.view.Window.FindTextBox("StringFormatBox");
 
@@ -441,7 +441,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Max(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var maxBox = this.view.MaxBox;
             Assert.AreEqual("0", inputBox.EditText());
@@ -524,7 +524,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Min(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var minBox = this.view.MinBox;
             Assert.AreNotEqual("1.2", inputBox.Text);
@@ -559,7 +559,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             Assert.AreEqual("0", inputBox.Text);
             inputBox.Click();

@@ -34,7 +34,7 @@
         {
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.DigitsBox.Enter("1");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -92,7 +92,7 @@
         {
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.DigitsBox.Enter("1");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             this.view.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
             inputBox.Click();
@@ -151,7 +151,7 @@
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.IncrementBox.Enter("5");
             this.view.MaxBox.Enter("3");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -186,7 +186,7 @@
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.IncrementBox.Enter("5");
             this.view.MinBox.Enter("-3");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -220,7 +220,7 @@
         {
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.MaxBox.Enter("3");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -265,7 +265,7 @@
         {
             this.view.AllowSpinnersBox.IsChecked = true;
             this.view.MinBox.Enter("-3");
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -308,7 +308,7 @@
         public void Undo(string containerId)
         {
             this.view.AllowSpinnersBox.IsChecked = true;
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
             var vmValueBox = this.view.VmValueBox;
@@ -342,7 +342,7 @@
         public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
         {
             this.view.AllowSpinnersBox.IsChecked = true;
-            var container = this.view.Window.FindByNameOrId(containerId);
+            var container = this.view.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             this.view.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
             inputBox.Click();
