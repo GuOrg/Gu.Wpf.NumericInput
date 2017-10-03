@@ -5,7 +5,7 @@
     using System.Windows;
     using Gu.Wpf.UiAutomation;
 
-    public static class UiItemExt
+    public static class AutomationElementExt
     {
         public static string ItemStatus(this AutomationElement item)
         {
