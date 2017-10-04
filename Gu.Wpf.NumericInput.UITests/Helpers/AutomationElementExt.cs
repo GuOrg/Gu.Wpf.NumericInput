@@ -7,14 +7,9 @@
 
     public static class AutomationElementExt
     {
-        public static string ItemStatus(this AutomationElement item)
-        {
-            return item.Properties.ItemStatus.Value;
-        }
-
         public static bool HasValidationError(this AutomationElement item)
         {
-            var itemStatus = item.ItemStatus();
+            var itemStatus = item.ItemStatus;
             if (itemStatus.Contains("HasError: True"))
             {
                 return true;
@@ -30,14 +25,14 @@
 
         public static string ValidationError(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             var text = itemStatus.Get("FirstError");
             return text;
         }
 
         internal static TextSource TextSource(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             var text = itemStatus.Get(BaseBox.TextSourceProperty);
             if (!Enum.TryParse(text, out TextSource result))
             {
@@ -55,21 +50,21 @@
 
         internal static string Value(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             var text = itemStatus.Get(NumericBox<double>.ValueProperty);
             return text;
         }
 
         internal static string EditText(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             var text = itemStatus.Get(System.Windows.Controls.TextBox.TextProperty);
             return text;
         }
 
         internal static string FormattedText(this TextBox textBox)
         {
-            var itemStatus = textBox.ItemStatus();
+            var itemStatus = textBox.ItemStatus;
             var text = itemStatus.Get(BaseBox.FormattedTextProperty);
             return text;
         }

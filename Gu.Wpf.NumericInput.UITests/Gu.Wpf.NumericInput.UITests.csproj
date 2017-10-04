@@ -63,7 +63,6 @@
     <Compile Include="DoubleBox\CycleFocusWindowTests.cs" />
     <Compile Include="DoubleBox\FocusWindowTests.cs" />
     <Compile Include="DoubleBox\DefaultCultureWindowTests.cs" />
-    <Compile Include="Helpers\DoubleBoxView.cs" />
     <Compile Include="DoubleBox\FormatTests.cs" />
     <Compile Include="DoubleBox\MiscTests.cs" />
     <Compile Include="DoubleBox\SpinnersTests.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="DoubleBox\ValidationErrorRegexTests.cs" />
     <Compile Include="DoubleBox\ValidationErrorRequiredTests.cs" />
     <Compile Include="DoubleBox\ValidationHappyPathTests.cs" />
-    <Compile Include="Helpers\DoubleBoxValidationView.cs" />
     <Compile Include="Helpers\Info.cs" />
     <Compile Include="Helpers\TextBoxExt.cs" />
     <Compile Include="Helpers\AutomationElementExt.cs" />

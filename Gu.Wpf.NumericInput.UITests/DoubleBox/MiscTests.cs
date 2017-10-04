@@ -1,14 +1,15 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
     [Apartment(ApartmentState.STA)]
-    public sealed class MiscTests : IDisposable
+    public sealed class MiscTests
     {
+        private const string WindowName = "MiscTestsWindow";
+
         private static readonly IReadOnlyList<string> BoxContainerIds = new[]
         {
             "VanillaGroupBox",
@@ -16,588 +17,632 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             "ControlTemplate"
         };
 
-        private readonly DoubleBoxView view;
-
-        private bool disposed;
-
-        public MiscTests()
-        {
-            this.view = new DoubleBoxView("MiscTestsWindow");
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.view.Reset();
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindTextBox("VmValueBox").Text = "0";
+                window.FindButton("Reset").Invoke();
+                window.WaitUntilResponsive();
+            }
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            Assert.AreEqual("0", inputBox.Text);
-            Assert.AreEqual("0", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
-            inputBox.Enter("1.2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                Assert.AreEqual("0", inputBox.Text);
+                Assert.AreEqual("0", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("1.2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesFromViewModel(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            Assert.AreEqual(this.view.VmValueBox.Text, inputBox.Text);
-            Assert.AreEqual("0", inputBox.Text);
-            this.view.VmValueBox.Enter("1.2");
-            inputBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                Assert.AreEqual(window.FindTextBox("VmValueBox").Text, inputBox.Text);
+                Assert.AreEqual("0", inputBox.Text);
+                window.FindTextBox("VmValueBox").Enter("1.2");
+                inputBox.Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void CanBeNull(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var canBeNullBox = this.view.Window.FindCheckBox("CanBeNullBox");
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var canBeNullBox = window.Window.FindCheckBox("CanBeNullBox");
 
-            canBeNullBox.IsChecked = true;
-            Assert.AreEqual("0", inputBox.Text);
-            inputBox.Enter(string.Empty);
-            this.view.VmValueBox.Click();
-            Assert.AreEqual(string.Empty, inputBox.EditText());
-            Assert.AreEqual(string.Empty, inputBox.FormattedText());
-            Assert.AreEqual(string.Empty, this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual(string.Empty, inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                canBeNullBox.IsChecked = true;
+                Assert.AreEqual("0", inputBox.Text);
+                inputBox.Enter(string.Empty);
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual(string.Empty, inputBox.EditText());
+                Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                Assert.AreEqual(string.Empty, window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual(string.Empty, inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("1");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1", inputBox.EditText());
-            Assert.AreEqual("1", inputBox.FormattedText());
-            Assert.AreEqual("1", this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("1");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1", inputBox.EditText());
+                Assert.AreEqual("1", inputBox.FormattedText());
+                Assert.AreEqual("1", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.IsChecked = false;
-            inputBox.Enter(string.Empty);
-            this.view.VmValueBox.Click();
-            Assert.AreEqual(string.Empty, inputBox.EditText());
-            Assert.AreEqual(string.Empty, inputBox.FormattedText());
-            Assert.AreEqual("1", this.view.VmValueBox.Text);
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                canBeNullBox.IsChecked = false;
+                inputBox.Enter(string.Empty);
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual(string.Empty, inputBox.EditText());
+                Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                Assert.AreEqual("1", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            canBeNullBox.IsChecked = true;
-            Assert.AreEqual(string.Empty, inputBox.EditText());
-            Assert.AreEqual(string.Empty, inputBox.FormattedText());
-            Assert.AreEqual("1", this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual(string.Empty, inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                canBeNullBox.IsChecked = true;
+                Assert.AreEqual(string.Empty, inputBox.EditText());
+                Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                Assert.AreEqual("1", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual(string.Empty, inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Click();
-            this.view.VmValueBox.Click();
-            Assert.AreEqual(string.Empty, inputBox.EditText());
-            Assert.AreEqual(string.Empty, inputBox.FormattedText());
-            Assert.AreEqual(string.Empty, this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual(string.Empty, inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Click();
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual(string.Empty, inputBox.EditText());
+                Assert.AreEqual(string.Empty, inputBox.FormattedText());
+                Assert.AreEqual(string.Empty, window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual(string.Empty, inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Culture(string containerId)
         {
-            this.view.Window.FindCheckBox("AllowThousandsBox").IsChecked = false;
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var cultureBox = this.view.Window.FindComboBox("CultureBox");
-            Assert.AreEqual("0", inputBox.EditText());
-            Assert.AreEqual("0", inputBox.FormattedText());
-            inputBox.Enter("1.2");
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual("1.2", inputBox.Value());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.Window.FindCheckBox("AllowThousandsBox").IsChecked = false;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var cultureBox = window.Window.FindComboBox("CultureBox");
+                Assert.AreEqual("0", inputBox.EditText());
+                Assert.AreEqual("0", inputBox.FormattedText());
+                inputBox.Enter("1.2");
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual("1.2", inputBox.Value());
 
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            cultureBox.Select("sv-SE");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1,2", inputBox.EditText());
-            Assert.AreEqual("1,2", inputBox.FormattedText());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                cultureBox.Select("sv-SE");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1,2", inputBox.EditText());
+                Assert.AreEqual("1,2", inputBox.FormattedText());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("2.3");
-            Assert.AreEqual("2.3", inputBox.EditText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("2.3");
+                Assert.AreEqual("2.3", inputBox.EditText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            cultureBox.Select("en-US");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.EditText());
-            Assert.AreEqual("2.3", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                cultureBox.Select("en-US");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.EditText());
+                Assert.AreEqual("2.3", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Click();
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.EditText());
-            Assert.AreEqual("2.3", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("2.3", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Click();
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.EditText());
+                Assert.AreEqual("2.3", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("2.3", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("5.6a");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("5.6a", inputBox.EditText());
-            Assert.AreEqual("5.6a", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("2.3", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("5.6a");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("5.6a", inputBox.EditText());
+                Assert.AreEqual("5.6a", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("2.3", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            cultureBox.Select("sv-SE");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("5.6a", inputBox.EditText());
-            Assert.AreEqual("5.6a", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("2.3", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                cultureBox.Select("sv-SE");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("5.6a", inputBox.EditText());
+                Assert.AreEqual("5.6a", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("2.3", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void ValidationTriggerLostFocus(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            this.view.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
-            Assert.AreEqual("0", inputBox.Text);
-            Assert.AreEqual("0", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
-            inputBox.Enter("1.2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                window.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
+                Assert.AreEqual("0", inputBox.Text);
+                Assert.AreEqual("0", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("1.2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("ggg");
-            Assert.AreEqual("ggg", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("ggg");
+                Assert.AreEqual("ggg", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("ggg", inputBox.EditText());
-            Assert.AreEqual("ggg", inputBox.FormattedText());
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("ggg", inputBox.EditText());
+                Assert.AreEqual("ggg", inputBox.FormattedText());
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void NumberStylesAllowLeadingSign(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var signBox = this.view.Window.FindCheckBox("AllowLeadingSignBox");
-            inputBox.Enter("-1.2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("-1.2", inputBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("-1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var signBox = window.Window.FindCheckBox("AllowLeadingSignBox");
+                inputBox.Enter("-1.2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("-1.2", inputBox.Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("-1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("-1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.IsChecked = false;
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("-1.2", inputBox.Text);
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("-1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                signBox.IsChecked = false;
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("-1.2", inputBox.Text);
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("-1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("-1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            signBox.IsChecked = true;
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("-1.2", inputBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("-1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("-1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                signBox.IsChecked = true;
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("-1.2", inputBox.Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("-1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("-1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdateDigitsWhenGreaterThanMax(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var digitsBox = this.view.DigitsBox;
-            var maxBox = this.view.MaxBox;
-            Assert.AreEqual("0", inputBox.Text);
-            inputBox.Enter("1.2");
-            Assert.AreEqual("1.2", inputBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("0", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var digitsBox = window.FindTextBox("DigitsBox");
+                var maxBox = window.FindTextBox("MaxBox");
+                Assert.AreEqual("0", inputBox.Text);
+                inputBox.Enter("1.2");
+                Assert.AreEqual("1.2", inputBox.Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("0", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            maxBox.Enter("1");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.Text);
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                maxBox.Enter("1");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.Text);
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            digitsBox.Enter("4");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2000", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                digitsBox.Enter("4");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2000", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecimalDigits(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var digitsBox = this.view.DigitsBox;
-            Assert.AreEqual("0", inputBox.Text);
-            digitsBox.Enter("4");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("0", inputBox.EditText());
-            Assert.AreEqual("0.0000", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("0", this.view.VmValueBox.Text);
-            Assert.AreEqual("0", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var digitsBox = window.FindTextBox("DigitsBox");
+                Assert.AreEqual("0", inputBox.Text);
+                digitsBox.Enter("4");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("0", inputBox.EditText());
+                Assert.AreEqual("0.0000", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("0", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("0", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.VmValueBox.Enter("1.2");
-            inputBox.Click();
-            Assert.AreEqual("1.2", inputBox.Text);
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2000", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.FindTextBox("VmValueBox").Enter("1.2");
+                inputBox.Click();
+                Assert.AreEqual("1.2", inputBox.Text);
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2000", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            digitsBox.Enter("0");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                digitsBox.Enter("0");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            digitsBox.Enter("-3");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                digitsBox.Enter("-3");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("1.234567");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.234567", inputBox.EditText());
-            Assert.AreEqual("1.235", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.234567", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.234567", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("1.234567");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.234567", inputBox.EditText());
+                Assert.AreEqual("1.235", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.234567", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.234567", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            digitsBox.Enter("4");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.234567", inputBox.EditText());
-            Assert.AreEqual("1.2346", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.234567", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.234567", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                digitsBox.Enter("4");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.234567", inputBox.EditText());
+                Assert.AreEqual("1.2346", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.234567", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.234567", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void StringFormat(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var stringFormatBox = this.view.Window.FindTextBox("StringFormatBox");
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var stringFormatBox = window.Window.FindTextBox("StringFormatBox");
 
-            Assert.AreEqual("0", inputBox.EditText());
-            Assert.AreEqual("0", inputBox.FormattedText());
+                Assert.AreEqual("0", inputBox.EditText());
+                Assert.AreEqual("0", inputBox.FormattedText());
 
-            inputBox.Enter("123456.78");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("123456.78", inputBox.Text);
-            Assert.AreEqual("123456.78", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("123456.78", this.view.VmValueBox.Text);
-            Assert.AreEqual("123456.78", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("123456.78");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("123456.78", inputBox.Text);
+                Assert.AreEqual("123456.78", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("123456.78", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("123456.78", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.Window.FindCheckBox("AllowThousandsBox").IsChecked = true;
-            stringFormatBox.Enter("N3");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("123456.78", inputBox.EditText());
-            Assert.AreEqual("123,456.780", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("123456.78", this.view.VmValueBox.Text);
-            Assert.AreEqual("123456.78", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.Window.FindCheckBox("AllowThousandsBox").IsChecked = true;
+                stringFormatBox.Enter("N3");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("123456.78", inputBox.EditText());
+                Assert.AreEqual("123,456.780", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("123456.78", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("123456.78", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("2222.33333");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2222.33333", inputBox.EditText());
-            Assert.AreEqual("2,222.333", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("2222.33333", this.view.VmValueBox.Text);
-            Assert.AreEqual("2222.33333", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Enter("2222.33333");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2222.33333", inputBox.EditText());
+                Assert.AreEqual("2,222.333", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("2222.33333", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2222.33333", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.VmValueBox.Enter("4444.5555");
-            inputBox.Click();
-            Assert.AreEqual("4444.5555", inputBox.Text);
-            Assert.AreEqual("4,444.556", inputBox.FormattedText());
+                window.FindTextBox("VmValueBox").Enter("4444.5555");
+                inputBox.Click();
+                Assert.AreEqual("4444.5555", inputBox.Text);
+                Assert.AreEqual("4,444.556", inputBox.FormattedText());
 
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("4444.5555", inputBox.EditText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("4444.5555", this.view.VmValueBox.Text);
-            Assert.AreEqual("4444.5555", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("4444.5555", inputBox.EditText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("4444.5555", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("4444.5555", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Max(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var maxBox = this.view.MaxBox;
-            Assert.AreEqual("0", inputBox.EditText());
-            Assert.AreEqual("0", inputBox.FormattedText());
-            inputBox.Enter("1.2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var maxBox = window.FindTextBox("MaxBox");
+                Assert.AreEqual("0", inputBox.EditText());
+                Assert.AreEqual("0", inputBox.FormattedText());
+                inputBox.Enter("1.2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            maxBox.Enter("-1");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                maxBox.Enter("-1");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Enter("2.3");
-            Assert.AreEqual("2.3", inputBox.EditText());
-            Assert.AreEqual("1.2", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
+                inputBox.Enter("2.3");
+                Assert.AreEqual("2.3", inputBox.EditText());
+                Assert.AreEqual("1.2", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
 
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.EditText());
-            Assert.AreEqual("2.3", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("1.2", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.EditText());
+                Assert.AreEqual("2.3", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("1.2", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            maxBox.Enter("6");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.Text);
-            Assert.AreEqual("2.3", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                maxBox.Enter("6");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.Text);
+                Assert.AreEqual("2.3", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            inputBox.Click();
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.Text);
-            Assert.AreEqual("2.3", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("2.3", this.view.VmValueBox.Text);
-            Assert.AreEqual("2.3", inputBox.Value());
-            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                inputBox.Click();
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.Text);
+                Assert.AreEqual("2.3", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("2.3", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("2.3", inputBox.Value());
+                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            this.view.VmValueBox.Enter("7.8");
-            inputBox.Click();
-            Assert.AreEqual("7.8", inputBox.Text);
-            Assert.AreEqual("7.8", inputBox.FormattedText());
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("7.8", this.view.VmValueBox.Text);
-            Assert.AreEqual("7.8", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                window.FindTextBox("VmValueBox").Enter("7.8");
+                inputBox.Click();
+                Assert.AreEqual("7.8", inputBox.Text);
+                Assert.AreEqual("7.8", inputBox.FormattedText());
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("7.8", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("7.8", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
 
-            maxBox.Enter("10");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("7.8", inputBox.Text);
-            Assert.AreEqual("7.8", inputBox.FormattedText());
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("7.8", this.view.VmValueBox.Text);
-            Assert.AreEqual("7.8", inputBox.Value());
-            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-            Assert.AreEqual("Idle", inputBox.Status());
+                maxBox.Enter("10");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("7.8", inputBox.Text);
+                Assert.AreEqual("7.8", inputBox.FormattedText());
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("7.8", window.FindTextBox("VmValueBox").Text);
+                Assert.AreEqual("7.8", inputBox.Value());
+                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+                Assert.AreEqual("Idle", inputBox.Status());
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Min(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            var minBox = this.view.MinBox;
-            Assert.AreNotEqual("1.2", inputBox.Text);
-            inputBox.Enter("1.2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("1.2", inputBox.Text);
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                var minBox = window.FindTextBox("MinBox");
+                Assert.AreNotEqual("1.2", inputBox.Text);
+                inputBox.Enter("1.2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("1.2", inputBox.Text);
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
 
-            minBox.Enter("4");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", inputBox.Text);
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
+                minBox.Enter("4");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", inputBox.Text);
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
 
-            inputBox.Enter("2.3");
-            Assert.AreEqual("2.3", inputBox.Text);
-            Assert.AreEqual(true, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text);
+                inputBox.Enter("2.3");
+                Assert.AreEqual("2.3", inputBox.Text);
+                Assert.AreEqual(true, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text);
 
-            minBox.Enter("-2");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("2.3", inputBox.Text);
-            Assert.AreEqual(false, inputBox.HasValidationError());
-            Assert.AreEqual("1.2", this.view.VmValueBox.Text); // maybe we want to update source here idk.
+                minBox.Enter("-2");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("2.3", inputBox.Text);
+                Assert.AreEqual(false, inputBox.HasValidationError());
+                Assert.AreEqual("1.2", window.FindTextBox("VmValueBox").Text); // maybe we want to update source here idk.
 
-            inputBox.Enter("5.6");
-            this.view.VmValueBox.Click();
-            Assert.AreEqual("5.6", inputBox.Text);
-            Assert.AreEqual("5.6", this.view.VmValueBox.Text);
+                inputBox.Enter("5.6");
+                window.FindTextBox("VmValueBox").Click();
+                Assert.AreEqual("5.6", inputBox.Text);
+                Assert.AreEqual("5.6", window.FindTextBox("VmValueBox").Text);
+            }
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            var container = this.view.Window.FindGroupBox(containerId);
-            var inputBox = container.FindTextBox("InputBox");
-            Assert.AreEqual("0", inputBox.Text);
-            inputBox.Click();
-            Keyboard.Type("1");
-            Assert.AreEqual("10", inputBox.Text);
-            using (Keyboard.Pressing(Key.CONTROL))
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
             {
-                Keyboard.Type("z");
-            }
+                var window = app.MainWindow;
+                var container = window.Window.FindGroupBox(containerId);
+                var inputBox = container.FindTextBox("InputBox");
+                Assert.AreEqual("0", inputBox.Text);
+                inputBox.Click();
+                Keyboard.Type("1");
+                Assert.AreEqual("10", inputBox.Text);
+                using (Keyboard.Pressing(Key.CONTROL))
+                {
+                    Keyboard.Type("z");
+                }
 
-            Assert.AreEqual("0", inputBox.Text);
-            Assert.AreEqual("0", this.view.VmValueBox.Text);
+                Assert.AreEqual("0", inputBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("VmValueBox").Text);
+            }
         }
 
         [Test]
         public void CopyTest()
         {
-            var inputBox = this.view.Window.FindTextBox("InputBox");
-            inputBox.Text = "1.2";
-            using (Keyboard.Pressing(Key.CONTROL))
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
             {
-                Keyboard.Type("ac");
+                var window = app.MainWindow;
+                var inputBox = window.Window.FindTextBox("InputBox");
+                inputBox.Text = "1.2";
+                using (Keyboard.Pressing(Key.CONTROL))
+                {
+                    Keyboard.Type("ac");
+                }
+
+                Thread.Sleep(100);
+                var clipboardText = System.Windows.Clipboard.GetText();
+                Assert.AreEqual("1.2", clipboardText);
             }
-
-            Thread.Sleep(100);
-            var clipboardText = System.Windows.Clipboard.GetText();
-            Assert.AreEqual("1.2", clipboardText);
-        }
-
-        public void Dispose()
-        {
-            if (this.disposed)
-            {
-                return;
-            }
-
-            this.disposed = true;
-            this.view.Dispose();
         }
     }
 }
