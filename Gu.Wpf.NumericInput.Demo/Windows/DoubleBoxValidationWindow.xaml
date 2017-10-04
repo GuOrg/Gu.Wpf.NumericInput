@@ -81,7 +81,7 @@
 
                     <autoRowGrid:Row>
                         <TextBlock Text="Edit Value:" />
-                        <TextBox x:Name="ViewModelValue" Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
+                        <TextBox x:Name="ViewModelValue" Text="{Binding Value, TargetNullValue=''}" />
                     </autoRowGrid:Row>
                 </autoRowGrid:Rows>
 

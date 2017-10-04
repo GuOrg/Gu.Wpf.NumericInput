@@ -419,6 +419,7 @@ namespace Gu.Wpf.NumericInput.Demo
             this.increment = DefaultValue(x => x.Increment);
             this.canValueBeNull = DefaultValue(x => x.CanValueBeNull);
             this.stringFormat = DefaultValue(x => x.StringFormat);
+            this.validationTrigger = ValidationTrigger.PropertyChanged;
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
     }
