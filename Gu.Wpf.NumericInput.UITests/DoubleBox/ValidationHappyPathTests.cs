@@ -78,6 +78,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
             {
                 var window = app.MainWindow;
+                window.FindTextBox("ViewModelValue").Text = "0";
                 window.FindButton("Reset").Invoke();
                 window.WaitUntilResponsive();
             }
