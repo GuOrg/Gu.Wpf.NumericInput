@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
-        xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
+        xmlns:Windows="clr-namespace:Gu.Wpf.NumericInput.Demo.Windows"
         Title="CultureWindow"
         numeric:NumericBox.Culture="sv-se"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.DataContext>
-        <uiTestWindows:CultureVm />
+        <Windows:CultureVm />
     </Window.DataContext>
     <UniformGrid Rows="1">
         <StackPanel KeyboardNavigation.TabNavigation="Cycle">

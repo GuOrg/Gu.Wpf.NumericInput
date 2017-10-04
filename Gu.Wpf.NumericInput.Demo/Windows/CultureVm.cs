@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Demo.UiTestWindows
+﻿namespace Gu.Wpf.NumericInput.Demo.Windows
 {
     using System.ComponentModel;
     using System.Globalization;

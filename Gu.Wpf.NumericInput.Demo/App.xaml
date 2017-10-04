@@ -5,8 +5,8 @@
              xmlns:numeric="http://gu.se/NumericInput"
              xmlns:system="clr-namespace:System;assembly=mscorlib">
     <Application.StartupUri>MainWindow.xaml</Application.StartupUri>
-    <!--<Application.StartupUri>UiTestWindows/DoubleBoxValidationWindow.xaml</Application.StartupUri>-->
-    <!--<Application.StartupUri>UiTestWindows/CultureWindow.xaml</Application.StartupUri>-->
+    <!--<Application.StartupUri>Windows/DoubleBoxValidationWindow.xaml</Application.StartupUri>-->
+    <!--<Application.StartupUri>Windows/CultureWindow.xaml</Application.StartupUri>-->
     <Application.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="AutomationProperties.ItemStatus" Value="{Binding Path=(Validation.HasError), RelativeSource={RelativeSource Self}, StringFormat='HasValidationError: {0}'}" />

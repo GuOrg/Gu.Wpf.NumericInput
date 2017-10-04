@@ -3,12 +3,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:numeric="http://gu.se/NumericInput"
-        xmlns:uiTestWindows="clr-namespace:Gu.Wpf.NumericInput.Demo.UiTestWindows"
+        xmlns:Windows="clr-namespace:Gu.Wpf.NumericInput.Demo.Windows"
         Title="DefaultCultureWindow"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <Window.DataContext>
-        <uiTestWindows:CultureVm />
+        <Windows:CultureVm />
     </Window.DataContext>
     <StackPanel KeyboardNavigation.TabNavigation="Cycle">
         <TextBox AutomationProperties.AutomationId="ValueTextBox" Text="{Binding Value}" />

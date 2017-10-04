@@ -10,7 +10,7 @@
             if (e.Args.Length == 1)
             {
                 var window = e.Args[0];
-                this.StartupUri = new Uri($"UiTestWindows/{window}.xaml", UriKind.Relative);
+                this.StartupUri = new Uri($"Windows/{window}.xaml", UriKind.Relative);
             }
 
             base.OnStartup(e);

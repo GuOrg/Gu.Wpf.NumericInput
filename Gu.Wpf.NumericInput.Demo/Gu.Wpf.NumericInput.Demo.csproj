@@ -97,7 +97,7 @@
     <Compile Include="TouchVm.cs">
       <DependentUpon>TouchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UiTestWindows\CultureVm.cs" />
+    <Compile Include="Windows\CultureVm.cs" />
     <Compile Include="ValidationErrorToInfoStringConverter.cs" />
     <Compile Include="FormattedTextView.xaml.cs">
       <DependentUpon>FormattedTextView.xaml</DependentUpon>
@@ -177,31 +177,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UiTestWindows\FocusWindow.xaml">
+    <Page Include="Windows\FocusWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UiTestWindows\DefaultCultureWindow.xaml">
+    <Page Include="Windows\DefaultCultureWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UiTestWindows\CultureWindow.xaml">
+    <Page Include="Windows\CultureWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UiTestWindows\CycleFocusWindow.xaml">
+    <Page Include="Windows\CycleFocusWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UiTestWindows\DoubleBoxValidationWindow.xaml">
+    <Page Include="Windows\DoubleBoxValidationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UiTestWindows\MiscTestsWindow.xaml">
+    <Page Include="Windows\MiscTestsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UiTestWindows\SpinnerWindow.xaml">
+    <Page Include="Windows\SpinnerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
