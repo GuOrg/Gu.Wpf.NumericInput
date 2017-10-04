@@ -29,7 +29,7 @@
         [TestCase("SvSeDoubleBox", "1,234", "1,234")]
         [TestCase("EnUsDoubleBox", "1.234", "1.234")]
         [TestCase("BoundCultureDoubleBox", "1,234", "1.234")]
-        public void TestCultures(string name, string expectedSv, string expectedEn)
+        public void Formats(string name, string expectedSv, string expectedEn)
         {
             using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
             {
