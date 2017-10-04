@@ -3,15 +3,19 @@ namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Windows.Input;
 
     public abstract class BoxVm<TBox, TValue> : INotifyDataErrorInfo, INotifyPropertyChanged
         where TBox : NumericBox<TValue>
         where TValue : struct, IComparable<TValue>, IFormattable, IConvertible, IEquatable<TValue>
     {
+        private static readonly TBox DefaultValueInstance = Activator.CreateInstance<TBox>();
+
         private TValue? value = default(TValue);
         private TValue? min;
         private TValue? max;
@@ -30,16 +34,8 @@ namespace Gu.Wpf.NumericInput.Demo
 
         protected BoxVm()
         {
-            this.min = DefaultValue(x => x.MinValue);
-            this.max = DefaultValue(x => x.MaxValue);
-            this.culture = DefaultValue(x => x.Culture);
-            this.numberStyles = DefaultValue(x => x.NumberStyles);
-            this.decimalDigits = DefaultValue(x => (x as DecimalDigitsBox<TValue>)?.DecimalDigits);
-            this.allowSpinners = DefaultValue(x => x.AllowSpinners);
-            this.spinUpdateMode = DefaultValue(x => x.SpinUpdateMode);
-            this.isReadOnly = DefaultValue(x => x.IsReadOnly);
-            this.increment = DefaultValue(x => x.Increment);
-            this.regexPattern = DefaultValue(x => x.RegexPattern);
+            this.ResetCommand = new RelayCommand(_ => this.Reset());
+            this.Reset();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -48,7 +44,14 @@ namespace Gu.Wpf.NumericInput.Demo
 
         public Type Type => typeof(TBox);
 
-        public CultureInfo[] Cultures => new[] { CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sv-SE"), CultureInfo.GetCultureInfo("ja-JP"),  };
+        public ICommand ResetCommand { get; }
+
+        public IReadOnlyList<CultureInfo> Cultures => new[]
+                                         {
+                                             CultureInfo.GetCultureInfo("en-US"),
+                                             CultureInfo.GetCultureInfo("sv-SE"),
+                                             CultureInfo.GetCultureInfo("ja-JP"),
+                                         };
 
         public ValidationTrigger ValidationTrigger
         {
@@ -398,8 +401,25 @@ namespace Gu.Wpf.NumericInput.Demo
 
         private static T DefaultValue<T>(Func<TBox, T> property)
         {
-            var instance = Activator.CreateInstance<TBox>();
-            return property(instance);
+            return property(DefaultValueInstance);
+        }
+
+        private void Reset()
+        {
+            this.value = default(TValue);
+            this.min = DefaultValue(x => x.MinValue);
+            this.max = DefaultValue(x => x.MaxValue);
+            this.culture = DefaultValue(x => x.Culture);
+            this.numberStyles = DefaultValue(x => x.NumberStyles);
+            this.decimalDigits = DefaultValue(x => (x as DecimalDigitsBox<TValue>)?.DecimalDigits);
+            this.allowSpinners = DefaultValue(x => x.AllowSpinners);
+            this.spinUpdateMode = DefaultValue(x => x.SpinUpdateMode);
+            this.isReadOnly = DefaultValue(x => x.IsReadOnly);
+            this.regexPattern = DefaultValue(x => x.RegexPattern);
+            this.increment = DefaultValue(x => x.Increment);
+            this.canValueBeNull = DefaultValue(x => x.CanValueBeNull);
+            this.stringFormat = DefaultValue(x => x.StringFormat);
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
     }
 }

@@ -198,6 +198,10 @@
             <HeaderedContentControl Header="RegexPattern">
                 <TextBox AutomationProperties.AutomationId="RegexPatternBox" Text="{Binding RegexPattern}" />
             </HeaderedContentControl>
+
+            <HeaderedContentControl Header="Reset">
+                <Button Command="{Binding ResetCommand}" Content="Reset" />
+            </HeaderedContentControl>
         </ItemsControl>
     </Grid>
 </UserControl>
