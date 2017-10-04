@@ -1,11 +1,12 @@
-// ReSharper disable MemberCanBePrivate.Global
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
-    using System;
+    using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class ValidationHappyPathTests : IDisposable
+    public sealed class ValidationHappyPathTests
     {
+        private const string WindowName = "DoubleBoxValidationWindow";
+
         private static readonly TestCase[] TestCases =
         {
             new TestCase("1", "1"),
@@ -71,220 +72,248 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 new MinMaxData("2", "-2", "2", "2"),
             };
 
-        private readonly DoubleBoxValidationView view;
-        private bool disposed;
-
-        public ValidationHappyPathTests()
-        {
-            this.view = new DoubleBoxValidationView();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.view.Reset();
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindButton("Reset").Invoke();
+                window.WaitUntilResponsive();
+            }
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocus(TestCase testCase)
         {
-            var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            }
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnPropertyChanged(TestCase testCase)
         {
-            var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            }
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public void PropertyChanged(TestCase testCase)
+        public void PropertyChangedValidateOnPropertyChanged(TestCase testCase)
         {
-            var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            }
         }
 
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishLostFocusValidateOnLostFocus(TestCase testCase)
         {
-            this.view.CultureBox.Select("sv-SE");
-            var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                 window.FindComboBox("Culture").Select("sv-SE");
+                var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            }
         }
 
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishLostFocusValidateOnPropertyChanged(TestCase testCase)
         {
-            this.view.CultureBox.Select("sv-SE");
-            var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                 window.FindComboBox("Culture").Select("sv-SE");
+                var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishPropertyChangedValidateOnPropertyChanged(TestCase testCase)
         {
-            this.view.CultureBox.Select("sv-SE");
-            var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = testCase.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(testCase.Text, doubleBox.Text);
-            Assert.AreEqual(testCase.Expected, this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                 window.FindComboBox("Culture").Select("sv-SE");
+                var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
+                doubleBox.Text = testCase.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(testCase.Text, doubleBox.Text);
+                Assert.AreEqual(testCase.Expected, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [Test]
         public void WhenNullLostFocusValidateOnLostFocus()
         {
-            this.view.CanValueBeNullBox.IsChecked = true;
-            var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = string.Empty;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(string.Empty, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindCheckBox("CanValueBeNull").IsChecked = true;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
+                doubleBox.Text = string.Empty;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(string.Empty, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(string.Empty, doubleBox.Text);
-            Assert.AreEqual(string.Empty, this.view.ViewModelValueBox.Text);
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(string.Empty, doubleBox.Text);
+                Assert.AreEqual(string.Empty, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [Test]
         public void WhenNullLostFocusValidateOnPropertyChanged()
         {
-            this.view.CanValueBeNullBox.IsChecked = true;
-            var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = string.Empty;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(string.Empty, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindCheckBox("CanValueBeNull").IsChecked = true;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
+                doubleBox.Text = string.Empty;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(string.Empty, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(string.Empty, doubleBox.Text);
-            Assert.AreEqual(string.Empty, this.view.ViewModelValueBox.Text);
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(string.Empty, doubleBox.Text);
+                Assert.AreEqual(string.Empty, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [Test]
         public void WheNullPropertyChanged()
         {
-            this.view.CanValueBeNullBox.IsChecked = true;
-            var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = string.Empty;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(string.Empty, doubleBox.Text);
-            Assert.AreEqual(string.Empty, this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindCheckBox("CanValueBeNull").IsChecked = true;
+                var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
+                doubleBox.Text = string.Empty;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(string.Empty, doubleBox.Text);
+                Assert.AreEqual(string.Empty, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocus(MinMaxData data)
         {
-            this.view.MinBox.Text = data.Min;
-            this.view.MaxBox.Text = data.Max;
-            var boxes = this.view.LostFocusValidateOnLostFocusBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = data.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindTextBox("Min").Text = data.Min;
+                window.FindTextBox("Max").Text = data.Max;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
+                doubleBox.Text = data.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(data.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.view.ViewModelValueBox.Text);
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(data.Text, doubleBox.Text);
+                Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocusValidateOnPropertyChanged(MinMaxData data)
         {
-            this.view.MinBox.Text = data.Min;
-            this.view.MaxBox.Text = data.Max;
-            var boxes = this.view.LostFocusValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = data.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual("0", this.view.ViewModelValueBox.Text);
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            {
+                var window = app.MainWindow;
+                window.FindTextBox("Min").Text = data.Min;
+                window.FindTextBox("Max").Text = data.Max;
+                var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
+                doubleBox.Text = data.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(data.Text, doubleBox.Text);
+                Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
 
-            this.view.LoseFocusButton.Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.view.ViewModelValueBox.Text);
+                window.FindButton("lose focus").Click();
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(data.Text, doubleBox.Text);
+                Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
+            }
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxPropertyChanged(MinMaxData data)
         {
-            this.view.MinBox.Text = data.Min;
-            this.view.MaxBox.Text = data.Max;
-            var boxes = this.view.PropertyChangedValidateOnPropertyChangedBoxes;
-            var doubleBox = boxes.DoubleBox;
-            doubleBox.Text = data.Text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(data.Text, doubleBox.Text);
-            Assert.AreEqual(data.Expected, this.view.ViewModelValueBox.Text);
-        }
-
-        public void Dispose()
-        {
-            if (this.disposed)
+            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
             {
-                return;
+                var window = app.MainWindow;
+                window.FindTextBox("Min").Text = data.Min;
+                window.FindTextBox("Max").Text = data.Max;
+                var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
+                doubleBox.Text = data.Text;
+                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.AreEqual(data.Text, doubleBox.Text);
+                Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
             }
-
-            this.disposed = true;
-            this.view.Dispose();
         }
 
         public class TestCase

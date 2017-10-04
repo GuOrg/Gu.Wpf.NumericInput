@@ -1,5 +1,6 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
+    using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
@@ -8,13 +9,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     {
         private const string WindowName = "DoubleBoxValidationWindow";
 
-        private static readonly TestCase[] TestCases =
+        private static readonly IReadOnlyList<TestCase> TestCases = new[]
         {
             new TestCase("1.2", @"^\d\.\d$", "1.2", null),
             new TestCase("12.34", @"^\d\.\d$", "0", "ValidationError.RegexValidationResult 'Please provide valid input.'"),
         };
 
-        private static readonly TestCase[] SwedishCases =
+        private static readonly IReadOnlyList<TestCase> SwedishCases = new[]
         {
             new TestCase("1,2",  @"^\d,\d$", "1.2", null),
             new TestCase("12,34",  @"^\d,\d$", "0", "ValidationError.RegexValidationResult 'Vänligen ange ett giltigt värde.'"),
