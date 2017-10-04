@@ -26,6 +26,12 @@
             }
         }
 
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+        }
+
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
