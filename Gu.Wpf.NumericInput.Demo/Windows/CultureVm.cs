@@ -3,14 +3,30 @@
     using System.ComponentModel;
     using System.Globalization;
     using System.Runtime.CompilerServices;
-    using JetBrains.Annotations;
+    using System.Windows.Input;
 
     public class CultureVm : INotifyPropertyChanged
     {
-        private double value = 1.234;
-        private CultureInfo culture = CultureInfo.GetCultureInfo("sv-se");
+        private const double DefaultValue = 1.234;
+        private static readonly CultureInfo DefaultCulture = CultureInfo.GetCultureInfo("sv-se");
+
+        private double value = DefaultValue;
+        private CultureInfo culture = DefaultCulture;
+
+        public CultureVm()
+        {
+            this.ResetCommand = new RelayCommand(_ =>
+            {
+                this.Value = DefaultValue;
+                this.Culture = DefaultCulture;
+            });
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string CultureName => this.Culture.Name;
+
+        public ICommand ResetCommand { get; }
 
         public double Value
         {
@@ -43,9 +59,7 @@
             }
         }
 
-        public string CultureName => this.Culture.Name;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

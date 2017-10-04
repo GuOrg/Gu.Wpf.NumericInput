@@ -94,10 +94,10 @@
     <Compile Include="MainVm.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="TouchVm.cs">
       <DependentUpon>TouchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\CultureVm.cs" />
     <Compile Include="ValidationErrorToInfoStringConverter.cs" />
     <Compile Include="FormattedTextView.xaml.cs">
       <DependentUpon>FormattedTextView.xaml</DependentUpon>
@@ -120,6 +120,9 @@
     </Compile>
     <Compile Include="TouchView.xaml.cs">
       <DependentUpon>TouchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CultureVm.cs">
+      <DependentUpon>CultureWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="BoxViews\DecimalBoxView.xaml">
       <SubType>Designer</SubType>
