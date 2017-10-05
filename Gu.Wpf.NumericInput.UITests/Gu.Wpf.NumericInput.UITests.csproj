@@ -36,12 +36,6 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.UITests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

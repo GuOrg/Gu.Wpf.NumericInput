@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.UITests", "Gu.Wpf.NumericInput.UITests\Gu.Wpf.NumericInput.UITests.csproj", "{03820C66-202B-4B6D-B9D5-E4F3267362C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.UiTests", "Gu.Wpf.NumericInput.UITests\Gu.Wpf.NumericInput.UiTests.csproj", "{03820C66-202B-4B6D-B9D5-E4F3267362C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{FE49CF0F-CA04-46D8-B608-A2C6B665D7BC}"
 	ProjectSection(SolutionItems) = preProject
