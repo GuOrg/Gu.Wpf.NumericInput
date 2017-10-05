@@ -39,11 +39,8 @@
     <DocumentationFile>bin\Release\Gu.Wpf.NumericInput.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>  
+    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
