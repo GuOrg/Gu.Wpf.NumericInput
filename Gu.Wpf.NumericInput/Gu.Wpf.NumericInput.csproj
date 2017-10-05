@@ -42,7 +42,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,7 +131,6 @@
     </Compile>
     <Compile Include="Validation\ValidationRules\CanParse.cs" />
     <None Include="Gu.Wpf.NumericInput.ruleset" />
-    <None Include="Gu.Wpf.NumericInput.snk" />
     <None Include="paket.references" />
     <None Include="paket.template" />
     <AppDesigner Include="Properties\" />

@@ -39,10 +39,8 @@
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>  
+    <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
