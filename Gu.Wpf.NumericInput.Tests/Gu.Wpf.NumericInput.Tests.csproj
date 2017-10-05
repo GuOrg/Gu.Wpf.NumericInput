@@ -39,7 +39,7 @@
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>  
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Gu.Wpf.NumericInput.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
@@ -73,9 +73,6 @@
     <Compile Include="Todos.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk">
-      <Link>Gu.Wpf.NumericInput.snk</Link>
-    </None>
     <None Include="Gu.Wpf.NumericInput.Tests.ruleset" />
     <None Include="paket.references" />
   </ItemGroup>
