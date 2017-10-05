@@ -1,3 +1,6 @@
+#### 0.5.3.0
+FEATURE: SpinUpdateMode
+
 #### 0.5.1.2
 * BUGFIX: Use etCurrentValue for mutable dependency properties.
 

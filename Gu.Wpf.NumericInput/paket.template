@@ -1,7 +1,7 @@
 ﻿type project
 include-pdbs true
 releasenotes
-  BUGFIX: Use type IFormatProvider in CLR accessors for NumericBox.Culture.
+  FEATURE: SpinUpdateMode
 
 tags wpf xaml numeric textbox
 projectUrl https://github.com/JohanLarsson/Gu.Wpf.NumericInput
