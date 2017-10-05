@@ -14,6 +14,11 @@ NUGET
       Microsoft.NETCore.Targets (>= 1.1) - restriction: || (>= dnxcore50) (&& (< monoandroid) (< net45) (>= netstandard1.0) (< netstandard1.2) (< win8) (< wp8)) (&& (< monoandroid) (< net45) (>= netstandard1.2) (< netstandard1.3) (< win8) (< wpa81)) (&& (< monoandroid) (< net45) (>= netstandard1.3) (< netstandard1.5) (< win8) (< wpa81)) (&& (< monotouch) (< net45) (>= netstandard1.5) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos))
     WpfAnalyzers (0.2.7.10)
 
+GROUP Build
+NUGET
+  remote: http://www.nuget.org/api/v2
+    SourceLink (1.1)
+
 GROUP Demo
 RESTRICTION: == net461
 NUGET

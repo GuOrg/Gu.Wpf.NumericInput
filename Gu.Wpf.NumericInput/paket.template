@@ -1,5 +1,5 @@
 ﻿type project
-
+include-pdbs true
 releasenotes
   BUGFIX: Use type IFormatProvider in CLR accessors for NumericBox.Culture.
 
@@ -12,3 +12,4 @@ excludeddependencies
   StyleCop.Analyzers
   WpfAnalyzers
   Gu.Analyzers
+  SourceLink

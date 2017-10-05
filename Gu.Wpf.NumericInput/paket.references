@@ -2,3 +2,6 @@ group Analyzers
   StyleCop.Analyzers
   WpfAnalyzers
   Gu.Analyzers
+
+group Build
+  nuget SourceLink

@@ -18,3 +18,7 @@ group Demo
   framework: net461
   nuget Gu.PropertyGrid
   nuget Gu.Wpf.AutoRowGrid
+
+group Build
+  source http://www.nuget.org/api/v2/
+  nuget SourceLink
