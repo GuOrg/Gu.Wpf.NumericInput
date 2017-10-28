@@ -3,7 +3,7 @@
 GROUP Analyzers
 NUGET
   remote: http://www.nuget.org/api/v2
-    Gu.Analyzers (0.1.11.25-dev)
+    Gu.Analyzers (1.0.0.1)
     JetBrains.Annotations (11.0)
       System.Runtime (>= 4.1) - restriction: && (< net10) (>= netstandard1.0)
     Microsoft.NETCore.Platforms (2.0) - restriction: || (&& (>= dnxcore50) (>= netstandard1.0)) (&& (< monoandroid) (< net10) (>= netstandard1.0) (< netstandard1.2) (< win8) (< wp8)) (&& (< monoandroid) (< net10) (>= netstandard1.2) (< netstandard1.3) (< win8) (< wpa81)) (&& (< monoandroid) (< net10) (>= netstandard1.3) (< netstandard1.5) (< win8) (< wpa81)) (&& (< monotouch) (< net10) (>= netstandard1.5) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos))
@@ -12,7 +12,7 @@ NUGET
     System.Runtime (4.3) - restriction: && (< net10) (>= netstandard1.0)
       Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (>= dnxcore50) (&& (< monoandroid) (< net45) (>= netstandard1.0) (< netstandard1.2) (< win8) (< wp8)) (&& (< monoandroid) (< net45) (>= netstandard1.2) (< netstandard1.3) (< win8) (< wpa81)) (&& (< monoandroid) (< net45) (>= netstandard1.3) (< netstandard1.5) (< win8) (< wpa81)) (&& (< monotouch) (< net45) (>= netstandard1.5) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos))
       Microsoft.NETCore.Targets (>= 1.1) - restriction: || (>= dnxcore50) (&& (< monoandroid) (< net45) (>= netstandard1.0) (< netstandard1.2) (< win8) (< wp8)) (&& (< monoandroid) (< net45) (>= netstandard1.2) (< netstandard1.3) (< win8) (< wpa81)) (&& (< monoandroid) (< net45) (>= netstandard1.3) (< netstandard1.5) (< win8) (< wpa81)) (&& (< monotouch) (< net45) (>= netstandard1.5) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos))
-    WpfAnalyzers (0.2.7.10)
+    WpfAnalyzers (0.3.0)
 
 GROUP Build
 NUGET
