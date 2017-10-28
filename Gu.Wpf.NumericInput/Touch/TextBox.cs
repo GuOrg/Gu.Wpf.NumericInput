@@ -6,6 +6,7 @@ namespace Gu.Wpf.NumericInput.Touch
 
     public static class TextBox
     {
+        /// <summary>Identifies the <see cref="ShowTouchKeyboardOnTouchEnter"/> dependency property.</summary>
         public static readonly DependencyProperty ShowTouchKeyboardOnTouchEnterProperty = DependencyProperty.RegisterAttached(
             "ShowTouchKeyboardOnTouchEnter",
             typeof(bool),

@@ -20,14 +20,16 @@
         public const string DecreaseButtonName = "PART_DecreaseButton";
         public const string IncreaseButtonName = "PART_IncreaseButton";
 
+        /// <summary>Identifies the <see cref="SpinUpdateMode"/> dependency property.</summary>
         public static readonly DependencyProperty SpinUpdateModeProperty = NumericBox.SpinUpdateModeProperty.AddOwner(
             typeof(SpinnerDecorator),
             new FrameworkPropertyMetadata(
                 SpinUpdateMode.AsBinding,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="Child"/> dependency property.</summary>
         public static readonly DependencyProperty ChildProperty = DependencyProperty.Register(
-            "Child",
+            nameof(Child),
             typeof(ISpinnerBox),
             typeof(SpinnerDecorator),
             new PropertyMetadata(default(ISpinnerBox), OnChildChanged));

@@ -10,14 +10,16 @@
 
     public static class TextBox
     {
+        /// <summary>Identifies the <see cref="SelectAllOnGotKeyboardFocus"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnGotKeyboardFocusProperty = DependencyProperty.RegisterAttached(
-                "SelectAllOnGotKeyboardFocus",
-                typeof(bool),
-                typeof(TextBox),
-                new FrameworkPropertyMetadata(
-                    BooleanBoxes.False,
-                    FrameworkPropertyMetadataOptions.Inherits));
+            "SelectAllOnGotKeyboardFocus",
+            typeof(bool),
+            typeof(TextBox),
+            new FrameworkPropertyMetadata(
+                BooleanBoxes.False,
+                FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="SelectAllOnClick"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnClick",
             typeof(bool),
@@ -26,6 +28,7 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="SelectAllOnDoubleClick"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
             typeof(bool),
@@ -34,6 +37,7 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="MoveFocusOnEnter"/> dependency property.</summary>
         public static readonly DependencyProperty MoveFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "MoveFocusOnEnter",
             typeof(bool),
@@ -42,6 +46,7 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="LoseFocusOnEnter"/> dependency property.</summary>
         public static readonly DependencyProperty LoseFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "LoseFocusOnEnter",
             typeof(bool),
@@ -153,10 +158,8 @@
                     var request = new TraversalRequest(FocusNavigationDirection.Next);
 
                     // Gets the element with keyboard focus.
-                    var elementWithFocus = Keyboard.FocusedElement as UIElement;
-
                     // Change keyboard focus.
-                    if (elementWithFocus != null)
+                    if (Keyboard.FocusedElement is UIElement elementWithFocus)
                     {
                         if (elementWithFocus.MoveFocus(request))
                         {
@@ -233,8 +236,7 @@
 
         private static void SelectAllText(this TextBoxBase textBoxBase)
         {
-            var textBox = textBoxBase as System.Windows.Controls.TextBox;
-            if (textBox != null)
+            if (textBoxBase is System.Windows.Controls.TextBox textBox)
             {
                 if (textBox.SelectedText == textBox.Text)
                 {

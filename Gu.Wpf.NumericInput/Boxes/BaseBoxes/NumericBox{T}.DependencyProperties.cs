@@ -12,8 +12,9 @@ namespace Gu.Wpf.NumericInput
     /// <summary>DependencyProperties for <see cref="NumericBox{T}"/>.</summary>
     public abstract partial class NumericBox<T>
     {
+        /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            "Value",
+            nameof(Value),
             typeof(T?),
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
@@ -24,30 +25,35 @@ namespace Gu.Wpf.NumericInput
                 isAnimationProhibited: false,
                 defaultUpdateSourceTrigger: UpdateSourceTrigger.LostFocus));
 
+        /// <summary>Identifies the <see cref="CanValueBeNull"/> dependency property.</summary>
         public static readonly DependencyProperty CanValueBeNullProperty = NumericBox.CanValueBeNullProperty.AddOwner(
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits, OnCanValueBeNullChanged));
 
+        /// <summary>Identifies the <see cref="NumberStyles"/> dependency property.</summary>
         public static readonly DependencyProperty NumberStylesProperty = NumericBox.NumberStylesProperty.AddOwner(
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits, OnNumberStylesChanged));
 
+        /// <summary>Identifies the <see cref="MinValue"/> dependency property.</summary>
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
-            "MinValue",
+            nameof(MinValue),
             typeof(T?),
             typeof(NumericBox<T>),
             new PropertyMetadata(
                 null,
                 OnMinValueChanged));
 
+        /// <summary>Identifies the <see cref="MaxValue"/> dependency property.</summary>
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
-            "MaxValue",
+            nameof(MaxValue),
             typeof(T?),
             typeof(NumericBox<T>),
             new PropertyMetadata(
                 null,
                 OnMaxValueChanged));
 
+        /// <summary>Identifies the <see cref="AllowSpinners"/> dependency property.</summary>
         public static readonly DependencyProperty AllowSpinnersProperty = NumericBox.AllowSpinnersProperty.AddOwner(
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
@@ -55,6 +61,7 @@ namespace Gu.Wpf.NumericInput
                 FrameworkPropertyMetadataOptions.Inherits,
                 OnAllowSpinnersChanged));
 
+        /// <summary>Identifies the <see cref="SpinUpdateMode"/> dependency property.</summary>
         public static readonly DependencyProperty SpinUpdateModeProperty = NumericBox.SpinUpdateModeProperty.AddOwner(
             typeof(NumericBox<T>),
             new FrameworkPropertyMetadata(
@@ -62,23 +69,26 @@ namespace Gu.Wpf.NumericInput
                 FrameworkPropertyMetadataOptions.Inherits));
 
         private static readonly DependencyPropertyKey IncreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
-            "IncreaseCommand",
+            nameof(IncreaseCommand),
             typeof(ICommand),
             typeof(NumericBox<T>),
             new PropertyMetadata(null));
 
+        /// <summary>Identifies the <see cref="IncreaseCommand"/> dependency property.</summary>
         public static readonly DependencyProperty IncreaseCommandProperty = IncreaseCommandPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey DecreaseCommandPropertyKey = DependencyProperty.RegisterReadOnly(
-            "DecreaseCommand",
+            nameof(DecreaseCommand),
             typeof(ICommand),
             typeof(NumericBox<T>),
             new PropertyMetadata(null));
 
+        /// <summary>Identifies the <see cref="DecreaseCommand"/> dependency property.</summary>
         public static readonly DependencyProperty DecreaseCommandProperty = DecreaseCommandPropertyKey.DependencyProperty;
 
+        /// <summary>Identifies the <see cref="Increment"/> dependency property.</summary>
         public static readonly DependencyProperty IncrementProperty = DependencyProperty.Register(
-            "Increment",
+            nameof(Increment),
             typeof(T),
             typeof(NumericBox<T>),
             new PropertyMetadata(

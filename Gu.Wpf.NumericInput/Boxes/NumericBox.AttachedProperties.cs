@@ -10,6 +10,7 @@
     /// </summary>
     public static partial class NumericBox
     {
+        /// <summary>Identifies the <see cref="Culture"/> dependency property.</summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
             "Culture",
             typeof(IFormatProvider),
@@ -18,6 +19,7 @@
                 CultureInfo.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="ValidationTrigger"/> dependency property.</summary>
         public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.RegisterAttached(
             "ValidationTrigger",
             typeof(ValidationTrigger),
@@ -26,42 +28,49 @@
                 ValidationTrigger.LostFocus,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="CanValueBeNull"/> dependency property.</summary>
         public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(
             "CanValueBeNull",
             typeof(bool),
             typeof(NumericBox),
             new PropertyMetadata(BooleanBoxes.False));
 
+        /// <summary>Identifies the <see cref="NumberStyles"/> dependency property.</summary>
         public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.RegisterAttached(
             "NumberStyles",
             typeof(NumberStyles),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="StringFormat"/> dependency property.</summary>
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.RegisterAttached(
             "StringFormat",
             typeof(string),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="DecimalDigits"/> dependency property.</summary>
         public static readonly DependencyProperty DecimalDigitsProperty = DependencyProperty.RegisterAttached(
             "DecimalDigits",
             typeof(int?),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(int?), FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="AllowSpinners"/> dependency property.</summary>
         public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.RegisterAttached(
             "AllowSpinners",
             typeof(bool),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(BooleanBoxes.False, FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="SpinUpdateMode"/> dependency property.</summary>
         public static readonly DependencyProperty SpinUpdateModeProperty = DependencyProperty.RegisterAttached(
             "SpinUpdateMode",
             typeof(SpinUpdateMode),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(SpinUpdateMode.AsBinding, FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         internal static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
             "Text",
             typeof(string),
