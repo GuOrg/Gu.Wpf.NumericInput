@@ -6,7 +6,6 @@ namespace Gu.Wpf.NumericInput.Touch
 
     public static class TextBox
     {
-        /// <summary>Identifies the <see cref="ShowTouchKeyboardOnTouchEnter"/> dependency property.</summary>
         public static readonly DependencyProperty ShowTouchKeyboardOnTouchEnterProperty = DependencyProperty.RegisterAttached(
             "ShowTouchKeyboardOnTouchEnter",
             typeof(bool),
@@ -33,11 +32,21 @@ namespace Gu.Wpf.NumericInput.Touch
             }
         }
 
+        /// <summary>
+        /// Helper for setting ShowTouchKeyboardOnTouchEnter property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set ShowTouchKeyboardOnTouchEnter property on.</param>
+        /// <param name="value">ShowTouchKeyboardOnTouchEnter property value.</param>
         public static void SetShowTouchKeyboardOnTouchEnter(UIElement element, bool value)
         {
             element.SetValue(ShowTouchKeyboardOnTouchEnterProperty, value);
         }
 
+        /// <summary>
+        /// Helper for reading ShowTouchKeyboardOnTouchEnter property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read ShowTouchKeyboardOnTouchEnter property from.</param>
+        /// <returns>ShowTouchKeyboardOnTouchEnter property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetShowTouchKeyboardOnTouchEnter(UIElement element)

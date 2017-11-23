@@ -10,7 +10,6 @@
 
     public static class TextBox
     {
-        /// <summary>Identifies the <see cref="SelectAllOnGotKeyboardFocus"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnGotKeyboardFocusProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnGotKeyboardFocus",
             typeof(bool),
@@ -19,7 +18,6 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="SelectAllOnClick"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnClick",
             typeof(bool),
@@ -28,7 +26,6 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="SelectAllOnDoubleClick"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
             typeof(bool),
@@ -37,7 +34,6 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="MoveFocusOnEnter"/> dependency property.</summary>
         public static readonly DependencyProperty MoveFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "MoveFocusOnEnter",
             typeof(bool),
@@ -46,7 +42,6 @@
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="LoseFocusOnEnter"/> dependency property.</summary>
         public static readonly DependencyProperty LoseFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "LoseFocusOnEnter",
             typeof(bool),
@@ -72,11 +67,21 @@
             EventManager.RegisterClassHandler(typeof(TextBoxBase), Control.MouseDoubleClickEvent, new RoutedEventHandler(OnMouseDoubleClickSelectAllText));
         }
 
+        /// <summary>
+        /// Helper for setting SelectAllOnGotKeyboardFocus property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set SelectAllOnGotKeyboardFocus property on.</param>
+        /// <param name="value">SelectAllOnGotKeyboardFocus property value.</param>
         public static void SetSelectAllOnGotKeyboardFocus(this UIElement element, bool value)
         {
             element.SetValue(SelectAllOnGotKeyboardFocusProperty, BooleanBoxes.Box(value));
         }
 
+        /// <summary>
+        /// Helper for reading SelectAllOnGotKeyboardFocus property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read SelectAllOnGotKeyboardFocus property from.</param>
+        /// <returns>SelectAllOnGotKeyboardFocus property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnGotKeyboardFocus(this UIElement element)
@@ -84,23 +89,43 @@
             return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnGotKeyboardFocusProperty));
         }
 
-        public static void SetSelectAllOnClick(this UIElement o, bool value)
+        /// <summary>
+        /// Helper for setting SelectAllOnClick property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set SelectAllOnClick property on.</param>
+        /// <param name="value">SelectAllOnClick property value.</param>
+        public static void SetSelectAllOnClick(this UIElement element, bool value)
         {
-            o.SetValue(SelectAllOnClickProperty, BooleanBoxes.Box(value));
+            element.SetValue(SelectAllOnClickProperty, BooleanBoxes.Box(value));
         }
 
+        /// <summary>
+        /// Helper for reading SelectAllOnClick property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read SelectAllOnClick property from.</param>
+        /// <returns>SelectAllOnClick property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static bool GetSelectAllOnClick(this UIElement o)
+        public static bool GetSelectAllOnClick(this UIElement element)
         {
-            return Equals(BooleanBoxes.True, o.GetValue(SelectAllOnClickProperty));
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnClickProperty));
         }
 
+        /// <summary>
+        /// Helper for setting SelectAllOnDoubleClick property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set SelectAllOnDoubleClick property on.</param>
+        /// <param name="value">SelectAllOnDoubleClick property value.</param>
         public static void SetSelectAllOnDoubleClick(this UIElement element, bool value)
         {
             element.SetValue(SelectAllOnDoubleClickProperty, BooleanBoxes.Box(value));
         }
 
+        /// <summary>
+        /// Helper for reading SelectAllOnDoubleClick property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read SelectAllOnDoubleClick property from.</param>
+        /// <returns>SelectAllOnDoubleClick property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnDoubleClick(this UIElement element)
@@ -108,11 +133,21 @@
             return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnDoubleClickProperty));
         }
 
+        /// <summary>
+        /// Helper for setting MoveFocusOnEnter property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set MoveFocusOnEnter property on.</param>
+        /// <param name="value">MoveFocusOnEnter property value.</param>
         public static void SetMoveFocusOnEnter(this UIElement element, bool value)
         {
             element.SetValue(MoveFocusOnEnterProperty, BooleanBoxes.Box(value));
         }
 
+        /// <summary>
+        /// Helper for reading MoveFocusOnEnter property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read MoveFocusOnEnter property from.</param>
+        /// <returns>MoveFocusOnEnter property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetMoveFocusOnEnter(this UIElement element)
@@ -120,11 +155,21 @@
             return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
         }
 
+        /// <summary>
+        /// Helper for setting LoseFocusOnEnter property on a DependencyObject.
+        /// </summary>
+        /// <param name="element">DependencyObject to set LoseFocusOnEnter property on.</param>
+        /// <param name="value">LoseFocusOnEnter property value.</param>
         public static void SetLoseFocusOnEnter(this DependencyObject element, bool value)
         {
             element.SetValue(LoseFocusOnEnterProperty, value);
         }
 
+        /// <summary>
+        /// Helper for reading LoseFocusOnEnter property from a DependencyObject.
+        /// </summary>
+        /// <param name="element">DependencyObject to read LoseFocusOnEnter property from.</param>
+        /// <returns>LoseFocusOnEnter property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetLoseFocusOnEnter(this DependencyObject element)

@@ -10,7 +10,6 @@
     /// </summary>
     public static partial class NumericBox
     {
-        /// <summary>Identifies the <see cref="Culture"/> dependency property.</summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
             "Culture",
             typeof(IFormatProvider),
@@ -19,7 +18,6 @@
                 CultureInfo.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="ValidationTrigger"/> dependency property.</summary>
         public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.RegisterAttached(
             "ValidationTrigger",
             typeof(ValidationTrigger),
@@ -28,35 +26,30 @@
                 ValidationTrigger.LostFocus,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="CanValueBeNull"/> dependency property.</summary>
         public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(
             "CanValueBeNull",
             typeof(bool),
             typeof(NumericBox),
             new PropertyMetadata(BooleanBoxes.False));
 
-        /// <summary>Identifies the <see cref="NumberStyles"/> dependency property.</summary>
         public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.RegisterAttached(
             "NumberStyles",
             typeof(NumberStyles),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="StringFormat"/> dependency property.</summary>
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.RegisterAttached(
             "StringFormat",
             typeof(string),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="DecimalDigits"/> dependency property.</summary>
         public static readonly DependencyProperty DecimalDigitsProperty = DependencyProperty.RegisterAttached(
             "DecimalDigits",
             typeof(int?),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(int?), FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="AllowSpinners"/> dependency property.</summary>
         public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.RegisterAttached(
             "AllowSpinners",
             typeof(bool),
@@ -70,18 +63,27 @@
             typeof(NumericBox),
             new FrameworkPropertyMetadata(SpinUpdateMode.AsBinding, FrameworkPropertyMetadataOptions.Inherits));
 
-        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         internal static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
             "Text",
             typeof(string),
             typeof(NumericBox),
             new PropertyMetadata(default(string)));
 
+        /// <summary>
+        /// Helper for reading Culture property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read Culture property from.</param>
+        /// <returns>Culture property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         [TypeConverter(typeof(CultureInfoConverter))]
         public static IFormatProvider GetCulture(this UIElement element) => (IFormatProvider)element.GetValue(CultureProperty);
 
+        /// <summary>
+        /// Helper for setting Culture property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set Culture property on.</param>
+        /// <param name="value">Culture property value.</param>
         public static void SetCulture(this UIElement element, IFormatProvider value) => element.SetValue(CultureProperty, value);
 
         /// <summary>
@@ -100,20 +102,60 @@
         /// </summary>
         public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
 
+        /// <summary>
+        /// Helper for setting CanValueBeNull property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set CanValueBeNull property on.</param>
+        /// <param name="value">CanValueBeNull property value.</param>
         public static void SetCanValueBeNull(this UIElement element, bool value) => element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
 
+        /// <summary>
+        /// Helper for reading CanValueBeNull property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read CanValueBeNull property from.</param>
+        /// <returns>CanValueBeNull property value.</returns>
         public static bool GetCanValueBeNull(this UIElement element) => (bool)element.GetValue(CanValueBeNullProperty);
 
+        /// <summary>
+        /// Helper for setting NumberStyles property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set NumberStyles property on.</param>
+        /// <param name="value">NumberStyles property value.</param>
         public static void SetNumberStyles(this UIElement element, NumberStyles value) => element.SetValue(NumberStylesProperty, value);
 
+        /// <summary>
+        /// Helper for reading NumberStyles property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read NumberStyles property from.</param>
+        /// <returns>NumberStyles property value.</returns>
         public static NumberStyles GetNumberStyles(this UIElement element) => (NumberStyles)element.GetValue(NumberStylesProperty);
 
+        /// <summary>
+        /// Helper for setting StringFormat property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set StringFormat property on.</param>
+        /// <param name="value">StringFormat property value.</param>
         public static void SetStringFormat(this UIElement element, string value) => element.SetValue(StringFormatProperty, value);
 
+        /// <summary>
+        /// Helper for reading StringFormat property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read StringFormat property from.</param>
+        /// <returns>StringFormat property value.</returns>
         public static string GetStringFormat(this UIElement element) => (string)element.GetValue(StringFormatProperty);
 
+        /// <summary>
+        /// Helper for setting DecimalDigits property on a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to set DecimalDigits property on.</param>
+        /// <param name="value">DecimalDigits property value.</param>
         public static void SetDecimalDigits(this UIElement element, int? value) => element.SetValue(DecimalDigitsProperty, value);
 
+        /// <summary>
+        /// Helper for reading DecimalDigits property from a UIElement.
+        /// </summary>
+        /// <param name="element">UIElement to read DecimalDigits property from.</param>
+        /// <returns>DecimalDigits property value.</returns>
         public static int? GetDecimalDigits(this UIElement element) => (int?)element.GetValue(DecimalDigitsProperty);
 
         /// <summary>
