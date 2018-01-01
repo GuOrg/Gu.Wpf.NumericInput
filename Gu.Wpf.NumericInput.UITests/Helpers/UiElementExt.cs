@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.UITests
+namespace Gu.Wpf.NumericInput.UITests
 {
     using System;
     using System.Linq;
@@ -7,7 +7,7 @@
 
     public static class UiElementExt
     {
-        public static bool HasValidationError(this Gu.Wpf.UiAutomation.UiElement item)
+        public static bool HasValidationError(this UiElement item)
         {
             var itemStatus = item.ItemStatus;
             if (itemStatus.Contains("HasError: True"))

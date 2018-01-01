@@ -1,6 +1,5 @@
-﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
+namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
-    using System;
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
