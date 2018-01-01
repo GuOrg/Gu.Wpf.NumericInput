@@ -7,6 +7,7 @@
     public sealed class SpinnersTests
     {
         private const string WindowName = "SpinnerWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         private static readonly IReadOnlyList<string> BoxContainerIds = new[]
         {
@@ -18,7 +19,7 @@
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindButton("Reset").Invoke();
@@ -29,13 +30,13 @@
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UpdatesViewModel(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
@@ -98,7 +99,7 @@
         public void UpdatesViewModelSpinUpdateModePropertyChanged(string containerId)
         {
             using (var app = Application.AttachOrLaunch(
-                Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"),
+                ExeFileName,
                 WindowName))
             {
                 var window = app.MainWindow;
@@ -161,7 +162,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
@@ -201,7 +202,7 @@
         public void TruncatesToMin(string containerId)
         {
             using (var app = Application.AttachOrLaunch(
-                Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"),
+                ExeFileName,
                 WindowName))
             {
                 var window = app.MainWindow;
@@ -241,7 +242,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
@@ -290,7 +291,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
@@ -338,7 +339,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
@@ -376,7 +377,7 @@
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;

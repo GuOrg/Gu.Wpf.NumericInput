@@ -8,6 +8,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     public sealed class ValidationErrorRegexTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         private static readonly IReadOnlyList<TestCase> TestCases = new[]
         {
@@ -24,7 +25,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("ViewModelValue").Text = "0";
@@ -36,13 +37,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocus(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("RegexPattern").Text = data.Pattern;
@@ -77,7 +78,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocusWhenPatternChanges(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
@@ -112,7 +113,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
@@ -155,7 +156,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChanged(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
@@ -184,7 +185,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(SwedishCases))]
         public void PropertyChangedSwedish(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindComboBox("Culture").Select("sv-SE");
@@ -214,7 +215,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChangedWhenNotLocalized(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindComboBox("Culture").Select("ja-JP");

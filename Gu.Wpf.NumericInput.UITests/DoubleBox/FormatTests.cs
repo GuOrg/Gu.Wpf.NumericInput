@@ -8,6 +8,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     public sealed class FormatTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         private static readonly CultureInfo EnUs = CultureInfo.GetCultureInfo("en-US");
         private static readonly CultureInfo SvSe = CultureInfo.GetCultureInfo("sv-SE");
@@ -25,7 +26,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindButton("Reset").Invoke();
@@ -36,13 +37,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void WithStringFormat(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
@@ -63,7 +64,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void WhenStringFormatChanges()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");

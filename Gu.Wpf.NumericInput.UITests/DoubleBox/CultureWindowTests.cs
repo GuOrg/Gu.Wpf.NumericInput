@@ -6,11 +6,12 @@
     public sealed class CultureWindowTests
     {
         private const string WindowName = "CultureWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindButton("Reset").Invoke();
@@ -21,7 +22,7 @@
         [OneTimeTearDown]
         public void OneTimeSetUp()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCase("SpinnerDoubleBox", "1,234", "1,234")]
@@ -31,7 +32,7 @@
         [TestCase("BoundCultureDoubleBox", "1,234", "1.234")]
         public void Formats(string name, string expectedSv, string expectedEn)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var textBox = window.FindTextBox(name);

@@ -3,14 +3,15 @@
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class FocusWindowTests
+    public class FocusWindowTests
     {
         private const string WindowName = "FocusWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("TextBox2").Enter("2.345");
@@ -22,13 +23,13 @@
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [Test]
         public void NoSpinnersNoSuffix()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBoxes = window.FindGroupBox("DoubleBoxes");
@@ -66,7 +67,7 @@
         [Test]
         public void WithSpinners()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBoxes = window.FindGroupBox("DoubleBoxes");

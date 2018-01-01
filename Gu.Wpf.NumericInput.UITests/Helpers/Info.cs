@@ -1,7 +1,6 @@
 ﻿namespace Gu.Wpf.NumericInput.UITests
 {
     using System.Diagnostics;
-    using Gu.Wpf.UiAutomation;
 
     public static class Info
     {
@@ -9,7 +8,7 @@
         {
             var processStartInfo = new ProcessStartInfo
             {
-                FileName = Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"),
+                FileName = "Gu.Wpf.NumericInput.Demo.exe",
                 Arguments = args,
                 UseShellExecute = false,
             };

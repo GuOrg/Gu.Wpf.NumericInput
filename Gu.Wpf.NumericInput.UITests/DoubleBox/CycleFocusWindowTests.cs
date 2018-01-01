@@ -6,18 +6,19 @@
     public sealed class CycleFocusWindowTests
     {
         private const string WindowName = "CycleFocusWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void WithSpinners(bool withSpinners)
         {
-            using (var application = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var application = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = application.MainWindow;
                 var doubleBoxes = window.FindGroupBox("DoubleBoxes");

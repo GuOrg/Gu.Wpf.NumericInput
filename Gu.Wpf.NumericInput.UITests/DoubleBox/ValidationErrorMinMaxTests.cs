@@ -8,6 +8,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     public sealed class ValidationErrorMinMaxTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         private static readonly IReadOnlyList<TestCase> TestCases = new[]
         {
@@ -24,7 +25,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindButton("Reset").Invoke();
@@ -35,13 +36,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocus(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
@@ -68,7 +69,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnPropertyChanged(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
@@ -96,7 +97,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChangedValidateOnPropertyChanged(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
@@ -117,7 +118,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
         public void PropertyChangedSwedish(string value, string min, string max, string infoMessage)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindComboBox("Culture").Select("sv-SE");
@@ -138,7 +139,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void PropertyChangedWhenNotLocalized(string value, string min, string max, string infoMessage)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindComboBox("Culture").Select("ja-JP");
@@ -159,7 +160,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void LostFocusValidateOnLostFocusWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
@@ -181,7 +182,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -2.1.'")]
         public void PropertyChangedWhenMinAndMaxChanges(string value, string min, string max, string infoMessage)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
@@ -202,7 +203,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChangedWhenNull(TestCase data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("CanValueBeNull").IsChecked = true;

@@ -6,6 +6,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     public sealed class ValidationHappyPathTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
+        private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         private static readonly TestCase[] TestCases =
         {
@@ -75,7 +76,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("ViewModelValue").Text = "0";
@@ -87,13 +88,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Application.KillLaunched(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"));
+            Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnLostFocus(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
@@ -114,7 +115,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void LostFocusValidateOnPropertyChanged(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
@@ -135,7 +136,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void PropertyChangedValidateOnPropertyChanged(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
@@ -150,7 +151,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishLostFocusValidateOnLostFocus(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                  window.FindComboBox("Culture").Select("sv-SE");
@@ -172,7 +173,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishLostFocusValidateOnPropertyChanged(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                  window.FindComboBox("Culture").Select("sv-SE");
@@ -192,7 +193,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(SwedishCases))]
         public void SwedishPropertyChangedValidateOnPropertyChanged(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                  window.FindComboBox("Culture").Select("sv-SE");
@@ -207,7 +208,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void WhenNullLostFocusValidateOnLostFocus()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("CanValueBeNull").IsChecked = true;
@@ -227,7 +228,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void WhenNullLostFocusValidateOnPropertyChanged()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("CanValueBeNull").IsChecked = true;
@@ -247,7 +248,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void WheNullPropertyChanged()
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindCheckBox("CanValueBeNull").IsChecked = true;
@@ -262,7 +263,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocus(MinMaxData data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("Min").Text = data.Min;
@@ -283,7 +284,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxLostFocusValidateOnPropertyChanged(MinMaxData data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("Min").Text = data.Min;
@@ -304,7 +305,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(MinMaxSource))]
         public void MinMaxPropertyChanged(MinMaxData data)
         {
-            using (var app = Application.AttachOrLaunch(Application.FindExe("Gu.Wpf.NumericInput.Demo.exe"), WindowName))
+            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
                 window.FindTextBox("Min").Text = data.Min;
