@@ -54,8 +54,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
                 increaseButton.Click();
                 Assert.AreEqual("2.23", inputBox.EditText());
                 Assert.AreEqual("2.2", inputBox.FormattedText());
@@ -120,8 +120,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
                 increaseButton.Click();
                 Assert.AreEqual("2.23", inputBox.EditText());
                 Assert.AreEqual("2.2", inputBox.FormattedText());
@@ -180,8 +180,8 @@
                 Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
                 increaseButton.Click();
                 vmValueBox.Click();
                 Assert.AreEqual("3", inputBox.EditText());
@@ -192,8 +192,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(false, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
             }
         }
 
@@ -221,8 +221,8 @@
                 Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
                 decreaseButton.Click();
                 vmValueBox.Click();
                 Assert.AreEqual("-3", inputBox.EditText());
@@ -233,8 +233,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(false, decreaseButton.IsEnabled);
             }
         }
 
@@ -262,8 +262,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(false, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
                 decreaseButton.Click();
                 Assert.AreEqual("4", inputBox.EditText());
                 Assert.AreEqual("4", inputBox.FormattedText());
@@ -273,8 +273,8 @@
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(true, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(false, increaseButton.IsEnabled);
+                Assert.AreEqual(true, decreaseButton.IsEnabled);
 
                 decreaseButton.Click();
                 Assert.AreEqual("3", inputBox.EditText());
@@ -310,8 +310,8 @@
                 Assert.AreEqual("0", inputBox.Value());
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(false, decreaseButton.IsEnabled);
 
                 increaseButton.Click();
                 Assert.AreEqual("-4", inputBox.EditText());
@@ -321,8 +321,8 @@
                 Assert.AreEqual("0", inputBox.Value());
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
-                Assert.AreEqual(true, increaseButton.Properties.IsEnabled.Value);
-                Assert.AreEqual(false, decreaseButton.Properties.IsEnabled.Value);
+                Assert.AreEqual(true, increaseButton.IsEnabled);
+                Assert.AreEqual(false, decreaseButton.IsEnabled);
 
                 increaseButton.Click();
                 Assert.AreEqual("-3", inputBox.EditText());
