@@ -3,13 +3,14 @@
     using System;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation;
     using Gu.Wpf.UiAutomation;
 
     public static class AutomationElementExt
     {
         public static bool HasValidationError(this AutomationElement item)
         {
-            var itemStatus = item.ItemStatus;
+            var itemStatus = item.ItemStatus();
             if (itemStatus.Contains("HasError: True"))
             {
                 return true;
