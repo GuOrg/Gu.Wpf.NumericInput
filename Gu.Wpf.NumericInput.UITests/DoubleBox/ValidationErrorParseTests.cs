@@ -57,7 +57,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 window.FindButton("lose focus").Click();
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(data.ErrorMessage, window.FindLabel("LostFocusValidateOnLostFocusBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, window.FindTextBlock("LostFocusValidateOnLostFocusBoxError").Text);
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -74,7 +74,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 doubleBox.Text = data.Text;
                 Assert.AreEqual(true, doubleBox.HasValidationError());
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(data.ErrorMessage, window.FindLabel("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
                 Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
@@ -97,7 +97,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Enter(data.Text);
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, window.FindLabel("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
@@ -115,7 +115,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Enter(data.Text);
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, window.FindLabel("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
@@ -133,7 +133,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Enter(data.Text);
                 Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(data.ErrorMessage, window.FindLabel("PropertyChangedValidateOnPropertyChangedBoxError").Text);
+                Assert.AreEqual(data.ErrorMessage, window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
                 Assert.AreEqual(data.ExpectedInfoMessage, doubleBox.ValidationError());
                 Assert.AreEqual(data.Text, doubleBox.Text);
                 Assert.AreEqual(data.Expected, window.FindTextBox("ViewModelValue").Text);
@@ -158,7 +158,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 {
                     Assert.AreEqual(true, doubleBox.HasValidationError());
                     Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                    Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), window.FindLabel("LostFocusValidateOnPropertyChangedBoxError").Text);
+                    Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
                 }
                 else
                 {
@@ -182,7 +182,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 {
                     Assert.AreEqual(true, doubleBox.HasValidationError());
                     Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                    Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), window.FindLabel("LostFocusValidateOnPropertyChangedBoxError").Text);
+                    Assert.AreEqual(TestCase.GetErrorMessage(infoMessage), window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
                 }
                 else
                 {
