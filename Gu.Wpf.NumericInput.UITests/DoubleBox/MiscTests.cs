@@ -185,6 +185,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
+                cultureBox.Focus();
                 cultureBox.Select("en-US");
                 window.FindTextBox("VmValueBox").Click();
                 Assert.AreEqual("2.3", inputBox.EditText());
