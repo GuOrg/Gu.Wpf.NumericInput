@@ -15,9 +15,6 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected override long Increment => 1;
 
-        protected override Func<LongBox> Creator
-        {
-            get { return () => new LongBox(); }
-        }
+        protected override Func<LongBox> Creator => () => new LongBox();
     }
 }

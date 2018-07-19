@@ -1,4 +1,4 @@
-﻿// ReSharper disable ExplicitCallerInfoArgument
+// ReSharper disable ExplicitCallerInfoArgument
 namespace Gu.Wpf.NumericInput
 {
     using System.Runtime.CompilerServices;
@@ -31,8 +31,7 @@ namespace Gu.Wpf.NumericInput
                 return "null";
             }
 
-            var text = o as string;
-            if (text != null)
+            if (o is string text)
             {
                 if (string.IsNullOrWhiteSpace(text))
                 {

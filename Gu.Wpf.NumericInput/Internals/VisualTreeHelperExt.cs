@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.CodeDom.Compiler;
@@ -41,8 +41,7 @@
             T match = null;
             foreach (var item in items)
             {
-                var temp = item as T;
-                if (temp != null)
+                if (item is T temp)
                 {
                     if (match != null)
                     {

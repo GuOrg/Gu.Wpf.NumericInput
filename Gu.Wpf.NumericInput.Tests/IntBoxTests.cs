@@ -15,9 +15,6 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected override int Increment => 1;
 
-        protected override Func<IntBox> Creator
-        {
-            get { return () => new IntBox(); }
-        }
+        protected override Func<IntBox> Creator => () => new IntBox();
     }
 }

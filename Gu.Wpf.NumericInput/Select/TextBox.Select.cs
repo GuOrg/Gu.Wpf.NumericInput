@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Select
+namespace Gu.Wpf.NumericInput.Select
 {
     using System;
     using System.Linq;
@@ -275,7 +275,7 @@
             {
                 textBoxBase.SetIsSelecting(false);
                 textBoxBase.SelectAllText();
-                textBoxBase.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() => textBoxBase.SelectAllText()));
+                _ = textBoxBase.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() => textBoxBase.SelectAllText()));
             }
         }
 

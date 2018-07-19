@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Touch
+namespace Gu.Wpf.NumericInput.Touch
 {
     using System;
     using System.Diagnostics;
@@ -41,7 +41,7 @@
             if (keyboardWnd != nullIntPtr)
             {
                 NumericInput.Debug.WriteLine("hide");
-                NativeMethods.SendMessage(keyboardWnd, wmSysCommand, scClose, nullIntPtr);
+                _ = NativeMethods.SendMessage(keyboardWnd, wmSysCommand, scClose, nullIntPtr);
             }
         }
 

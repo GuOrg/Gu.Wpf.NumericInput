@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Tests
+namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
     using System.Threading;
@@ -9,10 +9,7 @@
     [Apartment(ApartmentState.STA)]
     public class ShortBoxTests : NumericBoxTests<ShortBox, short>
     {
-        protected override Func<ShortBox> Creator
-        {
-            get { return () => new ShortBox(); }
-        }
+        protected override Func<ShortBox> Creator => () => new ShortBox();
 
         protected override short Max => 10;
 

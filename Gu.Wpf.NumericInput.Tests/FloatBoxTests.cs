@@ -15,9 +15,6 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected override float Increment => 1;
 
-        protected override Func<FloatBox> Creator
-        {
-            get { return () => new FloatBox(); }
-        }
+        protected override Func<FloatBox> Creator => () => new FloatBox();
     }
 }

@@ -15,9 +15,6 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected override decimal Increment => 1;
 
-        protected override Func<DecimalBox> Creator
-        {
-            get { return () => new DecimalBox(); }
-        }
+        protected override Func<DecimalBox> Creator => () => new DecimalBox();
     }
 }

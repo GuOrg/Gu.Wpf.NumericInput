@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
@@ -11,8 +11,7 @@
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var error = value as ValidationError;
-            if (error != null)
+            if (value is ValidationError error)
             {
                 var result = error.ErrorContent as ValidationResult;
                 if (result != null)

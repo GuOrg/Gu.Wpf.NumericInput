@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Windows;
@@ -11,18 +11,8 @@
 
         internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
         {
-            if (action == null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-
-            if (condition == null)
-            {
-                throw new ArgumentNullException(nameof(condition));
-            }
-
-            this.action = action;
-            this.condition = condition;
+            this.action = action ?? throw new ArgumentNullException(nameof(action));
+            this.condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
         public event EventHandler CanExecuteChanged
@@ -42,7 +32,7 @@
                 var application = Application.Current;
                 if (application?.Dispatcher != null)
                 {
-                    application.Dispatcher.BeginInvoke(new Action(() => handler(this, EventArgs.Empty)));
+                    _ = application.Dispatcher.BeginInvoke(new Action(() => handler(this, EventArgs.Empty)));
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Demo
+namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
     using System.Globalization;
@@ -16,8 +16,7 @@
                 return string.Empty;
             }
 
-            var error = value as ValidationError;
-            if (error != null)
+            if (value is ValidationError error)
             {
                 var result = error.ErrorContent as ValidationResult;
                 if (result != null)

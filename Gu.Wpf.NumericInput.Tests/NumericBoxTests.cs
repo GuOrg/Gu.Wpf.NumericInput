@@ -1,4 +1,4 @@
-﻿#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
+#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
 namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
@@ -46,7 +46,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
                 Mode = BindingMode.TwoWay
             };
-            BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
+            _ = BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
             this.Box.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
         }
 
