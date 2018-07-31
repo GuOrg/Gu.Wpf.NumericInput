@@ -107,7 +107,7 @@ namespace Gu.Wpf.NumericInput
                 var logicalParent = LogicalTreeHelper.GetParent(newBox);
                 if (logicalParent != null)
                 {
-                    if (this.TemplatedParent != null && 
+                    if (this.TemplatedParent != null &&
                         FrameworkObject.IsEffectiveAncestor(logicalParent, this))
                     {
                         // In the case that this SpinnerDecorator belongs in a parent template
