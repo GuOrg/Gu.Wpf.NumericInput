@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.UITests.DoubleBox
+namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System.Collections.Generic;
     using Gu.Wpf.UiAutomation;
@@ -107,7 +107,7 @@
                 window.FindTextBox("DigitsBox").Text = "1";
                 var container = window.Window.FindGroupBox(containerId);
                 var inputBox = container.FindTextBox("InputBox");
-                window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
+                _ = window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
                 inputBox.Click();
                 var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
                 var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
@@ -383,7 +383,7 @@
                 window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
                 var container = window.Window.FindGroupBox(containerId);
                 var inputBox = container.FindTextBox("InputBox");
-                window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
+                _ = window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
                 inputBox.Click();
                 var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
                 var vmValueBox = window.FindTextBox("VmValueBox");

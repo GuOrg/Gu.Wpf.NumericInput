@@ -154,7 +154,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                 window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
                 doubleBox.Text = testCase.Text;
                 Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -176,7 +176,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                 window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
                 doubleBox.Text = testCase.Text;
                 Assert.AreEqual(false, doubleBox.HasValidationError());
@@ -196,7 +196,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                 window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Text = testCase.Text;
                 Assert.AreEqual(false, doubleBox.HasValidationError());

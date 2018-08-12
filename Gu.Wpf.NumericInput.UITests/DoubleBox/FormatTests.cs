@@ -48,7 +48,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var window = app.MainWindow;
                 var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
                 window.FindTextBox("StringFormat").Text = testCase.StringFormat;
-                window.FindComboBox("Culture").Select(testCase.Culture.Name);
+                _ = window.FindComboBox("Culture").Select(testCase.Culture.Name);
 
                 doubleBox.Enter(testCase.Text);
                 window.FindButton("lose focus").Click();

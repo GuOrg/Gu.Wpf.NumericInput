@@ -22,7 +22,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             new TestCase(text: "1,2", canValueBeNull: true, expected: "1.2", expectedInfoMessage: null),
             new TestCase(text: "1,2", canValueBeNull: false, expected: "1.2", expectedInfoMessage: null),
-            new TestCase(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'Vänligen ange en siffra.'"),
+            new TestCase(text: string.Empty, canValueBeNull: false, expected: "0", expectedInfoMessage: "ValidationError.RequiredButMissingValidationResult 'VÃ¤nligen ange en siffra.'"),
             new TestCase(text: string.Empty, canValueBeNull: true, expected: string.Empty, expectedInfoMessage: null),
         };
 
@@ -232,7 +232,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
 
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 window.FindCheckBox("CanValueBeNull").IsChecked = data.CanValueBeNull;
@@ -263,7 +263,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("ja-JP");
+                _ = window.FindComboBox("Culture").Select("ja-JP");
 
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 window.FindCheckBox("CanValueBeNull").IsChecked = data.CanValueBeNull;

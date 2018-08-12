@@ -19,7 +19,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         private static readonly IReadOnlyList<TestCase> SwedishCases = new[]
         {
             new TestCase("1,2",  @"^\d,\d$", "1.2", null),
-            new TestCase("12,34",  @"^\d,\d$", "0", "ValidationError.RegexValidationResult 'V‰nligen ange ett giltigt v‰rde.'"),
+            new TestCase("12,34",  @"^\d,\d$", "0", "ValidationError.RegexValidationResult 'V√§nligen ange ett giltigt v√§rde.'"),
         };
 
         [SetUp]
@@ -188,7 +188,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 window.FindTextBox("RegexPattern").Text = data.Pattern;
 
@@ -218,7 +218,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("ja-JP");
+                _ = window.FindComboBox("Culture").Select("ja-JP");
 
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 window.FindTextBox("RegexPattern").Text = data.Pattern;

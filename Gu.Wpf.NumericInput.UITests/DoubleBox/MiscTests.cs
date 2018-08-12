@@ -167,7 +167,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                cultureBox.Select("sv-SE");
+                _ = cultureBox.Select("sv-SE");
                 window.FindTextBox("VmValueBox").Click();
                 Assert.AreEqual("1,2", inputBox.EditText());
                 Assert.AreEqual("1,2", inputBox.FormattedText());
@@ -186,7 +186,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual("Idle", inputBox.Status());
 
                 cultureBox.Focus();
-                cultureBox.Select("en-US");
+                _ = cultureBox.Select("en-US");
                 window.FindTextBox("VmValueBox").Click();
                 Assert.AreEqual("2.3", inputBox.EditText());
                 Assert.AreEqual("2.3", inputBox.FormattedText());
@@ -216,7 +216,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                cultureBox.Select("sv-SE");
+                _ = cultureBox.Select("sv-SE");
                 window.FindTextBox("VmValueBox").Click();
                 Assert.AreEqual("5.6a", inputBox.EditText());
                 Assert.AreEqual("5.6a", inputBox.FormattedText());
@@ -236,7 +236,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var window = app.MainWindow;
                 var container = window.Window.FindGroupBox(containerId);
                 var inputBox = container.FindTextBox("InputBox");
-                window.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
+                _ = window.Window.FindComboBox("ValidationTriggerBox").Select(ValidationTrigger.LostFocus.ToString());
                 Assert.AreEqual("0", inputBox.Text);
                 Assert.AreEqual("0", inputBox.Value());
                 Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());

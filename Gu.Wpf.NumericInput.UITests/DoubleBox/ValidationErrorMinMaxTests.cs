@@ -114,14 +114,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'V‰nligen ange ett v‰rde mindre ‰n eller lika med 2,2.'")]
-        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'V‰nligen ange ett v‰rde stˆrre ‰n eller lika med -2,1.'")]
+        [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'V√§nligen ange ett v√§rde mindre √§n eller lika med 2,2.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'V√§nligen ange ett v√§rde st√∂rre √§n eller lika med -2,1.'")]
         public void PropertyChangedSwedish(string value, string min, string max, string infoMessage)
         {
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Text = "1";
                 window.FindTextBox("Min").Text = min;
@@ -142,7 +142,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("ja-JP");
+                _ = window.FindComboBox("Culture").Select("ja-JP");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Text = "1";
                 window.FindTextBox("Min").Text = min;

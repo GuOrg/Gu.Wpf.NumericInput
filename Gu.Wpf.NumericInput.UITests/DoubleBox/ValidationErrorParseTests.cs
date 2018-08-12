@@ -18,8 +18,8 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         private static readonly IReadOnlyList<TestCase> SwedishCases = new[]
             {
-                new TestCase("abc", "0", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
-                new TestCase("2.1", "2", "ValidationError.CanParseValidationResult 'Vänligen ange en giltig siffra.'"),
+                new TestCase("abc", "0", "ValidationError.CanParseValidationResult 'VÃ¤nligen ange en giltig siffra.'"),
+                new TestCase("2.1", "2", "ValidationError.CanParseValidationResult 'VÃ¤nligen ange en giltig siffra.'"),
             };
 
         [SetUp]
@@ -112,7 +112,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("sv-SE");
+                _ = window.FindComboBox("Culture").Select("sv-SE");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Enter(data.Text);
                 Assert.AreEqual(true, doubleBox.HasValidationError());
@@ -130,7 +130,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
             {
                 var window = app.MainWindow;
-                window.FindComboBox("Culture").Select("ja-JP");
+                _ = window.FindComboBox("Culture").Select("ja-JP");
                 var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
                 doubleBox.Enter(data.Text);
                 Assert.AreEqual(true, doubleBox.HasValidationError());
