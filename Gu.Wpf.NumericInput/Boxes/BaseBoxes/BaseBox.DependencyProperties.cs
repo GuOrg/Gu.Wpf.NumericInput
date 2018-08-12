@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections.Generic;
@@ -92,6 +92,7 @@
             typeof(BaseBox),
             new PropertyMetadata(default(string), OnRegexPatternChanged));
 
+        /// <summary>Identifies the <see cref="TextSource"/> dependency property.</summary>
         protected static readonly DependencyPropertyKey TextSourcePropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(TextSource),
             typeof(TextSource),

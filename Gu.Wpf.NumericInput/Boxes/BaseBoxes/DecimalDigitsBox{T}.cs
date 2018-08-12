@@ -7,7 +7,7 @@ namespace Gu.Wpf.NumericInput
     public abstract class DecimalDigitsBox<T> : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        /// <summary>Identifies the Decimals property.</summary>
+        /// <summary>Identifies the <see cref="DecimalDigits"/> dependency property.</summary>
         public static readonly DependencyProperty DecimalDigitsProperty = NumericBox.DecimalDigitsProperty.AddOwner(
             typeof(DecimalDigitsBox<T>),
             new FrameworkPropertyMetadata(
