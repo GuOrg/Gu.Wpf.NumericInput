@@ -211,7 +211,9 @@
     <None Include="..\Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.snk">
       <Link>Gu.Wpf.NumericInput.snk</Link>
     </None>
-    <None Include="Gu.Wpf.NumericInput.Demo.ruleset" />
+    <None Include="Gu.Wpf.NumericInput.Demo.ruleset">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="paket.references" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>

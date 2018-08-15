@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.ComponentModel;
@@ -15,26 +15,31 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<short>(typeof(ShortBox), 1);
         }
 
+        /// <inheritdoc />
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out short result)
         {
             return short.TryParse(text, numberStyles, culture, out result);
         }
 
+        /// <inheritdoc />
         protected override short Add(short x, short y)
         {
             return (short)(x + y);
         }
 
+        /// <inheritdoc />
         protected override short Subtract(short x, short y)
         {
             return (short)(x - y);
         }
 
+        /// <inheritdoc />
         protected override short TypeMin()
         {
             return short.MinValue;
         }
 
+        /// <inheritdoc />
         protected override short TypeMax()
         {
             return short.MaxValue;

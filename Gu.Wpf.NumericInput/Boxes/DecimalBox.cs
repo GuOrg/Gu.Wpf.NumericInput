@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.ComponentModel;
@@ -16,26 +16,31 @@
             IncrementProperty.OverrideMetadataWithDefaultValue<decimal>(typeof(DecimalBox), 1);
         }
 
+        /// <inheritdoc />
         public override bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out decimal result)
         {
             return decimal.TryParse(text, numberStyles, culture, out result);
         }
 
+        /// <inheritdoc />
         protected override decimal Add(decimal x, decimal y)
         {
             return x + y;
         }
 
+        /// <inheritdoc />
         protected override decimal Subtract(decimal x, decimal y)
         {
             return x - y;
         }
 
+        /// <inheritdoc />
         protected override decimal TypeMin()
         {
             return decimal.MinValue;
         }
 
+        /// <inheritdoc />
         protected override decimal TypeMax()
         {
             return decimal.MaxValue;
