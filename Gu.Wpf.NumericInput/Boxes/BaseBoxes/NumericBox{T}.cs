@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections.Generic;
@@ -295,7 +295,7 @@
 
         protected virtual void SetIncremented(T value)
         {
-            Keyboard.Focus(this);
+            _ = Keyboard.Focus(this);
             this.SetTextAndCreateUndoAction(value.ToString(this.Culture));
             this.UpdateFormattedText(value);
             if (this.SpinUpdateMode == SpinUpdateMode.PropertyChanged)
