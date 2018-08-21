@@ -29,6 +29,7 @@ NUGET
     Gu.Wpf.AutoRowGrid (0.6.0.1)
 
 GROUP Test
+STORAGE: NONE
 NUGET
   remote: http://www.nuget.org/api/v2
     Gu.Wpf.UiAutomation (0.2.3.2)

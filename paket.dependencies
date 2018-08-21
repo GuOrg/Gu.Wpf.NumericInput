@@ -12,6 +12,7 @@ group Analyzers
 
 group Test
   source http://www.nuget.org/api/v2/
+  storage: none
   nuget NUnit
   nuget Gu.Wpf.UiAutomation
 
