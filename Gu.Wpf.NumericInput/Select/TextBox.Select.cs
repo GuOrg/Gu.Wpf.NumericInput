@@ -61,10 +61,10 @@ namespace Gu.Wpf.NumericInput.Select
         static TextBox()
         {
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent, new KeyEventHandler(OnKeyDown));
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent, new RoutedEventHandler(OnMouseUpSelectAllText), handledEventsToo: true);
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.GotKeyboardFocusEvent, new RoutedEventHandler(OnGotKeyboardFocusSelectAllText));
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseLeftButtonDownEvent, new RoutedEventHandler(OnMouseClickSelectAllText), handledEventsToo: true);
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), Control.MouseDoubleClickEvent, new RoutedEventHandler(OnMouseDoubleClickSelectAllText));
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent, new RoutedEventHandler(OnMouseUp), handledEventsToo: true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.GotKeyboardFocusEvent, new RoutedEventHandler(OnGotKeyboardFocus));
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseLeftButtonDownEvent, new RoutedEventHandler(OnMouseLeftButtonDown), handledEventsToo: true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), Control.MouseDoubleClickEvent, new RoutedEventHandler(OnMouseDoubleClick));
         }
 
         /// <summary>Helper for setting <see cref="SelectAllOnGotKeyboardFocusProperty"/> on <paramref name="element"/>.</summary>
@@ -204,7 +204,7 @@ namespace Gu.Wpf.NumericInput.Select
             }
         }
 
-        private static void OnMouseClickSelectAllText(object sender, RoutedEventArgs e)
+        private static void OnMouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             var textBoxBase = (TextBoxBase)sender;
             if (!textBoxBase.GetSelectAllOnClick())
@@ -216,7 +216,7 @@ namespace Gu.Wpf.NumericInput.Select
             textBoxBase.SelectAllText();
         }
 
-        private static void OnMouseDoubleClickSelectAllText(object sender, RoutedEventArgs e)
+        private static void OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
             var textBoxBase = (TextBoxBase)sender;
             if (!textBoxBase.GetSelectAllOnDoubleClick())
@@ -228,7 +228,7 @@ namespace Gu.Wpf.NumericInput.Select
             textBoxBase.SelectAllText();
         }
 
-        private static void OnGotKeyboardFocusSelectAllText(object sender, RoutedEventArgs e)
+        private static void OnGotKeyboardFocus(object sender, RoutedEventArgs e)
         {
             var textBoxBase = (TextBoxBase)sender;
             if (!textBoxBase.GetSelectAllOnGotKeyboardFocus())
@@ -248,7 +248,7 @@ namespace Gu.Wpf.NumericInput.Select
             }
         }
 
-        private static void OnMouseUpSelectAllText(object sender, RoutedEventArgs e)
+        private static void OnMouseUp(object sender, RoutedEventArgs e)
         {
             var textBoxBase = (TextBoxBase)sender;
             if (textBoxBase.GetIsSelecting())
