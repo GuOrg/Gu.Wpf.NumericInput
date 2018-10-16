@@ -1,10 +1,11 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Windows.Data;
 
+    [ValueConversion(typeof(int?), typeof(string))]
     internal class DecimalDigitsToStringFormatConverter : IValueConverter
     {
         internal static readonly DecimalDigitsToStringFormatConverter Default = new DecimalDigitsToStringFormatConverter();

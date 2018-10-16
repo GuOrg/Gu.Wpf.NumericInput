@@ -32,20 +32,16 @@ namespace Gu.Wpf.NumericInput.Touch
             }
         }
 
-        /// <summary>
-        /// Helper for setting ShowTouchKeyboardOnTouchEnter property on a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to set ShowTouchKeyboardOnTouchEnter property on.</param>
+        /// <summary>Helper for setting <see cref="ShowTouchKeyboardOnTouchEnterProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to set <see cref="ShowTouchKeyboardOnTouchEnterProperty"/> on.</param>
         /// <param name="value">ShowTouchKeyboardOnTouchEnter property value.</param>
         public static void SetShowTouchKeyboardOnTouchEnter(UIElement element, bool value)
         {
             element.SetValue(ShowTouchKeyboardOnTouchEnterProperty, value);
         }
 
-        /// <summary>
-        /// Helper for reading ShowTouchKeyboardOnTouchEnter property from a UIElement.
-        /// </summary>
-        /// <param name="element">UIElement to read ShowTouchKeyboardOnTouchEnter property from.</param>
+        /// <summary>Helper for getting <see cref="ShowTouchKeyboardOnTouchEnterProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="UIElement"/> to read <see cref="ShowTouchKeyboardOnTouchEnterProperty"/> from.</param>
         /// <returns>ShowTouchKeyboardOnTouchEnter property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]

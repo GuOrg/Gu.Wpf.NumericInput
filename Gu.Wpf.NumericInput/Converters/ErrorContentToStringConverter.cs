@@ -5,6 +5,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Controls;
     using System.Windows.Data;
 
+    [ValueConversion(typeof(ValidationError), typeof(string))]
     public sealed class ErrorContentToStringConverter : IValueConverter
     {
         public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
