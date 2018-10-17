@@ -92,12 +92,9 @@ namespace Gu.Wpf.NumericInput
             return this.ReadLocalValue(ChildProperty) != DependencyProperty.UnsetValue;
         }
 
-        /// <summary>
-        /// This method is invoked when the Child property changes.
-        /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,262
-        /// </summary>
-        /// <param name="oldChild">The old value of the Child property.</param>
-        /// <param name="newChild">The new value of the Child property.</param>
+        /// <summary>This method is invoked when the <see cref="ChildProperty"/> changes.</summary>
+        /// <param name="oldChild">The old value of <see cref="ChildProperty"/>.</param>
+        /// <param name="newChild">The new value of <see cref="ChildProperty"/>.</param>
         protected virtual void OnChildChanged(ISpinnerBox oldChild, ISpinnerBox newChild)
         {
             this.RemoveLogicalChild(oldChild);
