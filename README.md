@@ -1,5 +1,5 @@
 # Gu.Wpf.NumericInput
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Gu.Wpf.NumericInput.svg)](https://www.nuget.org/packages/Gu.Wpf.NumericInput/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Build status](https://ci.appveyor.com/api/projects/status/e0nwl8lha4nsoxq7/branch/master?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-numericinput/branch/master)
 [![Join the chat at https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput](https://badges.gitter.im/JohanLarsson/Gu.Wpf.NumericInput.svg)](https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
