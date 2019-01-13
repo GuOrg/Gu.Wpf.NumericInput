@@ -9,6 +9,8 @@ group Analyzers
   JetBrains.Annotations
 
 group Test
+  Microsoft.NET.Test.Sdk
+  NUnit3TestAdapter
   NUnit
   Gu.Wpf.UiAutomation
 
