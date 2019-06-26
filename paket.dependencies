@@ -4,7 +4,7 @@ group Analyzers
   source http://nuget.org/api/v2
   nuget AsyncUsageAnalyzers
   nuget IDisposableAnalyzers
-  nuget PublicApiAnalyzer prerelease
+  nuget Microsoft.CodeAnalysis.PublicApiAnalyzers
   nuget ReflectionAnalyzers prerelease
   nuget PropertyChangedAnalyzers
   nuget StyleCop.Analyzers

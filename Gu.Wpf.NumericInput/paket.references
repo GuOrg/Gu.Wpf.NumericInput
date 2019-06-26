@@ -2,7 +2,7 @@ group Analyzers
   AsyncUsageAnalyzers
   IDisposableAnalyzers
   PropertyChangedAnalyzers
-  PublicApiAnalyzer
+  Microsoft.CodeAnalysis.PublicApiAnalyzers
   ReflectionAnalyzers
   StyleCop.Analyzers
   WpfAnalyzers
