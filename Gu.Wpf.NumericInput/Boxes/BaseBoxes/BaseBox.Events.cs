@@ -3,7 +3,7 @@
     using System.Windows;
 
     /// <summary>
-    /// Routed events for <see cref="BaseBox"/>
+    /// Routed events for <see cref="BaseBox"/>.
     /// </summary>
     public abstract partial class BaseBox
     {

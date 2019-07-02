@@ -170,7 +170,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Gets or sets a value indicating how the IncreaseCommand and DecreaseCommand behaves.
         /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
-        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]

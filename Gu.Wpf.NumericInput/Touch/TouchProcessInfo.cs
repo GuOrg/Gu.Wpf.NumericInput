@@ -13,7 +13,7 @@
         }
 
         /// <summary>
-        /// Gets the default TouchProcessInfo pointing to C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe
+        /// Gets the default TouchProcessInfo pointing to C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe.
         /// </summary>
         public static TouchProcessInfo Default { get; } = CreateDefault();
 

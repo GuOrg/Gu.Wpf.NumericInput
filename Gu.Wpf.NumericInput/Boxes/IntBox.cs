@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput
     using System.Globalization;
     using System.Windows;
 
-    /// <summary>A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="int"/></summary>
+    /// <summary>A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="int"/>.</summary>
     [ToolboxItem(true)]
     public class IntBox : NumericBox<int>
     {

@@ -9,6 +9,6 @@
         LostFocus,
 
         /// <summary> Update validation only by explicit call to BaseBox.UpdateValidation() </summary>
-        Explicit
+        Explicit,
     }
 }

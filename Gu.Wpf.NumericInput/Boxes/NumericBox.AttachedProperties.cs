@@ -6,7 +6,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows;
 
     /// <summary>
-    /// Attached properties for <see cref="NumericBox"/>
+    /// Attached properties for <see cref="NumericBox"/>.
     /// </summary>
     public static partial class NumericBox
     {
@@ -102,6 +102,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Helper for getting <see cref="CanValueBeNullProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="CanValueBeNullProperty"/> from.</param>
         /// <returns>CanValueBeNull property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetCanValueBeNull(this UIElement element) => (bool)element.GetValue(CanValueBeNullProperty);
 
         /// <summary>Helper for setting <see cref="NumberStylesProperty"/> on <paramref name="element"/>.</summary>
@@ -112,6 +113,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Helper for getting <see cref="NumberStylesProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="NumberStylesProperty"/> from.</param>
         /// <returns>NumberStyles property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static NumberStyles GetNumberStyles(this UIElement element) => (NumberStyles)element.GetValue(NumberStylesProperty);
 
         /// <summary>Helper for setting <see cref="StringFormatProperty"/> on <paramref name="element"/>.</summary>
@@ -132,11 +134,13 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Helper for getting <see cref="DecimalDigitsProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="DecimalDigitsProperty"/> from.</param>
         /// <returns>DecimalDigits property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static int? GetDecimalDigits(this UIElement element) => (int?)element.GetValue(DecimalDigitsProperty);
 
         /// <summary>Helper for getting <see cref="AllowSpinnersProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="AllowSpinnersProperty"/> from.</param>
         /// <returns>AllowSpinners property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetAllowSpinners(this UIElement element) => (bool)element.GetValue(AllowSpinnersProperty);
 
         /// <summary>Helper for setting <see cref="AllowSpinnersProperty"/> on <paramref name="element"/>.</summary>
@@ -147,6 +151,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Helper for getting <see cref="SpinUpdateModeProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="DependencyObject"/> to read <see cref="SpinUpdateModeProperty"/> from.</param>
         /// <returns>SpinUpdateMode property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         public static SpinUpdateMode GetSpinUpdateMode(DependencyObject element)
         {
             return (SpinUpdateMode)element.GetValue(SpinUpdateModeProperty);

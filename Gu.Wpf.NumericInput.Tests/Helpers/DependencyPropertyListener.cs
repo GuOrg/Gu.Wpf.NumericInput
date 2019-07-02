@@ -36,7 +36,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 Source = source,
                 Path = property,
                 Mode = BindingMode.OneWay,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
             this.BindingExpression = (BindingExpression)BindingOperations.SetBinding(this, ProxyProperty, this.Binding);
             this.onChanged = onChanged;

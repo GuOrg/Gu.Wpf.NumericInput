@@ -23,7 +23,7 @@
         {
             var window = new Window
             {
-                Content = element
+                Content = element,
             };
             window.Show();
             return window;
@@ -34,7 +34,7 @@
         {
             var window = new Window()
             {
-                Content = element
+                Content = element,
             };
             window.DataContext = dataContext;
             window.Show();

@@ -44,7 +44,7 @@ namespace Gu.Wpf.NumericInput.Tests
             {
                 Source = this.Vm,
                 UpdateSourceTrigger = UpdateSourceTrigger.LostFocus,
-                Mode = BindingMode.TwoWay
+                Mode = BindingMode.TwoWay,
             };
             _ = BindingOperations.SetBinding(this.Box, NumericBox<T>.ValueProperty, binding);
             this.Box.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));

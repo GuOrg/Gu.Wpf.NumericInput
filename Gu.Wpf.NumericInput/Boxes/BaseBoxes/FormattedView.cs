@@ -62,7 +62,7 @@ namespace Gu.Wpf.NumericInput
                 {
                     Name = FormattedName,
                     VerticalAlignment = VerticalAlignment.Center,
-                    IsHitTestVisible = false
+                    IsHitTestVisible = false,
                 };
 
                 _ = this.formattedBox.Bind(TextBlock.TextProperty)

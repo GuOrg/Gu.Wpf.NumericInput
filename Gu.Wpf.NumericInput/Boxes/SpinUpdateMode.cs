@@ -13,6 +13,6 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Update the binding source on click/execute.
         /// </summary>
-        PropertyChanged
+        PropertyChanged,
     }
 }

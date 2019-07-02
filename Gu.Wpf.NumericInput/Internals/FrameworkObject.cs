@@ -8,7 +8,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Media.Media3D;
 
     /// <summary>
-    /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/MS/Internal/FrameworkObject.cs,301f142557ad0322
+    /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/MS/Internal/FrameworkObject.cs,301f142557ad0322.
     /// </summary>
     internal struct FrameworkObject
     {

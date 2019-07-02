@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Gets throws <see cref="InvalidOperationException"/>
+        /// Gets throws <see cref="InvalidOperationException"/>.
         /// </summary>
         object IEnumerator.Current => throw new InvalidOperationException();
 
@@ -33,7 +33,7 @@
         /// <summary>
         /// Returns false.
         /// </summary>
-        /// <returns>false</returns>
+        /// <returns>false.</returns>
         public bool MoveNext()
         {
             return false;

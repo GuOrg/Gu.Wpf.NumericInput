@@ -15,6 +15,6 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// The text in the textbox was last updated from binding
         /// </summary>
-        ValueBinding
+        ValueBinding,
     }
 }

@@ -20,7 +20,7 @@ namespace Gu.Wpf.NumericInput
             this.DecreaseCommand = new ManualRelayCommand(this.Decrease, this.CanDecrease);
         }
 
-        /// <summary>Gets the current value. Will throw if bad format</summary>
+        /// <summary>Gets the current value. Will throw if bad format.</summary>
         internal T? CurrentTextValue
         {
             get
@@ -212,10 +212,10 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Invoked when IncreaseCommand.CanExecute() is executed
+        /// Invoked when IncreaseCommand.CanExecute() is executed.
         /// </summary>
-        /// <param name="parameter">Not used</param>
-        /// <returns>True if the value can be increased</returns>
+        /// <param name="parameter">Not used.</param>
+        /// <returns>True if the value can be increased.</returns>
         protected virtual bool CanIncrease(object parameter)
         {
             if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
@@ -233,9 +233,9 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Invoked when IncreaseCommand.Execute() is executed
+        /// Invoked when IncreaseCommand.Execute() is executed.
         /// </summary>
-        /// <param name="parameter">Not used</param>
+        /// <param name="parameter">Not used.</param>
         protected virtual void Increase(object parameter)
         {
             var currentValue = this.CurrentTextValue;
@@ -249,10 +249,10 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Invoked when DecreaseCommand.CanExecute() is executed
+        /// Invoked when DecreaseCommand.CanExecute() is executed.
         /// </summary>
-        /// <param name="parameter">Not used</param>
-        /// <returns>True if the value can be decreased</returns>
+        /// <param name="parameter">Not used.</param>
+        /// <returns>True if the value can be decreased.</returns>
         protected virtual bool CanDecrease(object parameter)
         {
             if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
@@ -270,9 +270,9 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Invoked when DecreaseCommand.Execute() is executed
+        /// Invoked when DecreaseCommand.Execute() is executed.
         /// </summary>
-        /// <param name="parameter">Not used</param>
+        /// <param name="parameter">Not used.</param>
         protected virtual void Decrease(object parameter)
         {
             var currentValue = this.CurrentTextValue;

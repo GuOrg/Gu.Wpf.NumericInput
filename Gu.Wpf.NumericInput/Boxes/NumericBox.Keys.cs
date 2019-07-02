@@ -4,7 +4,7 @@
     using System.Windows;
 
     /// <summary>
-    /// Resource keys for <see cref="NumericBox"/>
+    /// Resource keys for <see cref="NumericBox"/>.
     /// </summary>
     public static partial class NumericBox
     {

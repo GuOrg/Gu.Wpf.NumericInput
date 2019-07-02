@@ -6,7 +6,7 @@
     /// <summary>Routed events for <see cref="NumericBox{T}"/>.</summary>
     public abstract partial class NumericBox<T>
     {
-        /// <summary>Identifies the ValueChanged event</summary>
+        /// <summary>Identifies the ValueChanged event.</summary>
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
             "ValueChanged",
             RoutingStrategy.Direct,

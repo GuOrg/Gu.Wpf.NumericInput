@@ -2,7 +2,7 @@
 {
     using System;
 
-    /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="Value"/> in the valid range of <see cref="Max"/> and <see cref="Min"/></summary>
+    /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="Value"/> in the valid range of <see cref="Max"/> and <see cref="Min"/>.</summary>
     public abstract class OutOfRangeValidationResult : NumericValidationResult
     {
         public static readonly TwoParameterFormatAndCulture PleaseEnterAValueBetweenFormatAndCulture = TwoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_between__0__and__1__));

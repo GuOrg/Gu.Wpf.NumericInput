@@ -9,7 +9,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Data;
 
     /// <summary>
-    /// DependencyProperties for <see cref="BaseBox"/>
+    /// DependencyProperties for <see cref="BaseBox"/>.
     /// </summary>
     public abstract partial class BaseBox
     {
@@ -171,7 +171,7 @@ namespace Gu.Wpf.NumericInput
 
         /// <summary>
         /// Gets or sets the  culture for the control.
-        /// The control has an explicit culture and does not use <see cref="System.Threading.Thread.CurrentUICulture"/>
+        /// The control has an explicit culture and does not use <see cref="System.Threading.Thread.CurrentUICulture"/>.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
@@ -191,7 +191,7 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Gets or sets a regex pattern for validation
+        /// Gets or sets a regex pattern for validation.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]

@@ -9,7 +9,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Markup;
 
     /// <summary>
-    /// Add increase / decrease buttons to a <see cref="NumericBox{T}"/>
+    /// Add increase / decrease buttons to a <see cref="NumericBox{T}"/>.
     /// </summary>
     [TemplatePart(Name = IncreaseButtonName, Type = typeof(RepeatButton))]
     [TemplatePart(Name = DecreaseButtonName, Type = typeof(RepeatButton))]
@@ -44,7 +44,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Gets or sets a value indicating how the IncreaseCommand and DecreaseCommand behaves.
         /// The default is AsBinding meaning the value updates using the UpdateSourceTrigger specified in the binding. Default is LostFocus.
-        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus
+        /// If set to PropertyChanged the binding source will be updated at each click even if the binding has UpdateSourceTrigger = LostFocus.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
@@ -55,7 +55,7 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Gets or sets the single child of a <see cref="SpinnerDecorator" />
+        /// Gets or sets the single child of a <see cref="SpinnerDecorator" />.
         /// </summary>
         public ISpinnerBox Child
         {
@@ -82,9 +82,9 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// This method is used by TypeDescriptor to determine if this property should
         /// be serialized.
-        /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,164
+        /// http://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/Windows/Controls/ContentControl.cs,164.
         /// </summary>
-        /// <returns>True if the value should be serialized</returns>
+        /// <returns>True if the value should be serialized.</returns>
         // Lets derived classes control the serialization behavior for Content DP
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual bool ShouldSerializeContent()
@@ -129,9 +129,9 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>)
+        /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>).
         /// </summary>
-        /// <returns>An <see cref="UIElement.OnCreateAutomationPeer"/> for the <see cref="SpinnerDecorator"/></returns>
+        /// <returns>An <see cref="UIElement.OnCreateAutomationPeer"/> for the <see cref="SpinnerDecorator"/>.</returns>
         protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer()
         {
             return new SpinnerDecoratorAutomationPeer(this);

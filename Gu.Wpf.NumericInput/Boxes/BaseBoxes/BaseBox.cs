@@ -7,7 +7,7 @@
     using System.Windows.Input;
 
     /// <summary>
-    /// Base class that adds a couple of dependency properties to TextBox
+    /// Base class that adds a couple of dependency properties to TextBox.
     /// </summary>
     public abstract partial class BaseBox : TextBox
     {

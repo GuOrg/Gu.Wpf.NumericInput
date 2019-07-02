@@ -16,7 +16,7 @@
             this.FormatAndCulture = formatAndCulture;
         }
 
-        /// <summary>Gets the current culture used in the <see cref="NumericBox{T}"/></summary>
+        /// <summary>Gets the current culture used in the <see cref="NumericBox{T}"/>.</summary>
         public IFormatProvider CurrentCulture { get; }
 
         /// <summary>Gets the culture and format used when formatting the <see cref="ValidationResult.ErrorContent"/>.</summary>

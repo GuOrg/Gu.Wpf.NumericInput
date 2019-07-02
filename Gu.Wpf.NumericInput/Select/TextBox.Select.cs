@@ -162,6 +162,7 @@ namespace Gu.Wpf.NumericInput.Select
             element.SetValue(IsSelectingPropertyKey, BooleanBoxes.Box(value));
         }
 
+        [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         private static bool GetIsSelecting(this DependencyObject element)
         {
             return Equals(BooleanBoxes.True, element.GetValue(IsSelectingProperty));

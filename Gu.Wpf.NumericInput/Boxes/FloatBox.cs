@@ -6,7 +6,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows;
 
     /// <summary>
-    /// A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="float"/>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="float"/>.
     /// </summary>
     [ToolboxItem(true)]
     public class FloatBox : DecimalDigitsBox<float>

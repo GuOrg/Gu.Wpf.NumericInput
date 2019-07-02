@@ -12,7 +12,7 @@
         }
 
         /// <summary>Create a <see cref="TwoParameterFormatAndCulture"/> for a resource in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/>.</summary>
-        /// <param name="resourceKey">A key in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/></param>
+        /// <param name="resourceKey">A key in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/>.</param>
         /// <returns>A <see cref="TwoParameterFormatAndCulture"/> that can be used for formatting error messages.</returns>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="resourceKey"/> is not found in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/>.</exception>
         public static TwoParameterFormatAndCulture CreateDefault(string resourceKey)

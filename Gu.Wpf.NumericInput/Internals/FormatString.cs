@@ -9,7 +9,7 @@
     {
         private static readonly ThreadLocal<SortedSet<int>> Indices = new ThreadLocal<SortedSet<int>>(() => new SortedSet<int>());
 
-        /// <summary>Checks if <paramref name="format"/> has argument placeholders like 'Value: {0}'</summary>
+        /// <summary>Checks if <paramref name="format"/> has argument placeholders like 'Value: {0}'.</summary>
         /// <param name="format">A format string.</param>
         /// <returns>True if the string contains format placeholders.</returns>
         public static bool IsFormatString(string format)
@@ -22,10 +22,10 @@
             return false;
         }
 
-        /// <summary>Check if <paramref name="format"/> is a valid format string for <paramref name="numberOfArguments"/></summary>
+        /// <summary>Check if <paramref name="format"/> is a valid format string for <paramref name="numberOfArguments"/>.</summary>
         /// <param name="format">The format string.</param>
         /// <param name="numberOfArguments">The number of format arguments.</param>
-        /// <returns>True if <paramref name="format"/> is well formed and matches <paramref name="numberOfArguments"/></returns>
+        /// <returns>True if <paramref name="format"/> is well formed and matches <paramref name="numberOfArguments"/>.</returns>
         public static bool IsValidFormatString(string format, int numberOfArguments)
         {
             if (string.IsNullOrEmpty(format))
@@ -50,10 +50,10 @@
         /// Check a format string for errors and other properties.
         /// Does not throw nor allocate no need to cache the result as it is about as fast as a dictionary lookup for common strings.
         /// </summary>
-        /// <param name="format">The format string to check</param>
-        /// <param name="indexCount">The number of format indices or -1 if error</param>
-        /// <param name="anyItemHasFormat">If any index has formatting i.e: {0:N}</param>
-        /// <returns>True if <paramref name="format"/> is a valid format string</returns>
+        /// <param name="format">The format string to check.</param>
+        /// <param name="indexCount">The number of format indices or -1 if error.</param>
+        /// <param name="anyItemHasFormat">If any index has formatting i.e: {0:N}.</param>
+        /// <returns>True if <paramref name="format"/> is a valid format string.</returns>
         internal static bool IsValidFormat(string format, out int indexCount, out bool? anyItemHasFormat)
         {
             if (string.IsNullOrEmpty(format))
