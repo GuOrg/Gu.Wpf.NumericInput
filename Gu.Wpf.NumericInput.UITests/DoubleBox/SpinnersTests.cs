@@ -358,7 +358,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                using (Keyboard.Pressing(Key.CONTROL))
+                using (Keyboard.Hold(Key.CONTROL))
                 {
                     Keyboard.Type("z");
                 }
@@ -398,7 +398,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
                 Assert.AreEqual("Idle", inputBox.Status());
 
-                using (Keyboard.Pressing(Key.CONTROL))
+                using (Keyboard.Hold(Key.CONTROL))
                 {
                     Keyboard.Type("z");
                 }

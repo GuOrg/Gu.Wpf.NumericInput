@@ -618,7 +618,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 inputBox.Click();
                 Keyboard.Type("1");
                 Assert.AreEqual("10", inputBox.Text);
-                using (Keyboard.Pressing(Key.CONTROL))
+                using (Keyboard.Hold(Key.CONTROL))
                 {
                     Keyboard.Type("z");
                 }
@@ -636,7 +636,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
                 var window = app.MainWindow;
                 var inputBox = window.Window.FindTextBox("InputBox");
                 inputBox.Text = "1.2";
-                using (Keyboard.Pressing(Key.CONTROL))
+                using (Keyboard.Hold(Key.CONTROL))
                 {
                     Keyboard.Type("ac");
                 }
