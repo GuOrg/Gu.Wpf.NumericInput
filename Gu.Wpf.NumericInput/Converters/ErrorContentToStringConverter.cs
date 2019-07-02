@@ -28,7 +28,7 @@ namespace Gu.Wpf.NumericInput
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException($"{this.GetType().Name} does not support use in bindings with Mode = TwoWay.");
+            throw new NotSupportedException($"{typeof(ErrorContentToStringConverter).Name} does not support use in bindings with Mode = TwoWay.");
         }
     }
 }

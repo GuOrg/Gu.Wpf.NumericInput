@@ -124,6 +124,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Helper for getting <see cref="StringFormatProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="StringFormatProperty"/> from.</param>
         /// <returns>StringFormat property value.</returns>
+        [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static string GetStringFormat(this UIElement element) => (string)element.GetValue(StringFormatProperty);
 
         /// <summary>Helper for setting <see cref="DecimalDigitsProperty"/> on <paramref name="element"/>.</summary>

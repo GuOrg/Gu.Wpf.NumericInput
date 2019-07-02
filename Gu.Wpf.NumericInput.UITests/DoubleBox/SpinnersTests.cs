@@ -13,7 +13,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             "VanillaGroupBox",
             "DataTemplateGroupBox",
-            "ControlTemplate"
+            "ControlTemplate",
         };
 
         [SetUp]

@@ -97,7 +97,7 @@ namespace Gu.Wpf.NumericInput
             nameof(TextSource),
             typeof(TextSource),
             typeof(BaseBox),
-            new PropertyMetadata(TextSource.None, OnTextSourceChanged));
+            new PropertyMetadata(TextSource.None));
 
         /// <summary>Identifies the <see cref="TextSource"/> dependency property.</summary>
         public static readonly DependencyProperty TextSourceProperty = TextSourcePropertyKey.DependencyProperty;
@@ -107,7 +107,7 @@ namespace Gu.Wpf.NumericInput
             nameof(Status),
             typeof(Status),
             typeof(BaseBox),
-            new PropertyMetadata(Status.Idle, OnStatusChanged));
+            new PropertyMetadata(Status.Idle));
 
         /// <summary>Identifies the <see cref="Status"/> dependency property.</summary>
         internal static readonly DependencyProperty StatusProperty = StatusPropertyKey.DependencyProperty;
@@ -309,16 +309,6 @@ namespace Gu.Wpf.NumericInput
             {
                 box.IsValidationDirty = true;
             }
-        }
-
-        private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Debug.WriteLine(e);
-        }
-
-        private static void OnTextSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Debug.WriteLine(e);
         }
     }
 }
