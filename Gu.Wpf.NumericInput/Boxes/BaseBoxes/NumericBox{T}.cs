@@ -300,9 +300,7 @@ namespace Gu.Wpf.NumericInput
             this.UpdateFormattedText(value);
             if (this.SpinUpdateMode == SpinUpdateMode.PropertyChanged)
             {
-                var expression = BindingOperations.GetBindingExpression(this, ValueProperty);
-                var binding = expression?.ParentBinding;
-                if (binding != null &&
+                if (BindingOperations.GetBindingExpression(this, ValueProperty) is { ParentBinding: { } binding } expression &&
                     binding.Mode.IsEither(BindingMode.TwoWay, BindingMode.Default) &&
                     binding.UpdateSourceTrigger.IsEither(UpdateSourceTrigger.Default, UpdateSourceTrigger.LostFocus))
                 {

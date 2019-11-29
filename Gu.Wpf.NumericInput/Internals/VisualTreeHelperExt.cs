@@ -1,9 +1,6 @@
 namespace Gu.Wpf.NumericInput
 {
-    using System;
-    using System.CodeDom.Compiler;
     using System.Collections.Generic;
-    using System.IO;
     using System.Windows;
     using System.Windows.Media;
 
@@ -55,52 +52,11 @@ namespace Gu.Wpf.NumericInput
             return match;
         }
 
-        internal static T VisualChild<T>(this Visual parent)
-            where T : Visual
-        {
-            var count = VisualTreeHelper.GetChildrenCount(parent);
-            if (count > 1)
-            {
-                throw new InvalidOperationException("Expected single child");
-            }
-
-            if (count == 0)
-            {
-                return default;
-            }
-
-            return (T)VisualTreeHelper.GetChild(parent, 0);
-        }
-
         internal static IEnumerable<Visual> VisualChildren(this Visual parent)
         {
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 yield return (Visual)VisualTreeHelper.GetChild(parent, i);
-            }
-        }
-
-        internal static string DumpVisualTree(this DependencyObject parent)
-        {
-            using var stringWriter = new StringWriter();
-            using var writer = new IndentedTextWriter(stringWriter);
-            DumpVisualTree(parent, writer);
-            return writer.InnerWriter.ToString();
-        }
-
-        private static void DumpVisualTree(this DependencyObject parent, IndentedTextWriter writer)
-        {
-            writer.WriteLine(parent.GetType().Name);
-            if (VisualTreeHelper.GetChildrenCount(parent) != 0)
-            {
-                writer.Indent++;
-                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-                {
-                    var child = VisualTreeHelper.GetChild(parent, i);
-                    DumpVisualTree(child, writer);
-                }
-
-                writer.Indent--;
             }
         }
     }

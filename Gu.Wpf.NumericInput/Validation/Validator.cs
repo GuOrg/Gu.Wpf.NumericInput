@@ -11,11 +11,6 @@ namespace Gu.Wpf.NumericInput
     {
         private static readonly object Default = new object();
 
-        internal static void UpdateValidation(BaseBox box)
-        {
-            _ = ValidateAndGetValue(box);
-        }
-
         internal static object ValidateAndGetValue(BaseBox box)
         {
             var converter = box.TextValueConverter;
