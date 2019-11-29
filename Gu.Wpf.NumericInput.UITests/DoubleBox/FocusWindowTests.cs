@@ -14,7 +14,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             window.FindTextBox("TextBox2").Enter("2.345");
-            window.FindCheckBox("AllowSpinnersBox").IsChecked = false;
+            window.FindCheckBox("AllowSpinners").IsChecked = false;
             window.WaitUntilResponsive();
         }
 
@@ -70,7 +70,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var textBox1 = doubleBoxes.FindTextBox("TextBox1");
             var doubleBox1 = doubleBoxes.FindTextBox("DoubleBox1");
             var doubleBox2 = doubleBoxes.FindTextBox("DoubleBox2");
-            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            window.FindCheckBox("AllowSpinners").IsChecked = true;
             doubleBox1.Click();
             Assert.AreEqual(false, textBox1.HasKeyboardFocus);
             Assert.AreEqual(true, doubleBox1.HasKeyboardFocus);
