@@ -13,7 +13,7 @@
         <DataTemplate x:Key="DataTemplate" DataType="{x:Type local:DoubleBoxVm}">
             <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
                 <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
-                                   AutomationProperties.AutomationId="InputBox"
+                                   x:Name="InputBox"
                                    CanValueBeNull="{Binding CanValueBeNull}"
                                    Culture="{Binding Culture}"
                                    DecimalDigits="{Binding DecimalDigits}"
@@ -42,10 +42,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <GroupBox AutomationProperties.AutomationId="VanillaGroupBox" Header="Vanilla">
+        <GroupBox x:Name="VanillaGroupBox" Header="Vanilla">
             <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
                 <numeric:DoubleBox AllowSpinners="{Binding AllowSpinners}"
-                                   AutomationProperties.AutomationId="InputBox"
+                                   x:Name="InputBox"
                                    CanValueBeNull="{Binding CanValueBeNull}"
                                    Culture="{Binding Culture}"
                                    DecimalDigits="{Binding DecimalDigits}"
@@ -63,7 +63,7 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1"
-                  AutomationProperties.AutomationId="DataTemplateGroupBox"
+                  x:Name="DataTemplateGroupBox"
                   Header="DataTemplate">
             <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource DataTemplate}" />
         </GroupBox>
@@ -74,13 +74,13 @@
                                 Header="ControlTemplate">
             <HeaderedContentControl.Template>
                 <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
-                    <GroupBox AutomationProperties.AutomationId="ControlTemplate"
+                    <GroupBox x:Name="ControlTemplate"
                               DataContext="{TemplateBinding Content}"
                               Header="{TemplateBinding Header}">
                         <numeric:SpinnerDecorator Width="100" HorizontalAlignment="Left">
                             <numeric:DoubleBox d:DataContext="{d:DesignInstance local:DoubleBoxVm}"
                                                AllowSpinners="{Binding AllowSpinners}"
-                                               AutomationProperties.AutomationId="InputBox"
+                                               x:Name="InputBox"
                                                CanValueBeNull="{Binding CanValueBeNull}"
                                                Culture="{Binding Culture}"
                                                DecimalDigits="{Binding DecimalDigits}"
@@ -149,7 +149,7 @@
                        Text="Edit Value:" />
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="VmValueBox"
+                     x:Name="VmValueBox"
                      Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
 
             <TextBlock Grid.Row="3"
@@ -162,7 +162,7 @@
                        Text="IsReadOnly" />
             <CheckBox Grid.Row="4"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="IsReadonlyBox"
+                      x:Name="IsReadonlyBox"
                       IsChecked="{Binding IsReadOnly}" />
 
             <TextBlock Grid.Row="5"
@@ -170,7 +170,7 @@
                        Text="HasErrors" />
             <CheckBox Grid.Row="5"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="HasErrorsBox"
+                      x:Name="HasErrorsBox"
                       IsChecked="{Binding HasErrors}" />
 
             <TextBlock Grid.Row="6"
@@ -178,7 +178,7 @@
                        Text="ValidationTrigger" />
             <ComboBox Grid.Row="6"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="ValidationTriggerBox"
+                      x:Name="ValidationTriggerBox"
                       SelectedItem="{Binding ValidationTrigger}">
                 <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
                 <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
@@ -190,7 +190,7 @@
                        Text="HasErrors" />
             <CheckBox Grid.Row="7"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="CanBeNullBox"
+                      x:Name="CanBeNullBox"
                       IsChecked="{Binding CanValueBeNull}" />
 
             <TextBlock Grid.Row="8"
@@ -198,7 +198,7 @@
                        Text="Culture" />
             <ComboBox Grid.Row="8"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="CultureBox"
+                      x:Name="CultureBox"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Cultures}"
                       SelectedItem="{Binding Culture}" />
@@ -208,7 +208,7 @@
                        Text="Decimals:" />
             <TextBox Grid.Row="9"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="DigitsBox"
+                     x:Name="DigitsBox"
                      Text="{Binding DecimalDigits, TargetNullValue=''}" />
 
             <TextBlock Grid.Row="10"
@@ -216,7 +216,7 @@
                        Text="StringFormat:" />
             <TextBox Grid.Row="10"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="StringFormatBox"
+                     x:Name="StringFormatBox"
                      Text="{Binding StringFormat, Mode=TwoWay}" />
 
             <TextBlock Grid.Row="11"
@@ -224,7 +224,7 @@
                        Text="AllowLeadingWhite:" />
             <CheckBox Grid.Row="11"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowLeadingWhiteBox"
+                      x:Name="AllowLeadingWhiteBox"
                       IsChecked="{Binding AllowLeadingWhite}" />
 
             <TextBlock Grid.Row="12"
@@ -232,7 +232,7 @@
                        Text="AllowTrailingWhite:" />
             <CheckBox Grid.Row="12"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowTrailingWhiteBox"
+                      x:Name="AllowTrailingWhiteBox"
                       IsChecked="{Binding AllowTrailingWhite}" />
 
             <TextBlock Grid.Row="13"
@@ -240,7 +240,7 @@
                        Text="AllowLeadingSign:" />
             <CheckBox Grid.Row="13"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowLeadingSignBox"
+                      x:Name="AllowLeadingSignBox"
                       IsChecked="{Binding AllowLeadingSign}" />
 
             <TextBlock Grid.Row="14"
@@ -248,7 +248,7 @@
                        Text="AllowDecimalPoint:" />
             <CheckBox Grid.Row="14"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowDecimalPointBox"
+                      x:Name="AllowDecimalPointBox"
                       IsChecked="{Binding AllowDecimalPoint}" />
 
             <TextBlock Grid.Row="15"
@@ -256,7 +256,7 @@
                        Text="AllowThousands:" />
             <CheckBox Grid.Row="15"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowThousandsBox"
+                      x:Name="AllowThousandsBox"
                       IsChecked="{Binding AllowThousands}" />
 
             <TextBlock Grid.Row="16"
@@ -264,7 +264,7 @@
                        Text="AllowExponent:" />
             <CheckBox Grid.Row="16"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowExponentBox"
+                      x:Name="AllowExponentBox"
                       IsChecked="{Binding AllowExponent}" />
 
             <TextBlock Grid.Row="17"
@@ -272,7 +272,7 @@
                        Text="Min:" />
             <TextBox Grid.Row="17"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="MinBox"
+                     x:Name="MinBox"
                      Text="{Binding Min, TargetNullValue=''}" />
 
             <TextBlock Grid.Row="18"
@@ -280,7 +280,7 @@
                        Text="Max:" />
             <TextBox Grid.Row="18"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="MaxBox"
+                     x:Name="MaxBox"
                      Text="{Binding Max, TargetNullValue=''}" />
 
             <TextBlock Grid.Row="19"
@@ -288,7 +288,7 @@
                        Text="RegexPattern:" />
             <TextBox Grid.Row="19"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="RegexPatternBox"
+                     x:Name="RegexPatternBox"
                      Text="{Binding RegexPattern}" />
 
             <TextBlock Grid.Row="20"
@@ -296,7 +296,7 @@
                        Text="AllowSpinners:" />
             <CheckBox Grid.Row="20"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="AllowSpinnersBox"
+                      x:Name="AllowSpinnersBox"
                       IsChecked="{Binding AllowSpinners}" />
 
             <TextBlock Grid.Row="21"
@@ -304,7 +304,7 @@
                        Text="SpinUpdateMode:" />
             <ComboBox Grid.Row="21"
                       Grid.Column="1"
-                      AutomationProperties.AutomationId="SpinUpdateMode"
+                      x:Name="SpinUpdateMode"
                       SelectedItem="{Binding SpinUpdateMode}">
                 <numeric:SpinUpdateMode>AsBinding</numeric:SpinUpdateMode>
                 <numeric:SpinUpdateMode>PropertyChanged</numeric:SpinUpdateMode>
@@ -315,7 +315,7 @@
                        Text="Increment:" />
             <TextBox Grid.Row="22"
                      Grid.Column="1"
-                     AutomationProperties.AutomationId="IncrementBox"
+                     x:Name="IncrementBox"
                      Text="{Binding Increment, TargetNullValue=''}" />
 
             <TextBlock Grid.Row="23"

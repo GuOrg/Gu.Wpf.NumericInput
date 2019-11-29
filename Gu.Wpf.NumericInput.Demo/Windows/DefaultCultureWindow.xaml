@@ -11,14 +11,14 @@
         <windows:CultureVm />
     </Window.DataContext>
     <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-        <TextBox AutomationProperties.AutomationId="ValueTextBox" Text="{Binding Value}" />
+        <TextBox x:Name="ValueTextBox" Text="{Binding Value}" />
         <numeric:SpinnerDecorator>
             <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                        ElementName=AllowSpinners}"
-                               AutomationProperties.AutomationId="SpinnerDoubleBox"
+                               x:Name="SpinnerDoubleBox"
                                Value="{Binding Value}" />
         </numeric:SpinnerDecorator>
 
-        <numeric:DoubleBox AutomationProperties.AutomationId="DoubleBox" Value="{Binding Value}" />
+        <numeric:DoubleBox x:Name="DoubleBox" Value="{Binding Value}" />
     </StackPanel>
 </Window>

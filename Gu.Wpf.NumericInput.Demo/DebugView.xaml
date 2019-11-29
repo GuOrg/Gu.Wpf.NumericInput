@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     <UniformGrid Rows="1">
         <GroupBox VerticalAlignment="Top"
-                  AutomationProperties.AutomationId="DoubleBoxGroupBox"
+                  x:Name="DoubleBoxGroupBox"
                   Header="DoubleBox">
             <local:DoubleBoxView HorizontalAlignment="Left" />
         </GroupBox>

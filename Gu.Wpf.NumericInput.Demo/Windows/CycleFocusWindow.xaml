@@ -13,33 +13,33 @@
     <UniformGrid Rows="1">
         <GroupBox Header="TextBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
-                <TextBox AutomationProperties.AutomationId="TextBox2" Text="{Binding Value2}" />
-                <TextBox AutomationProperties.AutomationId="TextBox3" Text="{Binding Value3}" />
+                <TextBox x:Name="TextBox1" Text="{Binding Value1}" />
+                <TextBox x:Name="TextBox2" Text="{Binding Value2}" />
+                <TextBox x:Name="TextBox3" Text="{Binding Value3}" />
             </StackPanel>
         </GroupBox>
 
         <GroupBox Header="DoubleBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
-                <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
+                <TextBox x:Name="TextBox1" Text="{Binding Value1}" />
 
                 <numeric:SpinnerDecorator>
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="DoubleBox1"
+                                       x:Name="DoubleBox1"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value1}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:SpinnerDecorator>
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="DoubleBox2"
+                                       x:Name="DoubleBox2"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value2}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:SpinnerDecorator>
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="DoubleBox3"
+                                       x:Name="DoubleBox3"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value3}" />
                 </numeric:SpinnerDecorator>
