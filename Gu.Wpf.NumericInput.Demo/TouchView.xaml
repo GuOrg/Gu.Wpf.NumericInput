@@ -40,14 +40,14 @@
                 <numeric:SpinnerDecorator AutomationProperties.AutomationId="Spinners1">
                     <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                                ElementName=AllowSpinners}"
-                                       AutomationProperties.AutomationId="DoubleBox1"
+                                       x:Name="DoubleBox1"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value2}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
                                                            ElementName=AllowSpinners}"
-                                   AutomationProperties.AutomationId="DoubleBox2"
+                                   x:Name="DoubleBox2"
                                    DecimalDigits="{Binding DecimalDigits}"
                                    Value="{Binding Value3}" />
             </StackPanel>
@@ -76,7 +76,6 @@
                           Grid.Row="0"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="AllowSpinnersBox"
                           IsChecked="True" />
 
                 <TextBlock Grid.Row="1"
@@ -86,7 +85,6 @@
                           Grid.Row="1"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="SelectAllOnFocusBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="2"
@@ -106,7 +104,6 @@
                           Grid.Row="4"
                           Grid.Column="1"
                           VerticalAlignment="Center"
-                          AutomationProperties.AutomationId="MoveFocusOnEnterBox"
                           IsChecked="False" />
 
                 <TextBlock Grid.Row="5"
