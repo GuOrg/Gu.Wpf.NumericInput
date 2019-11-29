@@ -7,12 +7,14 @@ namespace Gu.Wpf.NumericInput
     /// </summary>
     public abstract partial class BaseBox
     {
+        /// <summary>Identifies the <see cref="FormatDirty"/> routed event.</summary>
         internal static readonly RoutedEvent FormatDirtyEvent = EventManager.RegisterRoutedEvent(
             nameof(FormatDirty),
             RoutingStrategy.Direct,
             typeof(RoutedEventHandler),
             typeof(BaseBox));
 
+        /// <summary>Identifies the <see cref="ValidationDirty"/> routed event.</summary>
         internal static readonly RoutedEvent ValidationDirtyEvent = EventManager.RegisterRoutedEvent(
             nameof(ValidationDirty),
             RoutingStrategy.Direct,
