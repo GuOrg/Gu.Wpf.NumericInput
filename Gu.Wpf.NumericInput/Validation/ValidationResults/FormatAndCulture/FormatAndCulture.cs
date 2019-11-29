@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections.Concurrent;
@@ -27,8 +27,10 @@
         /// <inheritdoc/>
         public IFormatProvider FormatProvider { get; }
 
+#pragma warning disable CA1721 // Property names should not match get methods
         /// <inheritdoc/>
         public string Format => this.format.Value;
+#pragma warning restore CA1721 // Property names should not match get methods
 
         protected ConcurrentDictionary<CultureInfo, T> Cache { get; } = new ConcurrentDictionary<CultureInfo, T>();
 

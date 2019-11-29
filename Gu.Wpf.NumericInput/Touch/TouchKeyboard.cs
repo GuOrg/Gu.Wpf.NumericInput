@@ -7,6 +7,7 @@ namespace Gu.Wpf.NumericInput.Touch
     public static class TouchKeyboard
     {
         private static TouchProcessInfo touchProcessInfo = TouchProcessInfo.Default;
+        private static Process process;
 
         public static string TouchKeyboardPath
         {
@@ -22,7 +23,8 @@ namespace Gu.Wpf.NumericInput.Touch
             }
 
             NumericInput.Debug.WriteLine("show");
-            Process.Start(touchProcessInfo.ProcessStartInfo);
+            process?.Dispose();
+            process = Process.Start(touchProcessInfo.ProcessStartInfo);
         }
 
         public static void Hide()
@@ -43,6 +45,8 @@ namespace Gu.Wpf.NumericInput.Touch
                 NumericInput.Debug.WriteLine("hide");
                 _ = NativeMethods.SendMessage(keyboardWnd, wmSysCommand, scClose, nullIntPtr);
             }
+
+            process?.Dispose();
         }
 
         ////private static bool HasTouchInput()

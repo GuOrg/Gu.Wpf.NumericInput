@@ -213,7 +213,7 @@ namespace Gu.Wpf.NumericInput
 
                 if (parent == null && this.DependencyObject != null)
                 {
-                    throw new NotImplementedException();
+                    throw new NotSupportedException("Parent is null.");
 
                     // parent = this._do.InheritanceContext;
                 }

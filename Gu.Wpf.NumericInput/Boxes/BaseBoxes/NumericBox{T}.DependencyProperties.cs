@@ -1,4 +1,4 @@
-﻿// ReSharper disable StaticMemberInGenericType
+// ReSharper disable StaticMemberInGenericType
 namespace Gu.Wpf.NumericInput
 {
     using System;
@@ -118,7 +118,9 @@ namespace Gu.Wpf.NumericInput
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
+#pragma warning disable CA1721 // Property names should not match get methods
         public T? Value
+#pragma warning restore CA1721 // Property names should not match get methods
         {
             get => (T?)this.GetValue(ValueProperty);
             set => this.SetValue(ValueProperty, value);

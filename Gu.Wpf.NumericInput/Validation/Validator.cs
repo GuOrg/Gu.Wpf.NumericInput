@@ -13,7 +13,7 @@ namespace Gu.Wpf.NumericInput
 
         internal static void UpdateValidation(BaseBox box)
         {
-            ValidateAndGetValue(box);
+            _ = ValidateAndGetValue(box);
         }
 
         internal static object ValidateAndGetValue(BaseBox box)

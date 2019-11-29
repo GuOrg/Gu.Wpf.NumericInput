@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
@@ -11,8 +11,10 @@
         /// <summary>Gets the culture for which the <see cref="IFormatAndCulture.Format"/> is for. If no localization is found <see cref="CultureInfo.InvariantCulture"/> will be used.</summary>
         IFormatProvider FormatProvider { get; }
 
+#pragma warning disable CA1721 // Property names should not match get methods
         /// <summary>Gets the localized format string.</summary>
         string Format { get; }
+#pragma warning restore CA1721 // Property names should not match get methods
 
         /// <summary>
         /// Gets the format in <paramref name="culture"/> if it exists.
