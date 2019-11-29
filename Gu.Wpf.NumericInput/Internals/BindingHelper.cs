@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -69,23 +69,6 @@
                 return this.OneWayTo(source, sourcePath, null, null);
             }
 
-            internal BindingExpression OneWayTo(object source)
-            {
-                var binding = new Binding
-                {
-                    Source = source,
-                    Mode = BindingMode.OneWay,
-                };
-
-                return (BindingExpression)BindingOperations.SetBinding(this.target, this.targetProperty, binding);
-            }
-
-            internal BindingExpression OneWayTo(object source, DependencyProperty sourceProperty, IValueConverter converter)
-            {
-                var sourcePath = GetPath(sourceProperty);
-                return this.OneWayTo(source, sourcePath, converter, null);
-            }
-
             internal BindingExpression OneWayTo(object source, DependencyProperty sourceProperty, IValueConverter converter, object converterParameter)
             {
                 var sourcePath = GetPath(sourceProperty);
@@ -102,20 +85,6 @@
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     Converter = converter,
                     ConverterParameter = converterParameter,
-                };
-
-                return (BindingExpression)BindingOperations.SetBinding(this.target, this.targetProperty, binding);
-            }
-
-            internal BindingExpression TwoWayTo(object source, DependencyProperty sourceProperty)
-            {
-                var sourcePath = GetPath(sourceProperty);
-                var binding = new Binding
-                {
-                    Source = source,
-                    Path = sourcePath,
-                    Mode = BindingMode.TwoWay,
-                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
 
                 return (BindingExpression)BindingOperations.SetBinding(this.target, this.targetProperty, binding);
