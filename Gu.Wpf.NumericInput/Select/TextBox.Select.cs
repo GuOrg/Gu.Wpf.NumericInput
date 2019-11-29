@@ -72,6 +72,11 @@ namespace Gu.Wpf.NumericInput.Select
         /// <param name="value">SelectAllOnGotKeyboardFocus property value.</param>
         public static void SetSelectAllOnGotKeyboardFocus(this UIElement element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(SelectAllOnGotKeyboardFocusProperty, BooleanBoxes.Box(value));
         }
 
@@ -82,6 +87,11 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnGotKeyboardFocus(this UIElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnGotKeyboardFocusProperty));
         }
 
@@ -90,6 +100,11 @@ namespace Gu.Wpf.NumericInput.Select
         /// <param name="value">SelectAllOnClick property value.</param>
         public static void SetSelectAllOnClick(this UIElement element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(SelectAllOnClickProperty, BooleanBoxes.Box(value));
         }
 
@@ -100,6 +115,11 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnClick(this UIElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnClickProperty));
         }
 
@@ -108,6 +128,11 @@ namespace Gu.Wpf.NumericInput.Select
         /// <param name="value">SelectAllOnDoubleClick property value.</param>
         public static void SetSelectAllOnDoubleClick(this UIElement element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(SelectAllOnDoubleClickProperty, BooleanBoxes.Box(value));
         }
 
@@ -118,6 +143,11 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetSelectAllOnDoubleClick(this UIElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnDoubleClickProperty));
         }
 
@@ -126,6 +156,11 @@ namespace Gu.Wpf.NumericInput.Select
         /// <param name="value">MoveFocusOnEnter property value.</param>
         public static void SetMoveFocusOnEnter(this UIElement element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(MoveFocusOnEnterProperty, BooleanBoxes.Box(value));
         }
 
@@ -136,6 +171,11 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetMoveFocusOnEnter(this UIElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
         }
 
@@ -144,6 +184,11 @@ namespace Gu.Wpf.NumericInput.Select
         /// <param name="value">LoseFocusOnEnter property value.</param>
         public static void SetLoseFocusOnEnter(this DependencyObject element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(LoseFocusOnEnterProperty, value);
         }
 
@@ -154,6 +199,11 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetLoseFocusOnEnter(this DependencyObject element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return (bool)element.GetValue(LoseFocusOnEnterProperty);
         }
 

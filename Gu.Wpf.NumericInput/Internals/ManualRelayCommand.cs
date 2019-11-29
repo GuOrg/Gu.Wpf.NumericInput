@@ -24,7 +24,7 @@ namespace Gu.Wpf.NumericInput
 
         private event EventHandler InternalCanExecuteChanged;
 
-        public void RaiseCanExecuteChanged()
+        internal void RaiseCanExecuteChanged()
         {
             var handler = this.InternalCanExecuteChanged;
             if (handler != null)

@@ -35,7 +35,7 @@ namespace Gu.Wpf.NumericInput
 
             if (numberOfArguments < 0)
             {
-                throw new ArgumentException(nameof(numberOfArguments));
+                throw new ArgumentException("Expected non-negative number of arguments.", nameof(numberOfArguments));
             }
 
             if (IsValidFormat(format, out int indexCount, out bool? _))

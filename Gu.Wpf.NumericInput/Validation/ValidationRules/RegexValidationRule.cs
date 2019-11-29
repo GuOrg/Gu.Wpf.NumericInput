@@ -46,7 +46,9 @@ namespace Gu.Wpf.NumericInput
 
                 return RegexValidationResult.CreateErrorResult(text, box);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 return RegexValidationResult.CreateMalformedPatternErrorResult(text, e, box);
             }

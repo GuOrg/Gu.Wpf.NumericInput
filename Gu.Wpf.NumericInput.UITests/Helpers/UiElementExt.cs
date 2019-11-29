@@ -36,7 +36,7 @@ namespace Gu.Wpf.NumericInput.UITests
             var text = itemStatus.Get(BaseBox.TextSourceProperty);
             if (!Enum.TryParse(text, out TextSource result))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Could not parse text source.", nameof(textBox));
             }
 
             return result;
@@ -89,7 +89,7 @@ namespace Gu.Wpf.NumericInput.UITests
         private static string Get(this string text, string property)
         {
             return text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                       .Single(x => x.StartsWith(property + ":"))
+                       .Single(x => x.StartsWith(property + ":", StringComparison.Ordinal))
                        .Split(':')[1].Trim();
         }
     }

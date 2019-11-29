@@ -266,7 +266,7 @@ namespace Gu.Wpf.NumericInput
                     case ValidationTrigger.Explicit:
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException(nameof(d), box.TextSource, "Unhandled text source.");
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
 
@@ -22,6 +22,11 @@
         public static IsGreaterThanValidationResult CreateErrorResult<T>(T value, NumericBox<T> box)
             where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
+            if (box is null)
+            {
+                throw new ArgumentNullException(nameof(box));
+            }
+
             if (box.MinValue == null)
             {
                 var formatAndCulture = PleaseEnterAValueLessThanOrEqualToFormatAndCulture.GetOrCreate(box.Culture);

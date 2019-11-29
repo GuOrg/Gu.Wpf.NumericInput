@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
 
@@ -28,6 +28,11 @@
         public static RequiredButMissingValidationResult CreateErrorResult<T>(string text, NumericBox<T> box)
              where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
+            if (box is null)
+            {
+                throw new ArgumentNullException(nameof(box));
+            }
+
             var formatAndCulture = DefaultFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
             return new RequiredButMissingValidationResult(

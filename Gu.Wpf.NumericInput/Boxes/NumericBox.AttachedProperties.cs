@@ -75,79 +75,191 @@ namespace Gu.Wpf.NumericInput
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         [TypeConverter(typeof(CultureInfoConverter))]
-        public static IFormatProvider GetCulture(this UIElement element) => (IFormatProvider)element.GetValue(CultureProperty);
+        public static IFormatProvider GetCulture(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (IFormatProvider)element.GetValue(CultureProperty);
+        }
 
         /// <summary>Helper for setting <see cref="CultureProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="CultureProperty"/> on.</param>
         /// <param name="value">Culture property value.</param>
-        public static void SetCulture(this UIElement element, IFormatProvider value) => element.SetValue(CultureProperty, value);
+        public static void SetCulture(this UIElement element, IFormatProvider value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(CultureProperty, value);
+        }
 
         /// <summary>Helper for getting <see cref="ValidationTriggerProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="ValidationTriggerProperty"/> from.</param>
         /// <returns>ValidationTrigger property value.</returns>
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = false)]
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static ValidationTrigger GetValidationTrigger(this UIElement element) => (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
+        public static ValidationTrigger GetValidationTrigger(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (ValidationTrigger)element.GetValue(ValidationTriggerProperty);
+        }
 
         /// <summary>Helper for setting <see cref="ValidationTriggerProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="ValidationTriggerProperty"/> on.</param>
         /// <param name="value">ValidationTrigger property value.</param>
-        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value) => element.SetValue(ValidationTriggerProperty, value);
+        public static void SetValidationTrigger(this UIElement element, ValidationTrigger value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(ValidationTriggerProperty, value);
+        }
 
         /// <summary>Helper for setting <see cref="CanValueBeNullProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="CanValueBeNullProperty"/> on.</param>
         /// <param name="value">CanValueBeNull property value.</param>
-        public static void SetCanValueBeNull(this UIElement element, bool value) => element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
+        public static void SetCanValueBeNull(this UIElement element, bool value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(CanValueBeNullProperty, BooleanBoxes.Box(value));
+        }
 
         /// <summary>Helper for getting <see cref="CanValueBeNullProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="CanValueBeNullProperty"/> from.</param>
         /// <returns>CanValueBeNull property value.</returns>
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static bool GetCanValueBeNull(this UIElement element) => (bool)element.GetValue(CanValueBeNullProperty);
+        public static bool GetCanValueBeNull(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (bool)element.GetValue(CanValueBeNullProperty);
+        }
 
         /// <summary>Helper for setting <see cref="NumberStylesProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="NumberStylesProperty"/> on.</param>
         /// <param name="value">NumberStyles property value.</param>
-        public static void SetNumberStyles(this UIElement element, NumberStyles value) => element.SetValue(NumberStylesProperty, value);
+        public static void SetNumberStyles(this UIElement element, NumberStyles value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(NumberStylesProperty, value);
+        }
 
         /// <summary>Helper for getting <see cref="NumberStylesProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="NumberStylesProperty"/> from.</param>
         /// <returns>NumberStyles property value.</returns>
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static NumberStyles GetNumberStyles(this UIElement element) => (NumberStyles)element.GetValue(NumberStylesProperty);
+        public static NumberStyles GetNumberStyles(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (NumberStyles)element.GetValue(NumberStylesProperty);
+        }
 
         /// <summary>Helper for setting <see cref="StringFormatProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="StringFormatProperty"/> on.</param>
         /// <param name="value">StringFormat property value.</param>
-        public static void SetStringFormat(this UIElement element, string value) => element.SetValue(StringFormatProperty, value);
+        public static void SetStringFormat(this UIElement element, string value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(StringFormatProperty, value);
+        }
 
         /// <summary>Helper for getting <see cref="StringFormatProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="StringFormatProperty"/> from.</param>
         /// <returns>StringFormat property value.</returns>
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static string GetStringFormat(this UIElement element) => (string)element.GetValue(StringFormatProperty);
+        public static string GetStringFormat(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (string)element.GetValue(StringFormatProperty);
+        }
 
         /// <summary>Helper for setting <see cref="DecimalDigitsProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="DecimalDigitsProperty"/> on.</param>
         /// <param name="value">DecimalDigits property value.</param>
-        public static void SetDecimalDigits(this UIElement element, int? value) => element.SetValue(DecimalDigitsProperty, value);
+        public static void SetDecimalDigits(this UIElement element, int? value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(DecimalDigitsProperty, value);
+        }
 
         /// <summary>Helper for getting <see cref="DecimalDigitsProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="DecimalDigitsProperty"/> from.</param>
         /// <returns>DecimalDigits property value.</returns>
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static int? GetDecimalDigits(this UIElement element) => (int?)element.GetValue(DecimalDigitsProperty);
+        public static int? GetDecimalDigits(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (int?)element.GetValue(DecimalDigitsProperty);
+        }
 
         /// <summary>Helper for getting <see cref="AllowSpinnersProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to read <see cref="AllowSpinnersProperty"/> from.</param>
         /// <returns>AllowSpinners property value.</returns>
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
-        public static bool GetAllowSpinners(this UIElement element) => (bool)element.GetValue(AllowSpinnersProperty);
+        public static bool GetAllowSpinners(this UIElement element)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            return (bool)element.GetValue(AllowSpinnersProperty);
+        }
 
         /// <summary>Helper for setting <see cref="AllowSpinnersProperty"/> on <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="UIElement"/> to set <see cref="AllowSpinnersProperty"/> on.</param>
         /// <param name="value">AllowSpinners property value.</param>
-        public static void SetAllowSpinners(this UIElement element, bool value) => element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
+        public static void SetAllowSpinners(this UIElement element, bool value)
+        {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            element.SetValue(AllowSpinnersProperty, BooleanBoxes.Box(value));
+        }
 
         /// <summary>Helper for getting <see cref="SpinUpdateModeProperty"/> from <paramref name="element"/>.</summary>
         /// <param name="element"><see cref="DependencyObject"/> to read <see cref="SpinUpdateModeProperty"/> from.</param>
@@ -155,6 +267,11 @@ namespace Gu.Wpf.NumericInput
         [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         public static SpinUpdateMode GetSpinUpdateMode(DependencyObject element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return (SpinUpdateMode)element.GetValue(SpinUpdateModeProperty);
         }
 
@@ -163,6 +280,11 @@ namespace Gu.Wpf.NumericInput
         /// <param name="value">SpinUpdateMode property value.</param>
         public static void SetSpinUpdateMode(DependencyObject element, SpinUpdateMode value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(SpinUpdateModeProperty, value);
         }
     }

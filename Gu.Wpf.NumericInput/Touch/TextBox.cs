@@ -37,6 +37,11 @@ namespace Gu.Wpf.NumericInput.Touch
         /// <param name="value">ShowTouchKeyboardOnTouchEnter property value.</param>
         public static void SetShowTouchKeyboardOnTouchEnter(UIElement element, bool value)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             element.SetValue(ShowTouchKeyboardOnTouchEnterProperty, value);
         }
 
@@ -47,6 +52,11 @@ namespace Gu.Wpf.NumericInput.Touch
         [AttachedPropertyBrowsableForType(typeof(UIElement))]
         public static bool GetShowTouchKeyboardOnTouchEnter(UIElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return (bool)element.GetValue(ShowTouchKeyboardOnTouchEnterProperty);
         }
 

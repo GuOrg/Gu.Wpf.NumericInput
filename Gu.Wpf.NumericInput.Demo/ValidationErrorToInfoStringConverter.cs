@@ -5,6 +5,7 @@ namespace Gu.Wpf.NumericInput.Demo
     using System.Windows.Controls;
     using System.Windows.Data;
 
+    [ValueConversion(typeof(ValidationError), typeof(string))]
     public sealed class ValidationErrorToInfoStringConverter : IValueConverter
     {
         public static readonly ValidationErrorToInfoStringConverter Default = new ValidationErrorToInfoStringConverter();
@@ -30,9 +31,9 @@ namespace Gu.Wpf.NumericInput.Demo
             return value.ToString();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException($"{nameof(ValidationErrorToInfoStringConverter)} can only be used in OneWay bindings");
         }
     }
 }

@@ -37,6 +37,11 @@ namespace Gu.Wpf.NumericInput
 
         public static RegexValidationResult CreateErrorResult(string text, BaseBox box)
         {
+            if (box is null)
+            {
+                throw new ArgumentNullException(nameof(box));
+            }
+
             var formatAndCulture = PleaseProvideValidInputFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
             return new RegexValidationResult(
@@ -51,6 +56,11 @@ namespace Gu.Wpf.NumericInput
 
         public static RegexValidationResult CreateMalformedPatternErrorResult(string text, Exception exception, BaseBox box)
         {
+            if (box is null)
+            {
+                throw new ArgumentNullException(nameof(box));
+            }
+
             var formatAndCulture = SyntaxErrorInRegexPatternFormatAndCulture.GetOrCreate(box.Culture);
             var message = formatAndCulture.Format;
             return new RegexValidationResult(

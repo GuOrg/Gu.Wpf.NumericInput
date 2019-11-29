@@ -154,7 +154,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("0", "1", 1)]
         [TestCase("9", "10", 10)]
         [TestCase("10", "10", 10)]
-        public void IncreaseCommand_Execute(string text, string expectedText, T expected)
+        public void IncreaseCommandExecute(string text, string expectedText, T expected)
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
@@ -169,7 +169,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("0", "1", 1)]
         [TestCase("9", "10", 10)]
         [TestCase("10", "10", 10)]
-        public void IncreaseCommand_Execute_SpinUpdateMode_PropertyChanged(string text, string expectedText, T expected)
+        public void IncreaseCommandExecuteSpinUpdateModePropertyChanged(string text, string expectedText, T expected)
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
@@ -184,7 +184,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("10", false)]
         [TestCase("11", false)]
         [TestCase("1e", false)]
-        public void IncreaseCommand_CanExecute_OnUserInput(string text, bool expected)
+        public void IncreaseCommandCanExecuteOnUserInput(string text, bool expected)
         {
             this.Box.AllowSpinners = true;
             var count = 0;
@@ -202,7 +202,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [Test]
-        public void IncreaseCommand_CanExecute_RaiseExplicit()
+        public void IncreaseCommandCanExecuteRaiseExplicit()
         {
             var count = 0;
             this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
@@ -211,7 +211,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [TestCase(8)]
-        public void IncreaseCommand_CanExecuteChanged_OnIncrease(T value)
+        public void IncreaseCommandCanExecuteChangedOnIncrease(T value)
         {
             this.Box.AllowSpinners = true;
             this.Box.Value = value;
@@ -231,7 +231,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [Test]
-        public void IncreaseCommand_CanExecuteChanged_OnValueChanged()
+        public void IncreaseCommandCanExecuteChangedOnValueChanged()
         {
             this.Box.AllowSpinners = true;
             var count = 0;
@@ -248,7 +248,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void IncreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
+        public void IncreaseCommandCanExecuteIsReadonly(bool @readonly, bool expected)
         {
             this.Box.AllowSpinners = true;
             base.Box.Text = "0";
@@ -263,7 +263,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("0", "-1", -1)]
         [TestCase("-9", "-10", -10)]
         [TestCase("-10", "-10", -10)]
-        public void DecreaseCommand_Execute(string text, string expectedText, T expected)
+        public void DecreaseCommandExecute(string text, string expectedText, T expected)
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
@@ -277,7 +277,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("0", "-1", -1)]
         [TestCase("-9", "-10", -10)]
         [TestCase("-10", "-10", -10)]
-        public void DecreaseCommand_Execute_SpinUpdateMode_PropertyChanged(string text, string expectedText, T expected)
+        public void DecreaseCommandExecuteSpinUpdateModePropertyChanged(string text, string expectedText, T expected)
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
@@ -289,7 +289,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [Test]
-        public void DecreaseCommand_CanExecute_RaiseExplicit()
+        public void DecreaseCommandCanExecuteRaiseExplicit()
         {
             var count = 0;
             this.Box.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
@@ -301,7 +301,7 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase("-10", false)]
         [TestCase("-11", false)]
         [TestCase("-1e", false)]
-        public void DecreaseCommand_CanExecute_OnUserInput(string text, bool expected)
+        public void DecreaseCommandCanExecuteOnUserInput(string text, bool expected)
         {
             this.Box.AllowSpinners = true;
             var count = 0;
@@ -319,7 +319,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [TestCase(-8)]
-        public void DecreaseCommand_CanExecute_OnDecrease(T value)
+        public void DecreaseCommandCanExecuteOnDecrease(T value)
         {
             this.Box.AllowSpinners = true;
             this.Box.Value = value;
@@ -339,7 +339,7 @@ namespace Gu.Wpf.NumericInput.Tests
         }
 
         [Test]
-        public void DecreaseCommand_CanExecuteChanged_OnValueChanged()
+        public void DecreaseCommandCanExecuteChangedOnValueChanged()
         {
             this.Box.AllowSpinners = true;
             var count = 0;
@@ -356,7 +356,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void DecreaseCommand_CanExecute_IsReadonly(bool @readonly, bool expected)
+        public void DecreaseCommandCanExecuteIsReadonly(bool @readonly, bool expected)
         {
             this.Box.AllowSpinners = true;
             base.Box.Text = "0";
