@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput.Demo
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    public class ValidationErrorToInfoStringConverter : IValueConverter
+    public sealed class ValidationErrorToInfoStringConverter : IValueConverter
     {
         public static readonly ValidationErrorToInfoStringConverter Default = new ValidationErrorToInfoStringConverter();
 

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
@@ -6,7 +6,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    internal class RegexValidationRule : ValidationRule
+    internal sealed class RegexValidationRule : ValidationRule
     {
         internal static readonly RegexValidationRule FromText = new RegexValidationRule(validatesOnTargetUpdated: true);
         internal static readonly RegexValidationRule FromValue = new RegexValidationRule(validatesOnTargetUpdated: false);

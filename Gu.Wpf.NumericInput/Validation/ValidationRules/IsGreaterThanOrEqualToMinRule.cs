@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    internal class IsGreaterThanOrEqualToMinRule<T> : ValidationRule
+    internal sealed class IsGreaterThanOrEqualToMinRule<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         internal static readonly IsGreaterThanOrEqualToMinRule<T> FromText = new IsGreaterThanOrEqualToMinRule<T>(validatesOnTargetUpdated: true);

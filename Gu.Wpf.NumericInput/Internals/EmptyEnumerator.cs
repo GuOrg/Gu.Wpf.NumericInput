@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections;
@@ -6,7 +6,7 @@
     /// <summary>
     /// Returns an Enumerator that enumerates over nothing.
     /// </summary>
-    internal class EmptyEnumerator : IEnumerator
+    internal sealed class EmptyEnumerator : IEnumerator
     {
         /// <summary>
         /// Read-Only instance of an Empty Enumerator.

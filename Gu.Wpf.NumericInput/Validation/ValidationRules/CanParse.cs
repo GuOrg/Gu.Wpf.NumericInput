@@ -1,11 +1,11 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
     using System.Windows.Controls;
     using System.Windows.Data;
 
-    internal class CanParse<T> : ValidationRule
+    internal sealed class CanParse<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         internal static readonly CanParse<T> FromText = new CanParse<T>(validatesOnTargetUpdated: true);

@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Data;
 
     [ValueConversion(typeof(string), typeof(IFormattable))]
-    internal class TextValueConverter<T> : IValueConverter
+    internal sealed class TextValueConverter<T> : IValueConverter
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
         internal static readonly TextValueConverter<T> Default = new TextValueConverter<T>();
@@ -23,7 +23,7 @@ namespace Gu.Wpf.NumericInput
             }
 
             var box = (NumericBox<T>)parameter;
-            T result = default(T);
+            T result = default;
             if (box?.TryParse(text, out result) == true)
             {
                 return result;

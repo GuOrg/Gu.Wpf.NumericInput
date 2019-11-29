@@ -6,7 +6,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Data;
 
     [ValueConversion(typeof(int?), typeof(string))]
-    internal class DecimalDigitsToStringFormatConverter : IValueConverter
+    internal sealed class DecimalDigitsToStringFormatConverter : IValueConverter
     {
         internal static readonly DecimalDigitsToStringFormatConverter Default = new DecimalDigitsToStringFormatConverter();
         private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();

@@ -7,7 +7,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Data;
 
     [ValueConversion(typeof(object), typeof(Thickness))]
-    internal class FormattedTextBlockMarginConverter : IValueConverter
+    internal sealed class FormattedTextBlockMarginConverter : IValueConverter
     {
         internal static readonly FormattedTextBlockMarginConverter Default = new FormattedTextBlockMarginConverter();
 

@@ -66,7 +66,7 @@ namespace Gu.Wpf.NumericInput
 
             if (count == 0)
             {
-                return default(T);
+                return default;
             }
 
             return (T)VisualTreeHelper.GetChild(parent, 0);

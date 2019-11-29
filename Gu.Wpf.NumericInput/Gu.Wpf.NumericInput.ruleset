@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Rules for Gu.Wpf.NumericInput" Description="Code analysis rules for Gu.Wpf.NumericInput.csproj." ToolsVersion="15.0">
+<RuleSet Name="Rules for Gu.Wpf.NumericInput" Description="Code analysis rules for Gu.Wpf.NumericInput.csproj." ToolsVersion="16.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1001" Action="Warning" />
     <Rule Id="CA1009" Action="Warning" />
@@ -67,6 +67,9 @@
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
     <Rule Id="CS1591" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1303" Action="None" />
+  </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1118" Action="None" />
     <Rule Id="SA1202" Action="None" />
@@ -78,19 +81,6 @@
     <Rule Id="SA1633" Action="None" />
   </Rules>
   <Rules AnalyzerId="WpfAnalyzers" RuleNamespace="WpfAnalyzers">
-    <Rule Id="WPF0001" Action="Warning" />
-    <Rule Id="WPF0002" Action="Warning" />
-    <Rule Id="WPF0003" Action="Warning" />
-    <Rule Id="WPF0004" Action="Warning" />
-    <Rule Id="WPF0005" Action="Warning" />
-    <Rule Id="WPF0006" Action="Warning" />
-    <Rule Id="WPF0007" Action="Warning" />
-    <Rule Id="WPF0011" Action="Warning" />
-    <Rule Id="WPF0012" Action="Warning" />
-    <Rule Id="WPF0016" Action="Warning" />
-    <Rule Id="WPF0030" Action="Warning" />
-    <Rule Id="WPF0041" Action="Warning" />
-    <Rule Id="WPF0060" Action="Warning" />
     <Rule Id="WPF0010" Action="Warning" />
     <Rule Id="WPF0013" Action="Warning" />
     <Rule Id="WPF0014" Action="Warning" />
@@ -99,52 +89,23 @@
     <Rule Id="WPF0018" Action="Warning" />
     <Rule Id="WPF0019" Action="Warning" />
     <Rule Id="WPF0020" Action="Warning" />
-    <Rule Id="WPF0021" Action="Warning" />
-    <Rule Id="WPF0022" Action="Warning" />
     <Rule Id="WPF0023" Action="Warning" />
     <Rule Id="WPF0031" Action="Warning" />
     <Rule Id="WPF0032" Action="Warning" />
     <Rule Id="WPF0033" Action="Warning" />
     <Rule Id="WPF0034" Action="Warning" />
-    <Rule Id="WPF0035" Action="Warning" />
-    <Rule Id="WPF0036" Action="Warning" />
     <Rule Id="WPF0040" Action="Warning" />
-    <Rule Id="WPF0042" Action="Warning" />
-    <Rule Id="WPF0043" Action="Warning" />
-    <Rule Id="WPF0050" Action="Warning" />
     <Rule Id="WPF0051" Action="Warning" />
     <Rule Id="WPF0052" Action="Warning" />
+    <Rule Id="WPF0060" Action="Warning" />
     <Rule Id="WPF0061" Action="Warning" />
     <Rule Id="WPF0062" Action="Warning" />
     <Rule Id="WPF0070" Action="Warning" />
     <Rule Id="WPF0071" Action="Warning" />
-    <Rule Id="WPF0072" Action="Warning" />
     <Rule Id="WPF0073" Action="Warning" />
-    <Rule Id="WPF0074" Action="Warning" />
     <Rule Id="WPF0080" Action="Warning" />
-    <Rule Id="WPF0081" Action="Warning" />
-    <Rule Id="WPF0082" Action="Warning" />
     <Rule Id="WPF0083" Action="Warning" />
-    <Rule Id="WPF0084" Action="Warning" />
-    <Rule Id="WPF0085" Action="Warning" />
     <Rule Id="WPF0090" Action="Warning" />
     <Rule Id="WPF0091" Action="Warning" />
-    <Rule Id="WPF0100" Action="Warning" />
-    <Rule Id="WPF0101" Action="Warning" />
-    <Rule Id="WPF0102" Action="Warning" />
-    <Rule Id="WPF0103" Action="Warning" />
-    <Rule Id="WPF0104" Action="Warning" />
-    <Rule Id="WPF0105" Action="Warning" />
-    <Rule Id="WPF0106" Action="Warning" />
-    <Rule Id="WPF0107" Action="Warning" />
-    <Rule Id="WPF0120" Action="Warning" />
-    <Rule Id="WPF0121" Action="Warning" />
-    <Rule Id="WPF0122" Action="Warning" />
-    <Rule Id="WPF0123" Action="Warning" />
-    <Rule Id="WPF0130" Action="Warning" />
-    <Rule Id="WPF0131" Action="Warning" />
-    <Rule Id="WPF0132" Action="Warning" />
-    <Rule Id="WPF0140" Action="Warning" />
-    <Rule Id="WPF0141" Action="Warning" />
   </Rules>
 </RuleSet>

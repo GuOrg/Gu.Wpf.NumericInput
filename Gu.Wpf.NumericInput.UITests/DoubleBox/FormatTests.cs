@@ -26,12 +26,10 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [SetUp]
         public void SetUp()
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                window.FindButton("Reset").Invoke();
-                window.WaitUntilResponsive();
-            }
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindButton("Reset").Invoke();
+            window.WaitUntilResponsive();
         }
 
         [OneTimeTearDown]

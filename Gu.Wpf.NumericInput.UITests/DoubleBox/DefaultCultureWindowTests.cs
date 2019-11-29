@@ -10,17 +10,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [Test]
         public void OnLoad()
         {
-            using (var application = Application.Launch(ExeFileName, "DefaultCultureWindow"))
-            {
-                var window = application.MainWindow;
-                var valueTextBox = window.FindTextBox("ValueTextBox");
-                var spinnerDoubleBox = window.FindTextBox("SpinnerDoubleBox");
-                var doubleBox = window.FindTextBox("DoubleBox");
-                valueTextBox.Enter("1.234");
-                Keyboard.Type(Key.TAB);
-                Assert.AreEqual("1.234", spinnerDoubleBox.Text);
-                Assert.AreEqual("1.234", doubleBox.Text);
-            }
+            using var application = Application.Launch(ExeFileName, "DefaultCultureWindow");
+            var window = application.MainWindow;
+            var valueTextBox = window.FindTextBox("ValueTextBox");
+            var spinnerDoubleBox = window.FindTextBox("SpinnerDoubleBox");
+            var doubleBox = window.FindTextBox("DoubleBox");
+            valueTextBox.Enter("1.234");
+            Keyboard.Type(Key.TAB);
+            Assert.AreEqual("1.234", spinnerDoubleBox.Text);
+            Assert.AreEqual("1.234", doubleBox.Text);
         }
     }
 }

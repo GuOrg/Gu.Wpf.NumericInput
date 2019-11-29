@@ -154,256 +154,242 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMax(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                window.FindTextBox("IncrementBox").Text = "5";
-                window.FindTextBox("MaxBox").Text = "3";
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                vmValueBox.Click();
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            window.FindTextBox("IncrementBox").Text = "5";
+            window.FindTextBox("MaxBox").Text = "3";
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            vmValueBox.Click();
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.IsEnabled);
-                Assert.AreEqual(true, decreaseButton.IsEnabled);
-                increaseButton.Click();
-                vmValueBox.Click();
-                Assert.AreEqual("3", inputBox.EditText());
-                Assert.AreEqual("3", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("3", vmValueBox.Text);
-                Assert.AreEqual("3", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.IsEnabled);
+            Assert.AreEqual(true, decreaseButton.IsEnabled);
+            increaseButton.Click();
+            vmValueBox.Click();
+            Assert.AreEqual("3", inputBox.EditText());
+            Assert.AreEqual("3", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("3", vmValueBox.Text);
+            Assert.AreEqual("3", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.IsEnabled);
-                Assert.AreEqual(true, decreaseButton.IsEnabled);
-            }
+            Assert.AreEqual(false, increaseButton.IsEnabled);
+            Assert.AreEqual(true, decreaseButton.IsEnabled);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void TruncatesToMin(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(
-                ExeFileName,
-                WindowName))
-            {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                window.FindTextBox("IncrementBox").Text = "5";
-                window.FindTextBox("MinBox").Text = "-3";
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                vmValueBox.Click();
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            window.FindTextBox("IncrementBox").Text = "5";
+            window.FindTextBox("MinBox").Text = "-3";
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            vmValueBox.Click();
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.ValueBinding, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.IsEnabled);
-                Assert.AreEqual(true, decreaseButton.IsEnabled);
-                decreaseButton.Click();
-                vmValueBox.Click();
-                Assert.AreEqual("-3", inputBox.EditText());
-                Assert.AreEqual("-3", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("-3", vmValueBox.Text);
-                Assert.AreEqual("-3", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.IsEnabled);
+            Assert.AreEqual(true, decreaseButton.IsEnabled);
+            decreaseButton.Click();
+            vmValueBox.Click();
+            Assert.AreEqual("-3", inputBox.EditText());
+            Assert.AreEqual("-3", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("-3", vmValueBox.Text);
+            Assert.AreEqual("-3", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(true, increaseButton.IsEnabled);
-                Assert.AreEqual(false, decreaseButton.IsEnabled);
-            }
+            Assert.AreEqual(true, increaseButton.IsEnabled);
+            Assert.AreEqual(false, decreaseButton.IsEnabled);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void DecreasesWhenGreaterThanMax(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                window.FindTextBox("MaxBox").Text = "3";
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                vmValueBox.Click();
-                inputBox.Text = "5";
-                vmValueBox.Click();
-                Assert.AreEqual("5", inputBox.EditText());
-                Assert.AreEqual("5", inputBox.FormattedText());
-                Assert.AreEqual(true, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            window.FindTextBox("MaxBox").Text = "3";
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            vmValueBox.Click();
+            inputBox.Text = "5";
+            vmValueBox.Click();
+            Assert.AreEqual("5", inputBox.EditText());
+            Assert.AreEqual("5", inputBox.FormattedText());
+            Assert.AreEqual(true, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.IsEnabled);
-                Assert.AreEqual(true, decreaseButton.IsEnabled);
-                decreaseButton.Click();
-                Assert.AreEqual("4", inputBox.EditText());
-                Assert.AreEqual("4", inputBox.FormattedText());
-                Assert.AreEqual(true, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(false, increaseButton.IsEnabled);
+            Assert.AreEqual(true, decreaseButton.IsEnabled);
+            decreaseButton.Click();
+            Assert.AreEqual("4", inputBox.EditText());
+            Assert.AreEqual("4", inputBox.FormattedText());
+            Assert.AreEqual(true, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
 
-                Assert.AreEqual(false, increaseButton.IsEnabled);
-                Assert.AreEqual(true, decreaseButton.IsEnabled);
+            Assert.AreEqual(false, increaseButton.IsEnabled);
+            Assert.AreEqual(true, decreaseButton.IsEnabled);
 
-                decreaseButton.Click();
-                Assert.AreEqual("3", inputBox.EditText());
-                Assert.AreEqual("3", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("3", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-            }
+            decreaseButton.Click();
+            Assert.AreEqual("3", inputBox.EditText());
+            Assert.AreEqual("3", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("3", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void IncreasesWhenLessThanMin(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                window.FindTextBox("MinBox").Text = "-3";
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                vmValueBox.Click();
-                inputBox.Text = "-5";
-                vmValueBox.Click();
-                Assert.AreEqual("-5", inputBox.EditText());
-                Assert.AreEqual("-5", inputBox.FormattedText());
-                Assert.AreEqual(true, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-                Assert.AreEqual(true, increaseButton.IsEnabled);
-                Assert.AreEqual(false, decreaseButton.IsEnabled);
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            window.FindTextBox("MinBox").Text = "-3";
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var decreaseButton = container.FindButton(SpinnerDecorator.DecreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            vmValueBox.Click();
+            inputBox.Text = "-5";
+            vmValueBox.Click();
+            Assert.AreEqual("-5", inputBox.EditText());
+            Assert.AreEqual("-5", inputBox.FormattedText());
+            Assert.AreEqual(true, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.IsEnabled);
+            Assert.AreEqual(false, decreaseButton.IsEnabled);
 
-                increaseButton.Click();
-                Assert.AreEqual("-4", inputBox.EditText());
-                Assert.AreEqual("-4", inputBox.FormattedText());
-                Assert.AreEqual(true, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-                Assert.AreEqual(true, increaseButton.IsEnabled);
-                Assert.AreEqual(false, decreaseButton.IsEnabled);
+            increaseButton.Click();
+            Assert.AreEqual("-4", inputBox.EditText());
+            Assert.AreEqual("-4", inputBox.FormattedText());
+            Assert.AreEqual(true, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+            Assert.AreEqual(true, increaseButton.IsEnabled);
+            Assert.AreEqual(false, decreaseButton.IsEnabled);
 
-                increaseButton.Click();
-                Assert.AreEqual("-3", inputBox.EditText());
-                Assert.AreEqual("-3", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("-3", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-            }
+            increaseButton.Click();
+            Assert.AreEqual("-3", inputBox.EditText());
+            Assert.AreEqual("-3", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("-3", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void Undo(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            increaseButton.Click();
+            Assert.AreEqual("1", inputBox.EditText());
+            Assert.AreEqual("1", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("1", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
+            using (Keyboard.Hold(Key.CONTROL))
             {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                increaseButton.Click();
-                Assert.AreEqual("1", inputBox.EditText());
-                Assert.AreEqual("1", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("1", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-
-                using (Keyboard.Hold(Key.CONTROL))
-                {
-                    Keyboard.Type("z");
-                }
-
-                vmValueBox.Click();
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+                Keyboard.Type("z");
             }
+
+            vmValueBox.Click();
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
         public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
+            var container = window.Window.FindGroupBox(containerId);
+            var inputBox = container.FindTextBox("InputBox");
+            _ = window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
+            inputBox.Click();
+            var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
+            var vmValueBox = window.FindTextBox("VmValueBox");
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            increaseButton.Click();
+            Assert.AreEqual("1", inputBox.EditText());
+            Assert.AreEqual("1", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("1", vmValueBox.Text);
+            Assert.AreEqual("1", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
+
+            using (Keyboard.Hold(Key.CONTROL))
             {
-                var window = app.MainWindow;
-                window.FindCheckBox("AllowSpinnersBox").IsChecked = true;
-                var container = window.Window.FindGroupBox(containerId);
-                var inputBox = container.FindTextBox("InputBox");
-                _ = window.Window.FindComboBox("SpinUpdateMode").Select("PropertyChanged");
-                inputBox.Click();
-                var increaseButton = container.FindButton(SpinnerDecorator.IncreaseButtonName);
-                var vmValueBox = window.FindTextBox("VmValueBox");
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                increaseButton.Click();
-                Assert.AreEqual("1", inputBox.EditText());
-                Assert.AreEqual("1", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("1", vmValueBox.Text);
-                Assert.AreEqual("1", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
-
-                using (Keyboard.Hold(Key.CONTROL))
-                {
-                    Keyboard.Type("z");
-                }
-
-                vmValueBox.Click();
-                Assert.AreEqual("0", inputBox.EditText());
-                Assert.AreEqual("0", inputBox.FormattedText());
-                Assert.AreEqual(false, inputBox.HasValidationError());
-                Assert.AreEqual("0", vmValueBox.Text);
-                Assert.AreEqual("0", inputBox.Value());
-                Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
-                Assert.AreEqual("Idle", inputBox.Status());
+                Keyboard.Type("z");
             }
+
+            vmValueBox.Click();
+            Assert.AreEqual("0", inputBox.EditText());
+            Assert.AreEqual("0", inputBox.FormattedText());
+            Assert.AreEqual(false, inputBox.HasValidationError());
+            Assert.AreEqual("0", vmValueBox.Text);
+            Assert.AreEqual("0", inputBox.Value());
+            Assert.AreEqual(TextSource.UserInput, inputBox.TextSource());
+            Assert.AreEqual("Idle", inputBox.Status());
         }
     }
 }

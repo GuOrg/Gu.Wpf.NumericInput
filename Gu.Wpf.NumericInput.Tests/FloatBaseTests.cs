@@ -1,11 +1,11 @@
-﻿#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
+#pragma warning disable WPF0041 // Set mutable dependency properties using SetCurrentValue.
 namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Controls;
-    using Gu.Wpf.NumericInput.Tests.Internals;
     using NUnit.Framework;
 
     public abstract class FloatBaseTests<TBox, T> : NumericBoxTests<TBox, T>
@@ -39,7 +39,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(Status.Idle, this.Box.Status);
             Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
             Assert.AreEqual(expected, this.Box.Text);
-            this.Box.RaiseLostFocus();
+            this.Box.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
             Assert.AreEqual(expected, this.Box.FormattedText);
         }
 
@@ -52,7 +52,7 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(Status.Idle, this.Box.Status);
             Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
             Assert.AreEqual(text, this.Box.Text);
-            this.Box.RaiseLostFocus();
+            this.Box.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
             Assert.AreEqual(expectedText, this.Box.FormattedText);
             Assert.AreEqual(expectedValue, this.Box.Value.ToString());
         }
