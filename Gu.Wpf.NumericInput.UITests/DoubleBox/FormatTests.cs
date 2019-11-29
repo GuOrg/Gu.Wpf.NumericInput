@@ -43,58 +43,54 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCaseSource(nameof(TestCases))]
         public void WithStringFormat(TestCase testCase)
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
-                window.FindTextBox("StringFormat").Text = testCase.StringFormat;
-                _ = window.FindComboBox("Culture").Select(testCase.Culture.Name);
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
+            window.FindTextBox("StringFormat").Text = testCase.StringFormat;
+            _ = window.FindComboBox("Culture").Select(testCase.Culture.Name);
 
-                doubleBox.Enter(testCase.Text);
-                window.FindButton("lose focus").Click();
+            doubleBox.Enter(testCase.Text);
+            window.FindButton("lose focus").Click();
 
-                Assert.AreEqual(false, doubleBox.HasValidationError());
-                Assert.AreEqual(testCase.Text, doubleBox.Text);
-                Assert.AreEqual(testCase.Formatted, doubleBox.FormattedView().Text);
-                Assert.AreEqual(testCase.ViewModelValue, window.FindTextBox("ViewModelValue").Text);
-                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
-            }
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual(testCase.Text, doubleBox.Text);
+            Assert.AreEqual(testCase.Formatted, doubleBox.FormattedView().Text);
+            Assert.AreEqual(testCase.ViewModelValue, window.FindTextBox("ViewModelValue").Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         [Test]
         public void WhenStringFormatChanges()
         {
-            using (var app = Application.AttachOrLaunch(ExeFileName, WindowName))
-            {
-                var window = app.MainWindow;
-                var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
-                window.FindTextBox("StringFormat").Text = "F1";
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
+            window.FindTextBox("StringFormat").Text = "F1";
 
-                doubleBox.Text = "1.23456";
-                window.FindButton("lose focus").Click();
+            doubleBox.Text = "1.23456";
+            window.FindButton("lose focus").Click();
 
-                Assert.AreEqual(false, doubleBox.HasValidationError());
-                Assert.AreEqual("1.23456", doubleBox.Text);
-                Assert.AreEqual("1.2", doubleBox.FormattedView().Text);
-                Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
-                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual("1.23456", doubleBox.Text);
+            Assert.AreEqual("1.2", doubleBox.FormattedView().Text);
+            Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-                window.FindTextBox("StringFormat").Text = "F4";
-                window.FindButton("lose focus").Click();
-                Assert.AreEqual(false, doubleBox.HasValidationError());
-                Assert.AreEqual("1.23456", doubleBox.Text);
-                Assert.AreEqual("1.2346", doubleBox.FormattedView().Text);
-                Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
-                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            window.FindTextBox("StringFormat").Text = "F4";
+            window.FindButton("lose focus").Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual("1.23456", doubleBox.Text);
+            Assert.AreEqual("1.2346", doubleBox.FormattedView().Text);
+            Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
 
-                window.FindTextBox("StringFormat").Text = "F1";
-                window.FindButton("lose focus").Click();
-                Assert.AreEqual(false, doubleBox.HasValidationError());
-                Assert.AreEqual("1.23456", doubleBox.Text);
-                Assert.AreEqual("1.2", doubleBox.FormattedView().Text);
-                Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
-                Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
-            }
+            window.FindTextBox("StringFormat").Text = "F1";
+            window.FindButton("lose focus").Click();
+            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.AreEqual("1.23456", doubleBox.Text);
+            Assert.AreEqual("1.2", doubleBox.FormattedView().Text);
+            Assert.AreEqual("1.23456", window.FindTextBox("ViewModelValue").Text);
+            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
         }
 
         public class TestCase

@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <UseWpf>true</UseWpf>
     <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Demo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
