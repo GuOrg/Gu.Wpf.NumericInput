@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <UseWpf>true</UseWpf>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.Demo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
