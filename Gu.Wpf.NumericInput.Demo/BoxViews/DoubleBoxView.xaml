@@ -1,11 +1,10 @@
-﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DoubleBoxView"
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.DoubleBoxView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gu.Wpf.NumericInput.Demo"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:numeric="http://gu.se/NumericInput"
-             xmlns:propertyGrid="http://gu.se/PropertyGrid"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:DoubleBoxVm />
@@ -34,6 +33,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -100,108 +100,222 @@
             </HeaderedContentControl.Template>
         </HeaderedContentControl>
 
-        <ItemsControl Grid.Row="3" Style="{StaticResource {x:Static propertyGrid:Keys.PropertyGridStyleKey}}">
-            <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="ViewModel:" />
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <HeaderedContentControl Header="CurrentValue">
-                <TextBlock Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
-            </HeaderedContentControl>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       Text="ViewModel:" />
 
-            <HeaderedContentControl Header="Edit Value">
-                <TextBox AutomationProperties.AutomationId="VmValueBox" Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Current value:" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Value, ValidatesOnNotifyDataErrors=False}" />
 
-            <TextBlock Style="{StaticResource {x:Static propertyGrid:Keys.HeaderTextBlockStyleKey}}" Text="Settings:" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Edit Value:" />
+            <TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="VmValueBox"
+                     Text="{Binding Value, ValidatesOnNotifyDataErrors=False, TargetNullValue=''}" />
 
-            <HeaderedContentControl Header="IsReadOnly">
-                <CheckBox AutomationProperties.AutomationId="IsReadonlyBox" IsChecked="{Binding IsReadOnly}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       Text="Settings:" />
 
-            <HeaderedContentControl Header="HasErrors">
-                <CheckBox AutomationProperties.AutomationId="HasErrorsBox" IsChecked="{Binding HasErrors}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Text="IsReadOnly" />
+            <CheckBox Grid.Row="4"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="IsReadonlyBox"
+                      IsChecked="{Binding IsReadOnly}" />
 
-            <HeaderedContentControl Header="ValidationTrigger">
-                <ComboBox AutomationProperties.AutomationId="ValidationTriggerBox" SelectedItem="{Binding ValidationTrigger}">
-                    <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
-                    <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
-                    <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
-                </ComboBox>
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="5"
+                       Grid.Column="0"
+                       Text="HasErrors" />
+            <CheckBox Grid.Row="5"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="HasErrorsBox"
+                      IsChecked="{Binding HasErrors}" />
 
-            <HeaderedContentControl Header="CanValueBeNull">
-                <CheckBox AutomationProperties.AutomationId="CanBeNullBox" IsChecked="{Binding CanValueBeNull}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="6"
+                       Grid.Column="0"
+                       Text="ValidationTrigger" />
+            <ComboBox Grid.Row="6"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="ValidationTriggerBox"
+                      SelectedItem="{Binding ValidationTrigger}">
+                <numeric:ValidationTrigger>PropertyChanged</numeric:ValidationTrigger>
+                <numeric:ValidationTrigger>LostFocus</numeric:ValidationTrigger>
+                <numeric:ValidationTrigger>Explicit</numeric:ValidationTrigger>
+            </ComboBox>
 
-            <HeaderedContentControl Header="Culture">
-                <ComboBox AutomationProperties.AutomationId="CultureBox"
-                          IsSynchronizedWithCurrentItem="True"
-                          ItemsSource="{Binding Cultures}"
-                          SelectedItem="{Binding Culture}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="7"
+                       Grid.Column="0"
+                       Text="HasErrors" />
+            <CheckBox Grid.Row="7"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="CanBeNullBox"
+                      IsChecked="{Binding CanValueBeNull}" />
 
-            <HeaderedContentControl Header="Decimals">
-                <TextBox AutomationProperties.AutomationId="DigitsBox" Text="{Binding DecimalDigits, TargetNullValue=''}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="8"
+                       Grid.Column="0"
+                       Text="Culture" />
+            <ComboBox Grid.Row="8"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="CultureBox"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Cultures}"
+                      SelectedItem="{Binding Culture}" />
 
-            <HeaderedContentControl Header="StringFormat">
-                <TextBox AutomationProperties.AutomationId="StringFormatBox" Text="{Binding StringFormat, Mode=TwoWay}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="9"
+                       Grid.Column="0"
+                       Text="Decimals:" />
+            <TextBox Grid.Row="9"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="DigitsBox"
+                     Text="{Binding DecimalDigits, TargetNullValue=''}" />
 
-            <HeaderedContentControl Header="AllowLeadingWhite">
-                <CheckBox AutomationProperties.AutomationId="AllowLeadingWhiteBox" IsChecked="{Binding AllowLeadingWhite}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="10"
+                       Grid.Column="0"
+                       Text="StringFormat:" />
+            <TextBox Grid.Row="10"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="StringFormatBox"
+                     Text="{Binding StringFormat, Mode=TwoWay}" />
 
-            <HeaderedContentControl Header="AllowTrailingWhite">
-                <CheckBox AutomationProperties.AutomationId="AllowTrailingWhiteBox" IsChecked="{Binding AllowTrailingWhite}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="11"
+                       Grid.Column="0"
+                       Text="AllowLeadingWhite:" />
+            <CheckBox Grid.Row="11"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowLeadingWhiteBox"
+                      IsChecked="{Binding AllowLeadingWhite}" />
 
-            <HeaderedContentControl Header="AllowLeadingSign">
-                <CheckBox AutomationProperties.AutomationId="AllowLeadingSignBox" IsChecked="{Binding AllowLeadingSign}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="12"
+                       Grid.Column="0"
+                       Text="AllowTrailingWhite:" />
+            <CheckBox Grid.Row="12"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowTrailingWhiteBox"
+                      IsChecked="{Binding AllowTrailingWhite}" />
 
-            <HeaderedContentControl Header="AllowDecimalPoint">
-                <CheckBox AutomationProperties.AutomationId="AllowDecimalPointBox" IsChecked="{Binding AllowDecimalPoint}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="13"
+                       Grid.Column="0"
+                       Text="AllowLeadingSign:" />
+            <CheckBox Grid.Row="13"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowLeadingSignBox"
+                      IsChecked="{Binding AllowLeadingSign}" />
 
-            <HeaderedContentControl Header="AllowThousands">
-                <CheckBox AutomationProperties.AutomationId="AllowThousandsBox" IsChecked="{Binding AllowThousands}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="14"
+                       Grid.Column="0"
+                       Text="AllowThousands:" />
+            <CheckBox Grid.Row="14"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowDecimalPointBox"
+                      IsChecked="{Binding AllowDecimalPoint}" />
 
-            <HeaderedContentControl Header="AllowExponent">
-                <CheckBox AutomationProperties.AutomationId="AllowExponentBox" IsChecked="{Binding AllowExponent}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="15"
+                       Grid.Column="0"
+                       Text="AllowExponent:" />
+            <CheckBox Grid.Row="15"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowExponentBox"
+                      IsChecked="{Binding AllowExponent}" />
 
-            <HeaderedContentControl Header="Max">
-                <TextBox AutomationProperties.AutomationId="MaxBox" Text="{Binding Max, TargetNullValue=''}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="16"
+                       Grid.Column="0"
+                       Text="Min:" />
+            <TextBox Grid.Row="16"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="MinBox"
+                     Text="{Binding Min, TargetNullValue=''}" />
 
-            <HeaderedContentControl Header="Min">
-                <TextBox AutomationProperties.AutomationId="MinBox" Text="{Binding Min, TargetNullValue=''}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="17"
+                       Grid.Column="0"
+                       Text="Max:" />
+            <TextBox Grid.Row="17"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="MaxBox"
+                     Text="{Binding Max, TargetNullValue=''}" />
 
-            <HeaderedContentControl Header="AllowSpinners">
-                <CheckBox AutomationProperties.AutomationId="AllowSpinnersBox" IsChecked="{Binding AllowSpinners}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="18"
+                       Grid.Column="0"
+                       Text="RegexPattern:" />
+            <TextBox Grid.Row="18"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="RegexPatternBox"
+                     Text="{Binding RegexPattern}" />
 
-            <HeaderedContentControl Header="SpinUpdateMode">
-                <ComboBox AutomationProperties.AutomationId="SpinUpdateMode" SelectedItem="{Binding SpinUpdateMode}">
-                    <numeric:SpinUpdateMode>AsBinding</numeric:SpinUpdateMode>
-                    <numeric:SpinUpdateMode>PropertyChanged</numeric:SpinUpdateMode>
-                </ComboBox>
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="19"
+                       Grid.Column="0"
+                       Text="AllowSpinners:" />
+            <CheckBox Grid.Row="19"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowSpinnersBox"
+                      IsChecked="{Binding AllowSpinners}" />
 
-            <HeaderedContentControl Header="Increment">
-                <TextBox AutomationProperties.AutomationId="IncrementBox" Text="{Binding Increment, TargetNullValue=''}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="20"
+                       Grid.Column="0"
+                       Text="SpinUpdateMode:" />
+            <ComboBox Grid.Row="20"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="SpinUpdateMode"
+                      SelectedItem="{Binding SpinUpdateMode}">
+                <numeric:SpinUpdateMode>AsBinding</numeric:SpinUpdateMode>
+                <numeric:SpinUpdateMode>PropertyChanged</numeric:SpinUpdateMode>
+            </ComboBox>
 
-            <HeaderedContentControl Header="RegexPattern">
-                <TextBox AutomationProperties.AutomationId="RegexPatternBox" Text="{Binding RegexPattern}" />
-            </HeaderedContentControl>
+            <TextBlock Grid.Row="21"
+                       Grid.Column="0"
+                       Text="Increment:" />
+            <TextBox Grid.Row="21"
+                     Grid.Column="1"
+                     AutomationProperties.AutomationId="IncrementBox"
+                     Text="{Binding Increment, TargetNullValue=''}" />
 
-            <HeaderedContentControl Header="Reset">
-                <Button Command="{Binding ResetCommand}" Content="Reset" />
-            </HeaderedContentControl>
-        </ItemsControl>
+            <TextBlock Grid.Row="22"
+                       Grid.Column="0"
+                       Text="Increment:" />
+            <Button Grid.Row="22"
+                    Grid.Column="1"
+                    Command="{Binding ResetCommand}"
+                    Content="Reset" />
+        </Grid>
     </Grid>
 </UserControl>
