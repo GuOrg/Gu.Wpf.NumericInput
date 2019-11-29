@@ -4,6 +4,7 @@ namespace Gu.Wpf.NumericInput
     using System.Globalization;
     using System.Windows.Data;
 
+    [ValueConversion(typeof(string), typeof(IFormattable))]
     internal class TextValueConverter<T> : IValueConverter
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {

@@ -14,7 +14,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Version>0.5.3</Version>
+    <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Johan Larsson</Authors>
     <Description>WPF textboxes for numeric input</Description>
@@ -37,11 +43,6 @@
     <AdditionalFiles Include="PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Gu.Analyzers" Version="1.6.6.5-dev" PrivateAssets="all" />
