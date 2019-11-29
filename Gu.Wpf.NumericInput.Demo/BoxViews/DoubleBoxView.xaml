@@ -126,6 +126,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -244,7 +245,7 @@
 
             <TextBlock Grid.Row="14"
                        Grid.Column="0"
-                       Text="AllowThousands:" />
+                       Text="AllowDecimalPoint:" />
             <CheckBox Grid.Row="14"
                       Grid.Column="1"
                       AutomationProperties.AutomationId="AllowDecimalPointBox"
@@ -252,48 +253,56 @@
 
             <TextBlock Grid.Row="15"
                        Grid.Column="0"
-                       Text="AllowExponent:" />
+                       Text="AllowThousands:" />
             <CheckBox Grid.Row="15"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="AllowThousandsBox"
+                      IsChecked="{Binding AllowThousands}" />
+
+            <TextBlock Grid.Row="16"
+                       Grid.Column="0"
+                       Text="AllowExponent:" />
+            <CheckBox Grid.Row="16"
                       Grid.Column="1"
                       AutomationProperties.AutomationId="AllowExponentBox"
                       IsChecked="{Binding AllowExponent}" />
 
-            <TextBlock Grid.Row="16"
+            <TextBlock Grid.Row="17"
                        Grid.Column="0"
                        Text="Min:" />
-            <TextBox Grid.Row="16"
+            <TextBox Grid.Row="17"
                      Grid.Column="1"
                      AutomationProperties.AutomationId="MinBox"
                      Text="{Binding Min, TargetNullValue=''}" />
 
-            <TextBlock Grid.Row="17"
+            <TextBlock Grid.Row="18"
                        Grid.Column="0"
                        Text="Max:" />
-            <TextBox Grid.Row="17"
+            <TextBox Grid.Row="18"
                      Grid.Column="1"
                      AutomationProperties.AutomationId="MaxBox"
                      Text="{Binding Max, TargetNullValue=''}" />
 
-            <TextBlock Grid.Row="18"
+            <TextBlock Grid.Row="19"
                        Grid.Column="0"
                        Text="RegexPattern:" />
-            <TextBox Grid.Row="18"
+            <TextBox Grid.Row="19"
                      Grid.Column="1"
                      AutomationProperties.AutomationId="RegexPatternBox"
                      Text="{Binding RegexPattern}" />
 
-            <TextBlock Grid.Row="19"
+            <TextBlock Grid.Row="20"
                        Grid.Column="0"
                        Text="AllowSpinners:" />
-            <CheckBox Grid.Row="19"
+            <CheckBox Grid.Row="20"
                       Grid.Column="1"
                       AutomationProperties.AutomationId="AllowSpinnersBox"
                       IsChecked="{Binding AllowSpinners}" />
 
-            <TextBlock Grid.Row="20"
+            <TextBlock Grid.Row="21"
                        Grid.Column="0"
                        Text="SpinUpdateMode:" />
-            <ComboBox Grid.Row="20"
+            <ComboBox Grid.Row="21"
                       Grid.Column="1"
                       AutomationProperties.AutomationId="SpinUpdateMode"
                       SelectedItem="{Binding SpinUpdateMode}">
@@ -301,18 +310,18 @@
                 <numeric:SpinUpdateMode>PropertyChanged</numeric:SpinUpdateMode>
             </ComboBox>
 
-            <TextBlock Grid.Row="21"
+            <TextBlock Grid.Row="22"
                        Grid.Column="0"
                        Text="Increment:" />
-            <TextBox Grid.Row="21"
+            <TextBox Grid.Row="22"
                      Grid.Column="1"
                      AutomationProperties.AutomationId="IncrementBox"
                      Text="{Binding Increment, TargetNullValue=''}" />
 
-            <TextBlock Grid.Row="22"
+            <TextBlock Grid.Row="23"
                        Grid.Column="0"
                        Text="Increment:" />
-            <Button Grid.Row="22"
+            <Button Grid.Row="23"
                     Grid.Column="1"
                     Command="{Binding ResetCommand}"
                     Content="Reset" />
