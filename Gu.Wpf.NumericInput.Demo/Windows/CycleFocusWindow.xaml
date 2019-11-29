@@ -1,6 +1,5 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:autoRowGrid="http://gu.se/AutoRowGrid"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -25,24 +24,21 @@
                 <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
 
                 <numeric:SpinnerDecorator>
-                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
+                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
                                        AutomationProperties.AutomationId="DoubleBox1"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value1}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:SpinnerDecorator>
-                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
+                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
                                        AutomationProperties.AutomationId="DoubleBox2"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value2}" />
                 </numeric:SpinnerDecorator>
 
                 <numeric:SpinnerDecorator>
-                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked,
-                                                               ElementName=AllowSpinners}"
+                    <numeric:DoubleBox AllowSpinners="{Binding IsChecked, ElementName=AllowSpinners}"
                                        AutomationProperties.AutomationId="DoubleBox3"
                                        DecimalDigits="{Binding DecimalDigits}"
                                        Value="{Binding Value3}" />
@@ -51,14 +47,17 @@
         </GroupBox>
 
         <GroupBox Header="Settings">
-            <autoRowGrid:Grid ColumnDefinitions="Auto *">
-                <autoRowGrid:Row>
-                    <TextBlock Text="AllowSpinners" />
-                    <CheckBox x:Name="AllowSpinners"
-                              VerticalAlignment="Center"
-                              IsChecked="True" />
-                </autoRowGrid:Row>
-            </autoRowGrid:Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="AllowSpinners" />
+                <CheckBox x:Name="AllowSpinners"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          IsChecked="True" />
+            </Grid>
         </GroupBox>
     </UniformGrid>
 </Window>
