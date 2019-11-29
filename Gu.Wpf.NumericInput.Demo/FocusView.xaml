@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Gu.Wpf.NumericInput.Demo.FocusView"
+<UserControl x:Class="Gu.Wpf.NumericInput.Demo.FocusView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,7 @@
                  select:TextBox.SelectAllOnDoubleClick="{Binding IsChecked, ElementName=SelectAllOnDoubleClick}"
                  select:TextBox.SelectAllOnGotKeyboardFocus="{Binding IsChecked, ElementName=SelectAllOnFocus}"
                  Rows="1">
-        <GroupBox AutomationProperties.AutomationId="TextBoxes" Header="TextBoxes">
+        <GroupBox Header="TextBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
                 <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
                 <TextBox x:Name="TextBox2" Text="{Binding Value2}" />
@@ -24,7 +24,7 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox AutomationProperties.AutomationId="DoubleBoxes" Header="DoubleBoxes">
+        <GroupBox Header="DoubleBoxes">
             <StackPanel KeyboardNavigation.TabNavigation="Cycle">
                 <TextBox AutomationProperties.AutomationId="TextBox1" Text="{Binding Value1}" />
 
