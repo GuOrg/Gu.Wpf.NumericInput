@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Windows;
@@ -58,9 +58,7 @@
             this.SetCurrentValue(IsUndoEnabledProperty, isUndoEnabled);
         }
 
-        //// ReSharper disable UnusedParameter.Global
         protected virtual void OnStringFormatChanged(string oldFormat, string newFormat)
-        //// ReSharper restore UnusedParameter.Global
         {
         }
 

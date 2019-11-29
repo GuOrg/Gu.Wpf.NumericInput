@@ -1,25 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{29B0BA6F-9967-477B-9DC3-A605E9BAAB65}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{29B0BA6F-9967-477B-9DC3-A605E9BAAB65}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		azure-devops.yml = azure-devops.yml
-		paket.dependencies = paket.dependencies
-		paket.lock = paket.lock
-		.paket\paket.targets = .paket\paket.targets
-		.paket\Readme.paket.md = .paket\Readme.paket.md
+		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput", "Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj", "{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.NumericInput", "Gu.Wpf.NumericInput\Gu.Wpf.NumericInput.csproj", "{5DB0DB61-0A77-4E44-9DD9-BEC53425EF60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.NumericInput.Tests", "Gu.Wpf.NumericInput.Tests\Gu.Wpf.NumericInput.Tests.csproj", "{CD05954C-A8F0-4A35-8EC3-D8D6AD27B087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.NumericInput.Demo", "Gu.Wpf.NumericInput.Demo\Gu.Wpf.NumericInput.Demo.csproj", "{33A6534E-F39C-496D-B84E-9B3130822671}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.NumericInput.UiTests", "Gu.Wpf.NumericInput.UITests\Gu.Wpf.NumericInput.UiTests.csproj", "{03820C66-202B-4B6D-B9D5-E4F3267362C1}"
 EndProject
