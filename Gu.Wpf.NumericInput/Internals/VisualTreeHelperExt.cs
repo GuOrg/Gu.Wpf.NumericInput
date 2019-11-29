@@ -82,11 +82,10 @@ namespace Gu.Wpf.NumericInput
 
         internal static string DumpVisualTree(this DependencyObject parent)
         {
-            using (var writer = new IndentedTextWriter(new StringWriter()))
-            {
-                DumpVisualTree(parent, writer);
-                return writer.InnerWriter.ToString();
-            }
+            using var stringWriter = new StringWriter();
+            using var writer = new IndentedTextWriter(stringWriter);
+            DumpVisualTree(parent, writer);
+            return writer.InnerWriter.ToString();
         }
 
         private static void DumpVisualTree(this DependencyObject parent, IndentedTextWriter writer)

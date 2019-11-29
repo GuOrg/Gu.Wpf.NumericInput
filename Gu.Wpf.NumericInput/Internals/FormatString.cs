@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
         /// <summary>Checks if <paramref name="format"/> has argument placeholders like 'Value: {0}'.</summary>
         /// <param name="format">A format string.</param>
         /// <returns>True if the string contains format placeholders.</returns>
-        public static bool IsFormatString(string format)
+        internal static bool IsFormatString(string format)
         {
             if (IsValidFormat(format, out int count, out bool? _))
             {
@@ -26,7 +26,7 @@
         /// <param name="format">The format string.</param>
         /// <param name="numberOfArguments">The number of format arguments.</param>
         /// <returns>True if <paramref name="format"/> is well formed and matches <paramref name="numberOfArguments"/>.</returns>
-        public static bool IsValidFormatString(string format, int numberOfArguments)
+        internal static bool IsValidFormatString(string format, int numberOfArguments)
         {
             if (string.IsNullOrEmpty(format))
             {

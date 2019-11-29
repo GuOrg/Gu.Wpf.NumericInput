@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System.Windows;
 
@@ -8,13 +8,13 @@
     public abstract partial class BaseBox
     {
         internal static readonly RoutedEvent FormatDirtyEvent = EventManager.RegisterRoutedEvent(
-            "FormatDirty",
+            nameof(FormatDirty),
             RoutingStrategy.Direct,
             typeof(RoutedEventHandler),
             typeof(BaseBox));
 
         internal static readonly RoutedEvent ValidationDirtyEvent = EventManager.RegisterRoutedEvent(
-            "ValidationDirty",
+            nameof(ValidationDirty),
             RoutingStrategy.Direct,
             typeof(RoutedEventHandler),
             typeof(BaseBox));

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System.ComponentModel;
     using System.Windows;
@@ -8,7 +8,7 @@
     {
         /// <summary>Identifies the ValueChanged event.</summary>
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
-            "ValueChanged",
+            nameof(ValueChanged),
             RoutingStrategy.Direct,
             typeof(ValueChangedEventHandler<T?>),
             typeof(NumericBox<T>));

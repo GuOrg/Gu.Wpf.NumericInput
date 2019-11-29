@@ -11,7 +11,7 @@ namespace Gu.Wpf.NumericInput
         private readonly BaseBox baseBox;
         private TextBlock formattedBox;
         private FrameworkElement textView;
-        public const string FormattedName = "PART_FormattedText";
+        internal const string FormattedName = "PART_FormattedText";
 
         static FormattedView()
         {
@@ -19,12 +19,12 @@ namespace Gu.Wpf.NumericInput
             EventManager.RegisterClassHandler(typeof(BaseBox), Keyboard.PreviewGotKeyboardFocusEvent, new RoutedEventHandler(OnPreviewGotKeyboardFocus));
         }
 
-        public FormattedView(BaseBox baseBox)
+        internal FormattedView(BaseBox baseBox)
         {
             this.baseBox = baseBox;
         }
 
-        public void UpdateView()
+        internal void UpdateView()
         {
             if (!this.baseBox.IsLoaded || string.IsNullOrEmpty(this.baseBox.StringFormat))
             {
