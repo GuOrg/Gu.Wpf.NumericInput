@@ -3,20 +3,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class CycleFocusWindowTests
+    public static class CycleFocusWindowTests
     {
         private const string WindowName = "CycleFocusWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void WithSpinners(bool withSpinners)
+        public static void WithSpinners(bool withSpinners)
         {
             using var application = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = application.MainWindow;

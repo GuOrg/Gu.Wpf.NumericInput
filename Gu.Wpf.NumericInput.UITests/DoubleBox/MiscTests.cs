@@ -5,7 +5,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    [Apartment(ApartmentState.STA)]
     public sealed class MiscTests
     {
         private const string WindowName = "MiscTestsWindow";
@@ -25,7 +24,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             window.FindTextBox("VmValueBox").Text = "0";
             window.FindButton("Reset").Invoke();
-            window.WaitUntilResponsive();
         }
 
         [OneTimeTearDown]
@@ -602,6 +600,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             Assert.AreEqual("0", window.FindTextBox("VmValueBox").Text);
         }
 
+        [Apartment(ApartmentState.STA)]
         [Test]
         public void CopyTest()
         {

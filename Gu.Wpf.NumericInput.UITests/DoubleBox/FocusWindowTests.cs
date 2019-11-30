@@ -3,29 +3,28 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public class FocusWindowTests
+    public static class FocusWindowTests
     {
         private const string WindowName = "FocusWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             window.FindTextBox("TextBox2").Enter("2.345");
             window.FindCheckBox("AllowSpinners").IsChecked = false;
-            window.WaitUntilResponsive();
         }
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [Test]
-        public void NoSpinnersNoSuffix()
+        public static void NoSpinnersNoSuffix()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -61,7 +60,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [Test]
-        public void WithSpinners()
+        public static void WithSpinners()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;

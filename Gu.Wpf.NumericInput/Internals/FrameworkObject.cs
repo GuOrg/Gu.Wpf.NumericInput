@@ -260,7 +260,6 @@ namespace Gu.Wpf.NumericInput
                 // The current object is neither a FrameworkElement nor a
                 // FrameworkContentElement.  We will now walk the "core"
                 // tree looking for one.
-
                 if (fo.DependencyObject is Visual visual)
                 {
                     fo.Reset(VisualTreeHelper.GetParent(visual));

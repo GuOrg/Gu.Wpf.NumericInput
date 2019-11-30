@@ -28,7 +28,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
             window.FindButton("Reset").Invoke();
-            window.WaitUntilResponsive();
         }
 
         [OneTimeTearDown]

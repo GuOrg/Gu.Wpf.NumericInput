@@ -29,7 +29,6 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             window.FindTextBox("ViewModelValue").Text = "0";
             window.FindButton("Reset").Invoke();
-            window.WaitUntilResponsive();
         }
 
         [OneTimeTearDown]
