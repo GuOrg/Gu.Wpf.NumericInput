@@ -251,9 +251,20 @@ namespace Gu.Wpf.NumericInput.Select
         private static void OnGotKeyboardFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBoxBase textBoxBase &&
+                HasText() &&
                 textBoxBase.GetSelectAllOnGotKeyboardFocus())
             {
                 textBoxBase.SelectAll();
+            }
+
+            bool HasText()
+            {
+                if (sender is System.Windows.Controls.TextBox textBox)
+                {
+                    return !string.IsNullOrEmpty(textBox.Text);
+                }
+
+                return true;
             }
         }
 
@@ -261,9 +272,20 @@ namespace Gu.Wpf.NumericInput.Select
         {
             if (sender is TextBoxBase { IsKeyboardFocusWithin: false, IsEnabled: true, Focusable: true } textBoxBase &&
                 textBoxBase.GetSelectAllOnGotKeyboardFocus() &&
+                HasText() &&
                 textBoxBase.Focus())
             {
                 e.Handled = true;
+            }
+
+            bool HasText()
+            {
+                if (sender is System.Windows.Controls.TextBox textBox)
+                {
+                    return !string.IsNullOrEmpty(textBox.Text);
+                }
+
+                return true;
             }
         }
     }
