@@ -1,0 +1,23 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:numeric="http://gu.se/NumericInput"
+        xmlns:touch="http://gu.se/Touch"
+        Title="TouchWindow"
+        Width="300"
+        SizeToContent="Height"
+        mc:Ignorable="d">
+    <Window.DataContext>
+        <demo:FocusVm />
+    </Window.DataContext>
+    <StackPanel touch:TextBox.ShowTouchKeyboardOnTouchEnter="True">
+        <TextBox x:Name="TextBox1" Text="{Binding Value1}" />
+        <TextBox x:Name="TextBox2" Text="{Binding Value2}" />
+        <TextBox x:Name="TextBox3" Text="{Binding Value3}" />
+        <numeric:DoubleBox x:Name="DoubleBox1" Value="{Binding Value1}" />
+        <numeric:DoubleBox x:Name="DoubleBox2" Value="{Binding Value2}" />
+        <numeric:DoubleBox x:Name="DoubleBox3" Value="{Binding Value3}" />
+    </StackPanel>
+</Window>
