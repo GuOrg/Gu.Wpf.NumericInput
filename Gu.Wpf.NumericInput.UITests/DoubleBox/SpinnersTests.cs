@@ -4,7 +4,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class SpinnersTests
+    public static class SpinnersTests
     {
         private const string WindowName = "SpinnerWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
@@ -17,7 +17,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         };
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -26,13 +26,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UpdatesViewModel(string containerId)
+        public static void UpdatesViewModel(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -92,7 +92,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UpdatesViewModelSpinUpdateModePropertyChanged(string containerId)
+        public static void UpdatesViewModelSpinUpdateModePropertyChanged(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -152,7 +152,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void TruncatesToMax(string containerId)
+        public static void TruncatesToMax(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -189,7 +189,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void TruncatesToMin(string containerId)
+        public static void TruncatesToMin(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -226,7 +226,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void DecreasesWhenGreaterThanMax(string containerId)
+        public static void DecreasesWhenGreaterThanMax(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -273,7 +273,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void IncreasesWhenLessThanMin(string containerId)
+        public static void IncreasesWhenLessThanMin(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -319,7 +319,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void Undo(string containerId)
+        public static void Undo(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -355,7 +355,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UndoWhenSpinUpdateModePropertyChanged(string containerId)
+        public static void UndoWhenSpinUpdateModePropertyChanged(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;

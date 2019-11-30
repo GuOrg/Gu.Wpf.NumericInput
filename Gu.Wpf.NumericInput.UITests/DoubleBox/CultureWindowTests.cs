@@ -3,13 +3,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class CultureWindowTests
+    public static class CultureWindowTests
     {
         private const string WindowName = "CultureWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [OneTimeTearDown]
-        public void OneTimeSetUp()
+        public static void OneTimeSetUp()
         {
             Application.KillLaunched(ExeFileName);
         }
@@ -28,7 +28,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         [TestCase("SvSeDoubleBox", "1,234", "1,234")]
         [TestCase("EnUsDoubleBox", "1.234", "1.234")]
         [TestCase("BoundCultureDoubleBox", "1,234", "1.234")]
-        public void Formats(string name, string expectedSv, string expectedEn)
+        public static void Formats(string name, string expectedSv, string expectedEn)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;

@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class MiscTests
+    public static class MiscTests
     {
         private const string WindowName = "MiscTestsWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         };
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -27,13 +27,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UpdatesViewModel(string containerId)
+        public static void UpdatesViewModel(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -53,7 +53,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UpdatesFromViewModel(string containerId)
+        public static void UpdatesFromViewModel(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -72,7 +72,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void CanBeNull(string containerId)
+        public static void CanBeNull(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -134,7 +134,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void Culture(string containerId)
+        public static void Culture(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -217,7 +217,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void ValidationTriggerLostFocus(string containerId)
+        public static void ValidationTriggerLostFocus(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -256,7 +256,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void NumberStylesAllowLeadingSign(string containerId)
+        public static void NumberStylesAllowLeadingSign(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -292,7 +292,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void UpdateDigitsWhenGreaterThanMax(string containerId)
+        public static void UpdateDigitsWhenGreaterThanMax(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -330,7 +330,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void DecimalDigits(string containerId)
+        public static void DecimalDigits(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -402,7 +402,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void StringFormat(string containerId)
+        public static void StringFormat(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -459,7 +459,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void Max(string containerId)
+        public static void Max(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -544,7 +544,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void Min(string containerId)
+        public static void Min(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -581,7 +581,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(BoxContainerIds))]
-        public void Undo(string containerId)
+        public static void Undo(string containerId)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -602,7 +602,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         [Apartment(ApartmentState.STA)]
         [Test]
-        public void CopyTest()
+        public static void CopyTest()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;

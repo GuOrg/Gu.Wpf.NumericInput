@@ -5,7 +5,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class ValidationErrorParseTests
+    public static class ValidationErrorParseTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
@@ -23,7 +23,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             };
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -31,13 +31,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public void LostFocusValidateOnLostFocus(TestCase data)
+        public static void LostFocusValidateOnLostFocus(TestCase data)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -61,7 +61,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public void LostFocusValidateOnPropertyChanged(TestCase data)
+        public static void LostFocusValidateOnPropertyChanged(TestCase data)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -83,7 +83,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public void PropertyChanged(TestCase data)
+        public static void PropertyChanged(TestCase data)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -98,7 +98,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishCases))]
-        public void PropertyChangedSwedish(TestCase data)
+        public static void PropertyChangedSwedish(TestCase data)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -114,7 +114,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public void PropertyChangedWhenNotLocalized(TestCase data)
+        public static void PropertyChangedWhenNotLocalized(TestCase data)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -131,7 +131,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
         [TestCase("2", null)]
-        public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputInvalid(string text, string infoMessage)
+        public static void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputInvalid(string text, string infoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -155,7 +155,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
         [TestCase("2", null)]
-        public void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
+        public static void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;

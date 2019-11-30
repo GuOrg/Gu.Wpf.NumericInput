@@ -3,12 +3,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public class DefaultCultureWindowTests
+    public static class DefaultCultureWindowTests
     {
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
 
         [Test]
-        public void OnLoad()
+        public static void OnLoad()
         {
             using var application = Application.Launch(ExeFileName, "DefaultCultureWindow");
             var window = application.MainWindow;

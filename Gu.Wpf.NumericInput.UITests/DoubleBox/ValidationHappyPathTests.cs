@@ -3,7 +3,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
     using Gu.Wpf.UiAutomation;
     using NUnit.Framework;
 
-    public sealed class ValidationHappyPathTests
+    public static class ValidationHappyPathTests
     {
         private const string WindowName = "DoubleBoxValidationWindow";
         private const string ExeFileName = "Gu.Wpf.NumericInput.Demo.exe";
@@ -74,7 +74,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         };
 
         [SetUp]
-        public void SetUp()
+        public static void SetUp()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -83,13 +83,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public static void OneTimeTearDown()
         {
             Application.KillLaunched(ExeFileName);
         }
 
         [TestCaseSource(nameof(EnglishCases))]
-        public void LostFocusValidateOnLostFocus(string text, string expected)
+        public static void LostFocusValidateOnLostFocus(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -108,7 +108,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(EnglishCases))]
-        public void LostFocusValidateOnPropertyChanged(string text, string expected)
+        public static void LostFocusValidateOnPropertyChanged(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -127,7 +127,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(EnglishCases))]
-        public void PropertyChangedValidateOnPropertyChanged(string text, string expected)
+        public static void PropertyChangedValidateOnPropertyChanged(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -140,7 +140,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishCases))]
-        public void SwedishLostFocusValidateOnLostFocus(string text, string expected)
+        public static void SwedishLostFocusValidateOnLostFocus(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -160,7 +160,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishCases))]
-        public void SwedishLostFocusValidateOnPropertyChanged(string text, string expected)
+        public static void SwedishLostFocusValidateOnPropertyChanged(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -178,7 +178,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(SwedishCases))]
-        public void SwedishPropertyChangedValidateOnPropertyChanged(string text, string expected)
+        public static void SwedishPropertyChangedValidateOnPropertyChanged(string text, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -191,7 +191,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [Test]
-        public void WhenNullLostFocusValidateOnLostFocus()
+        public static void WhenNullLostFocusValidateOnLostFocus()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -209,7 +209,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [Test]
-        public void WhenNullLostFocusValidateOnPropertyChanged()
+        public static void WhenNullLostFocusValidateOnPropertyChanged()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -227,7 +227,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [Test]
-        public void WheNullPropertyChanged()
+        public static void WheNullPropertyChanged()
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -240,7 +240,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
-        public void MinMaxLostFocus(string text, string min, string max, string expected)
+        public static void MinMaxLostFocus(string text, string min, string max, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -259,7 +259,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
-        public void MinMaxLostFocusValidateOnPropertyChanged(string text, string min, string max, string expected)
+        public static void MinMaxLostFocusValidateOnPropertyChanged(string text, string min, string max, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -278,7 +278,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
-        public void MinMaxPropertyChanged(string text, string min, string max, string expected)
+        public static void MinMaxPropertyChanged(string text, string min, string max, string expected)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
