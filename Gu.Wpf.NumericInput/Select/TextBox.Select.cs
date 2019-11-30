@@ -92,7 +92,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnGotKeyboardFocusProperty));
+            return (bool)element.GetValue(SelectAllOnGotKeyboardFocusProperty);
         }
 
         /// <summary>Helper for setting <see cref="SelectAllOnClickProperty"/> on <paramref name="element"/>.</summary>
@@ -120,7 +120,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnClickProperty));
+            return (bool)element.GetValue(SelectAllOnClickProperty);
         }
 
         /// <summary>Helper for setting <see cref="SelectAllOnDoubleClickProperty"/> on <paramref name="element"/>.</summary>
@@ -148,7 +148,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnDoubleClickProperty));
+            return (bool)element.GetValue(SelectAllOnDoubleClickProperty);
         }
 
         /// <summary>Helper for setting <see cref="MoveFocusOnEnterProperty"/> on <paramref name="element"/>.</summary>
@@ -176,7 +176,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
+            return (bool)element.GetValue(MoveFocusOnEnterProperty);
         }
 
         /// <summary>Helper for setting <see cref="LoseFocusOnEnterProperty"/> on <paramref name="element"/>.</summary>
@@ -215,7 +215,7 @@ namespace Gu.Wpf.NumericInput.Select
         [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         private static bool GetIsSelecting(this DependencyObject element)
         {
-            return Equals(BooleanBoxes.True, element.GetValue(IsSelectingProperty));
+            return (bool)element.GetValue(IsSelectingProperty);
         }
 
         private static void OnKeyDown(object sender, KeyEventArgs e)

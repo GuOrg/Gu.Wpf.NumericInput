@@ -132,7 +132,9 @@ namespace Gu.Wpf.NumericInput.Tests
         [TestCase(1)]
         public void TextUpdatesWhenValueChanges(T value)
         {
+#pragma warning disable WPF0014 // SetValue must use registered type.
             this.Box.SetValue(NumericBox<T>.ValueProperty, value);
+#pragma warning restore WPF0014 // SetValue must use registered type.
             Assert.AreEqual("1", this.Box.Text);
         }
 
