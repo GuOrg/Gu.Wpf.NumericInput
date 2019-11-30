@@ -189,25 +189,20 @@ namespace Gu.Wpf.NumericInput
                 }
                 else
                 {
-                    Visual visual;
-                    Visual3D visual3D;
-                    ContentElement ce;
-
-                    if ((visual = this.DependencyObject as Visual) != null)
+                    switch (this.DependencyObject)
                     {
-                        parent = VisualTreeHelper.GetParent(visual);
-                    }
-                    else if ((ce = this.DependencyObject as ContentElement) != null)
-                    {
-                        parent = ContentOperations.GetParent(ce);
-                    }
-                    else if ((visual3D = this.DependencyObject as Visual3D) != null)
-                    {
-                        parent = VisualTreeHelper.GetParent(visual3D);
-                    }
-                    else
-                    {
-                        parent = null;
+                        case Visual visual:
+                            parent = VisualTreeHelper.GetParent(visual);
+                            break;
+                        case ContentElement ce:
+                            parent = ContentOperations.GetParent(ce);
+                            break;
+                        case Visual3D visual3D:
+                            parent = VisualTreeHelper.GetParent(visual3D);
+                            break;
+                        default:
+                            parent = null;
+                            break;
                     }
                 }
 
@@ -265,18 +260,16 @@ namespace Gu.Wpf.NumericInput
                 // The current object is neither a FrameworkElement nor a
                 // FrameworkContentElement.  We will now walk the "core"
                 // tree looking for one.
-                Visual3D visual3D;
-                ContentElement ce;
 
                 if (fo.DependencyObject is Visual visual)
                 {
                     fo.Reset(VisualTreeHelper.GetParent(visual));
                 }
-                else if ((ce = fo.DependencyObject as ContentElement) != null)
+                else if (fo.DependencyObject is ContentElement ce)
                 {
                     fo.Reset(ContentOperations.GetParent(ce));
                 }
-                else if ((visual3D = fo.DependencyObject as Visual3D) != null)
+                else if (fo.DependencyObject is Visual3D visual3D)
                 {
                     fo.Reset(VisualTreeHelper.GetParent(visual3D));
                 }
