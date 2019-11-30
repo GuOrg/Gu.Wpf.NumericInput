@@ -13,6 +13,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
+            window.WaitUntilResponsive();
             window.FindTextBox("TextBox1").ClearSelection();
             window.FindTextBox("TextBox2").ClearSelection();
             window.FindTextBox("TextBox3").ClearSelection();

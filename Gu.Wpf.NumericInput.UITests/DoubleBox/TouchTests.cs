@@ -14,6 +14,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             using var app = Application.Launch(ExeFileName, WindowName);
             var window = app.MainWindow;
             Touch.Tap(window.FindTextBox("TextBox1").GetClickablePoint());
+            Wait.UntilInputIsProcessed();
             Assert.AreEqual("1.234", window.FindTextBox("TextBox1").SelectedText());
         }
     }
