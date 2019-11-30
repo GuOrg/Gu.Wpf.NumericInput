@@ -13,7 +13,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
-            window.FindTextBox("TextBox2").Text = "2.345";
+            window.FindTextBox("TextBox1").ClearSelection();
+            window.FindTextBox("TextBox2").ClearSelection();
+            window.FindTextBox("TextBox3").ClearSelection();
+            window.FindTextBox("TextBox4").ClearSelection();
+            window.FindTextBox("DoubleBox1").ClearSelection();
+            window.FindTextBox("DoubleBox2").ClearSelection();
             window.FindCheckBox("AllowSpinners").IsChecked = false;
             window.FindCheckBox("SelectAllOnFocus").IsChecked = false;
             window.FindCheckBox("SelectAllOnClick").IsChecked = false;
@@ -54,6 +59,29 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
             Assert.AreEqual(string.Empty, window.FindTextBox("DoubleBox2").SelectedText());
             window.FindTextBox("DoubleBox2").Click();
+            Assert.AreEqual("3.456", window.FindTextBox("DoubleBox2").SelectedText());
+        }
+
+        [Test]
+        public static void SelectAllOnDoubleClick()
+        {
+            using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
+            var window = app.MainWindow;
+            window.FindCheckBox("SelectAllOnDoubleClick").IsChecked = true;
+            Assert.AreEqual(string.Empty, window.FindTextBox("TextBox1").SelectedText());
+            window.FindTextBox("TextBox1").DoubleClick();
+            Assert.AreEqual("1.234", window.FindTextBox("TextBox1").SelectedText());
+
+            Assert.AreEqual(string.Empty, window.FindTextBox("TextBox4").SelectedText());
+            window.FindTextBox("TextBox4").DoubleClick();
+            Assert.AreEqual("1.234", window.FindTextBox("TextBox4").SelectedText());
+
+            Assert.AreEqual(string.Empty, window.FindTextBox("DoubleBox1").SelectedText());
+            window.FindTextBox("DoubleBox1").DoubleClick();
+            Assert.AreEqual("2.345", window.FindTextBox("DoubleBox1").SelectedText());
+
+            Assert.AreEqual(string.Empty, window.FindTextBox("DoubleBox2").SelectedText());
+            window.FindTextBox("DoubleBox2").DoubleClick();
             Assert.AreEqual("3.456", window.FindTextBox("DoubleBox2").SelectedText());
         }
     }

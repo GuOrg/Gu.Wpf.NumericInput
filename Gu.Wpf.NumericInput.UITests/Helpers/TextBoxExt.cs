@@ -5,14 +5,14 @@ namespace Gu.Wpf.NumericInput.UITests
 
     public static class TextBoxExt
     {
-        public static TextBlock FormattedView(this TextBox baseBox)
+        public static TextBlock FormattedView(this TextBox textBox)
         {
-            return baseBox.FindTextBlock("PART_FormattedText");
+            return textBox.FindTextBlock("PART_FormattedText");
         }
 
-        public static string SelectedText(this TextBox baseBox)
+        public static string SelectedText(this TextBox textBox)
         {
-            var selection = baseBox.TextPattern.GetSelection();
+            var selection = textBox.TextPattern.GetSelection();
             switch (selection.Length)
             {
                 case 0:
@@ -21,6 +21,14 @@ namespace Gu.Wpf.NumericInput.UITests
                     return selection[0].GetText(int.MaxValue);
                 default:
                     throw new InvalidOperationException();
+            }
+        }
+
+        public static void ClearSelection(this TextBox textBox)
+        {
+            if (textBox.SelectedText().Length != 0)
+            {
+                textBox.TextPattern.DocumentRange.RemoveFromSelection();
             }
         }
     }
