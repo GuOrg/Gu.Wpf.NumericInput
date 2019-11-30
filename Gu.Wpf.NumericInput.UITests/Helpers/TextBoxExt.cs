@@ -23,13 +23,5 @@ namespace Gu.Wpf.NumericInput.UITests
                     throw new InvalidOperationException();
             }
         }
-
-        public static void ClearSelection(this TextBox textBox)
-        {
-            if (textBox.SelectedText().Length != 0)
-            {
-                textBox.TextPattern.DocumentRange.RemoveFromSelection();
-            }
-        }
     }
 }
