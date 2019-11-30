@@ -6,7 +6,6 @@ namespace Gu.Wpf.NumericInput.Select
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using System.Windows.Threading;
 
     public static class TextBox
     {
@@ -50,18 +49,10 @@ namespace Gu.Wpf.NumericInput.Select
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
-        private static readonly DependencyPropertyKey IsSelectingPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
-            "IsSelecting",
-            typeof(bool),
-            typeof(TextBox),
-            new PropertyMetadata(BooleanBoxes.False));
-
-        private static readonly DependencyProperty IsSelectingProperty = IsSelectingPropertyKey.DependencyProperty;
-
         static TextBox()
         {
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.KeyDownEvent, new KeyEventHandler(OnKeyDown));
-            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseUpEvent, new RoutedEventHandler(OnMouseUp), handledEventsToo: true);
+            EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(OnPreviewMouseLeftButtonDown), handledEventsToo: true);
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.GotKeyboardFocusEvent, new RoutedEventHandler(OnGotKeyboardFocus));
             EventManager.RegisterClassHandler(typeof(TextBoxBase), UIElement.MouseLeftButtonDownEvent, new RoutedEventHandler(OnMouseLeftButtonDown), handledEventsToo: true);
             EventManager.RegisterClassHandler(typeof(TextBoxBase), Control.MouseDoubleClickEvent, new RoutedEventHandler(OnMouseDoubleClick));
@@ -92,7 +83,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return (bool)element.GetValue(SelectAllOnGotKeyboardFocusProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnGotKeyboardFocusProperty));
         }
 
         /// <summary>Helper for setting <see cref="SelectAllOnClickProperty"/> on <paramref name="element"/>.</summary>
@@ -120,7 +111,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return (bool)element.GetValue(SelectAllOnClickProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnClickProperty));
         }
 
         /// <summary>Helper for setting <see cref="SelectAllOnDoubleClickProperty"/> on <paramref name="element"/>.</summary>
@@ -148,7 +139,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return (bool)element.GetValue(SelectAllOnDoubleClickProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(SelectAllOnDoubleClickProperty));
         }
 
         /// <summary>Helper for setting <see cref="MoveFocusOnEnterProperty"/> on <paramref name="element"/>.</summary>
@@ -176,7 +167,7 @@ namespace Gu.Wpf.NumericInput.Select
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return (bool)element.GetValue(MoveFocusOnEnterProperty);
+            return Equals(BooleanBoxes.True, element.GetValue(MoveFocusOnEnterProperty));
         }
 
         /// <summary>Helper for setting <see cref="LoseFocusOnEnterProperty"/> on <paramref name="element"/>.</summary>
@@ -207,27 +198,11 @@ namespace Gu.Wpf.NumericInput.Select
             return (bool)element.GetValue(LoseFocusOnEnterProperty);
         }
 
-        private static void SetIsSelecting(this DependencyObject element, bool value)
-        {
-            element.SetValue(IsSelectingPropertyKey, BooleanBoxes.Box(value));
-        }
-
-        [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
-        private static bool GetIsSelecting(this DependencyObject element)
-        {
-            return (bool)element.GetValue(IsSelectingProperty);
-        }
-
         private static void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return || e.Key == Key.Enter)
+            if ((e.Key == Key.Return || e.Key == Key.Enter) &&
+                sender is TextBoxBase textBox)
             {
-                var textBox = sender as TextBoxBase;
-                if (textBox == null)
-                {
-                    return;
-                }
-
                 if (textBox.GetMoveFocusOnEnter())
                 {
                     // MoveFocus takes a TraversalRequest as its argument.
@@ -257,75 +232,38 @@ namespace Gu.Wpf.NumericInput.Select
 
         private static void OnMouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
-            var textBoxBase = (TextBoxBase)sender;
-            if (!textBoxBase.GetSelectAllOnClick())
+            if (sender is TextBoxBase textBoxBase &&
+                textBoxBase.GetSelectAllOnClick())
             {
-                return;
+                textBoxBase.SelectAll();
             }
-
-            textBoxBase.SetIsSelecting(value: true);
-            textBoxBase.SelectAllText();
         }
 
         private static void OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            var textBoxBase = (TextBoxBase)sender;
-            if (!textBoxBase.GetSelectAllOnDoubleClick())
+            if (sender is TextBoxBase textBoxBase &&
+                textBoxBase.GetSelectAllOnDoubleClick())
             {
-                return;
+                textBoxBase.SelectAll();
             }
-
-            textBoxBase.SetIsSelecting(true);
-            textBoxBase.SelectAllText();
         }
 
         private static void OnGotKeyboardFocus(object sender, RoutedEventArgs e)
         {
-            var textBoxBase = (TextBoxBase)sender;
-            if (!textBoxBase.GetSelectAllOnGotKeyboardFocus())
-            {
-                return;
-            }
-
-            if (Mouse.LeftButton == MouseButtonState.Pressed ||
-                Mouse.RightButton == MouseButtonState.Pressed)
-            {
-                textBoxBase.SelectAllText();
-                textBoxBase.SetIsSelecting(true);
-            }
-            else
-            {
-                textBoxBase.SelectAllText();
-            }
-        }
-
-        private static void OnMouseUp(object sender, RoutedEventArgs e)
-        {
-            var textBoxBase = (TextBoxBase)sender;
-            if (textBoxBase.GetIsSelecting())
-            {
-                textBoxBase.SetIsSelecting(false);
-                textBoxBase.SelectAllText();
-                _ = textBoxBase.Dispatcher.BeginInvoke(DispatcherPriority.DataBind, new Action(() => textBoxBase.SelectAllText()));
-            }
-        }
-
-        private static void SelectAllText(this TextBoxBase textBoxBase)
-        {
-            if (textBoxBase is System.Windows.Controls.TextBox textBox)
-            {
-                if (textBox.SelectedText == textBox.Text)
-                {
-                    return;
-                }
-
-                textBox.SelectAll();
-                return;
-            }
-
-            if (!textBoxBase.IsSelectionActive)
+            if (sender is TextBoxBase textBoxBase &&
+                textBoxBase.GetSelectAllOnGotKeyboardFocus())
             {
                 textBoxBase.SelectAll();
+            }
+        }
+
+        private static void OnPreviewMouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBoxBase { IsKeyboardFocusWithin: false, IsEnabled: true, Focusable: true } textBoxBase &&
+                textBoxBase.GetSelectAllOnGotKeyboardFocus() &&
+                textBoxBase.Focus())
+            {
+                e.Handled = true;
             }
         }
     }
