@@ -31,54 +31,51 @@ namespace Gu.Wpf.NumericInput
                 return;
             }
 
-            var chrome = this.baseBox.VisualChildren().SingleOrNull<Decorator>();
-            var scrollViewer = this.baseBox.Template?.FindName("PART_ContentHost", this.baseBox) as ScrollViewer;
-            var scrollContentPresenter = scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>();
-            var grid = scrollContentPresenter?.Parent as Grid;
-            this.textView = scrollContentPresenter?.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
-
-            if (scrollViewer == null || scrollContentPresenter == null || grid == null || this.textView == null || chrome == null)
+            if (this.baseBox.VisualChildren().SingleOrNull<Decorator>() is { } &&
+                this.baseBox.Template?.FindName("PART_ContentHost", this.baseBox) is ScrollViewer scrollViewer &&
+                scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>() is { Parent: Grid grid} scrollContentPresenter)
             {
+                this.textView = scrollContentPresenter.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
+                this.formattedBox = grid.Children.OfType<TextBlock>().SingleOrDefault(x => x.Name == FormattedName);
+                if (this.formattedBox == null)
                 {
-                    if (this.formattedBox != null)
+                    this.baseBox.HasFormattedView = true;
+                    this.formattedBox = new TextBlock
                     {
-                        grid = this.formattedBox.Parent as Grid;
-                        grid?.Children.Remove(this.formattedBox);
-                    }
+                        Name = FormattedName,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        IsHitTestVisible = false,
+                    };
 
-                    this.formattedBox = null;
-                    this.textView = null;
+                    _ = this.formattedBox.Bind(TextBlock.TextProperty)
+                            .OneWayTo(this.baseBox, BaseBox.FormattedTextProperty);
 
-                    // Failing to no formatting
-                    return;
+                    _ = this.formattedBox.Bind(FrameworkElement.MarginProperty)
+                            .OneWayTo(scrollContentPresenter, FrameworkElement.MarginProperty, FormattedTextBlockMarginConverter.Default, scrollContentPresenter);
+
+                    this.UpdateVisibility();
+
+                    grid.Children.Add(this.formattedBox);
                 }
-            }
-
-            this.formattedBox = grid.Children.OfType<TextBlock>().SingleOrDefault(x => x.Name == FormattedName);
-            if (this.formattedBox == null)
-            {
-                this.baseBox.HasFormattedView = true;
-                this.formattedBox = new TextBlock
+                else
                 {
-                    Name = FormattedName,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    IsHitTestVisible = false,
-                };
-
-                _ = this.formattedBox.Bind(TextBlock.TextProperty)
-                        .OneWayTo(this.baseBox, BaseBox.FormattedTextProperty);
-
-                _ = this.formattedBox.Bind(FrameworkElement.MarginProperty)
-                        .OneWayTo(scrollContentPresenter, FrameworkElement.MarginProperty, FormattedTextBlockMarginConverter.Default, scrollContentPresenter);
-
-                this.UpdateVisibility();
-
-                grid.Children.Add(this.formattedBox);
+                    this.UpdateVisibility();
+                }
             }
             else
             {
-                this.UpdateVisibility();
+                if (this.formattedBox != null)
+                {
+                    grid = this.formattedBox.Parent as Grid;
+                    grid?.Children.Remove(this.formattedBox);
+                }
+
+                this.formattedBox = null;
+                this.textView = null;
+
+                // Failing to no formatting
             }
+
         }
 
         private static void OnPreviewGotKeyboardFocus(object sender, RoutedEventArgs e)
