@@ -17,24 +17,20 @@ namespace Gu.Wpf.NumericInput
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var presenter = (ScrollContentPresenter)parameter;
-            var presenterMargin = presenter?.Margin;
-            var textMargin = ((FrameworkElement)presenter?.Content)?.Margin;
-            if (presenterMargin == null || textMargin == null)
+            if (parameter is ScrollContentPresenter { Content: FrameworkElement { Margin: { } textMargin }, Margin: { } presenterMargin })
             {
+                return new Thickness(
+                    presenterMargin.Left + textMargin.Left,
+                    presenterMargin.Top + textMargin.Top,
+                    presenterMargin.Right + textMargin.Right,
+                    presenterMargin.Bottom + textMargin.Bottom);
+            }
+
 #if DEBUG
-                throw new InvalidOperationException("Failed getting formatted text margin.");
+            throw new InvalidOperationException("Failed getting formatted text margin.");
 #else
                 return new Thickness(2, 0, 2, 0);
 #endif
-            }
-
-            var result = new Thickness(
-                presenterMargin.Value.Left + textMargin.Value.Left,
-                presenterMargin.Value.Top + textMargin.Value.Top,
-                presenterMargin.Value.Right + textMargin.Value.Right,
-                presenterMargin.Value.Bottom + textMargin.Value.Bottom);
-            return result;
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
