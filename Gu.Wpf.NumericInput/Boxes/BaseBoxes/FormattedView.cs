@@ -65,10 +65,9 @@ namespace Gu.Wpf.NumericInput
             else
             {
                 // Failing to no formatting
-                if (this.formattedBox != null)
+                if (this.formattedBox is { Parent: Grid parent })
                 {
-                    grid = this.formattedBox.Parent as Grid;
-                    grid?.Children.Remove(this.formattedBox);
+                    parent.Children.Remove(this.formattedBox);
                 }
 
                 this.formattedBox = null;
