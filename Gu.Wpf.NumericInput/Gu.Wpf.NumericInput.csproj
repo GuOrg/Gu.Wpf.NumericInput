@@ -6,6 +6,7 @@
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.ruleset</CodeAnalysisRuleSet>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);IDE0009</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

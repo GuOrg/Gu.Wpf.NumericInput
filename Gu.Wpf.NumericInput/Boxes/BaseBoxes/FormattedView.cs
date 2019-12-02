@@ -33,7 +33,7 @@ namespace Gu.Wpf.NumericInput
 
             if (this.baseBox.VisualChildren().SingleOrNull<Decorator>() is { } &&
                 this.baseBox.Template?.FindName("PART_ContentHost", this.baseBox) is ScrollViewer scrollViewer &&
-                scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>() is { Parent: Grid grid } scrollContentPresenter)
+                scrollViewer.NestedChildren().SingleOrNull<ScrollContentPresenter>() is { Parent: Grid grid } scrollContentPresenter)
             {
                 this.textView = scrollContentPresenter.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
                 this.formattedBox = grid.Children.OfType<TextBlock>().SingleOrDefault(x => x.Name == FormattedName);
