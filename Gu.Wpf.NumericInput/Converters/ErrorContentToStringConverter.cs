@@ -14,8 +14,7 @@ namespace Gu.Wpf.NumericInput
         {
             if (value is ValidationError error)
             {
-                var result = error.ErrorContent as ValidationResult;
-                if (result != null)
+                if (error.ErrorContent is ValidationResult result)
                 {
                     return result.ErrorContent?.ToString();
                 }
