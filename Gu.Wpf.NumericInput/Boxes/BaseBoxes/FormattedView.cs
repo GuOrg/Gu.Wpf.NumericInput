@@ -33,7 +33,7 @@ namespace Gu.Wpf.NumericInput
 
             if (this.baseBox.VisualChildren().SingleOrNull<Decorator>() is { } &&
                 this.baseBox.Template?.FindName("PART_ContentHost", this.baseBox) is ScrollViewer scrollViewer &&
-                scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>() is { Parent: Grid grid} scrollContentPresenter)
+                scrollViewer?.NestedChildren().SingleOrNull<ScrollContentPresenter>() is { Parent: Grid grid } scrollContentPresenter)
             {
                 this.textView = scrollContentPresenter.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
                 this.formattedBox = grid.Children.OfType<TextBlock>().SingleOrDefault(x => x.Name == FormattedName);
@@ -64,6 +64,7 @@ namespace Gu.Wpf.NumericInput
             }
             else
             {
+                // Failing to no formatting
                 if (this.formattedBox != null)
                 {
                     grid = this.formattedBox.Parent as Grid;
@@ -72,10 +73,7 @@ namespace Gu.Wpf.NumericInput
 
                 this.formattedBox = null;
                 this.textView = null;
-
-                // Failing to no formatting
             }
-
         }
 
         private static void OnPreviewGotKeyboardFocus(object sender, RoutedEventArgs e)
