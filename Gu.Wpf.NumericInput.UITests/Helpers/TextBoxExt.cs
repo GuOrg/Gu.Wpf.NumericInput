@@ -13,15 +13,12 @@ namespace Gu.Wpf.NumericInput.UITests
         public static string SelectedText(this TextBox textBox)
         {
             var selection = textBox.TextPattern.GetSelection();
-            switch (selection.Length)
+            return selection.Length switch
             {
-                case 0:
-                    return null;
-                case 1:
-                    return selection[0].GetText(int.MaxValue);
-                default:
-                    throw new InvalidOperationException();
-            }
+                0 => null,
+                1 => selection[0].GetText(int.MaxValue),
+                _ => throw new InvalidOperationException(),
+            };
         }
     }
 }

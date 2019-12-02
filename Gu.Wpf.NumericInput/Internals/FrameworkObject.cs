@@ -63,21 +63,13 @@ namespace Gu.Wpf.NumericInput
                 }
                 else
                 {
-                    switch (this.DependencyObject)
+                    parent = this.DependencyObject switch
                     {
-                        case Visual visual:
-                            parent = VisualTreeHelper.GetParent(visual);
-                            break;
-                        case ContentElement ce:
-                            parent = ContentOperations.GetParent(ce);
-                            break;
-                        case Visual3D visual3D:
-                            parent = VisualTreeHelper.GetParent(visual3D);
-                            break;
-                        default:
-                            parent = null;
-                            break;
-                    }
+                        Visual visual => VisualTreeHelper.GetParent(visual),
+                        ContentElement ce => ContentOperations.GetParent(ce),
+                        Visual3D visual3D => VisualTreeHelper.GetParent(visual3D),
+                        _ => null,
+                    };
                 }
 
                 if (parent == null && this.DependencyObject != null)
