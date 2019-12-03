@@ -66,7 +66,7 @@ namespace Gu.Wpf.NumericInput
             var pos = 0;
             anyItemHasFormat = false;
             var indices = Indices.Value;
-            indices.Clear();
+            indices!.Clear();
             while (TrySkipTo(format, '{', '}', ref pos))
             {
                 if (format[pos] == '}')

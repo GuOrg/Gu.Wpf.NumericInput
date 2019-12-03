@@ -60,7 +60,7 @@ namespace Gu.Wpf.NumericInput
         private static void OnDecimalDigitsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (DecimalDigitsBox<T>)d;
-            var format = (string)DecimalDigitsToStringFormatConverter.Default.Convert(e.NewValue, null, null, null);
+            var format = (string?)DecimalDigitsToStringFormatConverter.Default.Convert(e.NewValue, null, null, null);
             box.SetCurrentValue(StringFormatProperty, format);
         }
     }

@@ -14,7 +14,7 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var text = (string)value;
             if (string.IsNullOrWhiteSpace(text))
@@ -32,7 +32,7 @@ namespace Gu.Wpf.NumericInput
             return Binding.DoNothing;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var box = (NumericBox<T>)parameter;
             return box?.ToRawText(value as T?);

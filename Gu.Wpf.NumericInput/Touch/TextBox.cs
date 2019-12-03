@@ -79,10 +79,13 @@ namespace Gu.Wpf.NumericInput.Touch
             }
         }
 
-        private static void OnClosed(object sender, EventArgs eventArgs)
+        private static void OnClosed(object? sender, EventArgs eventArgs)
         {
-            ((Window)sender).Closed -= OnClosed;
-            TouchKeyboard.Hide();
+            if (sender is Window window)
+            {
+                window.Closed -= OnClosed;
+                TouchKeyboard.Hide();
+            }
         }
     }
 }

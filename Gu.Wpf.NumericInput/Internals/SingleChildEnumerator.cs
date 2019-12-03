@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System.Collections;
 
@@ -14,7 +14,7 @@
             this.count = child == null ? 0 : 1;
         }
 
-        object IEnumerator.Current => this.index == 0 ? this.child : null;
+        object? IEnumerator.Current => this.index == 0 ? this.child : null;
 
         bool IEnumerator.MoveNext()
         {

@@ -15,13 +15,13 @@ namespace Gu.Wpf.NumericInput.Touch
         /// <summary>
         /// Gets the default TouchProcessInfo pointing to C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe.
         /// </summary>
-        internal static TouchProcessInfo Default { get; } = CreateDefault();
+        internal static TouchProcessInfo? Default { get; } = CreateDefault();
 
         internal ProcessStartInfo ProcessStartInfo { get; }
 
         internal string ProcessName { get; }
 
-        internal static TouchProcessInfo Create(string path)
+        internal static TouchProcessInfo? Create(string? path)
         {
             if (path == null || Path.GetExtension(path) != ".exe")
             {
@@ -36,7 +36,7 @@ namespace Gu.Wpf.NumericInput.Touch
             return null;
         }
 
-        private static TouchProcessInfo CreateDefault()
+        private static TouchProcessInfo? CreateDefault()
         {
             const string microsoftSharedInkTabtipExe = @"Microsoft Shared\ink\TabTip.exe";
 

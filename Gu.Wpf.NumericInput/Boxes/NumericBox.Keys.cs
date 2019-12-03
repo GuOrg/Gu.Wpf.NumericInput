@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System.Runtime.CompilerServices;
     using System.Windows;
@@ -26,7 +26,7 @@
 
         public static ResourceKey SpinnersTemplateKey { get; } = CreateKey();
 
-        private static ComponentResourceKey CreateKey([CallerMemberName] string caller = null)
+        private static ComponentResourceKey CreateKey([CallerMemberName] string? caller = null)
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             return new ComponentResourceKey(typeof(NumericBox), caller);

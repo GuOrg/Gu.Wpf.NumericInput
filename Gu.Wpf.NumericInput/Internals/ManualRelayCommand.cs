@@ -18,11 +18,10 @@ namespace Gu.Wpf.NumericInput
         public event EventHandler CanExecuteChanged
         {
             add => InternalCanExecuteChangedEventManager.AddHandler(this, value);
-
             remove => InternalCanExecuteChangedEventManager.RemoveHandler(this, value);
         }
 
-        private event EventHandler InternalCanExecuteChanged;
+        private event EventHandler? InternalCanExecuteChanged;
 
         internal void RaiseCanExecuteChanged()
         {

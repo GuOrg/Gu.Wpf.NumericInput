@@ -45,7 +45,7 @@ namespace Gu.Wpf.NumericInput
                 return formatString;
             }
 
-            return Properties.Resources.ResourceManager.GetString(this.ResourceKey, CultureInfo.InvariantCulture);
+            return Properties.Resources.ResourceManager.GetString(this.ResourceKey, CultureInfo.InvariantCulture) ?? $"No format found for key: {this.ResourceKey}.";
         }
 
         /// <summary>Assert that <paramref name="format"/> is valid.</summary>

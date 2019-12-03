@@ -32,10 +32,10 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
-        internal static T SingleOrNull<T>(this IEnumerable<object> items)
+        internal static T? SingleOrNull<T>(this IEnumerable<object> items)
             where T : class
         {
-            T match = null;
+            T? match = null;
             foreach (var item in items)
             {
                 if (item is T temp)

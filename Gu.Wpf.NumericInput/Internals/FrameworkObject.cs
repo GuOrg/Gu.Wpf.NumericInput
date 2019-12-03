@@ -35,11 +35,11 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
-        internal FrameworkElement FrameworkElement { get; private set; }
+        internal FrameworkElement? FrameworkElement { get; private set; }
 
-        internal FrameworkContentElement FrameworkContentElement { get; private set; }
+        internal FrameworkContentElement? FrameworkContentElement { get; private set; }
 
-        internal DependencyObject DependencyObject { get; private set; }
+        internal DependencyObject? DependencyObject { get; private set; }
 
         internal bool IsFE => this.FrameworkElement != null;
 
@@ -47,11 +47,11 @@ namespace Gu.Wpf.NumericInput
 
         // returns the effective parent, whether visual, logical,
         // inheritance context, etc.
-        internal DependencyObject EffectiveParent
+        internal DependencyObject? EffectiveParent
         {
             get
             {
-                DependencyObject parent;
+                DependencyObject? parent;
 
                 if (this.FrameworkElement is { } fe)
                 {
@@ -98,7 +98,7 @@ namespace Gu.Wpf.NumericInput
             return false;
         }
 
-        internal void Reset(DependencyObject d)
+        internal void Reset(DependencyObject? d)
         {
             this.DependencyObject = d;
 

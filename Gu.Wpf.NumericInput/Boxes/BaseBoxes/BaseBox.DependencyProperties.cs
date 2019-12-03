@@ -184,7 +184,7 @@ namespace Gu.Wpf.NumericInput
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
-        public string StringFormat
+        public string? StringFormat
         {
             get => (string)this.GetValue(StringFormatProperty);
             set => this.SetValue(StringFormatProperty, value);
@@ -195,7 +195,7 @@ namespace Gu.Wpf.NumericInput
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
-        public string RegexPattern
+        public string? RegexPattern
         {
             get => (string)this.GetValue(RegexPatternProperty);
             set => this.SetValue(RegexPatternProperty, value);

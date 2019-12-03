@@ -10,8 +10,8 @@ namespace Gu.Wpf.NumericInput
 
         public RegexValidationResult(
             string text,
-            string pattern,
-            Exception exception,
+            string? pattern,
+            Exception? exception,
             IFormatProvider currentBoxCulture,
             NoParameterFormatAndCulture formatAndCulture,
             bool isValid,
@@ -27,13 +27,13 @@ namespace Gu.Wpf.NumericInput
         public string Text { get; }
 
         /// <summary>Gets the regex pattern that was used for validation.</summary>
-        public string Pattern { get; }
+        public string? Pattern { get; }
 
         /// <summary>
         /// Gets the <see cref="Exception"/> that was thrown during <see cref="System.Text.RegularExpressions.Regex.Match(string, string)"/> if any.
         /// Null if no exception was thrown.
         /// </summary>
-        public Exception Exception { get; }
+        public Exception? Exception { get; }
 
         public static RegexValidationResult CreateErrorResult(string text, BaseBox box)
         {

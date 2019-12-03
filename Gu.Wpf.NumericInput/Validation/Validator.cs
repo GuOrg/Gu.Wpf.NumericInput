@@ -84,15 +84,16 @@ namespace Gu.Wpf.NumericInput
             return value;
         }
 
-        private static CultureInfo GetCulture(BindingExpression expression)
+        private static CultureInfo? GetCulture(BindingExpression expression)
         {
-            if (expression.ParentBinding.ConverterCulture != null)
+            return expression switch
             {
-                return expression.ParentBinding.ConverterCulture;
-            }
-
-            return ((XmlLanguage)(expression.Target as BaseBox)?.GetValue(FrameworkElement.LanguageProperty))
-                    ?.GetSpecificCulture();
+                { ParentBinding: { ConverterCulture: { } converterCulture } } => converterCulture,
+                { Target: BaseBox baseBox } => baseBox.GetValue(FrameworkElement.LanguageProperty) is XmlLanguage xmlLanguage
+                    ? xmlLanguage.GetSpecificCulture()
+                    : null,
+                _ => null,
+            };
         }
     }
 }

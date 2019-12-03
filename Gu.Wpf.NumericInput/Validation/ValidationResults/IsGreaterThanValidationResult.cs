@@ -9,8 +9,8 @@ namespace Gu.Wpf.NumericInput
 
         public IsGreaterThanValidationResult(
             IFormattable value,
-            IFormattable min,
-            IFormattable max,
+            IFormattable? min,
+            IFormattable? max,
             IFormatProvider currentBoxCulture,
             IFormatAndCulture formatAndCulture,
             bool isValid,
@@ -27,13 +27,13 @@ namespace Gu.Wpf.NumericInput
                 throw new ArgumentNullException(nameof(box));
             }
 
-            if (box.MinValue == null)
+            if (box.MinValue is null)
             {
                 var formatAndCulture = PleaseEnterAValueLessThanOrEqualToFormatAndCulture.GetOrCreate(box.Culture);
                 var message = formatAndCulture.FormatMessage(box.MaxValue);
                 return new IsGreaterThanValidationResult(
                     value: value,
-                    min: box.MinValue,
+                    min: null,
                     max: box.MaxValue,
                     currentBoxCulture: box.Culture,
                     formatAndCulture: formatAndCulture,

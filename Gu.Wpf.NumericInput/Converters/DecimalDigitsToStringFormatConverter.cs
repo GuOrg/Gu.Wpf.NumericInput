@@ -15,7 +15,7 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             var i = value as int?;
             if (i == null)
@@ -23,7 +23,7 @@ namespace Gu.Wpf.NumericInput
                 return null;
             }
 
-            if (Cache.TryGetValue(i.Value, out string format))
+            if (Cache.TryGetValue(i.Value, out string? format))
             {
                 return format;
             }

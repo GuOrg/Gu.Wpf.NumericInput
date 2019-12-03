@@ -42,7 +42,7 @@ namespace Gu.Wpf.NumericInput
 
         internal static PropertyPath GetPath(DependencyProperty property)
         {
-            if (PropertyPaths.TryGetValue(property, out PropertyPath path))
+            if (PropertyPaths.TryGetValue(property, out PropertyPath? path))
             {
                 return path;
             }
@@ -75,7 +75,7 @@ namespace Gu.Wpf.NumericInput
                 return this.OneWayTo(source, sourcePath, converter, converterParameter);
             }
 
-            internal BindingExpression OneWayTo(object source, PropertyPath sourcePath, IValueConverter converter, object converterParameter)
+            internal BindingExpression OneWayTo(object source, PropertyPath sourcePath, IValueConverter? converter, object? converterParameter)
             {
                 var binding = new Binding
                 {

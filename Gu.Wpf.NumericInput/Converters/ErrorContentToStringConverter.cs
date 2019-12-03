@@ -10,7 +10,7 @@ namespace Gu.Wpf.NumericInput
     {
         public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is ValidationError error)
             {

@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
 
@@ -9,8 +9,8 @@
 
         protected OutOfRangeValidationResult(
             IFormattable value,
-            IFormattable min,
-            IFormattable max,
+            IFormattable? min,
+            IFormattable? max,
             IFormatProvider currentBoxCulture,
             IFormatAndCulture formatAndCulture,
             bool isValid,
@@ -26,9 +26,9 @@
         public IFormattable Value { get; }
 
         /// <summary>Gets the maximum allowed value, can be null if no lower limit.</summary>
-        public IFormattable Min { get; }
+        public IFormattable? Min { get; }
 
         /// <summary>Gets the maximum allowed value, can be null if no upper limit..</summary>
-        public IFormattable Max { get; }
+        public IFormattable? Max { get; }
     }
 }

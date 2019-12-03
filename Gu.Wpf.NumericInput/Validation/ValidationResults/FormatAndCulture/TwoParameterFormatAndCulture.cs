@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Globalization;
@@ -34,7 +34,7 @@
             return this.Cache.GetOrAdd(culture, c => new TwoParameterFormatAndCulture(formatProvider, this.ResourceKey));
         }
 
-        public string FormatMessage(object arg1, object arg2)
+        public string FormatMessage(object? arg1, object? arg2)
         {
             return string.Format(this.FormatProvider, this.Format, arg1, arg2);
         }

@@ -350,17 +350,19 @@ namespace Gu.Wpf.NumericInput
             this.UpdateValidation();
         }
 
-        private static void OnValidationError(object sender, ValidationErrorEventArgs e)
+        private static void OnValidationError(object? sender, ValidationErrorEventArgs e)
         {
-            var box = (NumericBox<T>)sender;
-            if (box.Status == Status.ResettingValue)
+            if (sender is NumericBox<T> box)
             {
-                return;
-            }
+                if (box.Status == Status.ResettingValue)
+                {
+                    return;
+                }
 
-            if (box.TextBindingExpression.HasValidationError)
-            {
-                box.ResetValueFromSource();
+                if (box.TextBindingExpression.HasValidationError)
+                {
+                    box.ResetValueFromSource();
+                }
             }
         }
 

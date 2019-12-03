@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput
+namespace Gu.Wpf.NumericInput
 {
     using System;
     using System.Windows.Controls;
@@ -23,6 +23,6 @@
         public IFormatAndCulture FormatAndCulture { get; }
 
         /// <inheritdoc/>
-        public override string ToString() => this.ErrorContent.ToString();
+        public override string? ToString() => this.ErrorContent.ToString();
     }
 }

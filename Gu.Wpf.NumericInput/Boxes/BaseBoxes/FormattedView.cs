@@ -8,10 +8,11 @@ namespace Gu.Wpf.NumericInput
 
     internal class FormattedView
     {
-        private readonly BaseBox baseBox;
-        private TextBlock formattedBox;
-        private FrameworkElement textView;
         internal const string FormattedName = "PART_FormattedText";
+
+        private readonly BaseBox baseBox;
+        private TextBlock? formattedBox;
+        private FrameworkElement? textView;
 
         static FormattedView()
         {
