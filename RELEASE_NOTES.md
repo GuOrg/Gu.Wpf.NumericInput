@@ -1,3 +1,6 @@
+#### 0.5.4
+FEATURE: netcoreapp3.0 and nullable
+
 #### 0.5.3.0
 FEATURE: SpinUpdateMode
 

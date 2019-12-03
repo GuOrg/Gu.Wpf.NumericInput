@@ -28,7 +28,7 @@
   -->
 
   <PropertyGroup>
-    <Version>0.5.3</Version>
+    <Version>0.5.4</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Johan Larsson</Authors>
@@ -37,7 +37,7 @@
     <PackageProjectUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</RepositoryUrl>
     <PackageTags>wpf xaml numeric textbox</PackageTags>
-    <PackageReleaseNotes>FEATURE: SpinUpdateMode</PackageReleaseNotes>
+    <PackageReleaseNotes>FEATURE: netcoreapp3.0 and nullable</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
