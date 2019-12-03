@@ -53,13 +53,13 @@ namespace Gu.Wpf.NumericInput
             {
                 DependencyObject parent;
 
-                if (this.IsFE)
+                if (this.FrameworkElement is { } fe)
                 {
-                    parent = VisualTreeHelper.GetParent(this.FrameworkElement);
+                    parent = VisualTreeHelper.GetParent(fe);
                 }
-                else if (this.IsFCE)
+                else if (this.FrameworkContentElement is { } fce)
                 {
-                    parent = this.FrameworkContentElement.Parent;
+                    parent = fce.Parent;
                 }
                 else
                 {
@@ -102,35 +102,23 @@ namespace Gu.Wpf.NumericInput
         {
             this.DependencyObject = d;
 
-            if (FrameworkElementDType.IsInstanceOfType(d))
+            switch (d)
             {
-                this.FrameworkElement = (FrameworkElement)d;
-                this.FrameworkContentElement = null;
-            }
-            else if (FrameworkContentElementDType.IsInstanceOfType(d))
-            {
-                this.FrameworkElement = null;
-                this.FrameworkContentElement = (FrameworkContentElement)d;
-            }
-            else
-            {
-                this.FrameworkElement = null;
-                this.FrameworkContentElement = null;
+                case FrameworkElement fe:
+                    this.FrameworkElement = fe;
+                    this.FrameworkContentElement = null;
+                    break;
+                case FrameworkContentElement fce:
+                    this.FrameworkElement = null;
+                    this.FrameworkContentElement = fce;
+                    break;
+                default:
+                    this.FrameworkElement = null;
+                    this.FrameworkContentElement = null;
+                    break;
             }
         }
 
-        public override string ToString()
-        {
-            if (this.IsFE)
-            {
-                return this.FrameworkElement.ToString();
-            }
-            else if (this.IsFCE)
-            {
-                return this.FrameworkContentElement.ToString();
-            }
-
-            return "Null";
-        }
+        public override string ToString() => this.DependencyObject?.ToString() ?? "null";
     }
 }
