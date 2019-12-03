@@ -71,11 +71,16 @@ namespace Gu.Wpf.NumericInput.Touch
 
         private static void OnLostFocus(object sender, RoutedEventArgs e)
         {
-            if (!(Keyboard.FocusedElement is System.Windows.Controls.TextBox) &&
-                sender is System.Windows.Controls.TextBox textBox &&
-                GetShowTouchKeyboardOnTouchEnter(textBox))
+            if (!IsShowTouch(Keyboard.FocusedElement) &&
+                IsShowTouch(sender))
             {
                 TouchKeyboard.Hide();
+            }
+
+            bool IsShowTouch(object? o)
+            {
+                return o is System.Windows.Controls.TextBox focused &&
+                       GetShowTouchKeyboardOnTouchEnter(focused);
             }
         }
 

@@ -29,7 +29,7 @@ namespace Gu.Wpf.NumericInput
 #if DEBUG
             throw new InvalidOperationException("Failed getting formatted text margin.");
 #else
-                return new Thickness(2, 0, 2, 0);
+            return new Thickness(2, 0, 2, 0);
 #endif
         }
 
