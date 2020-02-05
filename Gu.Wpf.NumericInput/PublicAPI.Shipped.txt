@@ -141,8 +141,6 @@ Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T
 Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T newValue, System.Windows.RoutedEvent routedEvent) -> void
 Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T newValue, System.Windows.RoutedEvent routedEvent, object source) -> void
 Gu.Wpf.NumericInput.ValueChangedEventHandler<T>
-XamlGeneratedNamespace.GeneratedInternalTypeHelper
-XamlGeneratedNamespace.GeneratedInternalTypeHelper.GeneratedInternalTypeHelper() -> void
 abstract Gu.Wpf.NumericInput.BaseBox.UpdateValidation() -> void
 abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.AssertFormat(System.IFormatProvider culture, string format) -> void
 abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.GetOrCreate(System.IFormatProvider formatProvider) -> T

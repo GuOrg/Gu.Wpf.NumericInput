@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Demo
+namespace Gu.Wpf.NumericInput.Demo
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -20,7 +20,7 @@
             get => this.doubleValue;
             set
             {
-                if (value.Equals(this.doubleValue))
+                if (value == this.doubleValue)
                 {
                     return;
                 }

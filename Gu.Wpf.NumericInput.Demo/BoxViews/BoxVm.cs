@@ -1,4 +1,4 @@
-﻿// ReSharper disable ExplicitCallerInfoArgument
+// ReSharper disable ExplicitCallerInfoArgument
 namespace Gu.Wpf.NumericInput.Demo
 {
     using System;
@@ -235,7 +235,7 @@ namespace Gu.Wpf.NumericInput.Demo
             get => this.value;
             set
             {
-                if (value.Equals(this.value))
+                if (Nullable.Equals(value, this.value))
                 {
                     return;
                 }
