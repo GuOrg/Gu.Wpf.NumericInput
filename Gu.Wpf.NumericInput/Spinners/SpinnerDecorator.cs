@@ -70,7 +70,7 @@ namespace Gu.Wpf.NumericInput
         {
             get
             {
-                if (this.Child == null)
+                if (this.Child is null)
                 {
                     return EmptyEnumerator.Instance;
                 }

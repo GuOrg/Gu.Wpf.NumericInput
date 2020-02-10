@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput
         public object? Convert(object value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             var i = value as int?;
-            if (i == null)
+            if (i is null)
             {
                 return null;
             }

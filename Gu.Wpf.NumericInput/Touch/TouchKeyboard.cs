@@ -17,7 +17,7 @@ namespace Gu.Wpf.NumericInput.Touch
 
         public static void Show()
         {
-            if (touchProcessInfo?.ProcessStartInfo == null)
+            if (touchProcessInfo?.ProcessStartInfo is null)
             {
                 return;
             }
@@ -29,7 +29,7 @@ namespace Gu.Wpf.NumericInput.Touch
 
         public static void Hide()
         {
-            if (touchProcessInfo?.ProcessStartInfo == null)
+            if (touchProcessInfo?.ProcessStartInfo is null)
             {
                 return;
             }

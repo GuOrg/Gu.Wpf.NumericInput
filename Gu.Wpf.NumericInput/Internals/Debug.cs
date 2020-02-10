@@ -26,7 +26,7 @@ namespace Gu.Wpf.NumericInput
 
         private static string Formatted(this object o)
         {
-            if (o == null)
+            if (o is null)
             {
                 return "null";
             }

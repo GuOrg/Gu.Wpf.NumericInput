@@ -32,7 +32,7 @@ namespace Gu.Wpf.NumericInput
         protected override void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
         {
             var text = this.Text;
-            if (string.IsNullOrEmpty(text) || oldCulture == null)
+            if (string.IsNullOrEmpty(text) || oldCulture is null)
             {
                 return;
             }

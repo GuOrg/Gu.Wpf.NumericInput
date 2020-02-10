@@ -23,7 +23,7 @@ namespace Gu.Wpf.NumericInput.Touch
 
         internal static TouchProcessInfo? Create(string? path)
         {
-            if (path == null || Path.GetExtension(path) != ".exe")
+            if (path is null || Path.GetExtension(path) != ".exe")
             {
                 return null;
             }

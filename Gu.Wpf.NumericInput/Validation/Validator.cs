@@ -16,7 +16,7 @@ namespace Gu.Wpf.NumericInput
             var converter = box.TextValueConverter;
             var expression = box.TextBindingExpression;
 
-            if (converter == null)
+            if (converter is null)
             {
                 Validation.MarkInvalid(expression, new ValidationError(RegexValidationRule.FromText, expression.ParentBinding, $"{BaseBox.TextValueConverterProperty.Name} == null", null));
                 return Binding.DoNothing;

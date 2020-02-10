@@ -38,7 +38,7 @@ namespace Gu.Wpf.NumericInput
             {
                 this.textView = scrollContentPresenter.VisualChildren().SingleOrNull<IScrollInfo>() as FrameworkElement;
                 this.formattedBox = grid.Children.OfType<TextBlock>().SingleOrDefault(x => x.Name == FormattedName);
-                if (this.formattedBox == null)
+                if (this.formattedBox is null)
                 {
                     this.baseBox.HasFormattedView = true;
                     this.formattedBox = new TextBlock

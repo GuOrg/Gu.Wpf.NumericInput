@@ -72,7 +72,7 @@ namespace Gu.Wpf.NumericInput
                     };
                 }
 
-                if (parent == null && this.DependencyObject != null)
+                if (parent is null && this.DependencyObject != null)
                 {
                     throw new NotSupportedException("Parent is null.");
 

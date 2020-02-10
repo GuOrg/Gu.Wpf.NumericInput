@@ -25,7 +25,7 @@ namespace Gu.Wpf.NumericInput
                 return ValidationResult.ValidResult;
             }
 
-            if (box.MaxValue == null || o == null)
+            if (box.MaxValue is null || o is null)
             {
                 return ValidationResult.ValidResult;
             }

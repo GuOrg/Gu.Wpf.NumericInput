@@ -17,7 +17,7 @@ namespace Gu.Wpf.NumericInput
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="resourceKey"/> is not found in <see cref="Gu.Wpf.NumericInput.Properties.Resources"/>.</exception>
         public static OneParameterFormatAndCulture CreateDefault(string resourceKey)
         {
-            if (typeof(Properties.Resources).GetProperty(resourceKey, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic) == null)
+            if (typeof(Properties.Resources).GetProperty(resourceKey, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic) is null)
             {
                 throw new ArgumentOutOfRangeException($"No resource found for key: {resourceKey}");
             }

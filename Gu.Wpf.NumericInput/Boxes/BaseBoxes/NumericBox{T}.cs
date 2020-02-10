@@ -224,7 +224,7 @@ namespace Gu.Wpf.NumericInput
             }
 
             var currentValue = this.CurrentTextValue;
-            if (currentValue == null)
+            if (currentValue is null)
             {
                 return false;
             }
@@ -239,7 +239,7 @@ namespace Gu.Wpf.NumericInput
         protected virtual void Increase(object parameter)
         {
             var currentValue = this.CurrentTextValue;
-            if (currentValue == null)
+            if (currentValue is null)
             {
                 return;
             }
@@ -261,7 +261,7 @@ namespace Gu.Wpf.NumericInput
             }
 
             var currentValue = this.CurrentTextValue;
-            if (currentValue == null)
+            if (currentValue is null)
             {
                 return false;
             }
@@ -276,7 +276,7 @@ namespace Gu.Wpf.NumericInput
         protected virtual void Decrease(object parameter)
         {
             var currentValue = this.CurrentTextValue;
-            if (currentValue == null)
+            if (currentValue is null)
             {
                 return;
             }
