@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Please_enter_a_value_greater_than_or_equal_to__0__" xml:space="preserve">
-    <value>Voer een waarde groter dan of gelijk aan {0} in</value>
+    <value>Voer een waarde groter dan of gelijk aan {0} in.</value>
   </data>
   <data name="Please_enter_a_value_less_than_or_equal_to__0__" xml:space="preserve">
-    <value>Voer een waarde kleiner dan of gelijk aan {0} in</value>
+    <value>Voer een waarde kleiner dan of gelijk aan {0} in.</value>
   </data>
   <data name="Please_enter_a_valid_number" xml:space="preserve">
-    <value>Voer een geldig getal in</value>
+    <value>Voer een geldig getal in.</value>
   </data>
   <data name="Please_enter_a_value_between__0__and__1__" xml:space="preserve">
-    <value>Voer een waarde tussen {0} en {1} in</value>
+    <value>Voer een waarde tussen {0} en {1} in.</value>
   </data>
   <data name="Please_enter_a_number" xml:space="preserve">
-    <value>Voer een getal in</value>
+    <value>Voer een getal in.</value>
   </data>
   <data name="Please_provide_valid_input" xml:space="preserve">
-    <value>Voer een geldige waarde in</value>
+    <value>Voer een geldige waarde in.</value>
   </data>
   <data name="Syntax_error_in_regex_pattern" xml:space="preserve">
-    <value>Syntaxis fout in reguliere expressie</value>
+    <value>Syntaxis fout in reguliere expressie.</value>
   </data>
 </root>
 <!-- vim: set ts=2 sw=2 et spellang=nl spell: -->
