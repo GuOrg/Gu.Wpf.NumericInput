@@ -1,4 +1,4 @@
-﻿<Application x:Class="Gu.Wpf.NumericInput.Demo.App"
+<Application x:Class="Gu.Wpf.NumericInput.Demo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:demo="clr-namespace:Gu.Wpf.NumericInput.Demo"
@@ -7,6 +7,7 @@
     <Application.StartupUri>MainWindow.xaml</Application.StartupUri>
     <!--<Application.StartupUri>Windows/DoubleBoxValidationWindow.xaml</Application.StartupUri>-->
     <!--<Application.StartupUri>Windows/CultureWindow.xaml</Application.StartupUri>-->
+    <!--<Application.StartupUri>Windows/Issue36Window.xaml</Application.StartupUri>-->
     <Application.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="AutomationProperties.ItemStatus" Value="{Binding Path=(Validation.HasError), RelativeSource={RelativeSource Self}, StringFormat='HasValidationError: {0}'}" />
