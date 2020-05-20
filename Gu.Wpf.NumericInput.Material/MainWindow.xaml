@@ -17,22 +17,6 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         mc:Ignorable="d">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.DeepPurple.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="numeric:DoubleBox">
-                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
-                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-            </Style>
-        </ResourceDictionary>
-    </Window.Resources>
-
     <StackPanel>
         <numeric:DoubleBox IsEnabled="True"
                            StringFormat="F1"

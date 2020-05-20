@@ -5,4 +5,19 @@
              xmlns:numeric="http://gu.se/NumericInput"
              StartupUri="MainWindow.xaml">
 
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.DeepPurple.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style TargetType="numeric:DoubleBox">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>
