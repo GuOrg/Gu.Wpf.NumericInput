@@ -6,37 +6,27 @@
         xmlns:numeric="http://gu.se/NumericInput"
         Title="Issue36Window"
         SizeToContent="WidthAndHeight"
-        TextElement.Foreground="White"
         mc:Ignorable="d">
-    <Grid Width="300"
-          Height="300"
-          Background="Black">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Text="DoubleBox" />
-        <numeric:DoubleBox Grid.Row="0"
-                           Grid.Column="1"
-                           Background="Transparent"
-                           Foreground="White"
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="numeric:DoubleBox">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="Red" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="True">
+                        <Setter Property="Background" Value="Yellow" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Resources>
+
+        <numeric:DoubleBox IsEnabled="True"
                            StringFormat="F1"
                            Value="1.234" />
 
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
-                   Text="TextBox" />
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Background="Transparent"
-                 Foreground="White"
-                 Text="1.234" />
-    </Grid>
+        <numeric:DoubleBox IsEnabled="False"
+                           StringFormat="F1"
+                           Value="1.234" />
+    </StackPanel>
 </Window>
