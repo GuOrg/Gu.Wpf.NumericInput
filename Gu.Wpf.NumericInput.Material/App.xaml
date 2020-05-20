@@ -1,0 +1,8 @@
+<Application x:Class="Gu.Wpf.NumericInput.Material.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Gu.Wpf.NumericInput.Material"
+             xmlns:numeric="http://gu.se/NumericInput"
+             StartupUri="MainWindow.xaml">
+
+</Application>

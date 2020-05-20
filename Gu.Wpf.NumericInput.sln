@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{FE49CF0F-C
 		RELEASE_NOTES.md = RELEASE_NOTES.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Material", "Gu.Wpf.NumericInput.Material\Gu.Wpf.NumericInput.Material.csproj", "{472BD217-1176-4E81-9760-990FAB0B8015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{03820C66-202B-4B6D-B9D5-E4F3267362C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03820C66-202B-4B6D-B9D5-E4F3267362C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03820C66-202B-4B6D-B9D5-E4F3267362C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472BD217-1176-4E81-9760-990FAB0B8015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472BD217-1176-4E81-9760-990FAB0B8015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472BD217-1176-4E81-9760-990FAB0B8015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472BD217-1176-4E81-9760-990FAB0B8015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
