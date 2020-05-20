@@ -1,4 +1,5 @@
-﻿Gu.Wpf.NumericInput.BaseBox
+﻿#nullable enable
+Gu.Wpf.NumericInput.BaseBox
 Gu.Wpf.NumericInput.BaseBox.BaseBox() -> void
 Gu.Wpf.NumericInput.BaseBox.Culture.get -> System.IFormatProvider
 Gu.Wpf.NumericInput.BaseBox.Culture.set -> void
