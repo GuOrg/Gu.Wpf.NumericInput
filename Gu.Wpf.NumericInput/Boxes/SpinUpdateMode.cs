@@ -6,7 +6,7 @@ namespace Gu.Wpf.NumericInput
     public enum SpinUpdateMode
     {
         /// <summary>
-        /// Use the same as the binding i.e. LostFocus or PropertyChanged
+        /// Use the same as the binding i.e. LostFocus or PropertyChanged.
         /// </summary>
         AsBinding,
 
