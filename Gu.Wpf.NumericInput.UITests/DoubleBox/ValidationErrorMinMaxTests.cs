@@ -2,7 +2,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
+
     using Gu.Wpf.UiAutomation;
+
     using NUnit.Framework;
 
     public static class ValidationErrorMinMaxTests
@@ -12,14 +14,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 
         private static readonly TestCaseData[] TestCases = new[]
         {
-            new TestCaseData("-2", "-1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
-            new TestCaseData("-2.1", "-1.1", string.Empty, "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
-            new TestCaseData("-2", "-1", "1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
-            new TestCaseData("-2.1", "-1.1", "1.1", "-1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
-            new TestCaseData("2", string.Empty, "1", "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
-            new TestCaseData("2.1", string.Empty, "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
-            new TestCaseData("2", "-1", "1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
-            new TestCaseData("2.1", "-1.1", "1.1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
+            new TestCaseData("-2", "-1", string.Empty, "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.'"),
+            new TestCaseData("-2.1", "-1.1", string.Empty, "ValidationError.IsLessThanValidationResult 'Please enter a value greater than or equal to -1.1.'"),
+            new TestCaseData("-2", "-1", "1", "ValidationError.IsLessThanValidationResult 'Please enter a value between -1 and 1.'"),
+            new TestCaseData("-2.1", "-1.1", "1.1",  "ValidationError.IsLessThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
+            new TestCaseData("2", string.Empty, "1", "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.'"),
+            new TestCaseData("2.1", string.Empty, "1.1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value less than or equal to 1.1.'"),
+            new TestCaseData("2", "-1", "1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1 and 1.'"),
+            new TestCaseData("2.1", "-1.1", "1.1",  "ValidationError.IsGreaterThanValidationResult 'Please enter a value between -1.1 and 1.1.'"),
         };
 
         [SetUp]
@@ -37,7 +39,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public static void LostFocusValidateOnLostFocus(string text, string min, string max, string expected, string expectedInfoMessage)
+        public static void LostFocusValidateOnLostFocus(string text, string min, string max, string expectedInfoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -63,7 +65,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public static void LostFocusValidateOnPropertyChanged(string text, string min, string max, string expected, string expectedInfoMessage)
+        public static void LostFocusValidateOnPropertyChanged(string text, string min, string max, string expectedInfoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -90,7 +92,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public static void PropertyChangedValidateOnPropertyChanged(string text, string min, string max, string expected, string expectedInfoMessage)
+        public static void PropertyChangedValidateOnPropertyChanged(string text, string min, string max, string expectedInfoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
@@ -187,7 +189,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public static void PropertyChangedWhenNull(string text, string min, string max, string expected, string expectedInfoMessage)
+        public static void PropertyChangedWhenNull(string text, string min, string max, string expectedInfoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
