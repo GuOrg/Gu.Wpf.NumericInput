@@ -36,6 +36,7 @@ namespace Gu.Wpf.NumericInput
 
         public abstract T GetOrCreate(IFormatProvider formatProvider);
 
+        /// <inheritdoc/>
         public string GetFormat(IFormatProvider culture)
         {
             var formatString = Properties.Resources.ResourceManager.GetString(this.ResourceKey, culture as CultureInfo);

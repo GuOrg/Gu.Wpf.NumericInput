@@ -9,11 +9,13 @@
         {
         }
 
+        /// <inheritdoc/>
         protected override string GetClassNameCore()
         {
             return nameof(SpinnerDecorator);
         }
 
+        /// <inheritdoc/>
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Custom;

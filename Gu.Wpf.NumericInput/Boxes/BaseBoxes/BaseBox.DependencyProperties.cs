@@ -126,6 +126,9 @@ namespace Gu.Wpf.NumericInput
             protected internal set => this.SetValue(HasFormattedViewPropertyKey, value);
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IValueConverter"/>.
+        /// </summary>
         public IValueConverter? TextValueConverter
         {
             get => (IValueConverter?)this.GetValue(TextValueConverterProperty);
@@ -143,30 +146,24 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(ValidationTriggerProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the validation rules.
+        /// </summary>
         public IReadOnlyList<ValidationRule>? ValidationRules
         {
             get => (IReadOnlyList<ValidationRule>?)this.GetValue(ValidationRulesProperty);
             set => this.SetValue(ValidationRulesProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the formatted text that is displayed when not focused.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public string? FormattedText
         {
             get => (string?)this.GetValue(FormattedTextProperty);
             protected set => this.SetValue(FormattedTextPropertyKey, value);
-        }
-
-        internal bool IsFormattingDirty
-        {
-            get => (bool)this.GetValue(IsFormattingDirtyProperty);
-            set => this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
-        }
-
-        internal bool IsValidationDirty
-        {
-            get => (bool)this.GetValue(IsValidationDirtyProperty);
-            set => this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
         }
 
         /// <summary>
@@ -182,6 +179,9 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(CultureProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the string format to use when formatting the value.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public string? StringFormat
@@ -191,7 +191,7 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Gets or sets a regex pattern for validation.
+        /// Gets or sets a <see cref="System.Text.RegularExpressions.Regex"/> pattern for validation.
         /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
@@ -201,10 +201,25 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(RegexPatternProperty, value);
         }
 
+        /// <summary>
+        /// Gets the source of the current text.
+        /// </summary>
         public TextSource TextSource
         {
             get => (TextSource)this.GetValue(TextSourceProperty);
             protected set => this.SetValue(TextSourcePropertyKey, value);
+        }
+
+        internal bool IsFormattingDirty
+        {
+            get => (bool)this.GetValue(IsFormattingDirtyProperty);
+            set => this.SetValue(IsFormattingDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
+        }
+
+        internal bool IsValidationDirty
+        {
+            get => (bool)this.GetValue(IsValidationDirtyProperty);
+            set => this.SetValue(IsValidationDirtyPropertyKey, value ? BooleanBoxes.True : BooleanBoxes.False);
         }
 
         internal Status Status

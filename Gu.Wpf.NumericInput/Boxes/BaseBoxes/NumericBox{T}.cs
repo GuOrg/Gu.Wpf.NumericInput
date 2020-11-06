@@ -86,6 +86,7 @@ namespace Gu.Wpf.NumericInput
             this.UpdateFormattedText(skipIfNotDirty: false);
         }
 
+        /// <inheritdoc/>
         public override void UpdateValidation()
         {
             Debug.WriteLine(string.Empty);
@@ -310,6 +311,7 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             if (e.Property == IsReadOnlyProperty)
@@ -330,6 +332,7 @@ namespace Gu.Wpf.NumericInput
             base.OnPropertyChanged(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
@@ -337,6 +340,7 @@ namespace Gu.Wpf.NumericInput
             base.OnLostKeyboardFocus(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             Debug.WriteLine(string.Empty);
@@ -344,6 +348,7 @@ namespace Gu.Wpf.NumericInput
             base.OnLostFocus(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnLoaded()
         {
             base.OnLoaded();

@@ -182,6 +182,7 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(SpinUpdateModeProperty, value);
         }
 
+        /// <inheritdoc/>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public ICommand? IncreaseCommand
@@ -190,6 +191,7 @@ namespace Gu.Wpf.NumericInput
             private set => this.SetValue(IncreaseCommandPropertyKey, value);
         }
 
+        /// <inheritdoc/>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public ICommand? DecreaseCommand

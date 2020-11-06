@@ -10,6 +10,7 @@ namespace Gu.Wpf.NumericInput
     {
         public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
 
+        /// <inheritdoc/>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is ValidationError error)
@@ -25,6 +26,7 @@ namespace Gu.Wpf.NumericInput
             return value?.ToString();
         }
 
+        /// <inheritdoc/>
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException($"{typeof(ErrorContentToStringConverter).Name} does not support use in bindings with Mode = TwoWay.");

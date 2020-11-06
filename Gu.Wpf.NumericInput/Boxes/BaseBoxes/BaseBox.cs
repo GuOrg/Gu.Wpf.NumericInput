@@ -13,9 +13,12 @@ namespace Gu.Wpf.NumericInput
     {
         private static readonly RoutedEventHandler LoadedHandler = OnLoaded;
 
-        // this is only used to create the binding expression needed for Validator
+        // this is only used to create the binding expression needed for validaton
         private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseBox"/> class.
+        /// </summary>
         protected BaseBox()
         {
             this.AddHandler(LoadedEvent, LoadedHandler);
@@ -27,8 +30,20 @@ namespace Gu.Wpf.NumericInput
 
         internal FormattedView FormattedView { get; }
 
+        /// <summary>
+        /// Update the validation.
+        /// </summary>
         public abstract void UpdateValidation();
 
+        /// <inheritdoc/>
+        public override void OnApplyTemplate()
+        {
+            this.HasFormattedView = false;
+            base.OnApplyTemplate();
+            this.FormattedView.UpdateView();
+        }
+
+        /// <inheritdoc/>
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             base.OnPreviewLostKeyboardFocus(e);
@@ -42,6 +57,10 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
+        /// <summary>
+        /// This is called when a new value comes from the user.
+        /// </summary>
+        /// <param name="text">The new text.</param>
         protected virtual void SetTextAndCreateUndoAction(string text)
         {
             this.TextSource = TextSource.UserInput;
@@ -50,6 +69,10 @@ namespace Gu.Wpf.NumericInput
             this.EndChange();
         }
 
+        /// <summary>
+        /// This is called when a new value comes from the binding.
+        /// </summary>
+        /// <param name="text">The new text.</param>
         protected virtual void SetTextClearUndo(string text)
         {
             var isUndoEnabled = this.GetValue(IsUndoEnabledProperty);
@@ -58,14 +81,25 @@ namespace Gu.Wpf.NumericInput
             this.SetCurrentValue(IsUndoEnabledProperty, isUndoEnabled);
         }
 
+        /// <summary>
+        /// Called when <see cref="StringFormatProperty"/> changes.
+        /// </summary>
+        /// <param name="oldFormat">The old format.</param>
+        /// <param name="newFormat">The new format.</param>
         protected virtual void OnStringFormatChanged(string? oldFormat, string? newFormat)
         {
         }
 
+        /// <summary>
+        /// Called when <see cref="CultureProperty"/> changes.
+        /// </summary>
+        /// <param name="oldCulture">The old <see cref="IFormatProvider"/>.</param>
+        /// <param name="newCulture">The new <see cref="IFormatProvider"/>.</param>
         protected virtual void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
         {
         }
 
+        /// <inheritdoc/>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             if (e.Property == IsVisibleProperty || e.Property == StringFormatProperty)
@@ -79,15 +113,11 @@ namespace Gu.Wpf.NumericInput
             base.OnPropertyChanged(e);
         }
 
+        /// <summary>
+        /// Called when the control is loaded.
+        /// </summary>
         protected virtual void OnLoaded()
         {
-            this.FormattedView.UpdateView();
-        }
-
-        public override void OnApplyTemplate()
-        {
-            this.HasFormattedView = false;
-            base.OnApplyTemplate();
             this.FormattedView.UpdateView();
         }
 

@@ -29,6 +29,7 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(DecimalDigitsProperty, value);
         }
 
+        /// <inheritdoc/>
         protected override void OnCultureChanged(IFormatProvider oldCulture, IFormatProvider newCulture)
         {
             var text = this.Text;
