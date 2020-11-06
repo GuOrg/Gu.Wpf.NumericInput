@@ -1,8 +1,9 @@
 namespace Gu.Wpf.NumericInput.UITests.DoubleBox
 {
-    using System.Collections.Generic;
     using System.Text.RegularExpressions;
+
     using Gu.Wpf.UiAutomation;
+
     using NUnit.Framework;
 
     public static class ValidationErrorRegexTests
