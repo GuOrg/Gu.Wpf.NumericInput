@@ -72,7 +72,9 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCaseSource(nameof(TestCases))]
+#pragma warning disable CA1801, IDE0060 // Review unused parameters
         public static void LostFocusValidateOnLostFocusWhenPatternChanges(string text, string pattern, string expected, string expectedInfoMessage)
+#pragma warning restore CA1801, IDE0060 // Review unused parameters
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
             var window = app.MainWindow;
