@@ -10,6 +10,7 @@ namespace Gu.Wpf.NumericInput
     /// </summary>
     public static partial class NumericBox
     {
+        /// <summary>Identifies the Culture attached dependency property.</summary>
         public static readonly DependencyProperty CultureProperty = DependencyProperty.RegisterAttached(
             "Culture",
             typeof(IFormatProvider),
@@ -18,6 +19,7 @@ namespace Gu.Wpf.NumericInput
                 CultureInfo.CurrentUICulture,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the ValidationTrigger attached dependency property.</summary>
         public static readonly DependencyProperty ValidationTriggerProperty = DependencyProperty.RegisterAttached(
             "ValidationTrigger",
             typeof(ValidationTrigger),
@@ -26,30 +28,35 @@ namespace Gu.Wpf.NumericInput
                 ValidationTrigger.LostFocus,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the CanValueBeNull attached dependency property.</summary>
         public static readonly DependencyProperty CanValueBeNullProperty = DependencyProperty.RegisterAttached(
             "CanValueBeNull",
             typeof(bool),
             typeof(NumericBox),
             new PropertyMetadata(BooleanBoxes.False));
 
+        /// <summary>Identifies the NumberStyles attached dependency property.</summary>
         public static readonly DependencyProperty NumberStylesProperty = DependencyProperty.RegisterAttached(
             "NumberStyles",
             typeof(NumberStyles),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(NumberStyles.None, FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the StringFormat attached dependency property.</summary>
         public static readonly DependencyProperty StringFormatProperty = DependencyProperty.RegisterAttached(
             "StringFormat",
             typeof(string),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the DecimalDigits attached dependency property.</summary>
         public static readonly DependencyProperty DecimalDigitsProperty = DependencyProperty.RegisterAttached(
             "DecimalDigits",
             typeof(int?),
             typeof(NumericBox),
             new FrameworkPropertyMetadata(default(int?), FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the AllowSpinners attached dependency property.</summary>
         public static readonly DependencyProperty AllowSpinnersProperty = DependencyProperty.RegisterAttached(
             "AllowSpinners",
             typeof(bool),

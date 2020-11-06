@@ -9,6 +9,7 @@ namespace Gu.Wpf.NumericInput.Select
 
     public static class TextBox
     {
+        /// <summary>Identifies the SelectAllOnGotKeyboardFocus attached dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnGotKeyboardFocusProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnGotKeyboardFocus",
             typeof(bool),
@@ -17,6 +18,7 @@ namespace Gu.Wpf.NumericInput.Select
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the SelectAllOnClick attached dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnClick",
             typeof(bool),
@@ -25,6 +27,7 @@ namespace Gu.Wpf.NumericInput.Select
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the SelectAllOnDoubleClick attached dependency property.</summary>
         public static readonly DependencyProperty SelectAllOnDoubleClickProperty = DependencyProperty.RegisterAttached(
             "SelectAllOnDoubleClick",
             typeof(bool),
@@ -33,6 +36,7 @@ namespace Gu.Wpf.NumericInput.Select
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the MoveFocusOnEnter attached dependency property.</summary>
         public static readonly DependencyProperty MoveFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "MoveFocusOnEnter",
             typeof(bool),
@@ -41,6 +45,7 @@ namespace Gu.Wpf.NumericInput.Select
                 BooleanBoxes.False,
                 FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>Identifies the LoseFocusOnEnter attached dependency property.</summary>
         public static readonly DependencyProperty LoseFocusOnEnterProperty = DependencyProperty.RegisterAttached(
             "LoseFocusOnEnter",
             typeof(bool),

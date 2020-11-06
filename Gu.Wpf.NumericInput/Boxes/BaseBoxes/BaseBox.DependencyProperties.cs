@@ -13,6 +13,8 @@ namespace Gu.Wpf.NumericInput
     /// </summary>
     public abstract partial class BaseBox
     {
+#pragma warning disable SA1202 // Elements should be ordered by access
+
         private static readonly DependencyPropertyKey HasFormattedViewPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(HasFormattedView),
             typeof(bool),
@@ -102,6 +104,8 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Identifies the <see cref="TextSource"/> dependency property.</summary>
         public static readonly DependencyProperty TextSourceProperty = TextSourcePropertyKey.DependencyProperty;
 
+#pragma warning restore SA1202 // Elements should be ordered by access
+
         /// <summary>Identifies the <see cref="Status"/> dependency property.</summary>
         internal static readonly DependencyPropertyKey StatusPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(Status),
@@ -118,6 +122,9 @@ namespace Gu.Wpf.NumericInput
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseBox), new FrameworkPropertyMetadata(typeof(BaseBox)));
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has a formatted view.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool HasFormattedView
@@ -202,7 +209,7 @@ namespace Gu.Wpf.NumericInput
         }
 
         /// <summary>
-        /// Gets the source of the current text.
+        /// Gets or sets the source of the current text.
         /// </summary>
         public TextSource TextSource
         {

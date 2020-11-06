@@ -36,7 +36,7 @@ namespace Gu.Wpf.NumericInput
         /// Creates a <see cref="IsLessThanValidationResult"/>.
         /// </summary>
         /// <typeparam name="T">The type of the value.</typeparam>
-        /// <param name="value">The <see cref="T"/>.</param>
+        /// <param name="value">The value.</param>
         /// <param name="box">The <see cref="NumericBox{T}"/>.</param>
         /// <returns>A <see cref="IsLessThanValidationResult"/>.</returns>
         public static IsLessThanValidationResult CreateErrorResult<T>(T value, NumericBox<T> box)

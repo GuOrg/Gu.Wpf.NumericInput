@@ -304,7 +304,7 @@ virtual Gu.Wpf.NumericInput.NumericBox<T>.CanIncrease(object! parameter) -> bool
 virtual Gu.Wpf.NumericInput.NumericBox<T>.CheckSpinners() -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.Decrease(object! parameter) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.Increase(object! parameter) -> void
-virtual Gu.Wpf.NumericInput.NumericBox<T>.OnTextChanged(string! oldText, string! newText) -> void
+virtual Gu.Wpf.NumericInput.NumericBox<T>.OnTextChanged(string? oldText, string? newText) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.OnValueChanged(T? oldValue, T? newValue) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.ResetValueFromSource() -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.SetIncremented(T value) -> void

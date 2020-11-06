@@ -12,6 +12,8 @@ namespace Gu.Wpf.NumericInput
     /// <summary>DependencyProperties for <see cref="NumericBox{T}"/>.</summary>
     public abstract partial class NumericBox<T>
     {
+#pragma warning disable SA1202 // Elements should be ordered by access
+
         /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value),
@@ -95,6 +97,8 @@ namespace Gu.Wpf.NumericInput
                 default(T),
                 (d, e) => ((NumericBox<T>)d).CheckSpinners()));
 
+#pragma warning restore SA1202 // Elements should be ordered by access
+
         private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
         private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
         private static readonly RoutedEventHandler ValidationDirtyHandler = OnValidationDirty;
@@ -116,6 +120,9 @@ namespace Gu.Wpf.NumericInput
             EventManager.RegisterClassHandler(typeof(NumericBox<T>), FormatDirtyEvent, FormatDirtyHandler);
         }
 
+        /// <summary>
+        /// Gets or sets the current value.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
 #pragma warning disable CA1721 // Property names should not match get methods
@@ -126,6 +133,9 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(ValueProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether null is allowed for <see cref="Value"/>.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public bool CanValueBeNull
@@ -134,6 +144,9 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(CanValueBeNullProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets <see cref="NumberStyles"/>.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public NumberStyles NumberStyles
@@ -142,6 +155,9 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(NumberStylesProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the minimum value.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MinValue
@@ -150,6 +166,9 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(MinValueProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the maximum value.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T? MaxValue
@@ -200,6 +219,9 @@ namespace Gu.Wpf.NumericInput
             private set => this.SetValue(DecreaseCommandPropertyKey, value);
         }
 
+        /// <summary>
+        /// Gets or sets the amount o increase or decrease.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public T Increment

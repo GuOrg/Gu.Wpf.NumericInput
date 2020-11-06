@@ -13,6 +13,9 @@ namespace Gu.Wpf.NumericInput
             typeof(ValueChangedEventHandler<T?>),
             typeof(NumericBox<T>));
 
+        /// <summary>
+        /// Notifies about value changes.
+        /// </summary>
         [Category(nameof(NumericBox))]
         [Browsable(true)]
         public event ValueChangedEventHandler<T?> ValueChanged

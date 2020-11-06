@@ -4,6 +4,10 @@ namespace Gu.Wpf.NumericInput
     using System.ComponentModel;
     using System.Windows;
 
+    /// <summary>
+    /// Base class for value of float type.
+    /// </summary>
+    /// <typeparam name="T">The type of the value.</typeparam>
     public abstract class DecimalDigitsBox<T> : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {

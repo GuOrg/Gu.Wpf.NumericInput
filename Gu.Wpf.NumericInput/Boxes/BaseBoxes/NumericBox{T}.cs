@@ -8,7 +8,7 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Data;
     using System.Windows.Input;
 
-    /// <summary>Base class with common functionality for numeric textboxes.</summary>
+    /// <summary>Base class with common functionality for numeric text boxes.</summary>
     /// <typeparam name="T">The type of the numeric value.</typeparam>
     public abstract partial class NumericBox<T> : BaseBox, ISpinnerBox
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
@@ -39,13 +39,32 @@ namespace Gu.Wpf.NumericInput
 
         internal T MinLimit => this.MinValue ?? this.TypeMin();
 
+        /// <summary>
+        /// Try parse a <typeparamref name="T"/> from <paramref name="text"/>.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>True if success.</returns>
         public bool TryParse(string text, out T result)
         {
             return this.TryParse(text, this.NumberStyles, this.Culture, out result);
         }
 
+        /// <summary>
+        /// Try parse a <typeparamref name="T"/> from <paramref name="text"/>.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="numberStyles">The <see cref="NumberStyles"/>.</param>
+        /// <param name="culture">The <see cref="IFormatProvider"/>.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>True if success.</returns>
         public abstract bool TryParse(string text, NumberStyles numberStyles, IFormatProvider culture, out T result);
 
+        /// <summary>
+        /// Check if <paramref name="text"/> can be parsed.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>True if success.</returns>
         public bool CanParse(string text)
         {
             if (this.CanValueBeNull && string.IsNullOrEmpty(text))
@@ -56,6 +75,11 @@ namespace Gu.Wpf.NumericInput
             return this.TryParse(text, out T _);
         }
 
+        /// <summary>
+        /// Parse a <typeparamref name="T"/> from <paramref name="text"/>.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The value.</returns>
         public T? Parse(string text)
         {
             if (this.CanValueBeNull && string.IsNullOrEmpty(text))
@@ -71,16 +95,9 @@ namespace Gu.Wpf.NumericInput
             throw new FormatException($"Could not parse {text} to an instance of {typeof(T)}");
         }
 
-        internal string Format(T? value)
-        {
-            return value?.ToString(this.StringFormat, this.Culture) ?? string.Empty;
-        }
-
-        internal string ToRawText(T? value)
-        {
-            return value?.ToString(this.Culture) ?? string.Empty;
-        }
-
+        /// <summary>
+        /// Update the formatted text.
+        /// </summary>
         public void UpdateFormattedText()
         {
             this.UpdateFormattedText(skipIfNotDirty: false);
@@ -89,7 +106,6 @@ namespace Gu.Wpf.NumericInput
         /// <inheritdoc/>
         public override void UpdateValidation()
         {
-            Debug.WriteLine(string.Empty);
             var status = this.Status;
             this.Status = Status.Validating;
             var result = Validator.ValidateAndGetValue(this);
@@ -103,6 +119,10 @@ namespace Gu.Wpf.NumericInput
             this.Status = status;
         }
 
+        /// <summary>
+        /// Update the formatted text.
+        /// </summary>
+        /// <param name="skipIfNotDirty">Skip if true.</param>
         public void UpdateFormattedText(bool skipIfNotDirty)
         {
             if (skipIfNotDirty && !this.IsFormattingDirty)
@@ -123,6 +143,20 @@ namespace Gu.Wpf.NumericInput
             this.IsFormattingDirty = false;
         }
 
+        internal string Format(T? value)
+        {
+            return value?.ToString(this.StringFormat, this.Culture) ?? string.Empty;
+        }
+
+        internal string ToRawText(T? value)
+        {
+            return value?.ToString(this.Culture) ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Update the formatted text.
+        /// </summary>
+        /// <param name="value">The value.</param>
         protected virtual void UpdateFormattedText(T? value)
         {
             var formattedText = this.Format(value);
@@ -130,6 +164,9 @@ namespace Gu.Wpf.NumericInput
             this.IsFormattingDirty = false;
         }
 
+        /// <summary>
+        /// Reset <see cref="Value"/> from binding.
+        /// </summary>
         protected virtual void ResetValueFromSource()
         {
             Debug.WriteLine(string.Empty);
@@ -144,6 +181,11 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
+        /// <summary>
+        /// Called when <see cref="Value"/> changes.
+        /// </summary>
+        /// <param name="oldValue">The old value.</param>
+        /// <param name="newValue">The new value.</param>
         protected virtual void OnValueChanged(T? oldValue, T? newValue)
         {
             if (this.Status == Status.Idle)
@@ -162,9 +204,13 @@ namespace Gu.Wpf.NumericInput
             this.RaiseEvent(args);
         }
 
-        protected virtual void OnTextChanged(string oldText, string newText)
+        /// <summary>
+        /// Called when Text changes.
+        /// </summary>
+        /// <param name="oldText">The old text.</param>
+        /// <param name="newText">The new value.</param>
+        protected virtual void OnTextChanged(string? oldText, string? newText)
         {
-            Debug.WriteLine(newText);
             if (this.Status == Status.Idle)
             {
                 this.Status = Status.UpdatingFromUserInput;
@@ -203,6 +249,9 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
+        /// <summary>
+        /// Raises CanExecuteChanged if <see cref="AllowSpinners"/>.
+        /// </summary>
         protected virtual void CheckSpinners()
         {
             if (this.AllowSpinners)
@@ -286,14 +335,38 @@ namespace Gu.Wpf.NumericInput
             this.SetIncremented(value);
         }
 
+        /// <summary>
+        /// Adds <paramref name="x"/> and <paramref name="y"/>.
+        /// </summary>
+        /// <param name="x">The left value.</param>
+        /// <param name="y">The right value.</param>
+        /// <returns>The sum.</returns>
         protected abstract T Add(T x, T y);
 
+        /// <summary>
+        /// Adds <paramref name="y"/> from <paramref name="x"/>.
+        /// </summary>
+        /// <param name="x">The left value.</param>
+        /// <param name="y">The right value.</param>
+        /// <returns>The difference.</returns>
         protected abstract T Subtract(T x, T y);
 
+        /// <summary>
+        /// The minimum value for <typeparamref name="T"/>.
+        /// </summary>
+        /// <returns>Minimum value for <typeparamref name="T"/>.</returns>
         protected abstract T TypeMin();
 
+        /// <summary>
+        /// The maximum value for <typeparamref name="T"/>.
+        /// </summary>
+        /// <returns>Maximum value for <typeparamref name="T"/>.</returns>
         protected abstract T TypeMax();
 
+        /// <summary>
+        /// Called when user clicks a spinner button.
+        /// </summary>
+        /// <param name="value">The new value.</param>
         protected virtual void SetIncremented(T value)
         {
             _ = Keyboard.Focus(this);
@@ -326,7 +399,7 @@ namespace Gu.Wpf.NumericInput
 
             if (e.Property == TextProperty && !Equals(e.OldValue, e.NewValue))
             {
-                this.OnTextChanged((string)e.OldValue, (string)e.NewValue);
+                this.OnTextChanged((string?)e.OldValue, (string?)e.NewValue);
             }
 
             base.OnPropertyChanged(e);
