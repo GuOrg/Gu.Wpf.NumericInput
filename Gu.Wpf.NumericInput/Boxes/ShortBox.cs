@@ -5,6 +5,9 @@ namespace Gu.Wpf.NumericInput
     using System.Globalization;
     using System.Windows;
 
+    /// <summary>
+    /// A <see cref="System.Windows.Controls.TextBox"/> for input of <see cref="short"/>.
+    /// </summary>
     [ToolboxItem(true)]
     public class ShortBox : NumericBox<short>
     {

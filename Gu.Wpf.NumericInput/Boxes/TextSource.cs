@@ -1,5 +1,8 @@
 namespace Gu.Wpf.NumericInput
 {
+    /// <summary>
+    /// The source of the text in a numeric box.
+    /// </summary>
     public enum TextSource
     {
         /// <summary>

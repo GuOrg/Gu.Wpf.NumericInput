@@ -5,9 +5,7 @@ namespace Gu.Wpf.NumericInput
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="NumericBox{T}.Value"/> is less than <see cref="NumericBox{T}.MinValue"/>.</summary>
     public class IsLessThanValidationResult : OutOfRangeValidationResult
     {
-        /// <summary>
-        /// When user typed in too small value.
-        /// </summary>
+        /// <summary>Message when user typed in too small value.</summary>
         public static readonly OneParameterFormatAndCulture PleaseEnterAValueGreaterThanOrEqualToFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__));
 
         /// <summary>

@@ -5,8 +5,18 @@ namespace Gu.Wpf.NumericInput
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when the user input cannot be parsed.</summary>
     public class CanParseValidationResult : NumericValidationResult
     {
+        /// <summary>Message when user typed in text that could not be parsed.</summary>
         public static readonly NoParameterFormatAndCulture PleaseEnterAValidNumberFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_valid_number));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CanParseValidationResult"/> class.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/>.</param>
+        /// <param name="text">The <see cref="string"/>.</param>
+        /// <param name="currentBoxCulture">The <see cref="IFormatProvider"/>.</param>
+        /// <param name="formatAndCulture">The <see cref="NoParameterFormatAndCulture"/>.</param>
+        /// <param name="isValid">The <see cref="bool"/>.</param>
+        /// <param name="errorContent">The <see cref="object"/>.</param>
         public CanParseValidationResult(
             Type type,
             string text,

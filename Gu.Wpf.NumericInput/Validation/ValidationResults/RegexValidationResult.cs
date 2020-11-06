@@ -8,6 +8,16 @@ namespace Gu.Wpf.NumericInput
         public static readonly NoParameterFormatAndCulture PleaseProvideValidInputFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_provide_valid_input));
         public static readonly NoParameterFormatAndCulture SyntaxErrorInRegexPatternFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Syntax_error_in_regex_pattern));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegexValidationResult"/> class.
+        /// </summary>
+        /// <param name="text">The <see cref="string"/>.</param>
+        /// <param name="pattern">The regex pattern.</param>
+        /// <param name="exception">The <see cref="Exception"/>.</param>
+        /// <param name="currentBoxCulture">The <see cref="IFormatProvider"/>.</param>
+        /// <param name="formatAndCulture">The <see cref="NoParameterFormatAndCulture"/>.</param>
+        /// <param name="isValid">The <see cref="bool"/>.</param>
+        /// <param name="errorContent">The <see cref="object"/>.</param>
         public RegexValidationResult(
             string text,
             string? pattern,

@@ -5,9 +5,13 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Controls;
     using System.Windows.Data;
 
+    /// <summary>
+    /// For binding validation errors.
+    /// </summary>
     [ValueConversion(typeof(ValidationError), typeof(string))]
     public sealed class ErrorContentToStringConverter : IValueConverter
     {
+        /// <summary>The default instance.</summary>
         public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
 
         /// <inheritdoc/>

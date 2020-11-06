@@ -4,17 +4,26 @@ namespace Gu.Wpf.NumericInput.Touch
     using System.Diagnostics;
     using System.Runtime.InteropServices;
 
+    /// <summary>
+    /// Helper class for showing the windows on screen keyboard.
+    /// </summary>
     public static class TouchKeyboard
     {
         private static TouchProcessInfo? touchProcessInfo = TouchProcessInfo.Default;
         private static Process? process;
 
+        /// <summary>
+        /// Gets or sets the path to the exe.
+        /// </summary>
         public static string? TouchKeyboardPath
         {
             get => touchProcessInfo?.ProcessStartInfo.FileName;
             set => touchProcessInfo = TouchProcessInfo.Create(value);
         }
 
+        /// <summary>
+        /// Show the on screen keyboard.
+        /// </summary>
         public static void Show()
         {
             if (touchProcessInfo?.ProcessStartInfo is null)
@@ -22,11 +31,13 @@ namespace Gu.Wpf.NumericInput.Touch
                 return;
             }
 
-            NumericInput.Debug.WriteLine("show");
             process?.Dispose();
             process = Process.Start(touchProcessInfo.ProcessStartInfo);
         }
 
+        /// <summary>
+        /// Hide the on screen keyboard.
+        /// </summary>
         public static void Hide()
         {
             if (touchProcessInfo?.ProcessStartInfo is null)
@@ -42,7 +53,6 @@ namespace Gu.Wpf.NumericInput.Touch
 
             if (keyboardWnd != nullIntPtr)
             {
-                NumericInput.Debug.WriteLine("hide");
                 _ = NativeMethods.SendMessage(keyboardWnd, wmSysCommand, scClose, nullIntPtr);
             }
 

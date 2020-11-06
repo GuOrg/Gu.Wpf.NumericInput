@@ -7,6 +7,9 @@ namespace Gu.Wpf.NumericInput.Select
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Attached properties for <see cref="System.Windows.Controls.TextBox"/>.
+    /// </summary>
     public static class TextBox
     {
         /// <summary>Identifies the SelectAllOnGotKeyboardFocus attached dependency property.</summary>

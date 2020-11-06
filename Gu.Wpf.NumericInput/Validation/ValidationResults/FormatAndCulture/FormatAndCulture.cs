@@ -11,6 +11,11 @@ namespace Gu.Wpf.NumericInput
     {
         private readonly Lazy<string> format;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormatAndCulture{T}"/> class.
+        /// </summary>
+        /// <param name="formatProvider">The <see cref="IFormatProvider"/>.</param>
+        /// <param name="resourceKey">The <see cref="string"/>.</param>
         protected FormatAndCulture(IFormatProvider formatProvider, string resourceKey)
         {
             this.FormatProvider = formatProvider;

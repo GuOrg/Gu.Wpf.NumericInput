@@ -4,8 +4,12 @@ namespace Gu.Wpf.NumericInput.Touch
     using System.Windows;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Attached properties for <see cref="System.Windows.Controls.TextBox"/>.
+    /// </summary>
     public static class TextBox
     {
+        /// <summary>Identifies the ShowTouchKeyboardOnTouchEnter attached dependency property.</summary>
         public static readonly DependencyProperty ShowTouchKeyboardOnTouchEnterProperty = DependencyProperty.RegisterAttached(
             "ShowTouchKeyboardOnTouchEnter",
             typeof(bool),
@@ -60,16 +64,16 @@ namespace Gu.Wpf.NumericInput.Touch
             return (bool)element.GetValue(ShowTouchKeyboardOnTouchEnterProperty);
         }
 
-        private static void OnTouchEnter(object sender, RoutedEventArgs e)
+        private static void OnTouchEnter(object? sender, RoutedEventArgs e)
         {
-            var textBox = (System.Windows.Controls.TextBox)sender;
-            if (GetShowTouchKeyboardOnTouchEnter(textBox))
+            if (sender is System.Windows.Controls.TextBox textBox &&
+                GetShowTouchKeyboardOnTouchEnter(textBox))
             {
                 TouchKeyboard.Show();
             }
         }
 
-        private static void OnLostFocus(object sender, RoutedEventArgs e)
+        private static void OnLostFocus(object? sender, RoutedEventArgs e)
         {
             if (!IsShowTouch(Keyboard.FocusedElement) &&
                 IsShowTouch(sender))
@@ -77,7 +81,7 @@ namespace Gu.Wpf.NumericInput.Touch
                 TouchKeyboard.Hide();
             }
 
-            bool IsShowTouch(object? o)
+            static bool IsShowTouch(object? o)
             {
                 return o is System.Windows.Controls.TextBox focused &&
                        GetShowTouchKeyboardOnTouchEnter(focused);

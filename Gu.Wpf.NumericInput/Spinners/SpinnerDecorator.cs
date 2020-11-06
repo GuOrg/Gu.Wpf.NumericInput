@@ -17,7 +17,10 @@ namespace Gu.Wpf.NumericInput
     [ContentProperty(nameof(Child))]
     public class SpinnerDecorator : Control
     {
+        /// <summary>The name used by the decrease spinner button.</summary>
         public const string DecreaseButtonName = "PART_DecreaseButton";
+
+        /// <summary>The name used by the increase spinner button.</summary>
         public const string IncreaseButtonName = "PART_IncreaseButton";
 
         /// <summary>Identifies the <see cref="SpinUpdateMode"/> dependency property.</summary>

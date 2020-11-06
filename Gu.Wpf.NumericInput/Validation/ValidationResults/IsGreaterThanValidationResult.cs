@@ -5,8 +5,19 @@ namespace Gu.Wpf.NumericInput
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when <see cref="NumericBox{T}.Value"/> is greater than <see cref="NumericBox{T}.MaxValue"/>.</summary>
     public class IsGreaterThanValidationResult : OutOfRangeValidationResult
     {
+        /// <summary>Message when user typed in too large value.</summary>
         public static readonly OneParameterFormatAndCulture PleaseEnterAValueLessThanOrEqualToFormatAndCulture = OneParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IsGreaterThanValidationResult"/> class.
+        /// </summary>
+        /// <param name="value">The <see cref="IFormattable"/>.</param>
+        /// <param name="min">The min <see cref="IFormattable"/>.</param>
+        /// <param name="max">The max <see cref="IFormattable"/>.</param>
+        /// <param name="currentBoxCulture">The <see cref="IFormatProvider"/>.</param>
+        /// <param name="formatAndCulture">The <see cref="IFormatAndCulture"/>.</param>
+        /// <param name="isValid">The <see cref="bool"/>.</param>
+        /// <param name="errorContent">The <see cref="object"/>.</param>
         public IsGreaterThanValidationResult(
             IFormattable value,
             IFormattable? min,
@@ -19,6 +30,13 @@ namespace Gu.Wpf.NumericInput
         {
         }
 
+        /// <summary>
+        /// Creates a <see cref="IsGreaterThanValidationResult"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="box">The <see cref="NumericBox{T}"/>.</param>
+        /// <returns>A <see cref="IsLessThanValidationResult"/>.</returns>
         public static IsGreaterThanValidationResult CreateErrorResult<T>(T value, NumericBox<T> box)
             where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {
