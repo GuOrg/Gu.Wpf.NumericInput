@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>library</OutputType>
     <UseWPF>true</UseWPF>
@@ -6,7 +6,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <CodeAnalysisRuleSet>Gu.Wpf.NumericInput.ruleset</CodeAnalysisRuleSet>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,7 +21,6 @@
   <PropertyGroup>
     <Version>0.5.4</Version>
     <NeutralLanguage>en</NeutralLanguage>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Johan Larsson</Authors>
     <Description>WPF textboxes for numeric input</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -30,6 +28,8 @@
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</RepositoryUrl>
     <PackageTags>wpf xaml numeric textbox</PackageTags>
     <PackageReleaseNotes>FEATURE: netcoreapp3.0 and nullable</PackageReleaseNotes>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
