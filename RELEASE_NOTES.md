@@ -1,4 +1,4 @@
-#### 
+#### 0.5.5
 * Tweak annotations.
 
 #### 0.5.4
@@ -14,4 +14,4 @@ FEATURE: SpinUpdateMode
 * BUGFIX: Use type IFormatProvider in CLR accessors for NumericBox.Culture.
 
 #### 0.5.1.1
-* BUGFIX: Don't throw NRE in marginconverter.
+* BUGFIX: Don't throw NRE in margin converter.

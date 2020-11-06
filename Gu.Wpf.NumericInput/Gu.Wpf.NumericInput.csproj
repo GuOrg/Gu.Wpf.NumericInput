@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.5.4</Version>
+    <Version>0.5.5</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Johan Larsson</Authors>
     <Description>WPF TextBox for numeric input</Description>
@@ -26,7 +26,12 @@
     <PackageProjectUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</RepositoryUrl>
     <PackageTags>wpf xaml numeric textbox</PackageTags>
-    <PackageReleaseNotes>FEATURE: netcoreapp3.0 and nullable</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      0.5.5
+      Tweak annotations.
+      0.5.4
+      FEATURE: netcoreapp3.0 and nullable
+    </PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
