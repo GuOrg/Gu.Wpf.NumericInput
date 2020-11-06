@@ -109,7 +109,6 @@ Gu.Wpf.NumericInput.OutOfRangeValidationResult.Max.get -> System.IFormattable?
 Gu.Wpf.NumericInput.OutOfRangeValidationResult.Min.get -> System.IFormattable?
 Gu.Wpf.NumericInput.OutOfRangeValidationResult.OutOfRangeValidationResult(System.IFormattable! value, System.IFormattable? min, System.IFormattable? max, System.IFormatProvider! currentBoxCulture, Gu.Wpf.NumericInput.IFormatAndCulture! formatAndCulture, bool isValid, object! errorContent) -> void
 Gu.Wpf.NumericInput.OutOfRangeValidationResult.Value.get -> System.IFormattable!
-Gu.Wpf.NumericInput.Properties.Resources
 Gu.Wpf.NumericInput.RegexValidationResult
 Gu.Wpf.NumericInput.RegexValidationResult.Exception.get -> System.Exception?
 Gu.Wpf.NumericInput.RegexValidationResult.Pattern.get -> string?
@@ -312,13 +311,3 @@ virtual Gu.Wpf.NumericInput.NumericBox<T>.SetIncremented(T value) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.UpdateFormattedText(T? value) -> void
 virtual Gu.Wpf.NumericInput.SpinnerDecorator.OnChildChanged(Gu.Wpf.NumericInput.ISpinnerBox? oldChild, Gu.Wpf.NumericInput.ISpinnerBox? newChild) -> void
 virtual Gu.Wpf.NumericInput.SpinnerDecorator.ShouldSerializeContent() -> bool
-~static Gu.Wpf.NumericInput.Properties.Resources.Culture.get -> System.Globalization.CultureInfo
-~static Gu.Wpf.NumericInput.Properties.Resources.Culture.set -> void
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_number.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_valid_number.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_between__0__and__1__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_provide_valid_input.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.ResourceManager.get -> System.Resources.ResourceManager
-~static Gu.Wpf.NumericInput.Properties.Resources.Syntax_error_in_regex_pattern.get -> string
