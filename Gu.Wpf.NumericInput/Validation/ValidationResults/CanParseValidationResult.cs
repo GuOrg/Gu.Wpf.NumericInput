@@ -36,6 +36,13 @@ namespace Gu.Wpf.NumericInput
         /// <summary>Gets the text that was found invalid.</summary>
         public string Text { get; }
 
+        /// <summary>
+        /// Creates a <see cref="CanParseValidationResult"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="text">The value.</param>
+        /// <param name="box">The <see cref="NumericBox{T}"/>.</param>
+        /// <returns>A <see cref="CanParseValidationResult"/>.</returns>
         public static CanParseValidationResult CreateErrorResult<T>(string text, NumericBox<T> box)
              where T : struct, IFormattable, IComparable<T>, IConvertible, IEquatable<T>
         {

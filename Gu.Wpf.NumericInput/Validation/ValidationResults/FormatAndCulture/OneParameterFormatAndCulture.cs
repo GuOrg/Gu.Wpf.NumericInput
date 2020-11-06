@@ -4,6 +4,9 @@ namespace Gu.Wpf.NumericInput
     using System.Globalization;
     using System.Reflection;
 
+    /// <summary>
+    /// A <see cref="IFormatAndCulture"/> with one parameter.
+    /// </summary>
     public class OneParameterFormatAndCulture : FormatAndCulture<OneParameterFormatAndCulture>
     {
         private OneParameterFormatAndCulture(IFormatProvider formatProvider, string resourceKey)
@@ -34,6 +37,11 @@ namespace Gu.Wpf.NumericInput
             return this.Cache.GetOrAdd(culture, c => new OneParameterFormatAndCulture(formatProvider, this.ResourceKey));
         }
 
+        /// <summary>
+        /// Create the formatted message.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns>The message.</returns>
         public string FormatMessage(object? arg)
         {
             return string.Format(this.FormatProvider, this.Format, arg);

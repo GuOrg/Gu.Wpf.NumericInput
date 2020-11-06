@@ -10,7 +10,9 @@ namespace Gu.Wpf.NumericInput
     using System.Windows.Input;
 
     /// <summary>DependencyProperties for <see cref="NumericBox{T}"/>.</summary>
+#pragma warning disable SA1619 // Generic type parameters should be documented partial class
     public abstract partial class NumericBox<T>
+#pragma warning restore SA1619 // Generic type parameters should be documented partial class
     {
 #pragma warning disable SA1202 // Elements should be ordered by access
 

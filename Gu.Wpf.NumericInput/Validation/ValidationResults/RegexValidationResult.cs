@@ -5,7 +5,10 @@ namespace Gu.Wpf.NumericInput
     /// <summary>This <see cref="System.Windows.Controls.ValidationResult"/> is returned when the user input does not match a regex pattern.</summary>
     public class RegexValidationResult : NumericValidationResult
     {
+        /// <summary>Message when user typed in text that did not match.</summary>
         public static readonly NoParameterFormatAndCulture PleaseProvideValidInputFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Please_provide_valid_input));
+
+        /// <summary>Message when the pattern is invalid.</summary>
         public static readonly NoParameterFormatAndCulture SyntaxErrorInRegexPatternFormatAndCulture = NoParameterFormatAndCulture.CreateDefault(nameof(Properties.Resources.Syntax_error_in_regex_pattern));
 
         /// <summary>
@@ -45,6 +48,12 @@ namespace Gu.Wpf.NumericInput
         /// </summary>
         public Exception? Exception { get; }
 
+        /// <summary>
+        /// Creates a <see cref="RegexValidationResult"/>.
+        /// </summary>
+        /// <param name="text">The value.</param>
+        /// <param name="box">The <see cref="BaseBox"/>.</param>
+        /// <returns>A <see cref="RegexValidationResult"/>.</returns>
         public static RegexValidationResult CreateErrorResult(string text, BaseBox box)
         {
             if (box is null)
@@ -64,6 +73,13 @@ namespace Gu.Wpf.NumericInput
                 errorContent: message);
         }
 
+        /// <summary>
+        /// Creates a <see cref="RegexValidationResult"/>.
+        /// </summary>
+        /// <param name="text">The value.</param>
+        /// <param name="exception">The <see cref="Exception"/>.</param>
+        /// <param name="box">The <see cref="BaseBox"/>.</param>
+        /// <returns>A <see cref="RegexValidationResult"/>.</returns>
         public static RegexValidationResult CreateMalformedPatternErrorResult(string text, Exception exception, BaseBox box)
         {
             if (box is null)

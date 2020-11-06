@@ -83,6 +83,8 @@ namespace Gu.Wpf.NumericInput
             }
         }
 
+        public override string ToString() => this.DependencyObject?.ToString() ?? "null";
+
         internal static bool IsEffectiveAncestor(DependencyObject d1, DependencyObject d2)
         {
             for (var fo = new FrameworkObject(d2);
@@ -118,7 +120,5 @@ namespace Gu.Wpf.NumericInput
                     break;
             }
         }
-
-        public override string ToString() => this.DependencyObject?.ToString() ?? "null";
     }
 }

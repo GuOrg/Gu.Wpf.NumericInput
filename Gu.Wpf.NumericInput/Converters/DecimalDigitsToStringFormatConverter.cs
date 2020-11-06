@@ -17,29 +17,28 @@ namespace Gu.Wpf.NumericInput
 
         public object? Convert(object value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            var i = value as int?;
-            if (i is null)
+            if (value is int i)
             {
-                return null;
-            }
+                if (Cache.TryGetValue(i, out string? format))
+                {
+                    return format;
+                }
 
-            if (Cache.TryGetValue(i.Value, out string? format))
-            {
+                if (i >= 0)
+                {
+                    format = "F" + i;
+                    Cache[i] = format;
+                }
+                else
+                {
+                    format = "0." + new string('#', -i);
+                    Cache[i] = format;
+                }
+
                 return format;
             }
 
-            if (i >= 0)
-            {
-                format = "F" + i.Value;
-                Cache[i.Value] = format;
-            }
-            else
-            {
-                format = "0." + new string('#', -i.Value);
-                Cache[i.Value] = format;
-            }
-
-            return format;
+            return null;
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

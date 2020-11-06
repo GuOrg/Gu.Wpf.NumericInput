@@ -66,9 +66,11 @@ namespace Gu.Wpf.NumericInput.Touch
 
         private static class NativeMethods
         {
+            [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
             [DllImport("user32.dll", CharSet = CharSet.Unicode)]
             internal static extern IntPtr FindWindow(string sClassName, string? sAppName);
 
+            [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
             [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
             internal static extern IntPtr SendMessage(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
         }

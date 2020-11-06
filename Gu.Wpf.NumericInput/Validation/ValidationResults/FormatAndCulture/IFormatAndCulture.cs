@@ -3,6 +3,9 @@ namespace Gu.Wpf.NumericInput
     using System;
     using System.Globalization;
 
+    /// <summary>
+    /// String format and culture.
+    /// </summary>
     public interface IFormatAndCulture
     {
         /// <summary>Gets the name of the resource. I.e. Properties.Resources.ResourceManager.GetString(<see cref="IFormatAndCulture.ResourceKey"/>, <see cref="CultureInfo"/>).</summary>

@@ -21,7 +21,7 @@ namespace Gu.Wpf.NumericInput
             this.FormatProvider = formatProvider;
             this.ResourceKey = resourceKey;
 
-            // used lazy here to avoid virtual call in ctor.
+            // used lazy here to avoid virtual call in constructor.
             // maybe it would work any way but playing it safe.
             this.format = new Lazy<string>(() => this.GetFormat(formatProvider));
         }
@@ -37,8 +37,16 @@ namespace Gu.Wpf.NumericInput
         public string Format => this.format.Value;
 #pragma warning restore CA1721 // Property names should not match get methods
 
+        /// <summary>
+        /// Gets the cache.
+        /// </summary>
         protected ConcurrentDictionary<CultureInfo, T> Cache { get; } = new ConcurrentDictionary<CultureInfo, T>();
 
+        /// <summary>
+        /// Get from cache or create a new instance.
+        /// </summary>
+        /// <param name="formatProvider">The <see cref="IFormatProvider"/>.</param>
+        /// <returns>A <typeparamref name="T"/>.</returns>
         public abstract T GetOrCreate(IFormatProvider formatProvider);
 
         /// <inheritdoc/>

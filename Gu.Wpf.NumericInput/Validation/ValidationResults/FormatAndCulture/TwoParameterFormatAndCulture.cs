@@ -4,6 +4,9 @@ namespace Gu.Wpf.NumericInput
     using System.Globalization;
     using System.Reflection;
 
+    /// <summary>
+    /// A <see cref="IFormatAndCulture"/> with two parameters.
+    /// </summary>
     public class TwoParameterFormatAndCulture : FormatAndCulture<TwoParameterFormatAndCulture>
     {
         private TwoParameterFormatAndCulture(IFormatProvider formatProvider, string resourceKey)
@@ -34,6 +37,12 @@ namespace Gu.Wpf.NumericInput
             return this.Cache.GetOrAdd(culture, c => new TwoParameterFormatAndCulture(formatProvider, this.ResourceKey));
         }
 
+        /// <summary>
+        /// Create the formatted message.
+        /// </summary>
+        /// <param name="arg1">The first argument.</param>
+        /// <param name="arg2">The second argument.</param>
+        /// <returns>The message.</returns>
         public string FormatMessage(object? arg1, object? arg2)
         {
             return string.Format(this.FormatProvider, this.Format, arg1, arg2);

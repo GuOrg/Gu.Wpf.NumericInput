@@ -23,6 +23,16 @@ namespace Gu.Wpf.NumericInput
 
         private event EventHandler? InternalCanExecuteChanged;
 
+        public bool CanExecute(object parameter)
+        {
+            return this.condition(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            this.action(parameter);
+        }
+
         internal void RaiseCanExecuteChanged()
         {
             var handler = this.InternalCanExecuteChanged;
@@ -38,16 +48,6 @@ namespace Gu.Wpf.NumericInput
                     handler(this, EventArgs.Empty);
                 }
             }
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return this.condition(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            this.action(parameter);
         }
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
