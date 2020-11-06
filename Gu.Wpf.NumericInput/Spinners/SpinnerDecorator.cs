@@ -34,7 +34,7 @@ namespace Gu.Wpf.NumericInput
             typeof(SpinnerDecorator),
             new PropertyMetadata(
                 default(ISpinnerBox),
-                (d, e) => ((SpinnerDecorator)d).OnChildChanged((ISpinnerBox)e.OldValue, (ISpinnerBox)e.NewValue)));
+                (d, e) => ((SpinnerDecorator)d).OnChildChanged((ISpinnerBox?)e.OldValue, (ISpinnerBox?)e.NewValue)));
 
         static SpinnerDecorator()
         {
@@ -57,9 +57,9 @@ namespace Gu.Wpf.NumericInput
         /// <summary>
         /// Gets or sets the single child of a <see cref="SpinnerDecorator" />.
         /// </summary>
-        public ISpinnerBox Child
+        public ISpinnerBox? Child
         {
-            get => (ISpinnerBox)this.GetValue(ChildProperty);
+            get => (ISpinnerBox?)this.GetValue(ChildProperty);
             set => this.SetValue(ChildProperty, value);
         }
 
@@ -95,7 +95,7 @@ namespace Gu.Wpf.NumericInput
         /// <summary>This method is invoked when the <see cref="ChildProperty"/> changes.</summary>
         /// <param name="oldChild">The old value of <see cref="ChildProperty"/>.</param>
         /// <param name="newChild">The new value of <see cref="ChildProperty"/>.</param>
-        protected virtual void OnChildChanged(ISpinnerBox oldChild, ISpinnerBox newChild)
+        protected virtual void OnChildChanged(ISpinnerBox? oldChild, ISpinnerBox? newChild)
         {
             this.RemoveLogicalChild(oldChild);
 

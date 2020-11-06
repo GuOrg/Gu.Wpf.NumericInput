@@ -24,50 +24,53 @@ namespace Gu.Wpf.NumericInput
 
             var validated = false;
             var value = Default;
-            foreach (var rule in box.ValidationRules)
+            if (box.ValidationRules is { })
             {
-                switch (rule.ValidationStep)
+                foreach (var rule in box.ValidationRules)
                 {
-                    case ValidationStep.RawProposedValue:
-                        {
-                            var result = rule.Validate(box.Text, GetCulture(expression), expression);
-                            if (!result.IsValid)
+                    switch (rule.ValidationStep)
+                    {
+                        case ValidationStep.RawProposedValue:
                             {
-                                Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
-                                return Binding.DoNothing;
+                                var result = rule.Validate(box.Text, GetCulture(expression), expression);
+                                if (!result.IsValid)
+                                {
+                                    Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
+                                    return Binding.DoNothing;
+                                }
+
+                                validated = true;
+                                break;
                             }
 
-                            validated = true;
-                            break;
-                        }
-
-                    case ValidationStep.UpdatedValue:
-                    case ValidationStep.CommittedValue:
-                    case ValidationStep.ConvertedProposedValue:
-                        {
-                            if (value == Default)
+                        case ValidationStep.UpdatedValue:
+                        case ValidationStep.CommittedValue:
+                        case ValidationStep.ConvertedProposedValue:
                             {
-                                value = converter.Convert(box.Text, null, box, GetCulture(expression));
+                                if (value == Default)
+                                {
+                                    value = converter.Convert(box.Text, null, box, GetCulture(expression));
+                                }
+
+                                if (value == Binding.DoNothing)
+                                {
+                                    continue;
+                                }
+
+                                var result = rule.Validate(value, GetCulture(expression), expression);
+                                if (!result.IsValid)
+                                {
+                                    Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
+                                    return Binding.DoNothing;
+                                }
+
+                                validated = true;
+                                break;
                             }
 
-                            if (value == Binding.DoNothing)
-                            {
-                                continue;
-                            }
-
-                            var result = rule.Validate(value, GetCulture(expression), expression);
-                            if (!result.IsValid)
-                            {
-                                Validation.MarkInvalid(expression, new ValidationError(rule, expression.ParentBinding, result, null));
-                                return Binding.DoNothing;
-                            }
-
-                            validated = true;
-                            break;
-                        }
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(box), rule.ValidationStep, "Unhandled validation step.");
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(box), rule.ValidationStep, "Unhandled validation step.");
+                    }
                 }
             }
 

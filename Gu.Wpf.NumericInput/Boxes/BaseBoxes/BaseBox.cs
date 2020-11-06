@@ -58,7 +58,7 @@ namespace Gu.Wpf.NumericInput
             this.SetCurrentValue(IsUndoEnabledProperty, isUndoEnabled);
         }
 
-        protected virtual void OnStringFormatChanged(string oldFormat, string newFormat)
+        protected virtual void OnStringFormatChanged(string? oldFormat, string? newFormat)
         {
         }
 

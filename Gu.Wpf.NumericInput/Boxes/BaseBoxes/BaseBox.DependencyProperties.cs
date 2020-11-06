@@ -126,9 +126,9 @@ namespace Gu.Wpf.NumericInput
             protected internal set => this.SetValue(HasFormattedViewPropertyKey, value);
         }
 
-        public IValueConverter TextValueConverter
+        public IValueConverter? TextValueConverter
         {
-            get => (IValueConverter)this.GetValue(TextValueConverterProperty);
+            get => (IValueConverter?)this.GetValue(TextValueConverterProperty);
             set => this.SetValue(TextValueConverterProperty, value);
         }
 
@@ -143,17 +143,17 @@ namespace Gu.Wpf.NumericInput
             set => this.SetValue(ValidationTriggerProperty, value);
         }
 
-        public IReadOnlyList<ValidationRule> ValidationRules
+        public IReadOnlyList<ValidationRule>? ValidationRules
         {
-            get => (IReadOnlyList<ValidationRule>)this.GetValue(ValidationRulesProperty);
+            get => (IReadOnlyList<ValidationRule>?)this.GetValue(ValidationRulesProperty);
             set => this.SetValue(ValidationRulesProperty, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
-        public string FormattedText
+        public string? FormattedText
         {
-            get => (string)this.GetValue(FormattedTextProperty);
+            get => (string?)this.GetValue(FormattedTextProperty);
             protected set => this.SetValue(FormattedTextPropertyKey, value);
         }
 
@@ -186,7 +186,7 @@ namespace Gu.Wpf.NumericInput
         [Browsable(true)]
         public string? StringFormat
         {
-            get => (string)this.GetValue(StringFormatProperty);
+            get => (string?)this.GetValue(StringFormatProperty);
             set => this.SetValue(StringFormatProperty, value);
         }
 
@@ -197,7 +197,7 @@ namespace Gu.Wpf.NumericInput
         [Browsable(true)]
         public string? RegexPattern
         {
-            get => (string)this.GetValue(RegexPatternProperty);
+            get => (string?)this.GetValue(RegexPatternProperty);
             set => this.SetValue(RegexPatternProperty, value);
         }
 
@@ -285,7 +285,7 @@ namespace Gu.Wpf.NumericInput
             var box = (BaseBox)d;
             if (box.TextSource != TextSource.None)
             {
-                box.OnStringFormatChanged((string)e.OldValue, (string)e.NewValue);
+                box.OnStringFormatChanged((string?)e.OldValue, (string?)e.NewValue);
                 box.IsFormattingDirty = true;
                 box.IsValidationDirty = true;
             }

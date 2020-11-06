@@ -149,7 +149,7 @@ namespace Gu.Wpf.NumericInput
             {
                 this.Status = Status.UpdatingFromValueBinding;
                 this.TextSource = TextSource.ValueBinding;
-                var newRaw = (string)this.TextValueConverter.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
+                var newRaw = (string?)this.TextValueConverter?.ConvertBack(newValue, typeof(string), this, null) ?? string.Empty;
                 this.SetTextClearUndo(newRaw);
                 this.UpdateFormattedText(newValue);
                 this.IsValidationDirty = true;
@@ -183,7 +183,7 @@ namespace Gu.Wpf.NumericInput
                 }
                 else
                 {
-                    var result = this.TextValueConverter.Convert(newText, typeof(T), this, null);
+                    var result = this.TextValueConverter?.Convert(newText, typeof(T), this, null);
                     if (result != Binding.DoNothing)
                     {
                         this.SetCurrentValue(ValueProperty, result);

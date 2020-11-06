@@ -1,9 +1,19 @@
 ﻿#nullable enable
+abstract Gu.Wpf.NumericInput.BaseBox.UpdateValidation() -> void
+abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.AssertFormat(System.IFormatProvider! culture, string! format) -> void
+abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.GetOrCreate(System.IFormatProvider! formatProvider) -> T
+abstract Gu.Wpf.NumericInput.NumericBox<T>.Add(T x, T y) -> T
+abstract Gu.Wpf.NumericInput.NumericBox<T>.Subtract(T x, T y) -> T
+abstract Gu.Wpf.NumericInput.NumericBox<T>.TryParse(string! text, System.Globalization.NumberStyles numberStyles, System.IFormatProvider! culture, out T result) -> bool
+abstract Gu.Wpf.NumericInput.NumericBox<T>.TypeMax() -> T
+abstract Gu.Wpf.NumericInput.NumericBox<T>.TypeMin() -> T
+const Gu.Wpf.NumericInput.SpinnerDecorator.DecreaseButtonName = "PART_DecreaseButton" -> string!
+const Gu.Wpf.NumericInput.SpinnerDecorator.IncreaseButtonName = "PART_IncreaseButton" -> string!
 Gu.Wpf.NumericInput.BaseBox
 Gu.Wpf.NumericInput.BaseBox.BaseBox() -> void
 Gu.Wpf.NumericInput.BaseBox.Culture.get -> System.IFormatProvider!
 Gu.Wpf.NumericInput.BaseBox.Culture.set -> void
-Gu.Wpf.NumericInput.BaseBox.FormattedText.get -> string!
+Gu.Wpf.NumericInput.BaseBox.FormattedText.get -> string?
 Gu.Wpf.NumericInput.BaseBox.FormattedText.set -> void
 Gu.Wpf.NumericInput.BaseBox.HasFormattedView.get -> bool
 Gu.Wpf.NumericInput.BaseBox.HasFormattedView.set -> void
@@ -13,9 +23,9 @@ Gu.Wpf.NumericInput.BaseBox.StringFormat.get -> string?
 Gu.Wpf.NumericInput.BaseBox.StringFormat.set -> void
 Gu.Wpf.NumericInput.BaseBox.TextSource.get -> Gu.Wpf.NumericInput.TextSource
 Gu.Wpf.NumericInput.BaseBox.TextSource.set -> void
-Gu.Wpf.NumericInput.BaseBox.TextValueConverter.get -> System.Windows.Data.IValueConverter!
+Gu.Wpf.NumericInput.BaseBox.TextValueConverter.get -> System.Windows.Data.IValueConverter?
 Gu.Wpf.NumericInput.BaseBox.TextValueConverter.set -> void
-Gu.Wpf.NumericInput.BaseBox.ValidationRules.get -> System.Collections.Generic.IReadOnlyList<System.Windows.Controls.ValidationRule!>!
+Gu.Wpf.NumericInput.BaseBox.ValidationRules.get -> System.Collections.Generic.IReadOnlyList<System.Windows.Controls.ValidationRule!>?
 Gu.Wpf.NumericInput.BaseBox.ValidationRules.set -> void
 Gu.Wpf.NumericInput.BaseBox.ValidationTrigger.get -> Gu.Wpf.NumericInput.ValidationTrigger
 Gu.Wpf.NumericInput.BaseBox.ValidationTrigger.set -> void
@@ -48,16 +58,16 @@ Gu.Wpf.NumericInput.IFormatAndCulture.Format.get -> string!
 Gu.Wpf.NumericInput.IFormatAndCulture.FormatProvider.get -> System.IFormatProvider!
 Gu.Wpf.NumericInput.IFormatAndCulture.GetFormat(System.IFormatProvider! culture) -> string!
 Gu.Wpf.NumericInput.IFormatAndCulture.ResourceKey.get -> string!
-Gu.Wpf.NumericInput.ISpinnerBox
-Gu.Wpf.NumericInput.ISpinnerBox.AllowSpinners.get -> bool
-Gu.Wpf.NumericInput.ISpinnerBox.DecreaseCommand.get -> System.Windows.Input.ICommand!
-Gu.Wpf.NumericInput.ISpinnerBox.IncreaseCommand.get -> System.Windows.Input.ICommand!
 Gu.Wpf.NumericInput.IntBox
 Gu.Wpf.NumericInput.IntBox.IntBox() -> void
 Gu.Wpf.NumericInput.IsGreaterThanValidationResult
 Gu.Wpf.NumericInput.IsGreaterThanValidationResult.IsGreaterThanValidationResult(System.IFormattable! value, System.IFormattable? min, System.IFormattable? max, System.IFormatProvider! currentBoxCulture, Gu.Wpf.NumericInput.IFormatAndCulture! formatAndCulture, bool isValid, object! errorContent) -> void
 Gu.Wpf.NumericInput.IsLessThanValidationResult
 Gu.Wpf.NumericInput.IsLessThanValidationResult.IsLessThanValidationResult(System.IFormattable! value, System.IFormattable? min, System.IFormattable? max, System.IFormatProvider! currentBoxCulture, Gu.Wpf.NumericInput.IFormatAndCulture! formatAndCulture, bool isValid, object! errorContent) -> void
+Gu.Wpf.NumericInput.ISpinnerBox
+Gu.Wpf.NumericInput.ISpinnerBox.AllowSpinners.get -> bool
+Gu.Wpf.NumericInput.ISpinnerBox.DecreaseCommand.get -> System.Windows.Input.ICommand?
+Gu.Wpf.NumericInput.ISpinnerBox.IncreaseCommand.get -> System.Windows.Input.ICommand?
 Gu.Wpf.NumericInput.LongBox
 Gu.Wpf.NumericInput.LongBox.LongBox() -> void
 Gu.Wpf.NumericInput.NoParameterFormatAndCulture
@@ -68,8 +78,8 @@ Gu.Wpf.NumericInput.NumericBox<T>.AllowSpinners.set -> void
 Gu.Wpf.NumericInput.NumericBox<T>.CanParse(string! text) -> bool
 Gu.Wpf.NumericInput.NumericBox<T>.CanValueBeNull.get -> bool
 Gu.Wpf.NumericInput.NumericBox<T>.CanValueBeNull.set -> void
-Gu.Wpf.NumericInput.NumericBox<T>.DecreaseCommand.get -> System.Windows.Input.ICommand!
-Gu.Wpf.NumericInput.NumericBox<T>.IncreaseCommand.get -> System.Windows.Input.ICommand!
+Gu.Wpf.NumericInput.NumericBox<T>.DecreaseCommand.get -> System.Windows.Input.ICommand?
+Gu.Wpf.NumericInput.NumericBox<T>.IncreaseCommand.get -> System.Windows.Input.ICommand?
 Gu.Wpf.NumericInput.NumericBox<T>.Increment.get -> T
 Gu.Wpf.NumericInput.NumericBox<T>.Increment.set -> void
 Gu.Wpf.NumericInput.NumericBox<T>.MaxValue.get -> T?
@@ -112,17 +122,17 @@ Gu.Wpf.NumericInput.RequiredButMissingValidationResult.Type.get -> System.Type!
 Gu.Wpf.NumericInput.Select.TextBox
 Gu.Wpf.NumericInput.ShortBox
 Gu.Wpf.NumericInput.ShortBox.ShortBox() -> void
+Gu.Wpf.NumericInput.SpinnerDecorator
+Gu.Wpf.NumericInput.SpinnerDecorator.Child.get -> Gu.Wpf.NumericInput.ISpinnerBox?
+Gu.Wpf.NumericInput.SpinnerDecorator.Child.set -> void
+Gu.Wpf.NumericInput.SpinnerDecorator.SpinnerDecorator() -> void
+Gu.Wpf.NumericInput.SpinnerDecorator.SpinUpdateMode.get -> Gu.Wpf.NumericInput.SpinUpdateMode
+Gu.Wpf.NumericInput.SpinnerDecorator.SpinUpdateMode.set -> void
+Gu.Wpf.NumericInput.SpinnerDecoratorAutomationPeer
+Gu.Wpf.NumericInput.SpinnerDecoratorAutomationPeer.SpinnerDecoratorAutomationPeer(Gu.Wpf.NumericInput.SpinnerDecorator! owner) -> void
 Gu.Wpf.NumericInput.SpinUpdateMode
 Gu.Wpf.NumericInput.SpinUpdateMode.AsBinding = 0 -> Gu.Wpf.NumericInput.SpinUpdateMode
 Gu.Wpf.NumericInput.SpinUpdateMode.PropertyChanged = 1 -> Gu.Wpf.NumericInput.SpinUpdateMode
-Gu.Wpf.NumericInput.SpinnerDecorator
-Gu.Wpf.NumericInput.SpinnerDecorator.Child.get -> Gu.Wpf.NumericInput.ISpinnerBox!
-Gu.Wpf.NumericInput.SpinnerDecorator.Child.set -> void
-Gu.Wpf.NumericInput.SpinnerDecorator.SpinUpdateMode.get -> Gu.Wpf.NumericInput.SpinUpdateMode
-Gu.Wpf.NumericInput.SpinnerDecorator.SpinUpdateMode.set -> void
-Gu.Wpf.NumericInput.SpinnerDecorator.SpinnerDecorator() -> void
-Gu.Wpf.NumericInput.SpinnerDecoratorAutomationPeer
-Gu.Wpf.NumericInput.SpinnerDecoratorAutomationPeer.SpinnerDecoratorAutomationPeer(Gu.Wpf.NumericInput.SpinnerDecorator! owner) -> void
 Gu.Wpf.NumericInput.TextSource
 Gu.Wpf.NumericInput.TextSource.None = 0 -> Gu.Wpf.NumericInput.TextSource
 Gu.Wpf.NumericInput.TextSource.UserInput = 1 -> Gu.Wpf.NumericInput.TextSource
@@ -142,16 +152,6 @@ Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T
 Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T newValue, System.Windows.RoutedEvent! routedEvent) -> void
 Gu.Wpf.NumericInput.ValueChangedEventArgs<T>.ValueChangedEventArgs(T oldValue, T newValue, System.Windows.RoutedEvent! routedEvent, object! source) -> void
 Gu.Wpf.NumericInput.ValueChangedEventHandler<T>
-abstract Gu.Wpf.NumericInput.BaseBox.UpdateValidation() -> void
-abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.AssertFormat(System.IFormatProvider! culture, string! format) -> void
-abstract Gu.Wpf.NumericInput.FormatAndCulture<T>.GetOrCreate(System.IFormatProvider! formatProvider) -> T
-abstract Gu.Wpf.NumericInput.NumericBox<T>.Add(T x, T y) -> T
-abstract Gu.Wpf.NumericInput.NumericBox<T>.Subtract(T x, T y) -> T
-abstract Gu.Wpf.NumericInput.NumericBox<T>.TryParse(string! text, System.Globalization.NumberStyles numberStyles, System.IFormatProvider! culture, out T result) -> bool
-abstract Gu.Wpf.NumericInput.NumericBox<T>.TypeMax() -> T
-abstract Gu.Wpf.NumericInput.NumericBox<T>.TypeMin() -> T
-const Gu.Wpf.NumericInput.SpinnerDecorator.DecreaseButtonName = "PART_DecreaseButton" -> string!
-const Gu.Wpf.NumericInput.SpinnerDecorator.IncreaseButtonName = "PART_IncreaseButton" -> string!
 override Gu.Wpf.NumericInput.BaseBox.OnApplyTemplate() -> void
 override Gu.Wpf.NumericInput.BaseBox.OnPreviewLostKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs! e) -> void
 override Gu.Wpf.NumericInput.BaseBox.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs e) -> void
@@ -210,7 +210,7 @@ static Gu.Wpf.NumericInput.NumericBox.GetCulture(this System.Windows.UIElement! 
 static Gu.Wpf.NumericInput.NumericBox.GetDecimalDigits(this System.Windows.UIElement! element) -> int?
 static Gu.Wpf.NumericInput.NumericBox.GetNumberStyles(this System.Windows.UIElement! element) -> System.Globalization.NumberStyles
 static Gu.Wpf.NumericInput.NumericBox.GetSpinUpdateMode(System.Windows.DependencyObject! element) -> Gu.Wpf.NumericInput.SpinUpdateMode
-static Gu.Wpf.NumericInput.NumericBox.GetStringFormat(this System.Windows.UIElement! element) -> string!
+static Gu.Wpf.NumericInput.NumericBox.GetStringFormat(this System.Windows.UIElement! element) -> string?
 static Gu.Wpf.NumericInput.NumericBox.GetValidationTrigger(this System.Windows.UIElement! element) -> Gu.Wpf.NumericInput.ValidationTrigger
 static Gu.Wpf.NumericInput.NumericBox.IncreaseGeometryKey.get -> System.Windows.ResourceKey!
 static Gu.Wpf.NumericInput.NumericBox.SetAllowSpinners(this System.Windows.UIElement! element, bool value) -> void
@@ -219,7 +219,7 @@ static Gu.Wpf.NumericInput.NumericBox.SetCulture(this System.Windows.UIElement! 
 static Gu.Wpf.NumericInput.NumericBox.SetDecimalDigits(this System.Windows.UIElement! element, int? value) -> void
 static Gu.Wpf.NumericInput.NumericBox.SetNumberStyles(this System.Windows.UIElement! element, System.Globalization.NumberStyles value) -> void
 static Gu.Wpf.NumericInput.NumericBox.SetSpinUpdateMode(System.Windows.DependencyObject! element, Gu.Wpf.NumericInput.SpinUpdateMode value) -> void
-static Gu.Wpf.NumericInput.NumericBox.SetStringFormat(this System.Windows.UIElement! element, string! value) -> void
+static Gu.Wpf.NumericInput.NumericBox.SetStringFormat(this System.Windows.UIElement! element, string? value) -> void
 static Gu.Wpf.NumericInput.NumericBox.SetValidationTrigger(this System.Windows.UIElement! element, Gu.Wpf.NumericInput.ValidationTrigger value) -> void
 static Gu.Wpf.NumericInput.NumericBox.SimpleValidationErrorTemplateKey.get -> System.Windows.ResourceKey!
 static Gu.Wpf.NumericInput.NumericBox.SpinnerButtonStyleKey.get -> System.Windows.ResourceKey!
@@ -229,16 +229,6 @@ static Gu.Wpf.NumericInput.NumericBox.ValidationErrorListTemplateKey.get -> Syst
 static Gu.Wpf.NumericInput.NumericBox.ValidationErrorRedBorderTemplateKey.get -> System.Windows.ResourceKey!
 static Gu.Wpf.NumericInput.NumericBox.ValidationErrorTextUnderTemplateKey.get -> System.Windows.ResourceKey!
 static Gu.Wpf.NumericInput.OneParameterFormatAndCulture.CreateDefault(string! resourceKey) -> Gu.Wpf.NumericInput.OneParameterFormatAndCulture!
-~static Gu.Wpf.NumericInput.Properties.Resources.Culture.get -> System.Globalization.CultureInfo
-~static Gu.Wpf.NumericInput.Properties.Resources.Culture.set -> void
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_number.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_valid_number.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_between__0__and__1__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.Please_provide_valid_input.get -> string
-~static Gu.Wpf.NumericInput.Properties.Resources.ResourceManager.get -> System.Resources.ResourceManager
-~static Gu.Wpf.NumericInput.Properties.Resources.Syntax_error_in_regex_pattern.get -> string
 static Gu.Wpf.NumericInput.RegexValidationResult.CreateErrorResult(string! text, Gu.Wpf.NumericInput.BaseBox! box) -> Gu.Wpf.NumericInput.RegexValidationResult!
 static Gu.Wpf.NumericInput.RegexValidationResult.CreateMalformedPatternErrorResult(string! text, System.Exception! exception, Gu.Wpf.NumericInput.BaseBox! box) -> Gu.Wpf.NumericInput.RegexValidationResult!
 static Gu.Wpf.NumericInput.RequiredButMissingValidationResult.CreateErrorResult<T>(string! text, Gu.Wpf.NumericInput.NumericBox<T>! box) -> Gu.Wpf.NumericInput.RequiredButMissingValidationResult!
@@ -307,7 +297,7 @@ static readonly Gu.Wpf.NumericInput.SpinnerDecorator.SpinUpdateModeProperty -> S
 static readonly Gu.Wpf.NumericInput.Touch.TextBox.ShowTouchKeyboardOnTouchEnterProperty -> System.Windows.DependencyProperty!
 virtual Gu.Wpf.NumericInput.BaseBox.OnCultureChanged(System.IFormatProvider! oldCulture, System.IFormatProvider! newCulture) -> void
 virtual Gu.Wpf.NumericInput.BaseBox.OnLoaded() -> void
-virtual Gu.Wpf.NumericInput.BaseBox.OnStringFormatChanged(string! oldFormat, string! newFormat) -> void
+virtual Gu.Wpf.NumericInput.BaseBox.OnStringFormatChanged(string? oldFormat, string? newFormat) -> void
 virtual Gu.Wpf.NumericInput.BaseBox.SetTextAndCreateUndoAction(string! text) -> void
 virtual Gu.Wpf.NumericInput.BaseBox.SetTextClearUndo(string! text) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.CanDecrease(object! parameter) -> bool
@@ -320,5 +310,15 @@ virtual Gu.Wpf.NumericInput.NumericBox<T>.OnValueChanged(T? oldValue, T? newValu
 virtual Gu.Wpf.NumericInput.NumericBox<T>.ResetValueFromSource() -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.SetIncremented(T value) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.UpdateFormattedText(T? value) -> void
-virtual Gu.Wpf.NumericInput.SpinnerDecorator.OnChildChanged(Gu.Wpf.NumericInput.ISpinnerBox! oldChild, Gu.Wpf.NumericInput.ISpinnerBox! newChild) -> void
+virtual Gu.Wpf.NumericInput.SpinnerDecorator.OnChildChanged(Gu.Wpf.NumericInput.ISpinnerBox? oldChild, Gu.Wpf.NumericInput.ISpinnerBox? newChild) -> void
 virtual Gu.Wpf.NumericInput.SpinnerDecorator.ShouldSerializeContent() -> bool
+~static Gu.Wpf.NumericInput.Properties.Resources.Culture.get -> System.Globalization.CultureInfo
+~static Gu.Wpf.NumericInput.Properties.Resources.Culture.set -> void
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_number.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_valid_number.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_between__0__and__1__.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_greater_than_or_equal_to__0__.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_enter_a_value_less_than_or_equal_to__0__.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.Please_provide_valid_input.get -> string
+~static Gu.Wpf.NumericInput.Properties.Resources.ResourceManager.get -> System.Resources.ResourceManager
+~static Gu.Wpf.NumericInput.Properties.Resources.Syntax_error_in_regex_pattern.get -> string

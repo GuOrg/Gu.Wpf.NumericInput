@@ -93,7 +93,7 @@ namespace Gu.Wpf.NumericInput
             typeof(NumericBox<T>),
             new PropertyMetadata(
                 default(T),
-                OnIncrementChanged));
+                (d, e) => ((NumericBox<T>)d).CheckSpinners()));
 
         private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
         private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
@@ -184,17 +184,17 @@ namespace Gu.Wpf.NumericInput
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
-        public ICommand IncreaseCommand
+        public ICommand? IncreaseCommand
         {
-            get => (ICommand)this.GetValue(IncreaseCommandProperty);
+            get => (ICommand?)this.GetValue(IncreaseCommandProperty);
             private set => this.SetValue(IncreaseCommandPropertyKey, value);
         }
 
         [Category(nameof(NumericBox))]
         [Browsable(true)]
-        public ICommand DecreaseCommand
+        public ICommand? DecreaseCommand
         {
-            get => (ICommand)this.GetValue(DecreaseCommandProperty);
+            get => (ICommand?)this.GetValue(DecreaseCommandProperty);
             private set => this.SetValue(DecreaseCommandPropertyKey, value);
         }
 
@@ -256,12 +256,6 @@ namespace Gu.Wpf.NumericInput
             var box = (NumericBox<T>)d;
             (box.IncreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
             (box.DecreaseCommand as ManualRelayCommand)?.RaiseCanExecuteChanged();
-        }
-
-        private static void OnIncrementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var box = (NumericBox<T>)d;
-            box.CheckSpinners();
         }
     }
 }
