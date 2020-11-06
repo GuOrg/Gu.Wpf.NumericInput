@@ -22,7 +22,7 @@
     <Version>0.5.4</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <Authors>Johan Larsson</Authors>
-    <Description>WPF textboxes for numeric input</Description>
+    <Description>WPF TextBox for numeric input</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</RepositoryUrl>
