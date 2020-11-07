@@ -13,8 +13,6 @@ namespace Gu.Wpf.NumericInput
     /// </summary>
     public abstract partial class BaseBox
     {
-#pragma warning disable SA1202 // Elements should be ordered by access
-
         private static readonly DependencyPropertyKey HasFormattedViewPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(HasFormattedView),
             typeof(bool),
@@ -103,8 +101,6 @@ namespace Gu.Wpf.NumericInput
 
         /// <summary>Identifies the <see cref="TextSource"/> dependency property.</summary>
         public static readonly DependencyProperty TextSourceProperty = TextSourcePropertyKey.DependencyProperty;
-
-#pragma warning restore SA1202 // Elements should be ordered by access
 
         /// <summary>Identifies the <see cref="Status"/> dependency property.</summary>
         internal static readonly DependencyPropertyKey StatusPropertyKey = DependencyProperty.RegisterReadOnly(

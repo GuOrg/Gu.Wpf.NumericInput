@@ -14,8 +14,6 @@ namespace Gu.Wpf.NumericInput
     public abstract partial class NumericBox<T>
 #pragma warning restore SA1619 // Generic type parameters should be documented partial class
     {
-#pragma warning disable SA1202 // Elements should be ordered by access
-
         /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value),
@@ -98,8 +96,6 @@ namespace Gu.Wpf.NumericInput
             new PropertyMetadata(
                 default(T),
                 (d, e) => ((NumericBox<T>)d).CheckSpinners()));
-
-#pragma warning restore SA1202 // Elements should be ordered by access
 
         private static readonly EventHandler<ValidationErrorEventArgs> ValidationErrorHandler = OnValidationError;
         private static readonly RoutedEventHandler FormatDirtyHandler = OnFormatDirty;
