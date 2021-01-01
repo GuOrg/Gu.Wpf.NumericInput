@@ -1,6 +1,9 @@
+using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Markup;
+
+[assembly: CLSCompliant(false)]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: XmlnsDefinition("http://gu.se/NumericInput", "Gu.Wpf.NumericInput")]
