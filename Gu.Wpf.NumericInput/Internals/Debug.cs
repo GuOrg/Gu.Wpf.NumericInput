@@ -26,22 +26,17 @@ namespace Gu.Wpf.NumericInput
 
         private static string Formatted(this object o)
         {
-            if (o is null)
+            return o switch
             {
-                return "null";
-            }
-
-            if (o is string text)
-            {
-                if (string.IsNullOrWhiteSpace(text))
-                {
-                    return "string.Empty";
-                }
-
-                return $"\"{text}\"";
-            }
-
-            return o.ToString() ?? "null";
+                null => "null",
+                string text
+#pragma warning disable CA1508 // Avoid dead conditional code, analyzer wrong
+                    when string.IsNullOrWhiteSpace(text)
+#pragma warning restore CA1508 // Avoid dead conditional code
+                    => "string.Empty",
+                string text => $"\"{text}\"",
+                _ => o.ToString() ?? "(null)",
+            };
         }
     }
 }

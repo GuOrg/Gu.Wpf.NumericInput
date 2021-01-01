@@ -1,4 +1,6 @@
+#pragma warning disable CA1716 // Identifiers should not match keywords
 namespace Gu.Wpf.NumericInput.Select
+#pragma warning restore CA1716 // Identifiers should not match keywords
 {
     using System;
     using System.Linq;
