@@ -55,8 +55,6 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             var box = this.Creator();
             Assert.AreEqual(1, box.Increment);
-
-#pragma warning disable REFL003 // The member does not exist.
             var typeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
             Assert.AreEqual(typeMin, box.MinLimit);
             Assert.IsNull(box.MinValue);
@@ -64,7 +62,6 @@ namespace Gu.Wpf.NumericInput.Tests
             var typeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
             Assert.AreEqual(typeMax, box.MaxLimit);
             Assert.IsNull(box.MaxValue);
-#pragma warning restore REFL003 // The member does not exist.
         }
 
         [TestCase(9, false)]

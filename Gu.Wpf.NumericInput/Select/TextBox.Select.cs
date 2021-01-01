@@ -1,6 +1,4 @@
-#pragma warning disable CA1716
 namespace Gu.Wpf.NumericInput.Select
-#pragma warning restore CA1716
 {
     using System;
     using System.Linq;
