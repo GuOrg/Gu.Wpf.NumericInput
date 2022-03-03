@@ -266,7 +266,7 @@ namespace Gu.Wpf.NumericInput
         /// </summary>
         /// <param name="parameter">Not used.</param>
         /// <returns>True if the value can be increased.</returns>
-        protected virtual bool CanIncrease(object parameter)
+        protected virtual bool CanIncrease(object? parameter)
         {
             if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
             {
@@ -286,7 +286,7 @@ namespace Gu.Wpf.NumericInput
         /// Invoked when IncreaseCommand.Execute() is executed.
         /// </summary>
         /// <param name="parameter">Not used.</param>
-        protected virtual void Increase(object parameter)
+        protected virtual void Increase(object? parameter)
         {
             var currentValue = this.CurrentTextValue;
             if (currentValue is null)
@@ -303,7 +303,7 @@ namespace Gu.Wpf.NumericInput
         /// </summary>
         /// <param name="parameter">Not used.</param>
         /// <returns>True if the value can be decreased.</returns>
-        protected virtual bool CanDecrease(object parameter)
+        protected virtual bool CanDecrease(object? parameter)
         {
             if (this.IsReadOnly || !this.IsEnabled || !this.AllowSpinners)
             {
@@ -323,7 +323,7 @@ namespace Gu.Wpf.NumericInput
         /// Invoked when DecreaseCommand.Execute() is executed.
         /// </summary>
         /// <param name="parameter">Not used.</param>
-        protected virtual void Decrease(object parameter)
+        protected virtual void Decrease(object? parameter)
         {
             var currentValue = this.CurrentTextValue;
             if (currentValue is null)

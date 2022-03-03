@@ -399,11 +399,6 @@ namespace Gu.Wpf.NumericInput.Demo
             this.ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
-        private static T DefaultValue<T>(Func<TBox, T> property)
-        {
-            return property(DefaultValueInstance);
-        }
-
         private void Reset()
         {
             this.value = default(TValue);
@@ -421,6 +416,11 @@ namespace Gu.Wpf.NumericInput.Demo
             this.stringFormat = DefaultValue(x => x.StringFormat);
             this.validationTrigger = ValidationTrigger.PropertyChanged;
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
+
+            static T DefaultValue<T>(Func<TBox, T> property)
+            {
+                return property(DefaultValueInstance);
+            }
         }
     }
 }

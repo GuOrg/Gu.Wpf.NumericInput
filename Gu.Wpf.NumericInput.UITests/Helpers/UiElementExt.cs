@@ -10,12 +10,12 @@ namespace Gu.Wpf.NumericInput.UITests
         public static bool HasValidationError(this UiElement item)
         {
             var itemStatus = item.ItemStatus;
-            if (itemStatus.Contains("HasError: True"))
+            if (itemStatus.Contains("HasError: True", StringComparison.Ordinal))
             {
                 return true;
             }
 
-            if (itemStatus.Contains("HasError: False"))
+            if (itemStatus.Contains("HasError: False", StringComparison.Ordinal))
             {
                 return false;
             }

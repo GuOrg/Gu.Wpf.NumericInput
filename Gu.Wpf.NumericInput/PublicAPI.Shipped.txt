@@ -299,11 +299,11 @@ virtual Gu.Wpf.NumericInput.BaseBox.OnLoaded() -> void
 virtual Gu.Wpf.NumericInput.BaseBox.OnStringFormatChanged(string? oldFormat, string? newFormat) -> void
 virtual Gu.Wpf.NumericInput.BaseBox.SetTextAndCreateUndoAction(string! text) -> void
 virtual Gu.Wpf.NumericInput.BaseBox.SetTextClearUndo(string! text) -> void
-virtual Gu.Wpf.NumericInput.NumericBox<T>.CanDecrease(object! parameter) -> bool
-virtual Gu.Wpf.NumericInput.NumericBox<T>.CanIncrease(object! parameter) -> bool
+virtual Gu.Wpf.NumericInput.NumericBox<T>.CanDecrease(object? parameter) -> bool
+virtual Gu.Wpf.NumericInput.NumericBox<T>.CanIncrease(object? parameter) -> bool
 virtual Gu.Wpf.NumericInput.NumericBox<T>.CheckSpinners() -> void
-virtual Gu.Wpf.NumericInput.NumericBox<T>.Decrease(object! parameter) -> void
-virtual Gu.Wpf.NumericInput.NumericBox<T>.Increase(object! parameter) -> void
+virtual Gu.Wpf.NumericInput.NumericBox<T>.Decrease(object? parameter) -> void
+virtual Gu.Wpf.NumericInput.NumericBox<T>.Increase(object? parameter) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.OnTextChanged(string? oldText, string? newText) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.OnValueChanged(T? oldValue, T? newValue) -> void
 virtual Gu.Wpf.NumericInput.NumericBox<T>.ResetValueFromSource() -> void
