@@ -15,7 +15,7 @@ namespace Gu.Wpf.NumericInput.Tests
             typeof(DependencyPropertyListener),
             new PropertyMetadata(null, OnProxyChanged));
 
-        private readonly Action<DependencyPropertyChangedEventArgs> onChanged;
+        private readonly Action<DependencyPropertyChangedEventArgs>? onChanged;
         private bool disposed;
 
         public DependencyPropertyListener(
@@ -29,7 +29,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public DependencyPropertyListener(
             DependencyObject source,
             PropertyPath property,
-            Action<DependencyPropertyChangedEventArgs> onChanged)
+            Action<DependencyPropertyChangedEventArgs>? onChanged)
         {
             this.Binding = new Binding
             {

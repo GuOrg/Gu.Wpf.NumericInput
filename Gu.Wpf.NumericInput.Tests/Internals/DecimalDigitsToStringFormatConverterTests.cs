@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Tests.Internals
+namespace Gu.Wpf.NumericInput.Tests.Internals
 {
     using System.Globalization;
     using NUnit.Framework;
@@ -16,7 +16,7 @@
         public void Convert(int? digits, double value, string expected)
         {
             var converter = DecimalDigitsToStringFormatConverter.Default;
-            var format = (string)converter.Convert(digits, null, null, null);
+            var format = (string?)converter.Convert(digits, null, null, null);
             var actual = value.ToString(format, CultureInfo.InvariantCulture);
             Assert.AreEqual(expected, actual);
         }

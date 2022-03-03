@@ -10,25 +10,16 @@ namespace Gu.Wpf.NumericInput.Demo
     {
         public static readonly ValidationErrorToInfoStringConverter Default = new();
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null)
+            return value switch
             {
-                return string.Empty;
-            }
-
-            if (value is ValidationError error)
-            {
-                var result = error.ErrorContent as ValidationResult;
-                if (result != null)
-                {
-                    return $"{error.GetType().Name}.{result.GetType().Name} '{result.ErrorContent}'";
-                }
-
-                return $"{error.GetType().Name} '{error.ErrorContent}'";
-            }
-
-            return value.ToString();
+                ValidationError { ErrorContent: ValidationResult result } error
+                    => $"{error.GetType().Name}.{result.GetType().Name} '{result.ErrorContent}'",
+                ValidationError error => $"{error.GetType().Name} '{error.ErrorContent}'",
+                null => string.Empty,
+                _ => value.ToString(),
+            };
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

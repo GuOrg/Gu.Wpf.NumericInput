@@ -10,7 +10,7 @@ namespace Gu.Wpf.NumericInput.UITests
             return textBox.FindTextBlock("PART_FormattedText");
         }
 
-        public static string SelectedText(this TextBox textBox)
+        public static string? SelectedText(this TextBox textBox)
         {
             var selection = textBox.TextPattern.GetSelection();
             return selection.Length switch

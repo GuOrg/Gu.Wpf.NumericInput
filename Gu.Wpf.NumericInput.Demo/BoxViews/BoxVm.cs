@@ -19,16 +19,16 @@ namespace Gu.Wpf.NumericInput.Demo
         private TValue? value = default(TValue);
         private TValue? min;
         private TValue? max;
-        private IFormatProvider culture;
+        private IFormatProvider? culture;
         private NumberStyles numberStyles;
         private int? decimalDigits;
         private bool allowSpinners;
         private SpinUpdateMode spinUpdateMode;
         private bool isReadOnly;
-        private string regexPattern;
+        private string? regexPattern;
         private TValue increment;
         private bool canValueBeNull;
-        private string stringFormat;
+        private string? stringFormat;
         private bool hasErrors;
         private ValidationTrigger validationTrigger = ValidationTrigger.PropertyChanged;
 
@@ -68,7 +68,7 @@ namespace Gu.Wpf.NumericInput.Demo
             }
         }
 
-        public IFormatProvider Culture
+        public IFormatProvider? Culture
         {
             get => this.culture;
             set
@@ -290,7 +290,7 @@ namespace Gu.Wpf.NumericInput.Demo
             }
         }
 
-        public string StringFormat
+        public string? StringFormat
         {
             get => this.stringFormat;
             set
@@ -351,7 +351,7 @@ namespace Gu.Wpf.NumericInput.Demo
             }
         }
 
-        public string RegexPattern
+        public string? RegexPattern
         {
             get => this.regexPattern;
             set

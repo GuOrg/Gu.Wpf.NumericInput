@@ -15,7 +15,7 @@ namespace Gu.Wpf.NumericInput.Tests
         where TBox : NumericBox<T>
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        protected new TBox Box => (TBox)base.Box;
+        protected new TBox Box => (TBox)base.Box!;
 
         protected abstract Func<TBox> Creator { get; }
 
@@ -25,7 +25,9 @@ namespace Gu.Wpf.NumericInput.Tests
 
         protected abstract T Increment { get; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         protected DummyVm<T> Vm { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         [SetUp]
         public void SetUp()
@@ -250,7 +252,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public void IncreaseCommandCanExecuteIsReadonly(bool @readonly, bool expected)
         {
             this.Box.AllowSpinners = true;
-            base.Box.Text = "0";
+            base.Box!.Text = "0";
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             base.Box.IsReadOnly = @readonly;
@@ -358,10 +360,10 @@ namespace Gu.Wpf.NumericInput.Tests
         public void DecreaseCommandCanExecuteIsReadonly(bool @readonly, bool expected)
         {
             this.Box.AllowSpinners = true;
-            base.Box.Text = "0";
+            this.Box.Text = "0";
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
-            base.Box.IsReadOnly = @readonly;
+            this.Box.IsReadOnly = @readonly;
             Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
             Assert.AreEqual(@readonly ? 1 : 0, count);
         }
