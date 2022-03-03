@@ -1,4 +1,3 @@
-
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
@@ -30,4 +29,4 @@ _ReSharper*/
 packages/*
 publish/*
 .vs/*
-/paket-files/*
+*_wpftmp.csproj
