@@ -9,7 +9,7 @@ namespace Gu.Wpf.NumericInput
 
     internal static class Validator
     {
-        private static readonly object Default = new object();
+        private static readonly object Default = new();
 
         internal static object ValidateAndGetValue(BaseBox box)
         {

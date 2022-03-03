@@ -8,7 +8,7 @@ namespace Gu.Wpf.NumericInput
     internal sealed class TextValueConverter<T> : IValueConverter
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly TextValueConverter<T> Default = new TextValueConverter<T>();
+        internal static readonly TextValueConverter<T> Default = new();
 
         private TextValueConverter()
         {

@@ -8,8 +8,8 @@ namespace Gu.Wpf.NumericInput
     internal sealed class CanParse<T> : ValidationRule
         where T : struct, IComparable<T>, IFormattable, IConvertible, IEquatable<T>
     {
-        internal static readonly CanParse<T> FromText = new CanParse<T>(validatesOnTargetUpdated: true);
-        internal static readonly CanParse<T> FromValue = new CanParse<T>(validatesOnTargetUpdated: false);
+        internal static readonly CanParse<T> FromText = new(validatesOnTargetUpdated: true);
+        internal static readonly CanParse<T> FromValue = new(validatesOnTargetUpdated: false);
 
         private CanParse(bool validatesOnTargetUpdated)
             : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)

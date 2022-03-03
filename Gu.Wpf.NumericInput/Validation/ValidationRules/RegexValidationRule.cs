@@ -8,8 +8,8 @@ namespace Gu.Wpf.NumericInput
 
     internal sealed class RegexValidationRule : ValidationRule
     {
-        internal static readonly RegexValidationRule FromText = new RegexValidationRule(validatesOnTargetUpdated: true);
-        internal static readonly RegexValidationRule FromValue = new RegexValidationRule(validatesOnTargetUpdated: false);
+        internal static readonly RegexValidationRule FromText = new(validatesOnTargetUpdated: true);
+        internal static readonly RegexValidationRule FromValue = new(validatesOnTargetUpdated: false);
 
         private RegexValidationRule(bool validatesOnTargetUpdated)
             : base(ValidationStep.RawProposedValue, validatesOnTargetUpdated)

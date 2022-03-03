@@ -14,7 +14,7 @@ namespace Gu.Wpf.NumericInput
         private static readonly RoutedEventHandler LoadedHandler = OnLoaded;
 
         // this is only used to create the binding expression needed for validaton
-        private static readonly Binding ValidationBinding = new Binding { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
+        private static readonly Binding ValidationBinding = new() { Mode = BindingMode.OneTime, Source = string.Empty, NotifyOnValidationError = true };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseBox"/> class.

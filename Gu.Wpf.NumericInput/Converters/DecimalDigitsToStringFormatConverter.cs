@@ -8,8 +8,8 @@ namespace Gu.Wpf.NumericInput
     [ValueConversion(typeof(int?), typeof(string))]
     internal sealed class DecimalDigitsToStringFormatConverter : IValueConverter
     {
-        internal static readonly DecimalDigitsToStringFormatConverter Default = new DecimalDigitsToStringFormatConverter();
-        private static readonly Dictionary<int, string> Cache = new Dictionary<int, string>();
+        internal static readonly DecimalDigitsToStringFormatConverter Default = new();
+        private static readonly Dictionary<int, string> Cache = new();
 
         private DecimalDigitsToStringFormatConverter()
         {

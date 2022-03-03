@@ -52,7 +52,7 @@ namespace Gu.Wpf.NumericInput
 
         private class InternalCanExecuteChangedEventManager : WeakEventManager
         {
-            private static readonly InternalCanExecuteChangedEventManager Manager = new InternalCanExecuteChangedEventManager();
+            private static readonly InternalCanExecuteChangedEventManager Manager = new();
 
             static InternalCanExecuteChangedEventManager()
             {

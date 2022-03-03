@@ -7,7 +7,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
     public sealed class DependencyPropertyListener : DependencyObject, IDisposable
     {
-        private static readonly ConcurrentDictionary<DependencyProperty, PropertyPath> Cache = new ConcurrentDictionary<DependencyProperty, PropertyPath>();
+        private static readonly ConcurrentDictionary<DependencyProperty, PropertyPath> Cache = new();
 
         private static readonly DependencyProperty ProxyProperty = DependencyProperty.Register(
             "Proxy",

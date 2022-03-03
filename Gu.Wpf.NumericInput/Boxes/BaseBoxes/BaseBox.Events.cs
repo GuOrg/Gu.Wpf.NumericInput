@@ -21,8 +21,8 @@ namespace Gu.Wpf.NumericInput
             typeof(RoutedEventHandler),
             typeof(BaseBox));
 
-        private static readonly RoutedEventArgs ValidationDirtyEventArgs = new RoutedEventArgs(ValidationDirtyEvent);
-        private static readonly RoutedEventArgs FormatDirtyEventArgs = new RoutedEventArgs(FormatDirtyEvent);
+        private static readonly RoutedEventArgs ValidationDirtyEventArgs = new(ValidationDirtyEvent);
+        private static readonly RoutedEventArgs FormatDirtyEventArgs = new(FormatDirtyEvent);
 
         internal event RoutedEventHandler FormatDirty
         {

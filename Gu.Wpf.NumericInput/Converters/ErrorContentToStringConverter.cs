@@ -12,7 +12,7 @@ namespace Gu.Wpf.NumericInput
     public sealed class ErrorContentToStringConverter : IValueConverter
     {
         /// <summary>The default instance.</summary>
-        public static readonly ErrorContentToStringConverter Default = new ErrorContentToStringConverter();
+        public static readonly ErrorContentToStringConverter Default = new();
 
         /// <inheritdoc/>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)

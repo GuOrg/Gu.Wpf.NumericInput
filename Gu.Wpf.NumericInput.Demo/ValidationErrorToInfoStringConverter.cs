@@ -8,7 +8,7 @@ namespace Gu.Wpf.NumericInput.Demo
     [ValueConversion(typeof(ValidationError), typeof(string))]
     public sealed class ValidationErrorToInfoStringConverter : IValueConverter
     {
-        public static readonly ValidationErrorToInfoStringConverter Default = new ValidationErrorToInfoStringConverter();
+        public static readonly ValidationErrorToInfoStringConverter Default = new();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
