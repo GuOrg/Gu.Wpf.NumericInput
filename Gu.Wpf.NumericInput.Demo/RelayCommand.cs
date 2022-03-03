@@ -11,7 +11,9 @@ namespace Gu.Wpf.NumericInput.Demo
         public RelayCommand(Action<object?> execute, Predicate<object>? canExecute = null)
         {
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute ?? (o => true);
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+            this.canExecute = canExecute ?? (_ => true);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
         }
 
         public event EventHandler? CanExecuteChanged
