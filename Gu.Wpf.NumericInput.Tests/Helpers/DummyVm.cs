@@ -1,4 +1,4 @@
-﻿namespace Gu.Wpf.NumericInput.Tests
+namespace Gu.Wpf.NumericInput.Tests
 {
     using System;
     using System.ComponentModel;
@@ -9,7 +9,7 @@
     {
         private T? value;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public T? Value
         {
@@ -26,7 +26,7 @@
             }
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

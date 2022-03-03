@@ -21,7 +21,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public DependencyPropertyListener(
             DependencyObject source,
             DependencyProperty property,
-            Action<DependencyPropertyChangedEventArgs> onChanged = null)
+            Action<DependencyPropertyChangedEventArgs>? onChanged = null)
             : this(source, Cache.GetOrAdd(property, x => new PropertyPath(x)), onChanged)
         {
         }
@@ -42,7 +42,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.onChanged = onChanged;
         }
 
-        public event EventHandler<DependencyPropertyChangedEventArgs> Changed;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? Changed;
 
         public BindingExpression BindingExpression { get; }
 

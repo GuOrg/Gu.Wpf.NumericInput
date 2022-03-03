@@ -8,7 +8,7 @@
         public static IDisposable PropertyChanged(
             this DependencyObject source,
             DependencyProperty property,
-            Action<DependencyPropertyChangedEventArgs> onChanged = null)
+            Action<DependencyPropertyChangedEventArgs>? onChanged = null)
         {
             return new DependencyPropertyListener(source, property, onChanged);
         }

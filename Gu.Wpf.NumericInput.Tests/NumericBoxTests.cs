@@ -55,11 +55,11 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             var box = this.Creator();
             Assert.AreEqual(1, box.Increment);
-            var typeMin = (T)typeof(T).GetField("MinValue").GetValue(null);
+            var typeMin = (T)typeof(T).GetField("MinValue")!.GetValue(null)!;
             Assert.AreEqual(typeMin, box.MinLimit);
             Assert.IsNull(box.MinValue);
 
-            var typeMax = (T)typeof(T).GetField("MaxValue").GetValue(null);
+            var typeMax = (T)typeof(T).GetField("MaxValue")!.GetValue(null)!;
             Assert.AreEqual(typeMax, box.MaxLimit);
             Assert.IsNull(box.MaxValue);
         }
@@ -157,7 +157,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
-            this.Box.IncreaseCommand.Execute(null);
+            this.Box.IncreaseCommand!.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
             Assert.AreEqual(this.Box.Parse("0"), this.Vm.Value);
@@ -173,7 +173,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
             this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
-            this.Box.IncreaseCommand.Execute(null);
+            this.Box.IncreaseCommand!.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
             Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
@@ -187,7 +187,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.AllowSpinners = true;
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             this.Box.Text = text;
             Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
             Assert.AreEqual(1, count);
@@ -204,7 +204,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public void IncreaseCommandCanExecuteRaiseExplicit()
         {
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             ((ManualRelayCommand)this.Box.IncreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
         }
@@ -215,7 +215,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.AllowSpinners = true;
             this.Box.Value = value;
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             Assert.IsTrue(this.Box.IncreaseCommand.CanExecute(null));
 
             this.Box.IncreaseCommand.Execute(null);
@@ -234,7 +234,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.AllowSpinners = true;
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            this.Box.IncreaseCommand!.CanExecuteChanged += (sender, args) => count++;
             this.Vm.Value = this.Box.Parse("1");
             Assert.AreEqual(1, count);
 
@@ -252,7 +252,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.AllowSpinners = true;
             base.Box.Text = "0";
             var count = 0;
-            this.Box.IncreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             base.Box.IsReadOnly = @readonly;
             Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
             Assert.AreEqual(@readonly ? 1 : 0, count);
@@ -266,7 +266,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
-            this.Box.DecreaseCommand.Execute(null);
+            this.Box.DecreaseCommand!.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
         }
@@ -281,7 +281,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
             this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
-            this.Box.DecreaseCommand.Execute(null);
+            this.Box.DecreaseCommand!.Execute(null);
             Assert.AreEqual(expectedText, this.Box.Text);
             Assert.AreEqual(expected, this.Box.Value);
             Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
@@ -291,7 +291,7 @@ namespace Gu.Wpf.NumericInput.Tests
         public void DecreaseCommandCanExecuteRaiseExplicit()
         {
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             ((ManualRelayCommand)this.Box.DecreaseCommand).RaiseCanExecuteChanged();
             Assert.AreEqual(1, count);
         }
@@ -304,7 +304,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.AllowSpinners = true;
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             this.Box.Text = text;
             Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
             Assert.AreEqual(1, count);
@@ -323,7 +323,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.AllowSpinners = true;
             this.Box.Value = value;
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            this.Box.DecreaseCommand!.CanExecuteChanged += (sender, args) => count++;
             Assert.IsTrue(this.Box.DecreaseCommand.CanExecute(null));
 
             this.Box.DecreaseCommand.Execute(null);
@@ -342,7 +342,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.AllowSpinners = true;
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (sender, args) => count++;
+            this.Box.DecreaseCommand!.CanExecuteChanged += (sender, args) => count++;
             this.Vm.Value = this.Box.Parse("1");
             Assert.AreEqual(1, count);
 
@@ -360,7 +360,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.AllowSpinners = true;
             base.Box.Text = "0";
             var count = 0;
-            this.Box.DecreaseCommand.CanExecuteChanged += (_, __) => count++;
+            this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             base.Box.IsReadOnly = @readonly;
             Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
             Assert.AreEqual(@readonly ? 1 : 0, count);
