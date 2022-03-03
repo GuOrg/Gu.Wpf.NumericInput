@@ -6,29 +6,31 @@ namespace Gu.Wpf.NumericInput
 
     internal class ManualRelayCommand : ICommand
     {
-        private readonly Action<object> action;
-        private readonly Func<object, bool> condition;
+        private readonly Action<object?> action;
+        private readonly Func<object?, bool> condition;
 
-        internal ManualRelayCommand(Action<object> action, Func<object, bool> condition)
+        internal ManualRelayCommand(Action<object?> action, Func<object?, bool> condition)
         {
             this.action = action ?? throw new ArgumentNullException(nameof(action));
             this.condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
+#pragma warning disable CS8604 // Possible null reference argument. Analyzers gets it wrong here no way to annotate
             add => InternalCanExecuteChangedEventManager.AddHandler(this, value);
             remove => InternalCanExecuteChangedEventManager.RemoveHandler(this, value);
+#pragma warning restore CS8604 // Possible null reference argument.
         }
 
         private event EventHandler? InternalCanExecuteChanged;
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             return this.condition(parameter);
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             this.action(parameter);
         }

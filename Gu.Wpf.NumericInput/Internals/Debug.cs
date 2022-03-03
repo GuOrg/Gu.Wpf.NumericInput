@@ -29,11 +29,7 @@ namespace Gu.Wpf.NumericInput
             return o switch
             {
                 null => "null",
-                string text
-#pragma warning disable CA1508 // Avoid dead conditional code, analyzer wrong
-                    when string.IsNullOrWhiteSpace(text)
-#pragma warning restore CA1508 // Avoid dead conditional code
-                    => "string.Empty",
+                string text when string.IsNullOrWhiteSpace(text) => "string.Empty",
                 string text => $"\"{text}\"",
                 _ => o.ToString() ?? "(null)",
             };

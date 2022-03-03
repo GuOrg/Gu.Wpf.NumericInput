@@ -40,16 +40,13 @@ namespace Gu.Wpf.NumericInput.Touch
         {
             const string microsoftSharedInkTabTipExe = @"Microsoft Shared\ink\TabTip.exe";
 
-            return
-#pragma warning disable CA1508 // Avoid dead conditional code, analyzer wrong
-                Create(@"C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe") ??
+            return Create(@"C:\Program Files\Common Files\Microsoft Shared\Ink\TabTip.exe") ??
                 Create(Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
                         microsoftSharedInkTabTipExe)) ??
                 Create(Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                         microsoftSharedInkTabTipExe));
-#pragma warning restore CA1508 // Avoid dead conditional code
         }
     }
 }
