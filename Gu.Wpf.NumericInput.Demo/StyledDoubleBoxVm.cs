@@ -8,7 +8,7 @@
         private string text = "1.2345";
         private double value = 1.2345;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string Text
         {

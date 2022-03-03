@@ -38,20 +38,20 @@ namespace Gu.Wpf.NumericInput.Demo
             this.Reset();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         public Type Type => typeof(TBox);
 
         public ICommand ResetCommand { get; }
 
         public IReadOnlyList<CultureInfo> Cultures => new[]
-                                         {
-                                             CultureInfo.GetCultureInfo("en-US"),
-                                             CultureInfo.GetCultureInfo("sv-SE"),
-                                             CultureInfo.GetCultureInfo("ja-JP"),
-                                         };
+        {
+            CultureInfo.GetCultureInfo("en-US"),
+            CultureInfo.GetCultureInfo("sv-SE"),
+            CultureInfo.GetCultureInfo("ja-JP"),
+        };
 
         public ValidationTrigger ValidationTrigger
         {
@@ -382,7 +382,7 @@ namespace Gu.Wpf.NumericInput.Demo
             }
         }
 
-        public IEnumerable GetErrors(string propertyName)
+        public IEnumerable GetErrors(string? propertyName)
         {
             return this.HasErrors && propertyName == nameof(this.Value)
                 ? new[] { "Has error" }

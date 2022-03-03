@@ -22,7 +22,7 @@
             });
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public string CultureName => this.Culture.Name;
 

@@ -11,7 +11,7 @@
 
         private int? decimalDigits;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public double Value1
         {

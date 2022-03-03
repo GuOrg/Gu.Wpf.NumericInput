@@ -11,7 +11,7 @@ namespace Gu.Wpf.NumericInput.Demo
         private int? intValue = 0;
         private bool showTouchKeyboardOnTouchEnter = true;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public BoxVm<DoubleBox, double> Settings { get; } = new DoubleBoxVm { Min = -10, Max = 10 };
 
