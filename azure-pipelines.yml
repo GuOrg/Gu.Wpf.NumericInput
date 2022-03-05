@@ -3,13 +3,10 @@ pool:
 
 steps:
 
-- task: VSBuild@1
-  displayName: Build
+- task: DotNetCoreCLI@2
   inputs:
-    configuration: 'Release'
-    msbuildArgs: '/restore'
+    command: 'build'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    configuration: 'Release'
-    otherConsoleOptions: '/Framework:.NETCoreApp,Version=v6.0 /Platform:x64'
+    command: 'test'
