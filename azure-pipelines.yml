@@ -4,9 +4,11 @@ pool:
 steps:
 
 - task: DotNetCoreCLI@2
+  displayName: 'build'
   inputs:
     command: 'build'
 
 - task: DotNetCoreCLI@2
+  displayName: 'build'
   inputs:
     command: 'test'
