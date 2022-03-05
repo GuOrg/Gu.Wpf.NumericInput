@@ -15,3 +15,4 @@ steps:
 - task: VSTest@2
   inputs:
     configuration: '$(buildConfiguration)'
+    otherConsoleOptions: '/Framework:.NETCoreApp,Version=v6.0 /Platform:x64'
