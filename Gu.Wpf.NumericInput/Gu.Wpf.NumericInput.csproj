@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netcoreapp3.1;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
     <OutputType>library</OutputType>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
@@ -33,6 +33,8 @@
     <RepositoryUrl>https://github.com/GuOrg/Gu.Wpf.NumericInput</RepositoryUrl>
     <PackageTags>wpf xaml numeric textbox</PackageTags>
     <PackageReleaseNotes>
+      0.6.0
+      BREAKING: net48;net6.0-windows
       0.5.5
       Tweak annotations.
       0.5.4

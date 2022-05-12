@@ -1,3 +1,6 @@
+#### 0.6.0
+* BREAKING: net48;net6.0-windows
+
 #### 0.5.5
 * Tweak annotations.
 
