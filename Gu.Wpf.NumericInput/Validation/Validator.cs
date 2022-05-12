@@ -91,7 +91,7 @@ namespace Gu.Wpf.NumericInput
         {
             return expression switch
             {
-                { ParentBinding: { ConverterCulture: { } converterCulture } } => converterCulture,
+                { ParentBinding.ConverterCulture: { } converterCulture } => converterCulture,
                 { Target: BaseBox baseBox } => baseBox.GetValue(FrameworkElement.LanguageProperty) is XmlLanguage xmlLanguage
                     ? xmlLanguage.GetSpecificCulture()
                     : null,
