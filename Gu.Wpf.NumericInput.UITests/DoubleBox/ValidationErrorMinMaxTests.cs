@@ -110,7 +110,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
         }
 
         [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]
-        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med -2,1.'")]
+        [TestCase("-3", "-2.1", "", "ValidationError.IsLessThanValidationResult 'Vänligen ange ett värde större än eller lika med −2,1.'")]
         public static void PropertyChangedSwedish(string value, string min, string max, string infoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
