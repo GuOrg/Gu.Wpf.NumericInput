@@ -25,13 +25,15 @@ namespace Gu.Wpf.NumericInput
         /// <inheritdoc />
         protected override double Add(double x, double y)
         {
-            return x + y;
+            // for some reason rounding is needed with net6.0
+            return Math.Round(x + y, 15);
         }
 
         /// <inheritdoc />
         protected override double Subtract(double x, double y)
         {
-            return x - y;
+            // for some reason rounding is needed with net6.0
+            return Math.Round(x - y, 15);
         }
 
         /// <inheritdoc />
