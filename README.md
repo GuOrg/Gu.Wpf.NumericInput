@@ -3,6 +3,7 @@
  [![NuGet](https://img.shields.io/nuget/v/Gu.Wpf.NumericInput.svg)](https://www.nuget.org/packages/Gu.Wpf.NumericInput/)
 [![Build status](https://ci.appveyor.com/api/projects/status/e0nwl8lha4nsoxq7/branch/master?svg=true)](https://ci.appveyor.com/project/JohanLarsson/gu-wpf-numericinput/branch/master)
 [![Build Status](https://dev.azure.com/guorg/Gu.Wpf.NumericInput/_apis/build/status/GuOrg.Gu.Wpf.NumericInput?branchName=master)](https://dev.azure.com/guorg/Gu.Wpf.NumericInput/_build/latest?definitionId=11&branchName=master)
+[![ci](https://github.com/GuOrg/Gu.Wpf.NumericInput/actions/workflows/ci.yml/badge.svg)](https://github.com/GuOrg/Gu.Wpf.NumericInput/actions/workflows/ci.yml)
 [![Join the chat at https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput](https://badges.gitter.im/JohanLarsson/Gu.Wpf.NumericInput.svg)](https://gitter.im/JohanLarsson/Gu.Wpf.NumericInput?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Textboxes for numeric input in WPF.
