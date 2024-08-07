@@ -30,10 +30,13 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected1));
 
             this.Box.RegexPattern = pattern2;
-            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
 
-            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
-            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
+                Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+                Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
+            });
         }
     }
 }
