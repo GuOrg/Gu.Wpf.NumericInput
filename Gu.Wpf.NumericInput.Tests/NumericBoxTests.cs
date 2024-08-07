@@ -248,7 +248,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Value = value;
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
-            Assert.IsTrue(this.Box.IncreaseCommand.CanExecute(null));
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.True);
 
             this.Box.IncreaseCommand.Execute(null);
             Assert.Multiple(() =>
@@ -256,7 +256,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.That(this.Box.Text, Is.EqualTo("9"));
                 Assert.That(count, Is.EqualTo(1));
             });
-            Assert.IsTrue(this.Box.IncreaseCommand.CanExecute(null));
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.True);
 
             this.Box.IncreaseCommand.Execute(null);
             Assert.Multiple(() =>
@@ -377,7 +377,7 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Value = value;
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (sender, args) => count++;
-            Assert.IsTrue(this.Box.DecreaseCommand.CanExecute(null));
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.True);
 
             this.Box.DecreaseCommand.Execute(null);
             Assert.Multiple(() =>
@@ -385,7 +385,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.That(this.Box.Text, Is.EqualTo("-9"));
                 Assert.That(count, Is.EqualTo(1));
             });
-            Assert.IsTrue(this.Box.DecreaseCommand.CanExecute(null));
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.True);
 
             this.Box.DecreaseCommand.Execute(null);
             Assert.Multiple(() =>
