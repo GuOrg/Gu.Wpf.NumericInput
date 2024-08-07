@@ -4,7 +4,7 @@ namespace Gu.Wpf.NumericInput.Tests
 
     public class FormatStringTests
     {
-        [TestCase(null, false)]
+        [TestCase(null!, false)]
         [TestCase("", false)]
         [TestCase("First", false)]
         [TestCase("First: {0}", true)]
@@ -33,8 +33,8 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expected, FormatString.IsFormatString(text));
         }
 
-        [TestCase(null, 0, true)]
-        [TestCase(null, 1, false)]
+        [TestCase(null!, 0, true)]
+        [TestCase(null!, 1, false)]
         [TestCase("", 0, true)]
         [TestCase("", 1, false)]
         [TestCase("First", 0, true)]

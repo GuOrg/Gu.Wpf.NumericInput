@@ -10,7 +10,7 @@ namespace Gu.Wpf.NumericInput.Tests
     {
         protected BaseBox? Box { get; set; }
 
-        [TestCase("1", null, false)]
+        [TestCase("1", null!, false)]
         [TestCase("1", "", false)]
         [TestCase("1", "1", false)]
         [TestCase("1", "2", true)]
@@ -21,8 +21,8 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.AreEqual(expected, Validation.GetHasError(this.Box));
         }
 
-        [TestCase("1", null, false, "1", false)]
-        [TestCase("1", null, false, "2", true)]
+        [TestCase("1", null!, false, "1", false)]
+        [TestCase("1", null!, false, "2", true)]
         public void ValidatesOnPatternChanged(string text, string pattern1, bool expected1, string pattern2, bool expected2)
         {
             this.Box!.RegexPattern = pattern1;
