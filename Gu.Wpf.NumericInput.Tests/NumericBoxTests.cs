@@ -58,12 +58,18 @@ namespace Gu.Wpf.NumericInput.Tests
             var box = this.Creator();
             Assert.That(box.Increment, Is.EqualTo(1));
             var typeMin = (T)typeof(T).GetField("MinValue")!.GetValue(null)!;
-            Assert.That(box.MinLimit, Is.EqualTo(typeMin));
-            Assert.That(box.MinValue, Is.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.MinLimit, Is.EqualTo(typeMin));
+                Assert.That(box.MinValue, Is.Null);
+            });
 
             var typeMax = (T)typeof(T).GetField("MaxValue")!.GetValue(null)!;
-            Assert.That(box.MaxLimit, Is.EqualTo(typeMax));
-            Assert.That(box.MaxValue, Is.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.MaxLimit, Is.EqualTo(typeMax));
+                Assert.That(box.MaxValue, Is.Null);
+            });
         }
 
         [TestCase(9, false)]
