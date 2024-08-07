@@ -119,12 +119,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindTextBox("Min").Text = min;
             window.FindTextBox("Max").Text = max;
             doubleBox.Text = text;
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual(startValue, window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text, Is.EqualTo(GetErrorMessage(expectedInfoMessage)));
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(startValue));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCase("3", "", "2.2", "ValidationError.IsGreaterThanValidationResult 'Vänligen ange ett värde mindre än eller lika med 2,2.'")]

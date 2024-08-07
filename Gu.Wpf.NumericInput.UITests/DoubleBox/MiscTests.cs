@@ -694,7 +694,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var container = window.Window.FindGroupBox(containerId);
             var inputBox = container.FindTextBox("InputBox");
             var minBox = window.FindTextBox("MinBox");
-            Assert.AreNotEqual("1.2", inputBox.Text);
+            Assert.That(inputBox.Text, Is.Not.EqualTo("1.2"));
             inputBox.Enter("1.2");
             window.FindTextBox("VmValueBox").Click();
             Assert.Multiple(() =>
