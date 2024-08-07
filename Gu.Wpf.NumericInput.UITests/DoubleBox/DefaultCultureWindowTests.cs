@@ -17,8 +17,11 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var doubleBox = window.FindTextBox("DoubleBox");
             valueTextBox.Enter("1.234");
             Keyboard.Type(Key.TAB);
-            Assert.That(spinnerDoubleBox.Text, Is.EqualTo("1.234"));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.234"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(spinnerDoubleBox.Text, Is.EqualTo("1.234"));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.234"));
+            });
         }
     }
 }

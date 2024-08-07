@@ -95,16 +95,22 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [TestCaseSource(nameof(EnglishCases))]
@@ -114,16 +120,22 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [TestCaseSource(nameof(EnglishCases))]
@@ -133,10 +145,13 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [TestCaseSource(nameof(SwedishCases))]
@@ -147,16 +162,22 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             _ = window.FindComboBox("Culture").Select("sv-SE");
             var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [TestCaseSource(nameof(SwedishCases))]
@@ -167,14 +188,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             _ = window.FindComboBox("Culture").Select("sv-SE");
             var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            });
         }
 
         [TestCaseSource(nameof(SwedishCases))]
@@ -185,9 +212,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             _ = window.FindComboBox("Culture").Select("sv-SE");
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            });
         }
 
         [Test]
@@ -198,14 +228,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindCheckBox("CanValueBeNull").IsChecked = true;
             var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = string.Empty;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            });
         }
 
         [Test]
@@ -216,14 +252,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindCheckBox("CanValueBeNull").IsChecked = true;
             var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = string.Empty;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            });
         }
 
         [Test]
@@ -234,9 +276,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindCheckBox("CanValueBeNull").IsChecked = true;
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = string.Empty;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(string.Empty));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(string.Empty));
+            });
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
@@ -248,14 +293,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindTextBox("Max").Text = max;
             var doubleBox = window.FindTextBox("LostFocusValidateOnLostFocusBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            });
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
@@ -267,14 +318,20 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindTextBox("Max").Text = max;
             var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            });
 
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            });
         }
 
         [TestCaseSource(nameof(MinMaxSource))]
@@ -286,9 +343,12 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindTextBox("Max").Text = max;
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            });
         }
     }
 }

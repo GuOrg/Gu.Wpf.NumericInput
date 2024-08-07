@@ -51,11 +51,14 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Enter(text);
             window.FindButton("lose focus").Click();
 
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo(text));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo(formatted));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(viewModelValue));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo(text));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo(formatted));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(viewModelValue));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [Test]
@@ -69,27 +72,36 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = "1.23456";
             window.FindButton("lose focus").Click();
 
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindTextBox("StringFormat").Text = "F4";
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2346"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2346"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindTextBox("StringFormat").Text = "F1";
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
 
         [Test]
@@ -103,27 +115,36 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             doubleBox.Text = "1.23456";
             window.FindButton("lose focus").Click();
 
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindTextBox("StringFormat").Text = "F4";
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2346"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2346"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
 
             window.FindTextBox("StringFormat").Text = "F1";
             window.FindButton("lose focus").Click();
-            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
-            Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
-            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
-            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+                Assert.That(doubleBox.Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.FormattedView().Text, Is.EqualTo("1.2"));
+                Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("1.23456"));
+                Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
+            });
         }
     }
 }

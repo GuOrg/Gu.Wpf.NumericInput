@@ -35,28 +35,40 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var doubleBox2 = doubleBoxes.FindTextBox("DoubleBox2");
             doubleBox1.Click();
 
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            });
             doubleBox1.Enter("2");
             Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2.345"));
 
             Keyboard.Type(Key.TAB);
-            Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            });
 
             Keyboard.Type(Key.TAB);
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(true));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(true));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            });
 
             Keyboard.Type(Key.TAB);
             window.WaitUntilResponsive();
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            });
         }
 
         [Test]
@@ -71,32 +83,47 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var doubleBox2 = doubleBoxes.FindTextBox("DoubleBox2");
             window.FindCheckBox("AllowSpinners").IsChecked = true;
             doubleBox1.Click();
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            });
             doubleBox1.Enter("2");
             Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2.345"));
 
             Keyboard.Type(Key.TAB);
-            Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            });
             doubleBox1.IncreaseButton().Click();
-            Assert.That(doubleBox1.EditText(), Is.EqualTo("3"));
-            Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox1.EditText(), Is.EqualTo("3"));
+                Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("2"));
+            });
 
             Keyboard.Type(Key.TAB);
-            Assert.That(doubleBox1.EditText(), Is.EqualTo("3"));
-            Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("3"));
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.Multiple(() =>
+            {
+                Assert.That(doubleBox1.EditText(), Is.EqualTo("3"));
+                Assert.That(textBoxes.FindTextBox("TextBox2").Text, Is.EqualTo("3"));
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            });
 
             Keyboard.Type(Key.TAB);
-            Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(true));
-            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
-            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.Multiple(() =>
+            {
+                Assert.That(textBox1.HasKeyboardFocus, Is.EqualTo(true));
+                Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+                Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            });
         }
     }
 }
