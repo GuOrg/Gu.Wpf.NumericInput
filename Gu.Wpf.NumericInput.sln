@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{FE49CF0F-C
 		RELEASE_NOTES.md = RELEASE_NOTES.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gu.Wpf.NumericInput.Material", "Gu.Wpf.NumericInput.Material\Gu.Wpf.NumericInput.Material.csproj", "{472BD217-1176-4E81-9760-990FAB0B8015}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gu.Wpf.NumericInput.Material", "Gu.Wpf.NumericInput.Material\Gu.Wpf.NumericInput.Material.csproj", "{472BD217-1176-4E81-9760-990FAB0B8015}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
