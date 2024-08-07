@@ -253,7 +253,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             });
         }
 
-        public static string GetErrorMessage(string infoMessage)
+        private static string GetErrorMessage(string infoMessage)
         {
             return Regex.Match(infoMessage, "[^']+'(?<inner>[^']+)'.*").Groups["inner"].Value;
         }
