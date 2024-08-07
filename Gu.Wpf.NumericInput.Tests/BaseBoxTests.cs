@@ -21,9 +21,9 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected));
         }
 
-        [TestCase("1", null!, false, "1", false)]
-        [TestCase("1", null!, false, "2", true)]
-        public void ValidatesOnPatternChanged(string text, string pattern1, bool expected1, string pattern2, bool expected2)
+        [TestCase("1", null, false, "1", false)]
+        [TestCase("1", null, false, "2", true)]
+        public void ValidatesOnPatternChanged(string text, string? pattern1, bool expected1, string pattern2, bool expected2)
         {
             this.Box!.RegexPattern = pattern1!;
             this.Box.Text = text;
