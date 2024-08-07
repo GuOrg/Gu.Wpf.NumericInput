@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box!.RegexPattern = pattern;
             this.Box.Text = text;
-            Assert.AreEqual(expected, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected));
         }
 
         [TestCase("1", null!, false, "1", false)]
@@ -27,13 +27,13 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box!.RegexPattern = pattern1;
             this.Box.Text = text;
-            Assert.AreEqual(expected1, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected1));
 
             this.Box.RegexPattern = pattern2;
-            Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
 
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
     }
 }

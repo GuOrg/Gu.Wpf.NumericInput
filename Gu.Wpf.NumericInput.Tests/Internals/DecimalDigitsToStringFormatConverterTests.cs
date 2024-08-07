@@ -18,7 +18,7 @@ namespace Gu.Wpf.NumericInput.Tests.Internals
             var converter = DecimalDigitsToStringFormatConverter.Default;
             var format = (string?)converter.Convert(digits, null, null, null);
             var actual = value.ToString(format, CultureInfo.InvariantCulture);
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

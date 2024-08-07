@@ -56,13 +56,13 @@ namespace Gu.Wpf.NumericInput.Tests
         public void Defaults()
         {
             var box = this.Creator();
-            Assert.AreEqual(1, box.Increment);
+            Assert.That(box.Increment, Is.EqualTo(1));
             var typeMin = (T)typeof(T).GetField("MinValue")!.GetValue(null)!;
-            Assert.AreEqual(typeMin, box.MinLimit);
+            Assert.That(box.MinLimit, Is.EqualTo(typeMin));
             Assert.IsNull(box.MinValue);
 
             var typeMax = (T)typeof(T).GetField("MaxValue")!.GetValue(null)!;
-            Assert.AreEqual(typeMax, box.MaxLimit);
+            Assert.That(box.MaxLimit, Is.EqualTo(typeMax));
             Assert.IsNull(box.MaxValue);
         }
 
@@ -75,10 +75,10 @@ namespace Gu.Wpf.NumericInput.Tests
         public void SetValueValidates(T value, bool expected)
         {
             this.Vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(this.Box));
-            Assert.AreEqual(value.ToString(this.Box.StringFormat, this.Box.Culture), this.Box.Text);
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.ValueBinding, this.Box.TextSource);
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected));
+            Assert.That(this.Box.Text, Is.EqualTo(value.ToString(this.Box.StringFormat, this.Box.Culture)));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.ValueBinding));
         }
 
         [TestCase(9, false, 8, true)]
@@ -87,11 +87,11 @@ namespace Gu.Wpf.NumericInput.Tests
         public void SetMaxValidates(T value, bool expected, T newMax, bool expected2)
         {
             this.Vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected));
             this.Box.MaxValue = newMax;
-            Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.ValueBinding, this.Box.TextSource);
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.ValueBinding));
         }
 
         [TestCase(-9, false, -8, true)]
@@ -100,11 +100,11 @@ namespace Gu.Wpf.NumericInput.Tests
         public void SetMinValidates(T value, bool expected, T newMax, bool expected2)
         {
             this.Vm.Value = value;
-            Assert.AreEqual(expected, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected));
             this.Box.MinValue = newMax;
-            Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.ValueBinding, this.Box.TextSource);
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.ValueBinding));
         }
 
         [TestCase(1, "11", true, "1", false)]
@@ -112,20 +112,20 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Vm.Value = vmValue;
             this.Box.Text = text1;
-            Assert.AreEqual(expected1, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected1));
 
             this.Box.Text = text2;
-            Assert.AreEqual(expected2, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(expected2));
             ////Assert.Fail("11 -> 1");
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
 
         [Test]
         public void ValueUpdatesWhenTextIsSet()
         {
             this.Box.Text = "1";
-            Assert.AreEqual(1, this.Box.GetValue(NumericBox<T>.ValueProperty));
+            Assert.That(this.Box.GetValue(NumericBox<T>.ValueProperty), Is.EqualTo(1));
         }
 
         [TestCase(1)]
@@ -134,21 +134,21 @@ namespace Gu.Wpf.NumericInput.Tests
 #pragma warning disable WPF0014 // SetValue must use registered type.
             this.Box.SetValue(NumericBox<T>.ValueProperty, value);
 #pragma warning restore WPF0014 // SetValue must use registered type.
-            Assert.AreEqual("1", this.Box.Text);
+            Assert.That(this.Box.Text, Is.EqualTo("1"));
         }
 
         [Test]
         public void ValidationErrorResetsValue()
         {
             this.Box.Text = "1";
-            Assert.AreEqual(false, Validation.GetHasError(base.Box));
-            Assert.AreEqual(1, this.Box.Value);
-            Assert.AreEqual(null, this.Vm.Value);
+            Assert.That(Validation.GetHasError(base.Box), Is.EqualTo(false));
+            Assert.That(this.Box.Value, Is.EqualTo(1));
+            Assert.That(this.Vm.Value, Is.EqualTo(null));
 
             this.Box.Text = "1e";
-            Assert.AreEqual(true, Validation.GetHasError(base.Box));
-            Assert.AreEqual("1e", this.Box.Text);
-            Assert.AreEqual(this.Vm.Value, this.Box.Value);
+            Assert.That(Validation.GetHasError(base.Box), Is.EqualTo(true));
+            Assert.That(this.Box.Text, Is.EqualTo("1e"));
+            Assert.That(this.Box.Value, Is.EqualTo(this.Vm.Value));
         }
 
         [TestCase("-100", "-99", 0)]
@@ -160,9 +160,9 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
             this.Box.IncreaseCommand!.Execute(null);
-            Assert.AreEqual(expectedText, this.Box.Text);
-            Assert.AreEqual(expected, this.Box.Value);
-            Assert.AreEqual(this.Box.Parse("0"), this.Vm.Value);
+            Assert.That(this.Box.Text, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value, Is.EqualTo(expected));
+            Assert.That(this.Vm.Value, Is.EqualTo(this.Box.Parse("0")));
         }
 
         [TestCase("-100", "-99", 0)]
@@ -176,9 +176,9 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Text = text;
             this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
             this.Box.IncreaseCommand!.Execute(null);
-            Assert.AreEqual(expectedText, this.Box.Text);
-            Assert.AreEqual(expected, this.Box.Value);
-            Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
+            Assert.That(this.Box.Text, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value, Is.EqualTo(expected));
+            Assert.That(this.Vm.Value, Is.EqualTo(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture))));
         }
 
         [TestCase("9", true)]
@@ -191,15 +191,15 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             this.Box.Text = text;
-            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
-            Assert.AreEqual(1, count);
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.EqualTo(expected));
+            Assert.That(count, Is.EqualTo(1));
 
             this.Box.AllowSpinners = false;
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
 
             this.Box.Text = string.Empty;
-            Assert.AreEqual(false, this.Box.IncreaseCommand.CanExecute(null));
-            Assert.AreEqual(2, count);
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.EqualTo(false));
+            Assert.That(count, Is.EqualTo(2));
         }
 
         [Test]
@@ -208,7 +208,7 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             ((ManualRelayCommand)this.Box.IncreaseCommand).RaiseCanExecuteChanged();
-            Assert.AreEqual(1, count);
+            Assert.That(count, Is.EqualTo(1));
         }
 
         [TestCase(8)]
@@ -221,13 +221,13 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.IsTrue(this.Box.IncreaseCommand.CanExecute(null));
 
             this.Box.IncreaseCommand.Execute(null);
-            Assert.AreEqual("9", this.Box.Text);
-            Assert.AreEqual(1, count);
+            Assert.That(this.Box.Text, Is.EqualTo("9"));
+            Assert.That(count, Is.EqualTo(1));
             Assert.IsTrue(this.Box.IncreaseCommand.CanExecute(null));
 
             this.Box.IncreaseCommand.Execute(null);
-            Assert.AreEqual("10", this.Box.Text);
-            Assert.AreEqual(2, count);
+            Assert.That(this.Box.Text, Is.EqualTo("10"));
+            Assert.That(count, Is.EqualTo(2));
             Assert.IsFalse(this.Box.IncreaseCommand.CanExecute(null));
         }
 
@@ -238,13 +238,13 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (sender, args) => count++;
             this.Vm.Value = this.Box.Parse("1");
-            Assert.AreEqual(1, count);
+            Assert.That(count, Is.EqualTo(1));
 
             this.Box.AllowSpinners = false;
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
 
             this.Vm.Value = this.Box.Parse("2");
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
         }
 
         [TestCase(true, false)]
@@ -256,8 +256,8 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.IncreaseCommand!.CanExecuteChanged += (_, __) => count++;
             base.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.IncreaseCommand.CanExecute(null));
-            Assert.AreEqual(@readonly ? 1 : 0, count);
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.EqualTo(expected));
+            Assert.That(count, Is.EqualTo(@readonly ? 1 : 0));
         }
 
         [TestCase("100", "99", 0)]
@@ -269,8 +269,8 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Vm.Value = this.Box.Parse("0");
             this.Box.Text = text;
             this.Box.DecreaseCommand!.Execute(null);
-            Assert.AreEqual(expectedText, this.Box.Text);
-            Assert.AreEqual(expected, this.Box.Value);
+            Assert.That(this.Box.Text, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value, Is.EqualTo(expected));
         }
 
         [TestCase("100", "99", 0)]
@@ -284,9 +284,9 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Text = text;
             this.Box.SpinUpdateMode = SpinUpdateMode.PropertyChanged;
             this.Box.DecreaseCommand!.Execute(null);
-            Assert.AreEqual(expectedText, this.Box.Text);
-            Assert.AreEqual(expected, this.Box.Value);
-            Assert.AreEqual(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture)), this.Vm.Value);
+            Assert.That(this.Box.Text, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value, Is.EqualTo(expected));
+            Assert.That(this.Vm.Value, Is.EqualTo(this.Box.Parse(expected.ToString(CultureInfo.InvariantCulture))));
         }
 
         [Test]
@@ -295,7 +295,7 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             ((ManualRelayCommand)this.Box.DecreaseCommand).RaiseCanExecuteChanged();
-            Assert.AreEqual(1, count);
+            Assert.That(count, Is.EqualTo(1));
         }
 
         [TestCase("-9", true)]
@@ -308,15 +308,15 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             this.Box.Text = text;
-            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(1, count);
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.EqualTo(expected));
+            Assert.That(count, Is.EqualTo(1));
 
             this.Box.AllowSpinners = false;
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
 
             this.Box.Text = string.Empty;
-            Assert.AreEqual(false, this.Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(2, count);
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.EqualTo(false));
+            Assert.That(count, Is.EqualTo(2));
         }
 
         [TestCase(-8)]
@@ -329,13 +329,13 @@ namespace Gu.Wpf.NumericInput.Tests
             Assert.IsTrue(this.Box.DecreaseCommand.CanExecute(null));
 
             this.Box.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-9", this.Box.Text);
-            Assert.AreEqual(1, count);
+            Assert.That(this.Box.Text, Is.EqualTo("-9"));
+            Assert.That(count, Is.EqualTo(1));
             Assert.IsTrue(this.Box.DecreaseCommand.CanExecute(null));
 
             this.Box.DecreaseCommand.Execute(null);
-            Assert.AreEqual("-10", this.Box.Text);
-            Assert.AreEqual(2, count);
+            Assert.That(this.Box.Text, Is.EqualTo("-10"));
+            Assert.That(count, Is.EqualTo(2));
             Assert.IsFalse(this.Box.DecreaseCommand.CanExecute(null));
         }
 
@@ -346,13 +346,13 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (sender, args) => count++;
             this.Vm.Value = this.Box.Parse("1");
-            Assert.AreEqual(1, count);
+            Assert.That(count, Is.EqualTo(1));
 
             this.Box.AllowSpinners = false;
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
 
             this.Vm.Value = this.Box.Parse("2");
-            Assert.AreEqual(2, count);
+            Assert.That(count, Is.EqualTo(2));
         }
 
         [TestCase(true, false)]
@@ -364,8 +364,8 @@ namespace Gu.Wpf.NumericInput.Tests
             var count = 0;
             this.Box.DecreaseCommand!.CanExecuteChanged += (_, __) => count++;
             this.Box.IsReadOnly = @readonly;
-            Assert.AreEqual(expected, this.Box.DecreaseCommand.CanExecute(null));
-            Assert.AreEqual(@readonly ? 1 : 0, count);
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.EqualTo(expected));
+            Assert.That(count, Is.EqualTo(@readonly ? 1 : 0));
         }
     }
 }

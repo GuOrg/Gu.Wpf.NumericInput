@@ -16,16 +16,16 @@ namespace Gu.Wpf.NumericInput.Tests
         public void AppendDecimalDoesNotTruncateText()
         {
             this.Box.Text = "1";
-            Assert.AreEqual(1, this.Box.Value);
-            Assert.AreEqual("1", this.Box.Text);
+            Assert.That(this.Box.Value, Is.EqualTo(1));
+            Assert.That(this.Box.Text, Is.EqualTo("1"));
 
             this.Box.Text = "1.";
-            Assert.AreEqual(1, this.Box.Value);
-            Assert.AreEqual("1.", this.Box.Text);
+            Assert.That(this.Box.Value, Is.EqualTo(1));
+            Assert.That(this.Box.Text, Is.EqualTo("1."));
 
             this.Box.Text = "1.0";
-            Assert.AreEqual(1, this.Box.Value);
-            Assert.AreEqual("1.0", this.Box.Text);
+            Assert.That(this.Box.Value, Is.EqualTo(1));
+            Assert.That(this.Box.Text, Is.EqualTo("1.0"));
         }
 
         [TestCase("sv-SE", "1,23", "en-US", "1.23")]
@@ -36,11 +36,11 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.Culture = new CultureInfo(culture1);
             this.Box.Text = text;
             this.Box.Culture = new CultureInfo(culture2);
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
-            Assert.AreEqual(expected, this.Box.Text);
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
+            Assert.That(this.Box.Text, Is.EqualTo(expected));
             this.Box.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
-            Assert.AreEqual(expected, this.Box.FormattedText);
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expected));
         }
 
         [TestCase(2, "1.234", "1.23", "1.234")]
@@ -49,12 +49,12 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 3);
             this.Box.Text = text;
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals);
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
-            Assert.AreEqual(text, this.Box.Text);
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
+            Assert.That(this.Box.Text, Is.EqualTo(text));
             this.Box.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent));
-            Assert.AreEqual(expectedText, this.Box.FormattedText);
-            Assert.AreEqual(expectedValue, this.Box.Value.ToString());
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo(expectedValue));
         }
 
         [TestCase(2, 3, "1.234", "1.23", "1.234")]
@@ -70,27 +70,27 @@ namespace Gu.Wpf.NumericInput.Tests
             using (this.Box.PropertyChanged(BaseBox.TextSourceProperty, x => sources.Add((TextSource)x.NewValue)))
             {
                 this.Vm.Value = value;
-                Assert.AreEqual(text, this.Box.Text);
-                Assert.AreEqual(expectedText1, this.Box.FormattedText);
-                Assert.AreEqual(value, this.Box.Value);
+                Assert.That(this.Box.Text, Is.EqualTo(text));
+                Assert.That(this.Box.FormattedText, Is.EqualTo(expectedText1));
+                Assert.That(this.Box.Value, Is.EqualTo(value));
                 expectedStatuses.AddRange(new[] { Status.UpdatingFromValueBinding, Status.Validating, Status.UpdatingFromValueBinding, Status.Idle });
                 Assert.That(statuses, Is.EqualTo(expectedStatuses).AsCollection);
                 Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
 
                 this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
-                Assert.AreEqual(Status.Idle, this.Box.Status);
-                Assert.AreEqual(TextSource.ValueBinding, this.Box.TextSource);
-                Assert.AreEqual(text, this.Box.Text);
-                Assert.AreEqual(expectedText2, this.Box.FormattedText);
-                Assert.AreEqual(value, this.Box.Value);
+                Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+                Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.ValueBinding));
+                Assert.That(this.Box.Text, Is.EqualTo(text));
+                Assert.That(this.Box.FormattedText, Is.EqualTo(expectedText2));
+                Assert.That(this.Box.Value, Is.EqualTo(value));
                 expectedStatuses.AddRange(new[] { Status.Validating, Status.Idle,  });
                 Assert.That(statuses, Is.EqualTo(expectedStatuses).AsCollection);
                 Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
 
                 this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
-                Assert.AreEqual(text, this.Box.Text);
-                Assert.AreEqual(expectedText1, this.Box.FormattedText);
-                Assert.AreEqual(value, this.Box.Value);
+                Assert.That(this.Box.Text, Is.EqualTo(text));
+                Assert.That(this.Box.FormattedText, Is.EqualTo(expectedText1));
+                Assert.That(this.Box.Value, Is.EqualTo(value));
                 Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
             }
         }
@@ -100,15 +100,15 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.Text = text;
             this.Box.MaxValue = max;
-            Assert.AreEqual(true, Validation.GetHasError(this.Box));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(true));
 
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals);
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
-            Assert.AreEqual(text, this.Box.Text);
-            Assert.AreEqual(expectedText, this.Box.FormattedText);
-            Assert.AreEqual(null, this.Box.Value);
-            Assert.AreEqual(true, Validation.GetHasError(this.Box));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
+            Assert.That(this.Box.Text, Is.EqualTo(text));
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expectedText));
+            Assert.That(this.Box.Value, Is.EqualTo(null));
+            Assert.That(Validation.GetHasError(this.Box), Is.EqualTo(true));
         }
 
         [TestCase("1.234", "1.234", "1.23", "1.23")]
@@ -117,10 +117,10 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 5);
             this.Box.Text = text1;
             var actual = this.Box.Value.ToString();
-            Assert.AreEqual(expected1, actual);
+            Assert.That(actual, Is.EqualTo(expected1));
             this.Box.Text = text2;
             var actual2 = this.Box.Value.ToString();
-            Assert.AreEqual(expected2, actual2);
+            Assert.That(actual2, Is.EqualTo(expected2));
         }
 
         [TestCase("1.234", 2, "1.23", 4, "1.2340")]
@@ -128,17 +128,17 @@ namespace Gu.Wpf.NumericInput.Tests
         {
             this.Box.Text = text;
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
-            Assert.AreEqual(text, this.Box.Text);
-            Assert.AreEqual(expected1, this.Box.FormattedText);
-            Assert.AreEqual(text, this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Text, Is.EqualTo(text));
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expected1));
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo(text));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
 
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
-            Assert.AreEqual(text, this.Box.Text);
-            Assert.AreEqual(expected2, this.Box.FormattedText);
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Text, Is.EqualTo(text));
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expected2));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
 
         [Test]
@@ -147,9 +147,9 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 2);
             this.Box.Text = "1.23";
             this.Box.Text = "1.234";
-            Assert.AreEqual("1.234", this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo("1.234"));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
 
         [Test]
@@ -158,9 +158,9 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 4);
             this.Box.Text = "1.2334";
             this.Box.Text = "1.23";
-            Assert.AreEqual("1.23", this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo("1.23"));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCase("sv-SE", "1,23", "en-US", "1.23", "1.2", "1.23")]
@@ -171,19 +171,19 @@ namespace Gu.Wpf.NumericInput.Tests
             this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, 1);
             this.Box.Culture = new CultureInfo(culture1);
             this.Box.Text = text;
-            Assert.AreEqual(text, this.Box.Text);
+            Assert.That(this.Box.Text, Is.EqualTo(text));
             this.Box.UpdateFormattedText();
             ////Assert.AreEqual(text, this.Box.FormattedText);
-            Assert.AreEqual(expectedValue, this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo(expectedValue));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
 
             this.Box.Culture = new CultureInfo(culture2);
-            Assert.AreEqual(expectedText, this.Box.Text);
-            Assert.AreEqual(expectedFormattedText, this.Box.FormattedText);
-            Assert.AreEqual(expectedValue, this.Box.Value.ToString());
-            Assert.AreEqual(Status.Idle, this.Box.Status);
-            Assert.AreEqual(TextSource.UserInput, this.Box.TextSource);
+            Assert.That(this.Box.Text, Is.EqualTo(expectedText));
+            Assert.That(this.Box.FormattedText, Is.EqualTo(expectedFormattedText));
+            Assert.That(this.Box.Value.ToString(), Is.EqualTo(expectedValue));
+            Assert.That(this.Box.Status, Is.EqualTo(Status.Idle));
+            Assert.That(this.Box.TextSource, Is.EqualTo(TextSource.UserInput));
         }
     }
 }
