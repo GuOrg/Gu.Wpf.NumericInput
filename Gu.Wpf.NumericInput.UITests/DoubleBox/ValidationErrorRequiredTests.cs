@@ -87,7 +87,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCase("1.2", null)]
+        [TestCase("1.2", null!)]
         [TestCase("", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'")]
         public static void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputInvalid(string text, string infoMessage)
         {
@@ -135,7 +135,7 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             }
         }
 
-        [TestCase("1.2", null)]
+        [TestCase("1.2", null!)]
         [TestCase("", "ValidationError.RequiredButMissingValidationResult 'Please enter a number.'")]
         public static void LostFocusValidateOnLostFocusWhenIsRequiredChangesMakingInputValid(string text, string infoMessage)
         {
