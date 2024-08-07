@@ -49,18 +49,21 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindButton("lose focus").Click(); // needed to reset explicitly here for some reason
 
             doubleBox.Text = text;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
 
             window.FindButton("lose focus").Click();
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("LostFocusValidateOnLostFocusBoxError").Text);
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(
+                window.FindTextBlock("LostFocusValidateOnLostFocusBoxError").Text,
+                Is.EqualTo(GetErrorMessage(expectedInfoMessage))
+            );
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCaseSource(nameof(TestCases))]
@@ -72,19 +75,22 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Text = text;
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(
+                window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text,
+                Is.EqualTo(GetErrorMessage(expectedInfoMessage))
+            );
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
 
             window.FindButton("lose focus").Click();
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual("0", window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo("0"));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCaseSource(nameof(TestCases))]
@@ -94,12 +100,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var window = app.MainWindow;
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Enter(text);
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual(expected, window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(
+                window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text,
+                Is.EqualTo(GetErrorMessage(expectedInfoMessage))
+            );
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCaseSource(nameof(SwedishCases))]
@@ -110,12 +119,15 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             _ = window.FindComboBox("Culture").Select("sv-SE");
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Enter(text);
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual(expected, window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(
+                window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text,
+                Is.EqualTo(GetErrorMessage(expectedInfoMessage))
+            );
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCaseSource(nameof(TestCases))]
@@ -126,16 +138,19 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             _ = window.FindComboBox("Culture").Select("ja-JP");
             var doubleBox = window.FindTextBox("PropertyChangedValidateOnPropertyChangedBox");
             doubleBox.Enter(text);
-            Assert.AreEqual(true, doubleBox.HasValidationError());
-            Assert.AreEqual(GetErrorMessage(expectedInfoMessage), window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text);
-            Assert.AreEqual(expectedInfoMessage, doubleBox.ValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
-            Assert.AreEqual(expected, window.FindTextBox("ViewModelValue").Text);
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+            Assert.That(
+                window.FindTextBlock("PropertyChangedValidateOnPropertyChangedBoxError").Text,
+                Is.EqualTo(GetErrorMessage(expectedInfoMessage))
+            );
+            Assert.That(doubleBox.ValidationError(), Is.EqualTo(expectedInfoMessage));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
+            Assert.That(window.FindTextBox("ViewModelValue").Text, Is.EqualTo(expected));
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
-        [TestCase("2", null)]
+        [TestCase("2", null!)]
         public static void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputInvalid(string text, string infoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
@@ -143,23 +158,26 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var doubleBox = window.FindTextBox("LostFocusValidateOnPropertyChangedBox");
             doubleBox.Enter(text);
             window.FindButton("lose focus").Click();
-            Assert.AreEqual(false, doubleBox.HasValidationError());
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
 
             window.FindCheckBox("AllowDecimalPoint").IsChecked = false;
             if (infoMessage != null)
             {
-                Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(GetErrorMessage(infoMessage), window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+                Assert.That(doubleBox.ValidationError(), Is.EqualTo(infoMessage));
+                Assert.That(
+                    window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text,
+                    Is.EqualTo(GetErrorMessage(infoMessage))
+                );
             }
             else
             {
-                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
             }
         }
 
         [TestCase("2.1", "ValidationError.CanParseValidationResult 'Please enter a valid number.'")]
-        [TestCase("2", null)]
+        [TestCase("2", null!)]
         public static void LostFocusValidateOnPropertyChangedWhenAllowDecimalPointChangesMakingInputValid(string text, string infoMessage)
         {
             using var app = Application.AttachOrLaunch(ExeFileName, WindowName);
@@ -170,22 +188,25 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             window.FindButton("lose focus").Click();
             if (infoMessage != null)
             {
-                Assert.AreEqual(true, doubleBox.HasValidationError());
-                Assert.AreEqual(infoMessage, doubleBox.ValidationError());
-                Assert.AreEqual(GetErrorMessage(infoMessage), window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text);
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(true));
+                Assert.That(doubleBox.ValidationError(), Is.EqualTo(infoMessage));
+                Assert.That(
+                    window.FindTextBlock("LostFocusValidateOnPropertyChangedBoxError").Text,
+                    Is.EqualTo(GetErrorMessage(infoMessage))
+                );
             }
             else
             {
-                Assert.AreEqual(false, doubleBox.HasValidationError());
+                Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
             }
 
             window.FindCheckBox("AllowDecimalPoint").IsChecked = true;
-            Assert.AreEqual(false, doubleBox.HasValidationError());
-            Assert.AreEqual(text, doubleBox.Text);
+            Assert.That(doubleBox.HasValidationError(), Is.EqualTo(false));
+            Assert.That(doubleBox.Text, Is.EqualTo(text));
             //// Assert.AreEqual(text, window.FindTextBox("ViewModelValue").Text);
             //// not sure about what to do here.
             //// calling UpdateSource() is easy enough but dunno
-            Assert.AreEqual(TextSource.UserInput, doubleBox.TextSource());
+            Assert.That(doubleBox.TextSource(), Is.EqualTo(TextSource.UserInput));
         }
 
         public static string GetErrorMessage(string infoMessage)

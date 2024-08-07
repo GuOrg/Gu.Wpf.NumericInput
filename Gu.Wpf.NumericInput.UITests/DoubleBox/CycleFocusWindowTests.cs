@@ -29,35 +29,35 @@ namespace Gu.Wpf.NumericInput.UITests.DoubleBox
             var doubleBox3 = doubleBoxes.FindTextBox("DoubleBox3");
 
             textBox.Click();
-            Assert.AreEqual(true, textBox.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox3.HasKeyboardFocus);
+            Assert.That(textBox.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox3.HasKeyboardFocus, Is.EqualTo(false));
 
             Keyboard.Type(Key.TAB);
-            Assert.AreEqual(false, textBox.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox1.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox3.HasKeyboardFocus);
+            Assert.That(textBox.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox3.HasKeyboardFocus, Is.EqualTo(false));
 
             Keyboard.Type(Key.TAB);
-            Assert.AreEqual(false, textBox.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox2.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox3.HasKeyboardFocus);
+            Assert.That(textBox.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.That(doubleBox3.HasKeyboardFocus, Is.EqualTo(false));
 
             Keyboard.Type(Key.TAB);
-            Assert.AreEqual(false, textBox.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
-            Assert.AreEqual(true, doubleBox3.HasKeyboardFocus);
+            Assert.That(textBox.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox3.HasKeyboardFocus, Is.EqualTo(true));
 
             Keyboard.Type(Key.TAB);
             window.WaitUntilResponsive();
-            Assert.AreEqual(true, textBox.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox1.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox2.HasKeyboardFocus);
-            Assert.AreEqual(false, doubleBox3.HasKeyboardFocus);
+            Assert.That(textBox.HasKeyboardFocus, Is.EqualTo(true));
+            Assert.That(doubleBox1.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox2.HasKeyboardFocus, Is.EqualTo(false));
+            Assert.That(doubleBox3.HasKeyboardFocus, Is.EqualTo(false));
         }
     }
 }
