@@ -264,7 +264,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.That(this.Box.Text, Is.EqualTo("10"));
                 Assert.That(count, Is.EqualTo(2));
             });
-            Assert.IsFalse(this.Box.IncreaseCommand.CanExecute(null));
+            Assert.That(this.Box.IncreaseCommand.CanExecute(null), Is.False);
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.That(this.Box.Text, Is.EqualTo("-10"));
                 Assert.That(count, Is.EqualTo(2));
             });
-            Assert.IsFalse(this.Box.DecreaseCommand.CanExecute(null));
+            Assert.That(this.Box.DecreaseCommand.CanExecute(null), Is.False);
         }
 
         [Test]
