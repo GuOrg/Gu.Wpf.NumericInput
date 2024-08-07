@@ -74,8 +74,8 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.AreEqual(expectedText1, this.Box.FormattedText);
                 Assert.AreEqual(value, this.Box.Value);
                 expectedStatuses.AddRange(new[] { Status.UpdatingFromValueBinding, Status.Validating, Status.UpdatingFromValueBinding, Status.Idle });
-                CollectionAssert.AreEqual(expectedStatuses, statuses);
-                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
+                Assert.That(statuses, Is.EqualTo(expectedStatuses).AsCollection);
+                Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
 
                 this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals2);
                 Assert.AreEqual(Status.Idle, this.Box.Status);
@@ -84,14 +84,14 @@ namespace Gu.Wpf.NumericInput.Tests
                 Assert.AreEqual(expectedText2, this.Box.FormattedText);
                 Assert.AreEqual(value, this.Box.Value);
                 expectedStatuses.AddRange(new[] { Status.Validating, Status.Idle,  });
-                CollectionAssert.AreEqual(expectedStatuses, statuses);
-                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
+                Assert.That(statuses, Is.EqualTo(expectedStatuses).AsCollection);
+                Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
 
                 this.Box.SetValue(DecimalDigitsBox<T>.DecimalDigitsProperty, decimals1);
                 Assert.AreEqual(text, this.Box.Text);
                 Assert.AreEqual(expectedText1, this.Box.FormattedText);
                 Assert.AreEqual(value, this.Box.Value);
-                CollectionAssert.AreEqual(new[] { TextSource.ValueBinding }, sources);
+                Assert.That(sources, Is.EqualTo(new[] { TextSource.ValueBinding }).AsCollection);
             }
         }
 
