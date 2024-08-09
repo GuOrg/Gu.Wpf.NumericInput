@@ -8,7 +8,7 @@ namespace Gu.Wpf.NumericInput.Touch
     {
         private TouchProcessInfo(string path)
         {
-            this.ProcessStartInfo = new ProcessStartInfo(path);
+            this.ProcessStartInfo = new ProcessStartInfo(path) { UseShellExecute = true };
             this.ProcessName = Path.GetFileNameWithoutExtension(path);
         }
 
