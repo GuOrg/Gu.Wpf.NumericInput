@@ -29,11 +29,14 @@ namespace Gu.Wpf.NumericInput.Touch
                 typeof(System.Windows.Controls.TextBox),
                 UIElement.LostFocusEvent,
                 new RoutedEventHandler(OnLostFocus));
-            var mainWindow = Application.Current?.MainWindow;
-            if (mainWindow != null)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                mainWindow.Closed += OnClosed;
-            }
+                var mainWindow = Application.Current?.MainWindow;
+                if (mainWindow != null)
+                {
+                    mainWindow.Closed += OnClosed;
+                }
+            });
         }
 
         /// <summary>Helper for setting <see cref="ShowTouchKeyboardOnTouchEnterProperty"/> on <paramref name="element"/>.</summary>
